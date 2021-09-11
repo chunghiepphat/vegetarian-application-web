@@ -2,51 +2,66 @@ import React, {useState} from "react";
 import "./Modal.css";
 
 const Modal = props => {
+    
+    // 
     const [state, setState] = useState(
         {
             "email": "",
             "password": ""
         }
     )
-    const setParams = (event) => {
-        setState({[event.target.name]: event.target.value})
-    }
+
+    // state
+    // this.state.state 
+
+    // const setParams = (event) => {
+    //     setState({[event.target.name]: event.target.value})
+    // }
+    
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
     const login = () => {
+        console.log("SHIT")
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
         let raw = JSON.stringify({
-            "email": "toan@gmail.com",
-            "password": "abcd1234"
+            "email": email,
+            "password": password
         });
 
-        let requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
 
-        fetch("http://localhost:8080/api/auth/signin", requestOptions)
-            .then(response => {
-                console.log(response)
-                if (response.ok) {
-                    return response.json();
-                }
-                throw Error(response.status.toString());
-            })
-            // Success
-            .then(result => {
-                console.log(result)
-                //localStorage.setItem("accessToken", result.accessToken);
-                alert("Login successful.");
-            })
-            // Failure
-            .catch(error => {
-                console.log('error', error);
-                alert("Login credentials are invalid.");
-            });
+        console.log(raw)
+
+        // let requestOptions = {
+        //     method: 'POST',
+        //     headers: myHeaders,
+        //     body: raw,
+        //     redirect: 'follow'
+        // };
+
+        //fetch("http://localhost:8080/api/auth/signin", requestOptions)
+        //    .then(response => {
+        //        console.log(response)
+        //        if (response.ok) {
+        //            return response.json();
+        //        }
+        //        throw Error(response.status.toString());
+        //    })
+        //    // Success
+        //    .then(result => {
+        //        console.log(result)
+        //        //localStorage.setItem("accessToken", result.accessToken);
+        //        alert("Login successful.");
+        //    })
+        //    // Failure
+        //    .catch(error => {
+        //        console.log('error', error);
+        //        alert("Login credentials are invalid.");
+        //    });
     }
+
     const [register, showRegister] = useState(false);
     if (!props.show) {
         return null;
@@ -82,8 +97,8 @@ const Modal = props => {
                 <button>Placeholder</button>
                 <h2>Sign in with your email</h2>
                 <form class="modal-form">
-                    <input type="email" name="email" placeholder="Enter email" onChange={setParams} required/>
-                    <input type="password" name="password" placeholder="Enter password" onChange={setParams} required/>
+                    <input type="email" name="email" placeholder="Enter email" onChange={e => setEmail(e.target.value)} required/>
+                    <input type="password" name="password" placeholder="Enter password" onChange={e => setPassword(e.target.value)} required/>
                     <button type="submit" onClick={login}>Sign in</button>
                 </form>
                 <button class="modal-close" onClick={props.close}>Close</button>
