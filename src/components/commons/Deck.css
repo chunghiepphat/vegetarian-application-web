@@ -1,0 +1,8 @@
+.card-deck {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: scroll;
+    padding: 0 0 0 10px;
+}

@@ -1,0 +1,10 @@
+.dialog-popup {
+    display: none;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 10%;
+    left: 10%;
+}

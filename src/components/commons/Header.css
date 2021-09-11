@@ -1,0 +1,23 @@
+.site-header {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    padding: 0 10px;
+    background-color: white;
+    border: thin none lightgray;
+    border-bottom-style: solid;
+    z-index: 90;
+}
+
+.site-header > div {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}

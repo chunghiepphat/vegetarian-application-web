@@ -1,0 +1,43 @@
+.modal-container {
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    padding: 60px 20px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.modal-content > * {
+    width: 70%;
+    text-align: center;
+}
+
+.modal-content > h2 {
+    padding: 20px 0 10px 0;
+    font-size: 20px;
+}
+
+.modal-content > button {
+    margin: 10px 20px;
+}
+
+.modal-form > * {
+    width: 100%;
+    margin: 5px 0;
+}
+.modal-close {
+    background-color: lightcoral;
+}
