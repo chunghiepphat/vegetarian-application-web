@@ -1,30 +1,29 @@
-import React, {useState} from "react";
+import React from "react";
 import "./Header.css";
 import Brand from "./Brand";
 import SearchForm from "./SearchForm";
 import Nav from "./Nav";
-import Link from "./Link";
-import Modal from "./Modal";
+import {Link, withRouter} from "react-router-dom";
 
-
-function Header() {
-    const [show, setShow] = useState(false);
+const Header = (props) => {
+    console.log(props.location);
+    console.log(props.match);
+    console.log(props.history);
     return (
-        <header class="site-header">
+        <header className="site-header">
             <div>
                 <Brand/>
                 <Nav>
-                    <Link url="/#">Home</Link>
-                    <Link url="/#">About us</Link>
+                    <Link to="/">Home</Link>
+                    <Link to="/about">About us</Link>
                 </Nav>
             </div>
             <SearchForm placeholder="What would you have for dinner?"/>
             <Nav>
-                <Link url="/#" click={() => setShow(true)}>Sign in</Link>
+                <Link to={`${props.location.pathname}/auth`}>Sign in</Link>
             </Nav>
-            <Modal close={() => setShow(false)} show={show}/>
         </header>
     );
 }
 
-export default Header;
+export default withRouter(Header);

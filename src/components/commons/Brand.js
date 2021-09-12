@@ -2,7 +2,7 @@ import React from "react";
 import "./Brand.css";
 import siteLogo from "assets/logo192.png";
 
-function Brand() {
+const Brand = () => {
     return (
         <picture>
             <img src={siteLogo} alt="Banner placeholder"/>

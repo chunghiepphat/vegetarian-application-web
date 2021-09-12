@@ -5,3 +5,7 @@
     flex-grow: 1;
     max-width: 600px;
 }
+
+.form-search input {
+    margin: 0 20px;
+}
