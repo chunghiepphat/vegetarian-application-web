@@ -1,28 +1,31 @@
 import './App.css';
 import Header from "components/commons/Header";
-import {Redirect, Route, Switch} from "react-router-dom";
-import Home from "./screens/commons/home/Home";
+import {Redirect, Route, Switch, useLocation} from "react-router-dom";
+import Home from "./screens/commons/commons/Home";
 import About from "./screens/commons/commons/About";
 import Footer from "./components/commons/Footer";
-import NotFound from "./screens/commons/errors/NotFound";
 import Modal from "./components/auth/Modal";
 import React from "react";
+import Profile from "./screens/commons/user/Profile";
+import Recipes from "./screens/commons/commons/Recipes";
 
-function App(props) {
+export default function App() {
+    const location = useLocation();
+    const background = location.state && location.state.background;
+
     return (
         <div className="App">
             <Header/>
-            <Switch>
+            <Switch location={background || location}>
                 <Route exact path="/" component={() => (<Redirect to='/home'/>)}/>
                 <Route path="/index" component={Home}/>
                 <Route path="/home" component={Home}/>
+                <Route path="/recipes" component={Recipes}/>
                 <Route path="/about" component={About}/>
-                <Route>{NotFound}</Route>
+                <Route path="/profile" component={Profile}/>
             </Switch>
-            <Route path={`${props.location.pathname}/auth`} component={Modal}/>
+            {background && <Route path="/" children={<Modal/>}/>}
             <Route path="/" component={Footer}/>
         </div>
     );
 }
-
-export default App;

@@ -1,4 +1,5 @@
-.modal-container {
+.modal-overlay {
+    display: flex;
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -6,10 +7,13 @@
     left: 0;
     right: 0;
     bottom: 0;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
 }
 
-.modal-content {
+.modal-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -21,25 +25,25 @@
     border-radius: 20px;
 }
 
-.modal-content > * {
+.modal-content {
     width: 70%;
     min-width: 360px;
     text-align: center;
 }
 
+.modal-content > * {
+    width: 100%;
+}
 .modal-content > h2 {
-    padding: 20px 0 10px 0;
+    margin: 20px 0 10px 0;
     font-size: 20px;
 }
 
 .modal-content > button {
-    margin: 10px 20px;
+    margin: 10px 0;
 }
 
 .modal-form > * {
     width: 100%;
     margin: 5px 0;
-}
-.modal-close {
-    background-color: lightcoral;
 }

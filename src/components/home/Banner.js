@@ -1,17 +1,17 @@
 import React from "react";
 import "./Banner.css";
-import Thumbnail from "assets/banner-placeholder.png";
+import Thumbnail from "assets/home-banner-placeholder.png";
 
 let article = "Banner article title";
 let articleUrl = "#";
 let firstName = "Joe";
-let lastName = "Mama";
+let lastName = "Dohn";
 let country = "Britain"
 let userUrl = "#";
 
 const Banner = () => {
     return (
-        <section className="home-banner">
+        <div className="home-banner">
             <figure>
                 <img src={Thumbnail} alt="Banner thumbnail"/>
             </figure>
@@ -19,7 +19,7 @@ const Banner = () => {
                 <h1><a href={articleUrl}>{article}</a></h1>
                 <p><a href={userUrl}>{firstName} {lastName}, from {country}</a></p>
             </div>
-        </section>
+        </div>
     )
 }
 

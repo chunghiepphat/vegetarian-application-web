@@ -1,11 +1,39 @@
-/* Defaults */
+/*Global defaults*/
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font: 16px/150% Segoe UI;
-    color: #3a3a3a;
     transition: 0.3s
+}
+
+/*Text defaults*/
+* {
+    font-family: "Segoe UI", sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.8;
+    color: rgb(71, 76, 89);
+}
+
+h1, h2, h3 {
+    font-weight: normal;
+}
+
+h1, h1 > * {
+    font-size: 28px;
+}
+
+h2, h2 > * {
+    font-size: 24px;
+}
+
+h3, h3 > * {
+    font-size: 20px;
+}
+
+h1 > a {
+    font-weight: normal;
+    color: #3a3a3a;
 }
 
 a {
@@ -18,11 +46,23 @@ a:hover {
     filter: brightness(200%);
 }
 
+li {
+    list-style: none;
+}
+
+
+/*Input appearance*/
 button { /* Site-wide default button styling */
+    width: 90%;
+    height: 40px;
+    margin: 10px 5%;
     padding: 6px 20px;
-    background-color: wheat;
-    border: thin solid #d0d0d0;
-    box-shadow: 0 2px 4px #d0d0d0;
+    font-weight: bold;
+    color: #dddddd;
+    background: rgba(71, 76, 89, 0.8);
+    border: thin solid rgba(71, 76, 89, 0.2);
+    border-radius: 6px;
+    box-shadow: 0 4px 4px #d0d0d0;
     cursor: pointer;
 }
 
@@ -30,45 +70,109 @@ button:hover {
     filter: brightness(110%);
 }
 
-h1, h1 > * {
-    font-size: 34px;
+.button-cancel {
+    background: rgba(209, 86, 65, 0.9);
 }
 
-h2, h2 > * {
-    font-size: 26px;
-}
-
-h3, h3 > * {
-    font-size: 20px;
-}
-
-h1 > a {
-    font-weight: normal;
-    color: #3a3a3a;
-}
-
-input {
-    width: 80%;
+input, select, textarea {
+    width: 90%;
     height: 40px;
+    margin: 10px 5%;
     padding: 10px;
     font-size: 16px;
     background-color: inherit;
-    border: thin none lightgray;
+    border: 2px none rgba(71, 76, 89, 0.4);
     border-bottom-style: solid;
 }
 
-input:focus {
-    width: 100%;
-    background-color: antiquewhite;
+input:focus, select:focus, textarea:focus {
+    background: rgba(71, 76, 89, 0.1);
     outline: none;
 }
 
-li {
-    list-style: none;
+input:disabled, option:disabled, textarea:disabled {
+    font-style: italic;
+    color: rgba(71, 76, 89, 0.6);
 }
 
+textarea {
+    min-height: 80px;
+    font-family: "Segoe UI", sans-serif;
+    resize: none;
+}
+
+
+label {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/*Images and icons*/
 figure img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+svg {
+    vertical-align: middle;
+    width: 22px;
+}
+
+/*Grid layout*/
+.page-container {
+
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    justify-content: center;
+    padding: 100px 10%;
+}
+
+main {
+    grid-column: span 8;
+    padding: 0 10%;
+}
+
+section {
+    padding: 0 40px;
+}
+
+.aside-left {
+    grid-column: span 2;
+    padding: 0 10%;
+}
+
+.aside-right {
+    grid-column: span 2;
+    padding: 0 10%;
+}
+
+/*Hover tooltips*/
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 2px dotted rgba(71, 76, 89, 1);
+}
+
+.tooltip .tooltip-text {
+    position: absolute;
+    visibility: hidden;
+    padding: 10px 20px;
+    color: #dddddd;
+    font-size: 14px;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    background-color: rgba(71, 76, 89, 0.9);
+    border-radius: 6px;
+    z-index: 1;
+
+}
+
+/*Shows the tooltip text when you mouse over the tooltip container*/
+.tooltip:hover .tooltip-text {
+    visibility: visible;
 }

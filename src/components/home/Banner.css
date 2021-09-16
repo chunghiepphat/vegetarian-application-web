@@ -4,13 +4,14 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    border: thin none lightgray;
-    border-bottom-style: solid;
+    background-color: white;
+    box-shadow: 0 4px 8px #d0d0d0;
 }
 
 .home-banner > figure {
     height: 60vh;
     min-width: 600px;
+    min-height: 440px;
     flex-basis: 50%;
     flex-grow: 1;
 }

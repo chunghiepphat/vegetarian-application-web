@@ -1,0 +1,32 @@
+.profile-banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 40px 20%;
+    background: rgba(71, 76, 89, 0.1);
+}
+
+.profile-banner > * {
+    margin: 0 40px;
+}
+
+.profile-banner .profile-image {
+    width: 160px;
+    height: 160px;
+    border: thin solid lightgray;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profile-banner .profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.profile-info {
+    display: flex;
+    flex-direction:  column;
+    align-items: center;
+}

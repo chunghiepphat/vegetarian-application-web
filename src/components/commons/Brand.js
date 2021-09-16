@@ -1,10 +1,10 @@
 import React from "react";
 import "./Brand.css";
-import siteLogo from "assets/logo192.png";
+import siteLogo from "assets/site-logo.png";
 
 const Brand = () => {
     return (
-        <picture>
+        <picture className="site-brand">
             <img src={siteLogo} alt="Banner placeholder"/>
         </picture>
     );

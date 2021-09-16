@@ -1,11 +1,6 @@
-picture {
-    max-width: 200px;
-    height: 50px;
-    padding: 0 20px;
-}
-
-picture img {
-    width: 100%;
+.site-brand {
+    width: 200px;
     height: 100%;
-    object-fit: cover;
+    margin: 0 !important;
+    padding: 0;
 }

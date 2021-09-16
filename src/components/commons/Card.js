@@ -1,14 +1,15 @@
 import React from "react";
 import "./Card.css";
+import {Link} from "react-router-dom";
 
-const Card = () => {
+const Card = (props) => {
     return (
         <div>
             <article className="card-article">
                 <figure>
-                    <img src={this.props.image} alt="Article thumbnail"/>
+                    <img src={props.image} alt="Article thumbnail"/>
                 </figure>
-                <h1><a href={this.props.url}>{this.props.children}<span/></a></h1>
+                <h1><Link to="/placeholder">Placeholder<span/></Link></h1>
             </article>
         </div>
     )

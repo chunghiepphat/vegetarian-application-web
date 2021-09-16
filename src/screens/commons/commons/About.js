@@ -1,7 +1,7 @@
 import React from "react";
 import "./About.css";
 import {Link} from "react-router-dom";
-import Nav from "../../../components/commons/Nav";
+import Navbar from "../../../components/commons/Navbar";
 
 const About = (props) => {
     console.log(props.location);
@@ -10,9 +10,9 @@ const About = (props) => {
     return (
         <main>
             <h1>About us</h1>
-            <Nav>
+            <Navbar>
                 <Link to={`${props.match.url}/auth`}>Sign in</Link>
-            </Nav>
+            </Navbar>
         </main>
     )
 }

@@ -1,14 +1,14 @@
 import React from "react";
 import "./Notification.css";
 
-const Dialog = () => {
+const Dialog = (props) => {
     return (
         <div className="dialog-popup">
             <h1 className="dialog-title">
-                {this.props.title}
+                {props.title}
             </h1>
             <p className="dialog-message">
-                {this.props.message}
+                {props.message}
             </p>
         </div>
     )
