@@ -4,8 +4,9 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 40px 20%;
+    padding: 20px 20%;
     background: rgba(71, 76, 89, 0.1);
+    box-shadow: 0 4px 8px #d0d0d0;
 }
 
 .profile-banner > * {
@@ -25,8 +26,9 @@
     height: 100%;
     object-fit: cover;
 }
+
 .profile-info {
     display: flex;
-    flex-direction:  column;
+    flex-direction: column;
     align-items: center;
 }

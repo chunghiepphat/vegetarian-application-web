@@ -30,40 +30,35 @@ const Register = () => {
         });
 
         // Generates request
-        let data = {
+        let request = {
             method: 'POST',
             headers: headers,
             body: body,
         };
-        console.log(body)
 
         // Executes fetch
-        await fetch(api, data)
-
-            // Checks response, redirects if green, throws error if not
+        await fetch(api, request)
+            // Checks response
             .then(response => {
-                console.log(response);
                 if (response.ok) {
                     alert("Account created successfully, logging you in...");
                     return response.json();
-                } else {
+                } else if (response.status === 401) {
                     alert("An account with that email already exists, please try another.");
+                } else {
+                    alert("Unable to complete request, there was an unexpected error.")
                 }
             })
-
-            // Saves result if response is green
+            // Saves access token if response is green
             .then(result => {
                 if (result != null) {
-                    console.log(result);
                     localStorage.setItem("accessToken", JSON.stringify(result));
                     history.push("/home");
                 }
             })
-
             // Throws other errors
             .catch(error => {
-                console.log('error', error)
-                alert("There was an unexpected error.");
+                alert("There was an unexpected error. Error message: " + error);
             });
     }
 

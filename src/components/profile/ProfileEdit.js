@@ -1,26 +1,94 @@
-import React from "react";
+import React, {useState} from "react";
 import "./ProfileEdit.css";
 import jwtDecode from "jwt-decode";
+import {useHistory} from "react-router-dom";
 
 const ProfileEdit = () => {
     let user = jwtDecode(localStorage.getItem("accessToken"));
+    const api = `http://14.161.47.36:8080/hiepphat-0.0.1-SNAPSHOT/api/user/update/${user.id}`;
+    const history = useHistory();
 
+    // Initializes parameters
+    const [email, setEmail] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [aboutMe, setAboutMe] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [facebookLink, setFacebookLink] = useState("");
+    const [instagramLink, setInstagramLink] = useState("");
+    const [password, setPassword] = useState("");
+
+    const editProfile = async (event) => {
+        event.preventDefault();
+
+        // Generates request headers
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("Accept", "application/json");
+
+        // Generates request body
+        let body = JSON.stringify({
+            "email": user.email,
+            "password": user.password,
+            "first_name": firstName,
+            "last_name": lastName,
+            "about_me": aboutMe,
+        });
+
+        // Generates request
+        let request = {
+            method: 'PUT',
+            headers: headers,
+            body: body,
+        };
+        console.log(body)
+
+        // Executes fetch
+        await fetch(api, request)
+            // Checks response and gets access token
+            .then(response => {
+                console.log(response);
+                if (response.ok) {
+                    alert("Profile updated.");
+                    return response.json();
+                }
+            })
+            // Saves returned access token if response is green
+            .then(result => {
+                if (result != null) {
+                    console.log(result);
+                    localStorage.setItem("accessToken", JSON.stringify(result));
+                    history.push("/home");
+                }
+            })
+            // Throws other errors
+            .catch(error => {
+                console.log('error', error)
+                alert("There was an unexpected error.")
+            });
+    }
     return (
         <section>
             <h1>Edit your profile</h1>
-            <form className="form-container">
+            <form className="form-container" onSubmit={editProfile}>
                 <label>Name
                     <div className="input-group">
-                        <input type="text" value={user.first_name} placeholder="First name"/>
-                        <input type="text" value={user.last_name} placeholder="Last name"/>
+                        <input type="text" onChange={e => setFirstName(e.target.value)}
+                               placeholder="First name"/>
+                        <input type="text" onChange={e => setLastName(e.target.value)}
+                               placeholder="Last name"/>
                     </div>
                 </label>
-                <label>Email address <p className="tooltip">(?) <span className="tooltip-text">You cannot edit your email address. If you wish to have yours changed, please contact support.</span>
-                </p>
-                    <input type="text" value={user.email} placeholder="" disabled/>
+                <label>Email address
+                    <p className="tooltip">(?)
+                        <span className="tooltip-text">You cannot edit your email address.
+                            If you wish to have yours changed, please contact support.</span>
+                    </p>
+                    <input type="text" placeholder="" disabled/>
                 </label>
                 <label>Phone number
-                    <input type="phone" value={user.phone_number} placeholder="It's not mandatory!"/>
+                    <input type="phone" onChange={e => setPhoneNumber(e.target.value)}
+                           placeholder="It's not mandatory!"/>
                 </label>
                 <label>Country
                     <select>
@@ -281,13 +349,14 @@ const ProfileEdit = () => {
                     </select>
                 </label>
                 <label>Facebook profile
-                    <input type="text" value={user.facebook_link} placeholder="Placeholder"/>
+                    <input type="text" onChange={e => setFacebookLink(e.target.value)} placeholder="Placeholder"/>
                 </label>
                 <label>Instagram profile
-                    <input type="text" value={user.instagram_link} placeholder="Placeholder"/>
+                    <input type="text" onChange={e => setInstagramLink(e.target.value)} placeholder="Placeholder"/>
                 </label>
                 <label>Bio
-                    <textarea value={user.about_me} placeholder="Write a short something about you..."/>
+                    <textarea onChange={e => setLastName(e.target.value)}
+                              placeholder="Write a short something about you..."/>
                 </label>
                 <button>Done!</button>
             </form>

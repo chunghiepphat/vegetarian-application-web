@@ -5,7 +5,7 @@ import {Redirect, Route, Switch} from "react-router-dom";
 import ProfileDetails from "../../../components/profile/ProfileDetails";
 import jwtDecode from "jwt-decode";
 import ProfileLeftSidebar from "../../../components/profile/ProfileAside";
-import ProfileDetailsRightSidebar from "../../../components/profile/ProfileDetailsAside";
+import ProfileDetailsRightSidebar from "../../../components/profile/ProfileDetailsSidebarRight";
 import ProfileEdit from "../../../components/profile/ProfileEdit";
 
 const Profile = (props) => {
@@ -25,7 +25,7 @@ const Profile = (props) => {
         user = jwtDecode(token);
         return (
             <div className="page-container">
-                {/*Banner with profile picture and user's quick details*/}
+                {/*HomeBanner with profile picture and user's quick details*/}
                 <ProfileBanner/>
                 {/*Main container*/}
                 <div className="grid-container">

@@ -4,6 +4,7 @@
     padding: 0;
     box-sizing: border-box;
     transition: 0.3s
+
 }
 
 /*Text defaults*/
@@ -133,7 +134,7 @@ svg {
 
 main {
     grid-column: span 8;
-    padding: 0 10%;
+    padding: 0 5%;
 }
 
 section {

@@ -26,39 +26,34 @@ const Login = () => {
         });
 
         // Generates request
-        let data = {
+        let request = {
             method: 'POST',
             headers: headers,
             body: body,
         };
-        console.log(body)
 
         // Executes fetch
-        await fetch(api, data)
-
-            // Checks response, redirects if green, throws error if not
+        await fetch(api, request)
+            // Checks response, gets access token if green, throws error if not
             .then(response => {
-                console.log(response);
                 if (response.ok) {
                     alert("Authentication successful.");
                     return response.json();
-                } else {
+                } else if (response.status === 401) {
                     alert("Invalid credentials, please check your email and/or password.");
+                } else {
+                    alert("Unable to complete request. There was an unexpected error.")
                 }
             })
-
             // Saves result if response is green
             .then(result => {
                 if (result != null) {
-                    console.log(result);
                     localStorage.setItem("accessToken", JSON.stringify(result));
                     history.push("/home");
                 }
             })
-
             // Throws other errors
             .catch(error => {
-                console.log('error', error)
                 alert("There was an unexpected error.")
             });
     }

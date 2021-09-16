@@ -1,10 +1,10 @@
 import React from "react";
-import "./Category.css";
+import "./HomeSection.css";
 import Deck from "../commons/Deck";
 import {Link} from "react-router-dom";
 import {FaAngleRight} from "react-icons/fa";
 
-const Category = (props) => {
+const HomeSection = (props) => {
     return (
         <section className="home-section">
             <header>
@@ -16,4 +16,4 @@ const Category = (props) => {
     )
 }
 
-export default Category;
+export default HomeSection;

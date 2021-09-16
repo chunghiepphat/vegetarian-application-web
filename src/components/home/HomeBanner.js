@@ -1,19 +1,19 @@
 import React from "react";
-import "./Banner.css";
+import "./HomeBanner.css";
 import Thumbnail from "assets/home-banner-placeholder.png";
 
-let article = "Banner article title";
+let article = "HomeBanner article title";
 let articleUrl = "#";
 let firstName = "Joe";
 let lastName = "Dohn";
 let country = "Britain"
 let userUrl = "#";
 
-const Banner = () => {
+const HomeBanner = () => {
     return (
         <div className="home-banner">
             <figure>
-                <img src={Thumbnail} alt="Banner thumbnail"/>
+                <img src={Thumbnail} alt="HomeBanner thumbnail"/>
             </figure>
             <div>
                 <h1><a href={articleUrl}>{article}</a></h1>
@@ -23,4 +23,4 @@ const Banner = () => {
     )
 }
 
-export default Banner
+export default HomeBanner

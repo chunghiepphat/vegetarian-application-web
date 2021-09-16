@@ -1,7 +1,7 @@
 /*Default sidebar <aside> styling*/
 aside * {
     width: 100%;
-    margin: 2px 0;
+    margin: 0;
 }
 
 aside h1 {
@@ -9,7 +9,7 @@ aside h1 {
 }
 
 aside h1 {
-    font-size: 20px;
+    font-size: 18px;
     white-space: nowrap;
     height: 100%;
     padding: 0 20px;

@@ -1,13 +1,13 @@
 import './App.css';
 import Header from "components/commons/Header";
 import {Redirect, Route, Switch, useLocation} from "react-router-dom";
-import Home from "./screens/commons/commons/Home";
-import About from "./screens/commons/commons/About";
+import Home from "./screens/commons/home/Home";
+import About from "./screens/commons/home/About";
 import Footer from "./components/commons/Footer";
 import Modal from "./components/auth/Modal";
 import React from "react";
 import Profile from "./screens/commons/user/Profile";
-import Recipes from "./screens/commons/commons/Recipes";
+import Recipes from "./screens/commons/home/Recipes";
 
 export default function App() {
     const location = useLocation();

@@ -3,7 +3,7 @@ import {withRouter} from "react-router-dom";
 import {FaEnvelope, FaFacebook, FaHome, FaInstagram, FaPhoneAlt} from "react-icons/fa";
 import jwtDecode from "jwt-decode";
 
-const ProfileDetailsAside = () => {
+const ProfileDetailsSidebarRight = () => {
     // Gets user info
     let token = localStorage.getItem("accessToken");
     let user = jwtDecode(token);
@@ -25,4 +25,4 @@ const ProfileDetailsAside = () => {
     )
 }
 
-export default withRouter(ProfileDetailsAside);
+export default withRouter(ProfileDetailsSidebarRight);
