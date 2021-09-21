@@ -1,4 +1,4 @@
-/*Global defaults*/
+/***Global defaults***/
 * {
     margin: 0;
     padding: 0;
@@ -7,7 +7,7 @@
 
 }
 
-/*Text defaults*/
+/***Text elements styling***/
 * {
     font-family: "Segoe UI", sans-serif;
     font-size: 16px;
@@ -52,17 +52,21 @@ li {
 }
 
 
-/*Input appearance*/
-button { /* Site-wide default button styling */
-    width: 90%;
+/***Form elements styling***/
+button, input, select, textarea {
+    width: 100%;
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+/*Buttons*/
+button {
     height: 40px;
-    margin: 10px 5%;
-    padding: 6px 20px;
+    color: #eeeeee;
     font-weight: bold;
-    color: #dddddd;
-    background: rgba(71, 76, 89, 0.8);
-    border: thin solid rgba(71, 76, 89, 0.2);
-    border-radius: 6px;
+    background: #5b8734;
+    border: none;
+    border-radius: 20px;
     box-shadow: 0 4px 4px #d0d0d0;
     cursor: pointer;
 }
@@ -75,19 +79,30 @@ button:hover {
     background: rgba(209, 86, 65, 0.9);
 }
 
+/*Text fields and dropdowns*/
 input, select, textarea {
-    width: 90%;
-    height: 40px;
-    margin: 10px 5%;
-    padding: 10px;
-    font-size: 16px;
-    background-color: inherit;
-    border: 2px none rgba(71, 76, 89, 0.4);
-    border-bottom-style: solid;
+    padding: 0 24px;
+    color: #5a5a5a;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 20px;
+}
+
+input, select {
+    height: 36px;
+}
+
+textarea {
+    min-height: 80px;
+    resize: none;
+}
+
+input:hover, select:hover, textarea:hover {
+    filter: brightness(102%);
 }
 
 input:focus, select:focus, textarea:focus {
-    background: rgba(71, 76, 89, 0.1);
+    border: thin solid lightgray;
     outline: none;
 }
 
@@ -96,19 +111,13 @@ input:disabled, option:disabled, textarea:disabled {
     color: rgba(71, 76, 89, 0.6);
 }
 
-textarea {
-    min-height: 80px;
-    font-family: "Segoe UI", sans-serif;
-    resize: none;
-}
-
 
 label {
     font-size: 18px;
     font-weight: bold;
 }
 
-/*Images and icons*/
+/***Images and icons***/
 figure img {
     width: 100%;
     height: 100%;
@@ -120,42 +129,83 @@ svg {
     width: 22px;
 }
 
-/*Grid layout*/
+/***Grid layout***/
+/*Outermost container*/
 .page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f5f5f5;
+    padding: 20px 0 60px 0;
+}
 
+/*Grid layout*/
+.banner-container {
+    z-index: 10;
+    width: 1280px;
+    margin: 0 0 6px 0;
+    box-shadow: 0 1px 1px #d0d0d0;
+    overflow: hidden;
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    justify-content: center;
-    padding: 100px 10%;
+    grid-template-columns: repeat(8, 1fr);
+    width: 1280px;
 }
 
 main {
-    grid-column: span 8;
-    padding: 0 5%;
+    grid-column: span 6;
+    z-index: 10;
+    background: white;
+    box-shadow: 0 1px 1px #d0d0d0;
 }
 
-section {
-    padding: 0 40px;
-}
-
-.aside-left {
+aside {
     grid-column: span 2;
-    padding: 0 10%;
+    z-index: 10;
+    background: white;
+    box-shadow: 0 1px 1px #d0d0d0;
 }
 
-.aside-right {
-    grid-column: span 2;
-    padding: 0 10%;
+main section {
+    padding: 30px 1px;
+    box-shadow: 0 1px 1px #d0d0d0;
 }
 
-/*Hover tooltips*/
+aside section {
+    padding: 30px 1px;
+    box-shadow: 0 1px 1px #d0d0d0;
+
+}
+
+.section-header {
+    margin: 0 60px;
+}
+
+.section-header h1 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/*Section headers with links*/
+.linked-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-content {
+    margin: 0 60px;
+}
+
+/***Hover tooltips***/
 .tooltip {
     position: relative;
     display: inline-block;
-    border-bottom: 2px dotted rgba(71, 76, 89, 1);
+    margin: 0;
+    border-bottom: thin dotted rgba(71, 76, 89, 1);
 }
 
 .tooltip .tooltip-text {
@@ -169,11 +219,8 @@ section {
     white-space: nowrap;
     background-color: rgba(71, 76, 89, 0.9);
     border-radius: 6px;
-    z-index: 1;
-
 }
 
-/*Shows the tooltip text when you mouse over the tooltip container*/
 .tooltip:hover .tooltip-text {
     visibility: visible;
 }

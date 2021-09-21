@@ -1,9 +1,9 @@
 import React from "react";
 import "./Modal.css";
+import Login from "./forms/Login";
+import Register from "./forms/Register";
 import {createPortal} from "react-dom";
-import Login from "./Login";
 import {Route, useHistory, withRouter} from "react-router-dom";
-import Register from "./Register";
 
 const Modal = () => {
     const history = useHistory();

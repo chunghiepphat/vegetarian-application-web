@@ -1,0 +1,74 @@
+.tile-floor {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 40px 0 0 0;
+}
+
+/*The tile*/
+.tile-wrapper {
+    width: 49%;
+    height: 260px;
+    margin: 0 0 20px 0;
+}
+
+.tile-item {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/*The thumbnail*/
+.tile-thumbnail {
+    width: 100%;
+    height: 100%;
+    background: rgba(116, 162, 53, 0.4);
+}
+
+.tile-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/*The text content*/
+.tile-overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 35%;
+    background: rgba(50, 50, 50, 0.5);
+    backdrop-filter: blur(2px);
+}
+
+.tile-wrapper:hover .tile-overlay {
+    height: 100%;
+    filter: brightness(1.2);
+}
+
+.tile-description {
+    padding: 20px 30px;
+}
+
+.tile-title {
+    color: white;
+    font-weight: bold;
+}
+
+.tile-author a {
+    color: white;
+    font-size: 14px;
+    font-weight: normal;
+    z-index: 10;
+}

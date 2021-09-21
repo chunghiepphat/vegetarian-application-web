@@ -1,16 +1,26 @@
 import './App.css';
-import Header from "components/commons/Header";
+import Header from "components/commons/site/Header";
 import {Redirect, Route, Switch, useLocation} from "react-router-dom";
-import Home from "./screens/commons/home/Home";
-import About from "./screens/commons/home/About";
-import Footer from "./components/commons/Footer";
+import Home from "./screens/home/Home";
+import About from "./screens/commons/About";
+import Footer from "./components/commons/site/Footer";
 import Modal from "./components/auth/Modal";
-import React from "react";
-import Profile from "./screens/commons/user/Profile";
-import Recipes from "./screens/commons/home/Recipes";
+import React, {useEffect} from "react";
+import Profile from "./screens/user/Profile";
+import NotFound from "./screens/commons/NotFound";
+import Browse from "./screens/home/Browse";
+import View from "./screens/home/View";
 
 export default function App() {
-    const location = useLocation();
+    // Get user info
+    let user = JSON.parse(localStorage.getItem("userInfo"));
+
+    // Scrolls back to top on render
+    let location = useLocation();
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [location])
+
     const background = location.state && location.state.background;
 
     return (
@@ -18,11 +28,13 @@ export default function App() {
             <Header/>
             <Switch location={background || location}>
                 <Route exact path="/" component={() => (<Redirect to='/home'/>)}/>
-                <Route path="/index" component={Home}/>
+                <Route exact path="/index" component={() => (<Redirect to='/home'/>)}/>
                 <Route path="/home" component={Home}/>
-                <Route path="/recipes" component={Recipes}/>
+                <Route path="/view" component={View}/>
+                <Route path="/browse" component={Browse}/>
                 <Route path="/about" component={About}/>
-                <Route path="/profile" component={Profile}/>
+                {user && <Route path={`/${user.id}`} component={Profile}/>}
+                <Route component={NotFound}/>
             </Switch>
             {background && <Route path="/" children={<Modal/>}/>}
             <Route path="/" component={Footer}/>

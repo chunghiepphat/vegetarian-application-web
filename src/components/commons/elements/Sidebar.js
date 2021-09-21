@@ -1,0 +1,12 @@
+import React from "react";
+import "./Sidebar.css";
+
+const Sidebar = (props) => {
+    return (
+        <div className="sidebar-sticky">
+            {props.children}
+        </div>
+    )
+}
+
+export default Sidebar;

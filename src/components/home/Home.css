@@ -1,0 +1,47 @@
+/***Banner and its elements****/
+/*Container*/
+.home-banner {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+}
+
+/*Thumbnail*/
+.home-banner .banner-thumbnail {
+    height: 560px;
+    min-width: 600px;
+    flex-basis: 50%;
+    flex-grow: 1;
+}
+
+/*Title and info*/
+.home-banner .banner-details {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    flex-basis: 40%;
+    flex-grow: 1;
+    padding: 60px;
+}
+
+.banner-details {
+    text-align: center;
+}
+
+.home-banner > div > h1 > a {
+    font-size: 46px;
+}
+
+.home-banner > div > p > a {
+    color: dimgray;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.home-showcase, .home-feed {
+
+}

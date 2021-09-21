@@ -1,0 +1,62 @@
+/*Default sidebar <aside> styling*/
+aside * {
+    width: 100%;
+}
+
+aside h1 {
+    height: 100%;
+    padding: 0 20px;
+    color: gray;
+    font-size: 16px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/*Overrides <svg> icons styling back to defaults in App.css*/
+aside svg {
+    width: 28px;
+}
+
+/*Styles for list items in sidebars*/
+aside li {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 40px;
+}
+
+/*Sticky container inside sidebars*/
+.sidebar-sticky {
+    position: sticky;
+    top: 48px;
+    width: 100%;
+    background: none;
+}
+
+.sidebar-widget {
+
+}
+
+/*Overrides default nav-bar styles*/
+aside .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+aside .navbar > div {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+aside .navbar a {
+    justify-content: flex-start;
+    width: 100%;
+    height: 40px;
+    padding: 0 20px 0 0;
+    font-weight: bold;
+}
+
+aside .navbar .active {
+    border-style: none;
+    border-right: solid;
+}
