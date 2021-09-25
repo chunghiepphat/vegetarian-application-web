@@ -33,7 +33,7 @@ const ProfileDetailsRecipes = () => {
         <section>
             <header className="section-header linked-header">
                 <h1>Your recent posts</h1>
-                <Link to="/browse/recipes"><FaAngleRight/>View all</Link>
+                <Link to={`/${user.id}/history/recipes`}><FaAngleRight/>View all</Link>
             </header>
             <div className="card-deck">
                 {/*Scroll buttons*/}

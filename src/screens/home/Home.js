@@ -18,7 +18,6 @@ const Home = () => {
                 <HomeSidebar/>
             </div>
         </div>
-
     )
 }
 

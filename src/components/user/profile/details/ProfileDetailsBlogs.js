@@ -27,7 +27,7 @@ const ProfileDetailsBlogs = () => {
         <section className="home-feed">
             <header className="section-header linked-header">
                 <h1>Your recent blogs</h1>
-                <Link to="/browse/blogs"><FaAngleRight/>View all</Link>
+                <Link to={`/${user.id}/history/blogs`}><FaAngleRight/>View all</Link>
             </header>
             <div className="thread-list">
                 {blogs && blogs.map(blog => (

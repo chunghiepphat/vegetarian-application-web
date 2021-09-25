@@ -1,5 +1,5 @@
 import React from "react";
-import {Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import HomeSidebar from "../../components/home/HomeSidebar";
 import BrowseRecipes from "../../components/home/browse/BrowseRecipes";
 import BrowseVideos from "../../components/home/browse/BrowseVideos";
@@ -11,9 +11,10 @@ const Browse = () => {
             <div className="grid-container">
                 {/*Main content*/}
                 <Switch>
-                    <Route path="/browse/recipes" component={BrowseRecipes}/>
-                    <Route path="/browse/videos" component={BrowseVideos}/>
-                    <Route path="/browse/blogs" component={BrowseBlogs}/>
+                    <Route exact path="/browse/recipes" component={BrowseRecipes}/>
+                    <Route exact path="/browse/videos" component={BrowseVideos}/>
+                    <Route exact path="/browse/blogs" component={BrowseBlogs}/>
+                    <Route><Redirect to="/not-found"/></Route>
                 </Switch>
                 {/*Right sidebar*/}
                 <HomeSidebar/>

@@ -62,21 +62,28 @@ button, input, select, textarea {
 /*Buttons*/
 button {
     height: 40px;
-    color: #eeeeee;
+    color: #5b8734;
     font-weight: bold;
-    background: #5b8734;
-    border: none;
+    background: white;
+    border: 2px solid #5b8734;
     border-radius: 20px;
-    box-shadow: 0 4px 4px #d0d0d0;
+    box-shadow: 0 1px 1px #d0d0d0;
     cursor: pointer;
 }
 
 button:hover {
-    filter: brightness(110%);
+    filter: brightness(1.1);
+    color: #eeeeee;
+    background: #5b8734;
 }
 
 .button-cancel {
-    background: rgba(209, 86, 65, 0.9);
+    color: #d15741;
+    border-color: #d15741;
+}
+
+.button-cancel:hover {
+    background: #d15741;
 }
 
 /*Text fields and dropdowns*/
@@ -84,7 +91,7 @@ input, select, textarea {
     padding: 0 24px;
     color: #5a5a5a;
     background-color: #f0f0f0;
-    border: none;
+    border: thin solid transparent;
     border-radius: 20px;
 }
 

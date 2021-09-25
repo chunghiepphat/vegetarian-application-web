@@ -29,8 +29,9 @@ const Profile = () => {
                     <Switch>
                         <Route exact path={`/${user.id}`}
                                component={() => (<Redirect to={`/${user.id}/profile`}/>)}/>
-                        <Route path={`/${user.id}/profile`} component={ProfileDetails}/>
-                        <Route path={`/${user.id}/edit-profile`} component={ProfileEdit}/>
+                        <Route exact path={`/${user.id}/profile`} component={ProfileDetails}/>
+                        <Route exact path={`/${user.id}/edit-profile`} component={ProfileEdit}/>
+                        <Route><Redirect to="/not-found"/></Route>
                     </Switch>
                     {/*Right sidebar with additional info and controls*/}
                     <UserNavSidebar/>

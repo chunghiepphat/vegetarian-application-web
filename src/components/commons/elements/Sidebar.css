@@ -38,25 +38,26 @@ aside li {
 }
 
 /*Overrides default nav-bar styles*/
-aside .navbar {
+.sidebar-widget .navbar {
     flex-direction: column;
     align-items: flex-start;
 }
 
-aside .navbar > div {
+.sidebar-widget .navbar > div {
     flex-direction: column;
     align-items: flex-start;
 }
 
-aside .navbar a {
+.sidebar-widget .navbar a {
     justify-content: flex-start;
     width: 100%;
     height: 40px;
-    padding: 0 20px 0 0;
+    padding: 0 20px 0 10px;
     font-weight: bold;
 }
 
-aside .navbar .active {
+.sidebar-widget .navbar .active {
     border-style: none;
-    border-right: solid;
+    border-left: solid;
+
 }
