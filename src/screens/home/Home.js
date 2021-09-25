@@ -1,4 +1,5 @@
 import React from "react";
+import "./Home.css";
 import HomeBanner from "../../components/home/home/HomeBanner";
 import HomeRecipes from "../../components/home/home/HomeRecipes";
 import HomeSidebar from "../../components/home/HomeSidebar";

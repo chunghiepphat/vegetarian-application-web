@@ -4,7 +4,7 @@ import {Link, NavLink, withRouter} from "react-router-dom";
 import {FaAngleRight} from "react-icons/fa";
 import Sidebar from "../commons/elements/Sidebar";
 
-const UserSidebar = () => {
+const ProfileSidebar = () => {
     // Gets user info
     let user = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -46,4 +46,4 @@ const UserSidebar = () => {
     )
 }
 
-export default withRouter(UserSidebar);
+export default withRouter(ProfileSidebar);

@@ -3,20 +3,16 @@ import Tile from "../../commons/elements/Tile";
 
 const BrowseRecipes = () => {
     const api = "http://14.161.47.36:8080/hiepphat-0.0.1-SNAPSHOT/api/recipes/getall?page=1&limit=100";
-    const [recipes, setRecipes] = useState([]);
-
-    // Fetches recipes data
-    const getAllRecipes = async () => {
-        const response = await fetch(api)
-        const result = await response.json();
-        return result;
-    }
+    const [data, setData] = useState([]);
 
     // Executes fetch once on page load
-    useEffect(async () => {
-        const recipes = await getAllRecipes();
-        console.log(recipes);
-        setRecipes(recipes.listResult);
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch(api);
+            const result = await response.json();
+            setData(result.listResult);
+        }
+        fetchData();
     }, []);
 
     return (
@@ -28,14 +24,14 @@ const BrowseRecipes = () => {
                         our community.</i>
                     <div className="tile-floor">
                         {/*Iterates over the result JSON and renders a matching amount of card items*/}
-                        {recipes && recipes.map(recipe => (
-                            <Tile id={recipe.recipe_id}
+                        {data && data.map(recipe => (
+                            <Tile key={recipe.recipe_id}
+                                  id={recipe.recipe_id}
                                   type="recipe"
                                   title={recipe.recipe_title}
                                   thumbnail={recipe.recipe_thumbnail}
                                   first_name={recipe.first_name}
-                                  last_name={recipe.last_name}
-                            />
+                                  last_name={recipe.last_name}/>
                         ))}
                     </div>
                 </div>

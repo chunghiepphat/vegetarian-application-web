@@ -65,12 +65,12 @@
 }
 
 .tile-title {
-    color: white;
+    color: #eeeeee;
     font-weight: bold;
 }
 
-.tile-author a {
-    color: white;
+.tile-author {
+    color: #eeeeee;
     font-size: 14px;
     font-weight: normal;
     z-index: 10;

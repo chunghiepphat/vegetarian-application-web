@@ -14,7 +14,7 @@ const Card = ({id, type, title, thumbnail, first_name, last_name}) => {
                     </picture>
                     <div className="card-overlay">
                         <div className="card-description">
-                            <p className="card-author"><Link to="/author">{first_name} {last_name}</Link></p>
+                            <p className="card-author">{first_name} {last_name}</p>
                             <p className="card-title">{title}</p>
                         </div>
                     </div>

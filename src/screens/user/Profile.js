@@ -1,9 +1,10 @@
 import React from "react";
+import "./Profile.css";
 import ProfileBanner from "../../components/user/profile/ProfileBanner";
 import {Redirect, Route, Switch} from "react-router-dom";
-import ProfileDetails from "../../components/user/profile/details/ProfileDetails";
-import ProfileEdit from "../../components/user/profile/edit/ProfileEdit";
-import UserNavSidebar from "../../components/user/UserSidebar";
+import ProfileDetails from "../../components/user/profile/ProfileDetails";
+import ProfileEdit from "../../components/user/profile/ProfileEdit";
+import ProfileSidebar from "../../components/user/ProfileSidebar";
 
 const Profile = () => {
     // Get user info
@@ -34,11 +35,9 @@ const Profile = () => {
                         <Route><Redirect to="/not-found"/></Route>
                     </Switch>
                     {/*Right sidebar with additional info and controls*/}
-                    <UserNavSidebar/>
+                    <ProfileSidebar/>
                 </div>
             </div>
-
-
         )
     }
 }

@@ -1,8 +1,8 @@
 import React from "react";
-import Navbar from "../commons/elements/Navbar";
 import {Link, NavLink, withRouter} from "react-router-dom";
 import {FaAngleRight} from "react-icons/fa";
 import Sidebar from "../commons/elements/Sidebar";
+import Navbar from "../commons/elements/Navbar";
 
 const HomeSidebar = () => {
     return (

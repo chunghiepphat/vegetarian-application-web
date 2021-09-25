@@ -42,7 +42,7 @@
     font-weight: bold;
 }
 
-.thread-author a {
+.thread-author {
     font-size: 14px;
     font-weight: normal;
     z-index: 10;

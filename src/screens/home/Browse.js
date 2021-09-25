@@ -1,4 +1,5 @@
 import React from "react";
+import "./Home.css";
 import {Redirect, Route, Switch} from "react-router-dom";
 import HomeSidebar from "../../components/home/HomeSidebar";
 import BrowseRecipes from "../../components/home/browse/BrowseRecipes";

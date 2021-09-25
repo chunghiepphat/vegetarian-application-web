@@ -1,30 +1,26 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
 import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
-import Card from "../../../commons/elements/Card";
+import Card from "../../commons/elements/Card";
 
 const ProfileDetailsRecipes = () => {
-    // Get user info
+    // Gets current user's info
     let user = JSON.parse(localStorage.getItem("userInfo"));
 
+    // Fetches data on page load
     const api = `http://14.161.47.36:8080/hiepphat-0.0.1-SNAPSHOT/api/recipes/get10recipebyuser/${user.id}`;
-    const ref = useRef(null);
-    const [recipes, setRecipes] = useState([]);
-
-    // Fetches latest recipes by current user ID
-    const getUserRecipes = async () => {
-        const response = await fetch(api)
-        const result = await response.json();
-        return result;
-    }
-
-    // Executes fetch once on page load
-    useEffect(async () => {
-        const recipes = await getUserRecipes();
-        setRecipes(recipes.listResult);
-    }, []);
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch(api);
+            const result = await response.json();
+            setData(result.listResult);
+        }
+        fetchData();
+    }, [api]);
 
     // Handles slider scrolling on button click
+    const ref = useRef(null);
     const scroll = (scrollOffset) => {
         ref.current.scrollLeft += scrollOffset;
     };
@@ -46,7 +42,7 @@ const ProfileDetailsRecipes = () => {
                 {/*Scrollable card container*/}
                 <div className="deck-slider" ref={ref}>
                     {/*Iterates over the result JSON and renders a matching amount of card items*/}
-                    {recipes && recipes.map(recipe => (
+                    {data && data.map(recipe => (
                         <Card id={recipe.recipe_id}
                               type="recipe"
                               title={recipe.recipe_title}

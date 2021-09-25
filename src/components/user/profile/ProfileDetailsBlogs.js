@@ -1,27 +1,23 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {FaAngleRight} from "react-icons/fa";
-import Thread from "../../../commons/elements/Thread";
+import Thread from "../../commons/elements/Thread";
 
 const ProfileDetailsBlogs = () => {
-    // Get user info
+    // Gets current user's info
     let user = JSON.parse(localStorage.getItem("userInfo"));
 
+    // Fetches data on page load
     const api = `http://14.161.47.36:8080/hiepphat-0.0.1-SNAPSHOT/api/blogs/get10blogbyuser/${user.id}`;
-    const [blogs, setBlogs] = useState([]);
-
-    // Fetches blogs data
-    const getLatestBlogs = async () => {
-        const response = await fetch(api)
-        const result = await response.json();
-        return result;
-    }
-
-    // Executes on page load
-    useEffect(async () => {
-        const blogs = await getLatestBlogs();
-        setBlogs(blogs.listResult);
-    }, []);
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch(api);
+            const result = await response.json();
+            setData(result.listResult);
+        }
+        fetchData();
+    }, [api]);
 
     return (
         <section className="home-feed">
@@ -30,7 +26,7 @@ const ProfileDetailsBlogs = () => {
                 <Link to={`/${user.id}/history/blogs`}><FaAngleRight/>View all</Link>
             </header>
             <div className="thread-list">
-                {blogs && blogs.map(blog => (
+                {data && data.map(blog => (
                     <Thread id={blog.blog_id}
                             type="blog"
                             title={blog.blog_title}

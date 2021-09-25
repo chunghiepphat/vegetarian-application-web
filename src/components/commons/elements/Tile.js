@@ -14,7 +14,7 @@ const Tile = ({id, type, title, thumbnail, first_name, last_name}) => {
                     </picture>
                     <div className="tile-overlay">
                         <div className="tile-description">
-                            <p className="tile-author"><Link to="/author">{first_name} {last_name}</Link></p>
+                            <p className="tile-author">{first_name} {last_name}</p>
                             <p className="tile-title">{title}</p>
                         </div>
                     </div>

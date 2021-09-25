@@ -42,7 +42,7 @@
     font-size: 30px;
 }
 
-.tile-large .tile-author a {
+.tile-large .tile-author {
     font-size: 18px;
 }
 
@@ -50,7 +50,7 @@
     font-size: 18px;
 }
 
-.tile-small .tile-author a {
+.tile-small .tile-author {
     font-size: 16px;
 }
 

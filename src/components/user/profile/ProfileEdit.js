@@ -1,11 +1,10 @@
 import React, {useState} from "react";
-import "./ProfileEdit.css";
 import {useHistory} from "react-router-dom";
 
 const ProfileEdit = () => {
     // Authentication and API stuff
-    let user = JSON.parse(localStorage.getItem("userInfo"));
-    let token = JSON.parse(localStorage.getItem("accessToken"));
+    const user = JSON.parse(localStorage.getItem("userInfo"));
+    const token = JSON.parse(localStorage.getItem("accessToken"));
     const api = `http://14.161.47.36:8080/hiepphat-0.0.1-SNAPSHOT/api/user/update/${user.id}`;
     const history = useHistory();
 

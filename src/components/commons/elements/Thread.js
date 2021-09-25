@@ -13,7 +13,7 @@ const Thread = ({id, type, title, thumbnail, excerpt, first_name, last_name}) =>
                     </picture>
                     <div className="thread-overview">
                         <p className="thread-title">{title}</p>
-                        <p className="thread-author"><Link to="/author">- by {first_name} {last_name}</Link></p>
+                        <p className="thread-author">- by {first_name} {last_name}</p>
                         <p className="thread-excerpt">{excerpt}...</p>
                     </div>
                 </div>

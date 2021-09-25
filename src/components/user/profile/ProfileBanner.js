@@ -1,5 +1,4 @@
 import React from "react";
-import "./ProfileBanner.css";
 import placeholderAvatar from "assets/user-image-default.png";
 import profileBanner from "assets/profile-banner-default.png";
 
