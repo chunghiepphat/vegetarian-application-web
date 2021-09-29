@@ -2,13 +2,16 @@ import React, {useState} from "react";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import Navbar from "../../commons/elements/Navbar";
-import {NavLink, Redirect, Route, Switch} from "react-router-dom";
+import {NavLink, Redirect, Route, Switch, useHistory} from "react-router-dom";
 import PostRecipe01 from "./PostRecipe01";
 import PostRecipe02 from "./PostRecipe02";
 import PostRecipe03 from "./PostRecipe03";
 
 const PostRecipe = () => {
     const user = JSON.parse(localStorage.getItem("userInfo"));
+    const token = JSON.parse(localStorage.getItem("accessToken"));
+    const api = `http://14.161.47.36:8080/hiepphat-0.0.1-SNAPSHOT/api/recipes/add`;
+    const history = useHistory();
 
     // Step 1 parameters
     const [title, setTitle] = useState();
@@ -23,8 +26,53 @@ const PostRecipe = () => {
     // Step 2 parameters
     const [ingredients, setIngredients] = useState([]);
     // Step 3 parameters
-    const [content, setContent] = useState();
+    const [content, setContent] = useState("");
 
+    console.log(title, category, thumbnail, difficulty, portionSize, portionType, prepTime, bakingTime, restingTime, ingredients, content)
+
+    const submitPost = async (event) => {
+        event.preventDefault();
+
+        // Generates request headers
+        let headers = new Headers();
+        headers.append("Authorization", `Bearer ${token.token}`);
+        headers.append("Content-Type", "application/json");
+        headers.append("Accept", "application/json");
+
+        // Generates request body
+        let body = JSON.stringify({
+            "user_id": user.id,
+            "recipe_title": title,
+            "recipe_categories_id": category,
+            "recipe_thumbnail": thumbnail,
+            "recipe_difficulty": difficulty,
+            "portion_size": portionSize,
+            "portion_type": portionType,
+            "prep_time_minutes": prepTime,
+            "baking_time_minutes": bakingTime,
+            "resting_time_minutes": restingTime,
+            "ingredients": ingredients,
+            "recipe_content": content
+        });
+
+        console.log(body)
+        // Generates request
+        let request = {
+            method: 'POST',
+            headers: headers,
+            body: body,
+        };
+        // Executes fetch
+        const response = await fetch(api, request);
+        if (response.ok) {
+            alert("Posted your recipe successfully!.");
+        } else if (response.status === 401) {
+            alert("You are not authorized to do that.")
+        } else {
+            alert("Error: " + response.status);
+        }
+        history.push("/home");
+    }
     return (
         <main>
             <section className="navbar-container">
@@ -46,12 +94,12 @@ const PostRecipe = () => {
                                   bakingTime={bakingTime} setBakingTime={setBakingTime}
                                   restingTime={restingTime} setRestingTime={setRestingTime}/>
                 </Route>
-
                 <Route exact path="/post/recipe/ingredients">
                     <PostRecipe02 ingredients={ingredients} setIngredients={setIngredients}/>
                 </Route>
                 <Route exact path="/post/recipe/instructions">
-                    <PostRecipe03 content={content} setContent={setContent}/>
+                    <PostRecipe03 content={content} setContent={setContent}
+                                  submitPost={submitPost}/>
                 </Route>
                 <Route><Redirect to="/not-found"/></Route>
             </Switch>

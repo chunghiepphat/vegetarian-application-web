@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {deserialize, serialize} from "react-serialize";
+import {renderToStaticMarkup} from "react-dom/server";
 
 const PostRecipe03 = (props) => {
     const [steps, setSteps] = useState([]);
@@ -10,22 +10,22 @@ const PostRecipe03 = (props) => {
         event.preventDefault();
         count = count + 1;
         setStepCount(count);
-        console.log(stepCount)
         const step = (
-            <div>
-                <h1>Step {stepCount}</h1>
+            <>
+                <h2>Step {stepCount}</h2>
                 <p>{stepBody}</p>
-            </div>
+            </>
         )
         setSteps(steps.concat(step));
-        console.log(steps)
+
+    }
+    const submitForm = (e) => {
+        e.preventDefault();
+        props.setContent(renderToStaticMarkup(steps));
+        console.log(props.content)
+        // props.submitPost(event);
     }
 
-    const nextStep = (e) => {
-        e.preventDefault()
-        props.setContent(serialize(steps));
-        // history.push("/post/recipe/instructions");
-    }
     return (
         <main>
             <section>
@@ -46,7 +46,7 @@ const PostRecipe03 = (props) => {
                     <h1>Preview</h1>
                 </header>
                 <div className="section-content">
-                    <form className="form-container" onSubmit={nextStep}>
+                    <form className="form-container" onSubmit={submitForm}>
                         {steps.length > 0 ?
                             <>
                                 <ul className="ingredient-list">

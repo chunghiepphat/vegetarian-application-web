@@ -1,0 +1,41 @@
+article {
+    padding: 20px 60px;
+}
+
+article > section {
+    padding: 20px 0;
+    border-bottom: thin solid lightgray;
+}
+
+article h1 {
+    margin: 0 0 10px 0;
+}
+
+article h2 {
+    margin: 20px 0 5px 0;
+}
+
+.article-thumbnail {
+
+}
+
+.article-thumbnail img {
+    width: 100%;
+    max-height: 300px;
+    margin: -30px 0 0 0;
+    object-fit: cover;
+}
+
+.article-nav {
+    padding: 0;
+    border: none;
+}
+
+.article-nav nav {
+    height: 60px;
+    justify-content: space-around;
+}
+
+.article-nav a {
+    width: 50%;
+}

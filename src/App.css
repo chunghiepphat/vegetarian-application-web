@@ -18,6 +18,7 @@
 
 h1, h2, h3 {
     font-weight: normal;
+    line-height: 1.4;
 }
 
 h1, h1 > * {
@@ -25,11 +26,11 @@ h1, h1 > * {
 }
 
 h2, h2 > * {
-    font-size: 24px;
+    font-size: 22px;
 }
 
 h3, h3 > * {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 h1 > a {
@@ -207,7 +208,7 @@ aside {
     z-index: 10;
 }
 
-main section {
+main > section {
     margin: 0 0 10px 0;
     padding: 30px 1px;
     background: white;
@@ -218,7 +219,7 @@ main > nav {
     background: white;
 }
 
-aside section {
+aside > section {
     margin: 0 0 10px 0;
     padding: 30px 1px;
     background: transparent;

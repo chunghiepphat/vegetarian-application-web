@@ -4,15 +4,15 @@ import {Link, useHistory} from "react-router-dom";
 
 const PostRecipe02 = (props) => {
     const history = useHistory();
-    const [ingredient, setIngredient] = useState({name: "", amount: "0"});
+    const [ingredient, setIngredient] = useState({ingredient_name: "", amount_in_mg: "0"});
 
     const handleChange = (prop) => (event) => {
-        setIngredient({...ingredient, [prop]: event.target.value});
+        setIngredient({[prop]: event.target.value});
     }
     const addIngredient = (event) => {
         event.preventDefault();
         props.setIngredients(props.ingredients.concat(ingredient));
-        setIngredient({name: "", amount: "0"});
+        setIngredient({ingredient_name: "", amount_in_mg: "0"});
     }
 
     const nextStep = () => {
@@ -29,10 +29,10 @@ const PostRecipe02 = (props) => {
                     <form className="form-container" onSubmit={addIngredient}>
                         <h1>Name an ingredient and its amount (in grams)</h1>
                         <div className="flex-horizontal">
-                            <input aria-label="Ingredient" type="text" value={ingredient.name}
+                            <input aria-label="Ingredient" type="text" value={ingredient.ingredient_name}
                                    onChange={handleChange("name")}
                                    placeholder="e.g: lettuce, tomato, basil,..." required/>
-                            <input aria-label="Amount" type="number" value={ingredient.amount}
+                            <input aria-label="Amount" type="number" value={ingredient.amount_in_mg}
                                    onChange={handleChange("amount")}/>
                         </div>
                         <button type="submit">Add ingredient</button>
