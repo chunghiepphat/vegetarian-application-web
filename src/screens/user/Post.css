@@ -1,11 +1,4 @@
-.form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-items: center;
-    width: 100%;
-    padding: 10px 20%;
-}
+
 
 .form-container h1 {
     font-size: 18px;
@@ -57,7 +50,6 @@ label span {
 }
 
 .radio-label {
-
     padding: 8px 24px;
     white-space: nowrap;
     color: #5a5a5a;
@@ -70,7 +62,23 @@ label span {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+
+.flex-horizontal > * {
+    margin-right: 20px;
+}
+
+.flex-horizontal :nth-last-child(1) {
+    margin-right: 0;
+}
+
+.flex-horizontal > select {
+    width: 200px;
+}
+
+.flex-horizontal > * {
+    max-width: 50%;
 }
 
 input[type="number"] {

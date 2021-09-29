@@ -10,7 +10,7 @@ const ProfileBanner = () => {
             <div className="profile-banner">
                 <div className="banner-content">
                     <picture className="profile-image">
-                        <source srcSet={user.image}/>
+                        <source srcSet={user.profile_image}/>
                         <img src={placeholderAvatar} alt="avatar"/>
                     </picture>
                     <div className="profile-info">

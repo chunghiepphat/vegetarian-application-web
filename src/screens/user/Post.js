@@ -13,8 +13,7 @@ const Post = () => {
             <div className="grid-container">
                 {/*Main view*/}
                 <Switch>
-                    <Route exact path="/post/recipe" component={() => (<Redirect to='/post/recipe/step-1'/>)}/>
-                    <Route exact path="/post/recipe/step-1" component={PostRecipe}/>
+                    <Route path="/post/recipe/" component={PostRecipe}/>
                     <Route exact path="/post/video" component={PostVideo}/>
                     <Route exact path="/post/blog" component={PostBlog}/>
                 </Switch>

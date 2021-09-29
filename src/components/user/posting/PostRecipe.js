@@ -1,61 +1,60 @@
 import React, {useState} from "react";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import Navbar from "../../commons/elements/Navbar";
+import {NavLink, Redirect, Route, Switch} from "react-router-dom";
+import PostRecipe01 from "./PostRecipe01";
+import PostRecipe02 from "./PostRecipe02";
+import PostRecipe03 from "./PostRecipe03";
 
 const PostRecipe = () => {
     const user = JSON.parse(localStorage.getItem("userInfo"));
 
+    // Step 1 parameters
     const [title, setTitle] = useState();
-    const [category, setCategory] = useState();
+    const [category, setCategory] = useState("1");
     const [thumbnail, setThumbnail] = useState();
-    const [difficulty, setDifficulty] = useState();
-    const [portionSize, setPortionSize] = useState();
-    const [portionType, setPortionType] = useState();
+    const [difficulty, setDifficulty] = useState("1");
+    const [portionSize, setPortionSize] = useState("1");
+    const [portionType, setPortionType] = useState("1");
     const [prepTime, setPrepTime] = useState("0");
     const [bakingTime, setBakingTime] = useState("0");
     const [restingTime, setRestingTime] = useState("0");
+    // Step 2 parameters
+    const [ingredients, setIngredients] = useState([]);
+    // Step 3 parameters
     const [content, setContent] = useState();
 
     return (
         <main>
-            <section>
-                <header className="section-header">
-                    <h1>Step 1 - The basics</h1>
-                </header>
-                <form className="form-container">
-                    <h1>Name your recipe</h1>
-                    <input type="text" value={title} onChange={e => setTitle(e.target.value)}
-                           placeholder="What would you call this dish?"/>
-                    {/*Email*/}
-                    <h1>Recipe type</h1>
-                    <select/>
-                    {/*Phone*/}
-                    <h1>Recipe difficulty</h1>
-                    <div className="flex-horizontal">
-                        <label className="radio-button">
-                            <input type="radio" name="difficulty" value="1"
-                                   onChange={e => setDifficulty(e.target.value)}/>
-                            <span className="radio-label">Novice</span>
-                        </label>
-                        <label className="radio-button">
-                            <input type="radio" name="difficulty" value="2"
-                                   onChange={e => setDifficulty(e.target.value)}/>
-                            <span className="radio-label">Intermediate</span>
-                        </label>
-                        <label className="radio-button">
-                            <input type="radio" name="difficulty" value="3"
-                                   onChange={e => setDifficulty(e.target.value)}/>
-                            <span className="radio-label">Gordon Ramsay</span>
-                        </label>
-                    </div>
-                    <h1>Prep time (minutes)</h1>
-                    <input type="number" min={0} value={prepTime} onChange={e => setPrepTime(e.target.value)}/>
-                    <h1>Baking time (minutes)</h1>
-                    <input type="number" min={0} value={bakingTime} onChange={e => setBakingTime(e.target.value)}/>
-                    <h1>Resting time (minutes)</h1>
-                    <input type="number" min={0} value={restingTime} onChange={e => setRestingTime(e.target.value)}/>
-                </form>
+            <section className="navbar-container">
+                <Navbar>
+                    <NavLink to="/post/recipe">Recipe</NavLink>
+                    <NavLink to="/post/video">Video</NavLink>
+                    <NavLink to="/post/blog">Blog</NavLink>
+                </Navbar>
             </section>
+            <Switch>
+                <Route exact path="/post/recipe/">
+                    <PostRecipe01 title={title} setTitle={setTitle}
+                                  category={category} setCategory={setCategory}
+                                  thumbnail={thumbnail} setThumbnail={setThumbnail}
+                                  difficulty={difficulty} setDifficulty={setDifficulty}
+                                  portionSize={portionSize} setPortionSize={setPortionSize}
+                                  portionType={portionType} setPortionType={setPortionType}
+                                  prepTime={prepTime} setPrepTime={setPrepTime}
+                                  bakingTime={bakingTime} setBakingTime={setBakingTime}
+                                  restingTime={restingTime} setRestingTime={setRestingTime}/>
+                </Route>
+
+                <Route exact path="/post/recipe/ingredients">
+                    <PostRecipe02 ingredients={ingredients} setIngredients={setIngredients}/>
+                </Route>
+                <Route exact path="/post/recipe/instructions">
+                    <PostRecipe03 content={content} setContent={setContent}/>
+                </Route>
+                <Route><Redirect to="/not-found"/></Route>
+            </Switch>
         </main>
     )
 }

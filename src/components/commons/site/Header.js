@@ -46,8 +46,8 @@ const Header = () => {
                                     {/*Profile image*/}
                                     <NavLink to={`/${user.id}`}>
                                         <picture className="profile-image">
-                                            <source srcSet={user.image}/>
-                                            <img src={placeholderAvatar} alt="avatar"/>
+                                            <source srcSet={user.profile_image}/>
+                                            <img src={user.profile_image} alt="avatar"/>
                                         </picture>
                                         {user.first_name}</NavLink>
                                     {/*Logout link*/}

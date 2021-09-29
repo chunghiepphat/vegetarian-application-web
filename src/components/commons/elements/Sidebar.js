@@ -3,9 +3,9 @@ import "./Sidebar.css";
 
 const Sidebar = (props) => {
     return (
-        <div className="sidebar-sticky">
+        <aside>
             {props.children}
-        </div>
+        </aside>
     )
 }
 

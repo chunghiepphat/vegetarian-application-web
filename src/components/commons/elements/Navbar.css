@@ -1,8 +1,17 @@
+.navbar-container {
+    padding: 0;
+}
+.navbar-container .navbar {
+    height: 60px;
+}
+.navbar-container .navbar a {
+    text-transform: uppercase;
+}
 .navbar {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
 }
 

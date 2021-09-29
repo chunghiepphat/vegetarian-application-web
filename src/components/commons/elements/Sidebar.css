@@ -27,8 +27,8 @@ aside li {
 
 /*Sticky container inside sidebars*/
 .sidebar-sticky {
-    /*position: sticky;*/
-    /*top: 48px;*/
+    position: sticky;
+    top: 48px;
     width: 100%;
     background: none;
 }
