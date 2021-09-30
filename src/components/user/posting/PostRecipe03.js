@@ -3,28 +3,24 @@ import {renderToStaticMarkup} from "react-dom/server";
 
 const PostRecipe03 = (props) => {
     const [steps, setSteps] = useState([]);
+    const [step, setStep] = useState([]);
     const [stepCount, setStepCount] = useState(1);
     const [stepBody, setStepBody] = useState();
     let count = stepCount;
+
     const addStep = (event) => {
         event.preventDefault();
-        count = count + 1;
+        count++;
         setStepCount(count);
-        const step = (
+        setStep(
             <>
                 <h2>Step {stepCount}</h2>
                 <p>{stepBody}</p>
             </>
         )
         setSteps(steps.concat(step));
-
     }
-    const submitForm = (e) => {
-        e.preventDefault();
-        props.setContent(renderToStaticMarkup(steps));
-        console.log(props.content)
-        // props.submitPost(event);
-    }
+    props.setContent(renderToStaticMarkup(steps));
 
     return (
         <main>
@@ -46,7 +42,7 @@ const PostRecipe03 = (props) => {
                     <h1>Preview</h1>
                 </header>
                 <div className="section-content">
-                    <form className="form-container" onSubmit={submitForm}>
+                    <form className="form-container" onSubmit={props.submitPost}>
                         {steps.length > 0 ?
                             <>
                                 <ul className="ingredient-list">

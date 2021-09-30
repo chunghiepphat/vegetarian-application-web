@@ -37,5 +37,5 @@ article h2 {
 }
 
 .article-nav a {
-    width: 50%;
+    width: calc(100% / 3);
 }

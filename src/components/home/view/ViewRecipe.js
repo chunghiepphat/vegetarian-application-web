@@ -4,6 +4,7 @@ import {FaClock, FaFire} from "react-icons/all";
 import Navbar from "../../commons/elements/Navbar";
 import ViewRecipeSteps from "./ViewRecipeSteps";
 import ViewRecipeComments from "./ViewRecipeComments";
+import ViewRecipeNutrients from "./ViewRecipeNutrients";
 
 const ViewRecipe = () => {
     let {id} = useParams();
@@ -19,15 +20,16 @@ const ViewRecipe = () => {
         }
         fetchData();
     }, [api]);
-console.log(data.ingredients)
+
     return (
         <main>
             {data &&
             <section>
+                {data.recipe_thumbnail &&
                 <picture className="article-thumbnail">
                     <source srcSet={data.recipe_thumbnail}/>
                     <img src="" alt=""/>
-                </picture>
+                </picture>}
                 <div className="section-content">
                     <article>
                         <section className="article-title">
@@ -46,7 +48,8 @@ console.log(data.ingredients)
                         }
                         <section className="article-info">
                             <ul>
-                                <li><FaFire/> Difficulty: {data.recipe_difficulty}</li>
+                                {data.recipe_difficulty &&
+                                <li><FaFire/> Difficulty: {data.recipe_difficulty}</li>}
                                 {data.prep_time_minutes > 0 &&
                                 <li><FaClock/> Prep time: {data.prep_time_minutes} minutes.</li>}
                                 {data.baking_time_minutes > 0 &&
@@ -58,12 +61,16 @@ console.log(data.ingredients)
                         <section className="article-nav">
                             <Navbar>
                                 <NavLink to={`/view/recipe/${id}/steps`}>Steps</NavLink>
+                                <NavLink to={`/view/recipe/${id}/nutrients`}>Nutrients</NavLink>
                                 <NavLink to={`/view/recipe/${id}/comments`}>Comments</NavLink>
                             </Navbar>
                         </section>
                         <Switch>
                             <Route exact path="/view/recipe/:id/steps">
                                 <ViewRecipeSteps recipe_content={data.recipe_content}/>
+                            </Route>
+                            <Route exact path="/view/recipe/:id/nutrients">
+                                <ViewRecipeNutrients nutrients={data.nutrition}/>
                             </Route>
                             <Route exact path="/view/recipe/:id/comments">
                                 <ViewRecipeComments/>

@@ -16,7 +16,7 @@ const PostRecipe = () => {
     // Step 1 parameters
     const [title, setTitle] = useState();
     const [category, setCategory] = useState("1");
-    const [thumbnail, setThumbnail] = useState();
+    const [thumbnail, setThumbnail] = useState("");
     const [difficulty, setDifficulty] = useState("1");
     const [portionSize, setPortionSize] = useState("1");
     const [portionType, setPortionType] = useState("1");
@@ -52,7 +52,7 @@ const PostRecipe = () => {
             "baking_time_minutes": bakingTime,
             "resting_time_minutes": restingTime,
             "ingredients": ingredients,
-            "recipe_content": content
+            "recipe_content": content,
         });
 
         console.log(body)
@@ -65,13 +65,15 @@ const PostRecipe = () => {
         // Executes fetch
         const response = await fetch(api, request);
         if (response.ok) {
-            alert("Posted your recipe successfully!.");
+            alert("Posted your recipe successfully!");
+            history.push("/home");
+
         } else if (response.status === 401) {
             alert("You are not authorized to do that.")
         } else {
             alert("Error: " + response.status);
         }
-        history.push("/home");
+
     }
     return (
         <main>
