@@ -1,5 +1,3 @@
-
-
 .form-container h1 {
     font-size: 18px;
     font-weight: bold;
@@ -83,4 +81,20 @@ label span {
 
 input[type="number"] {
     width: 100px;
+}
+
+.quill {
+    margin: 20px 0;
+}
+
+.ql-toolbar {
+    background-color: #f0f0f0;
+    border-color: lightgray!important;
+    border-radius: 4px 4px 0 0;
+}
+
+.ql-container {
+    height: 300px!important;
+    border-color: lightgray!important;
+    border-radius: 0 0 4px 4px;
 }

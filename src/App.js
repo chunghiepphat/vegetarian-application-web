@@ -11,6 +11,7 @@ import NotFound from "./screens/commons/NotFound";
 import Browse from "./screens/home/Browse";
 import View from "./screens/home/View";
 import Post from "./screens/user/Post";
+import Search from "./screens/home/Search";
 
 export default function App() {
     // Get user info
@@ -33,6 +34,7 @@ export default function App() {
                 <Route exact path="/index" component={() => (<Redirect to='/home'/>)}/>
                 <Route path="/home" component={Home}/>
                 <Route path="/view" component={View}/>
+                <Route path="/search" component={Search}/>
                 <Route path="/browse" component={Browse}/>
                 {/*User module*/}
                 {user && <Route path={`/${user.id}`} component={Profile}/>}

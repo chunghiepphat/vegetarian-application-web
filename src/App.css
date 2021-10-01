@@ -11,7 +11,6 @@
 * {
     font-family: "Segoe UI", sans-serif;
     font-size: 16px;
-    font-weight: normal;
     line-height: 1.8;
     color: #474c59;
 }
@@ -26,16 +25,20 @@ h1, h1 > * {
 }
 
 h2, h2 > * {
-    font-size: 22px;
+    font-size: 24px;
 }
 
 h3, h3 > * {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 h1 > a {
     font-weight: normal;
     color: #3a3a3a;
+}
+
+p {
+    font-weight: normal;
 }
 
 a {
@@ -48,7 +51,7 @@ a:hover {
     filter: brightness(200%);
 }
 
-li {
+ul {
     list-style: none;
 }
 
@@ -113,12 +116,12 @@ input, select, textarea {
     padding: 0 24px;
     color: #5a5a5a;
     background-color: #f0f0f0;
-    border: thin solid transparent;
+    border: thin solid lightgray;
     border-radius: 20px;
 }
 
 input, select {
-    height: 36px;
+    height: 40px;
 }
 
 textarea {
@@ -131,7 +134,7 @@ input:hover, select:hover, textarea:hover {
 }
 
 input:focus, select:focus, textarea:focus {
-    border: thin solid lightgray;
+    background: white;
     outline: none;
 }
 
@@ -154,10 +157,8 @@ label {
     width: 96%;
     margin: 0 2%;
     padding: 20px 80px;
-    border: 1px solid #5b8734;
-    border-top: none;
-    border-bottom: none;
-    border-right: none;
+    border: 1px none #5b8734;
+    border-left-style: solid;
 }
 
 /***Images and icons***/
@@ -194,7 +195,6 @@ svg {
 .grid-container {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    column-gap: 10px;
     width: 1280px;
 }
 
@@ -206,6 +206,7 @@ main {
 aside {
     grid-column: span 2;
     z-index: 10;
+    padding-left: 10px;
 }
 
 main > section {
@@ -244,6 +245,18 @@ aside > section {
 
 .section-content {
     margin: 0 60px;
+}
+
+.page-tabs {
+    padding: 0;
+}
+
+.page-tabs .navbar {
+    height: 60px;
+}
+
+.page-tabs .navbar a {
+    text-transform: uppercase;
 }
 
 /***Hover tooltips***/

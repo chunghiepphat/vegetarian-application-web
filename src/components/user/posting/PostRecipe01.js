@@ -12,6 +12,7 @@ const PostRecipe01 = (props) => {
         <section>
             <header className="section-header">
                 <h1>Step 1 - Getting started</h1>
+                <em>Share with us some details about your new exciting recipe.</em>
             </header>
             <div className="section-content">
                 <form className="form-container" onSubmit={nextStep}>

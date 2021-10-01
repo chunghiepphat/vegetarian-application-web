@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 const PostVideo = () => {
     return (
         <main>
-            <section className="navbar-container">
+            <section className="page-tabs">
                 <Navbar>
                     <NavLink to="/post/recipe">Recipe</NavLink>
                     <NavLink to="/post/video">Video</NavLink>

@@ -8,6 +8,8 @@ const PostRecipe03 = (props) => {
     const [stepBody, setStepBody] = useState();
     let count = stepCount;
 
+    // TODO: Try switching to handling the render with an array
+    //  then use Array.reduce to deal with this bullshit.
     const addStep = (event) => {
         event.preventDefault();
         count++;
@@ -27,12 +29,13 @@ const PostRecipe03 = (props) => {
             <section>
                 <header className="section-header">
                     <h1>Step 3 - Add your step-by-step instructions</h1>
+                    <em>Almost there! Share with us the secrets to this recipe and you're done!</em>
                 </header>
                 <div className="section-content">
                     <form className="form-container" onSubmit={addStep}>
                         <h1>Add your instructions</h1>
                         <textarea aria-label="Instruction" value={stepBody}
-                                  onChange={e => setStepBody(e.target.value)}/>
+                                  onChange={e => setStepBody(e.target.value)} required/>
                         <button type="submit">Add step</button>
                     </form>
                 </div>
@@ -47,9 +50,7 @@ const PostRecipe03 = (props) => {
                             <>
                                 <ul className="ingredient-list">
                                     {steps.map(step => (
-                                        <li>
-                                            {step}
-                                        </li>
+                                        <li>{step}</li>
                                     ))}
                                 </ul>
                                 <button type="submit">Finish</button>

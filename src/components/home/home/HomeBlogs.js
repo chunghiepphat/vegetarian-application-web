@@ -30,7 +30,7 @@ const HomeBlogs = () => {
                             type="blog"
                             title={blog.blog_title}
                             thumbnail={blog.blog_thumbnail}
-                            excerpt={blog.blog_content.substring(0, 150)}
+                            subtitle={blog.blog_subtitle}
                             first_name={blog.first_name}
                             last_name={blog.last_name}/>
                 ))}

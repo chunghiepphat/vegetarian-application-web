@@ -21,10 +21,16 @@ const ViewRecipe = () => {
             {data &&
             <section>
                 <div className="section-content">
-                    <h1>{data.blog_title}</h1>
-                    <i>{data.first_name} {data.last_name}</i>
-                    <p>{data.blog_content}</p>
-
+                    <article>
+                        <section className="article-title">
+                            <h1>{data.blog_title}</h1>
+                            <p><i>{data.first_name} {data.last_name} - {data.time}</i></p>
+                            <p>{data.blog_subtitle}</p>
+                        </section>
+                        <section className="article-content">
+                            <div dangerouslySetInnerHTML={{__html: data.blog_content}}/>
+                        </section>
+                    </article>
                 </div>
             </section>
             }

@@ -30,8 +30,8 @@ const PostRecipe = () => {
 
     console.log(title, category, thumbnail, difficulty, portionSize, portionType, prepTime, bakingTime, restingTime, ingredients, content)
 
-    const submitPost = async (event) => {
-        event.preventDefault();
+    const submitPost = async (e) => {
+        e.preventDefault();
 
         // Generates request headers
         let headers = new Headers();
@@ -65,19 +65,19 @@ const PostRecipe = () => {
         // Executes fetch
         const response = await fetch(api, request);
         if (response.ok) {
-            alert("Posted your recipe successfully!");
+            alert("Recipe posted successfully!");
             history.push("/home");
 
         } else if (response.status === 401) {
             alert("You are not authorized to do that.")
         } else {
-            alert("Error: " + response.status);
+            alert("Unexpected error with code: " + response.status);
         }
 
     }
     return (
         <main>
-            <section className="navbar-container">
+            <section className="page-tabs">
                 <Navbar>
                     <NavLink to="/post/recipe">Recipe</NavLink>
                     <NavLink to="/post/video">Video</NavLink>
@@ -85,6 +85,7 @@ const PostRecipe = () => {
                 </Navbar>
             </section>
             <Switch>
+                {/*Step 1*/}
                 <Route exact path="/post/recipe/">
                     <PostRecipe01 title={title} setTitle={setTitle}
                                   category={category} setCategory={setCategory}
@@ -96,13 +97,16 @@ const PostRecipe = () => {
                                   bakingTime={bakingTime} setBakingTime={setBakingTime}
                                   restingTime={restingTime} setRestingTime={setRestingTime}/>
                 </Route>
+                {/*Step 2*/}
                 <Route exact path="/post/recipe/ingredients">
                     <PostRecipe02 ingredients={ingredients} setIngredients={setIngredients}/>
                 </Route>
+                {/*Step 3*/}
                 <Route exact path="/post/recipe/instructions">
                     <PostRecipe03 content={content} setContent={setContent}
                                   submitPost={submitPost}/>
                 </Route>
+                {/*404*/}
                 <Route><Redirect to="/not-found"/></Route>
             </Switch>
         </main>
