@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/vegetarian-application-web/static/css/main.4a9d6c17.chunk.css",
+    "main.js": "/vegetarian-application-web/static/js/main.ae5118a6.chunk.js",
+    "main.js.map": "/vegetarian-application-web/static/js/main.ae5118a6.chunk.js.map",
+    "runtime-main.js": "/vegetarian-application-web/static/js/runtime-main.52f328b7.js",
+    "runtime-main.js.map": "/vegetarian-application-web/static/js/runtime-main.52f328b7.js.map",
+    "static/css/2.f83b9687.chunk.css": "/vegetarian-application-web/static/css/2.f83b9687.chunk.css",
+    "static/js/2.b8544f14.chunk.js": "/vegetarian-application-web/static/js/2.b8544f14.chunk.js",
+    "static/js/2.b8544f14.chunk.js.map": "/vegetarian-application-web/static/js/2.b8544f14.chunk.js.map",
+    "static/js/3.ff80ac0d.chunk.js": "/vegetarian-application-web/static/js/3.ff80ac0d.chunk.js",
+    "static/js/3.ff80ac0d.chunk.js.map": "/vegetarian-application-web/static/js/3.ff80ac0d.chunk.js.map",
+    "index.html": "/vegetarian-application-web/index.html",
+    "static/css/2.f83b9687.chunk.css.map": "/vegetarian-application-web/static/css/2.f83b9687.chunk.css.map",
+    "static/css/main.4a9d6c17.chunk.css.map": "/vegetarian-application-web/static/css/main.4a9d6c17.chunk.css.map",
+    "static/js/2.b8544f14.chunk.js.LICENSE.txt": "/vegetarian-application-web/static/js/2.b8544f14.chunk.js.LICENSE.txt",
+    "static/media/card-thumbnail-default.cd96809e.png": "/vegetarian-application-web/static/media/card-thumbnail-default.cd96809e.png",
+    "static/media/error-side-image.b3ab696b.png": "/vegetarian-application-web/static/media/error-side-image.b3ab696b.png",
+    "static/media/profile-banner-default.d0850e6b.png": "/vegetarian-application-web/static/media/profile-banner-default.d0850e6b.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.52f328b7.js",
+    "static/css/2.f83b9687.chunk.css",
+    "static/js/2.b8544f14.chunk.js",
+    "static/css/main.4a9d6c17.chunk.css",
+    "static/js/main.ae5118a6.chunk.js"
+  ]
+}
