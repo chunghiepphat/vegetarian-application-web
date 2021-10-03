@@ -11,12 +11,14 @@ const Browse = () => {
         <div className="page-container">
             <div className="grid-container">
                 {/*Main content*/}
-                <Switch>
-                    <Route exact path="/browse/recipes" component={BrowseRecipes}/>
-                    <Route exact path="/browse/videos" component={BrowseVideos}/>
-                    <Route exact path="/browse/blogs" component={BrowseBlogs}/>
-                    <Route><Redirect to="/not-found"/></Route>
-                </Switch>
+                <main>
+                    <Switch>
+                        <Route exact path="/browse/recipes" component={BrowseRecipes}/>
+                        <Route exact path="/browse/videos" component={BrowseVideos}/>
+                        <Route exact path="/browse/blogs" component={BrowseBlogs}/>
+                        <Route><Redirect to="/not-found"/></Route>
+                    </Switch>
+                </main>
                 {/*Right sidebar*/}
                 <HomeSidebar/>
             </div>

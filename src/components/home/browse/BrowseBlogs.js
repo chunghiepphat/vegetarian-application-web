@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
-import Thread from "../../commons/elements/Thread";
+import Card from "../../commons/elements/containers/Card";
+import {apiPattern} from "../../../helpers/Helpers";
+import {SectionLoader} from "../../commons/elements/loaders/Loader";
 
 const BrowseBlogs = () => {
-    const api = "http://14.161.47.36:8080/hiepphat-0.0.1-SNAPSHOT/api/blogs/getall?page=1&limit=100";
+    const api = `${apiPattern}/blogs/getall?page=1&limit=100`;
     const [data, setData] = useState([]);
 
     // Executes fetch once on page load
@@ -12,31 +14,36 @@ const BrowseBlogs = () => {
             const result = await response.json();
             setData(result.listResult);
         }
-        fetchData();
-    }, []);
+        fetchData().catch(error => {
+            console.error(error);
+        });
+    }, [api]);
 
     return (
-        <main>
-            <section>
-                <div className="section-content">
-                    <h1>Blogs</h1>
-                    <i>Stories, thoughts, discussions and more.</i>
+        <section>
+            <div className="section-content">
+                <h1>Blogs</h1>
+                <i>Stories, thoughts, discussions and more.</i>
+                <div className="panel">
+                    {data.length > 0 ?
+                        <>{data.map(blog => (
+                            <Card className="card-full"
+                                  key={blog.blog_id}
+                                  id={blog.blog_id}
+                                  type="blog"
+                                  title={blog.blog_title}
+                                  thumbnail={blog.blog_thumbnail}
+                                  subtitle={blog.blog_subtitle}
+                                  first_name={blog.first_name}
+                                  last_name={blog.last_name}
+                            />
+                        ))}</>
+                        :
+                        <SectionLoader/>
+                    }
                 </div>
-                <div className="thread-list">
-                    {data && data.map(blog => (
-                        <Thread key={blog.blog_id}
-                                id={blog.blog_id}
-                                type="blog"
-                                title={blog.blog_title}
-                                thumbnail={blog.blog_thumbnail}
-                                subtitle={blog.blog_subtitle}
-                                first_name={blog.first_name}
-                                last_name={blog.last_name}
-                        />
-                    ))}
-                </div>
-            </section>
-        </main>
+            </div>
+        </section>
     )
 }
 

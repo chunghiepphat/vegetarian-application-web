@@ -1,5 +1,5 @@
 {
-  "homepage": "http://toanl33.github.io/vegetarian-application-web/",
+  "homepage": "https://toanl33.github.io/vegetarian-application-web/",
   "name": "vegetarian-application-web",
   "version": "0.1.0",
   "private": true,
@@ -10,6 +10,7 @@
     "axios": "^0.21.4",
     "html-to-text": "^8.0.0",
     "jwt-decode": "^3.1.2",
+    "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",

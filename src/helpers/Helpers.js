@@ -1,5 +1,1 @@
-export const getRecipes = async (api) => {
-    const response = await fetch(api);
-    const result = await response.json();
-    return result;
-}
+export const apiPattern = "http://14.161.47.36:8080/hiepphat-0.0.1-SNAPSHOT/api"

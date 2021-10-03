@@ -3,15 +3,6 @@ aside * {
     width: 100%;
 }
 
-aside h1 {
-    height: 100%;
-    padding: 0 20px;
-    color: gray;
-    font-size: 16px;
-    font-weight: bold;
-    white-space: nowrap;
-}
-
 /*Overrides <svg> icons styling back to defaults in App.css*/
 aside svg {
     width: 28px;
@@ -37,6 +28,15 @@ aside li {
 
 }
 
+.sidebar-widget > h1 {
+    height: 100%;
+    padding: 0 20px;
+    color: gray;
+    font-size: 16px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
 /*Overrides default nav-bar styles*/
 .sidebar-widget .navbar {
     flex-direction: column;
@@ -60,4 +60,24 @@ aside li {
     border-style: none;
     border-left: solid;
 
+}
+
+.sidebar-widget .panel {
+    padding: 20px;
+}
+
+.sidebar-widget .thread-wrapper {
+    margin: 0 0 10px 0;
+}
+
+.sidebar-widget .thread-item {
+    flex-direction: column;
+}
+
+.sidebar-widget .thread-thumbnail {
+    width: 100%;
+}
+
+.sidebar-widget .thread-overview {
+    width: 100%;
 }

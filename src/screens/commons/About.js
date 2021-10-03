@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../../components/commons/elements/Navbar";
+import Navbar from "../../components/commons/elements/bars/Navbar";
 import {NavLink} from "react-router-dom";
 import {FaAngleRight} from "react-icons/fa";
 import Sidebar from "../../components/commons/elements/Sidebar";

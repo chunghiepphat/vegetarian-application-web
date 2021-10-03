@@ -1,9 +1,9 @@
 import React from "react";
 import "./Profile.css";
-import ProfileBanner from "../../components/user/profile/ProfileBanner";
+import UserBanner from "../../components/user/profile/UserBanner";
 import {Redirect, Route, Switch} from "react-router-dom";
-import ProfileDetails from "../../components/user/profile/ProfileDetails";
-import ProfileEdit from "../../components/user/profile/ProfileEdit";
+import UserDashboard from "../../components/user/profile/UserDashboard";
+import UserUpdate from "../../components/user/profile/UserUpdate";
 import ProfileSidebar from "../../components/user/ProfileSidebar";
 
 const Profile = () => {
@@ -12,7 +12,7 @@ const Profile = () => {
     let token = JSON.parse(localStorage.getItem("accessToken"));
 
     // Redirects if unauthorized
-    if (token == null) {
+    if (token === null) {
         return (
             <Redirect to="/home"/>
         )
@@ -23,15 +23,15 @@ const Profile = () => {
         return (
             <div className="page-container">
                 {/*HomeBanner with profile picture and user's quick details*/}
-                <ProfileBanner/>
+                <UserBanner/>
                 {/*Main container*/}
                 <div className="grid-container">
                     {/*Main view*/}
                     <Switch>
                         <Route exact path={`/${user.id}`}
-                               component={() => (<Redirect to={`/${user.id}/profile`}/>)}/>
-                        <Route exact path={`/${user.id}/profile`} component={ProfileDetails}/>
-                        <Route exact path={`/${user.id}/edit-profile`} component={ProfileEdit}/>
+                               component={() => (<Redirect to={`/${user.id}/dashboard`}/>)}/>
+                        <Route exact path={`/${user.id}/dashboard`} component={UserDashboard}/>
+                        <Route path={`/${user.id}/update`} component={UserUpdate}/>
                         <Route><Redirect to="/not-found"/></Route>
                     </Switch>
                     {/*Right sidebar with additional info and controls*/}

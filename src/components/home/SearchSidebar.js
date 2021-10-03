@@ -2,7 +2,7 @@ import React from "react";
 import {Link, NavLink, withRouter} from "react-router-dom";
 import {FaAngleRight} from "react-icons/fa";
 import Sidebar from "../commons/elements/Sidebar";
-import Navbar from "../commons/elements/Navbar";
+import Navbar from "../commons/elements/bars/Navbar";
 
 const SearchSidebar = () => {
     return (

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
+import moment from "moment";
 
 const ViewRecipe = () => {
     let {id} = useParams();
@@ -24,7 +25,7 @@ const ViewRecipe = () => {
                     <article>
                         <section className="article-title">
                             <h1>{data.blog_title}</h1>
-                            <p><i>{data.first_name} {data.last_name} - {data.time}</i></p>
+                            <p><i>{data.first_name} {data.last_name} - {moment(data.time).format("lll")}</i></p>
                             <p>{data.blog_subtitle}</p>
                         </section>
                         <section className="article-content">

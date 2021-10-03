@@ -3,8 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    transition: 0.3s
-
+    transition: 0.3s ease-in-out;
 }
 
 /***Text elements styling***/
@@ -17,7 +16,7 @@
 
 h1, h2, h3 {
     font-weight: normal;
-    line-height: 1.4;
+    line-height: 1.6;
 }
 
 h1, h1 > * {
@@ -43,7 +42,7 @@ p {
 
 a {
     color: darkslateblue;
-    font-weight: bold;
+    font-weight: 600;
     text-decoration: none;
 }
 
@@ -188,6 +187,7 @@ svg {
     z-index: 10;
     width: 1280px;
     margin: 0 0 10px 0;
+    background: white;
     box-shadow: 0 1px 1px #d0d0d0;
     overflow: hidden;
 }
@@ -247,15 +247,18 @@ aside > section {
     margin: 0 60px;
 }
 
-.page-tabs {
+
+.page-navbar, .page-toolbar {
     padding: 0;
 }
 
-.page-tabs .navbar {
+.page-navbar .navbar,
+.page-toolbar .navbar {
     height: 60px;
 }
 
-.page-tabs .navbar a {
+.page-navbar .navbar a,
+.page-toolbar .navbar div {
     text-transform: uppercase;
 }
 

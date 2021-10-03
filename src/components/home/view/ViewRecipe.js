@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {NavLink, Redirect, Route, Switch, useParams} from "react-router-dom";
+import moment from "moment";
 import {FaClock, FaFire, FaLeaf} from "react-icons/all";
-import Navbar from "../../commons/elements/Navbar";
+import Navbar from "../../commons/elements/bars/Navbar";
 import ViewRecipeSteps from "./ViewRecipeSteps";
 import ViewRecipeComments from "./ViewRecipeComments";
 import ViewRecipeNutrients from "./ViewRecipeNutrients";
@@ -38,7 +39,7 @@ const ViewRecipe = () => {
                                 {/*Recipe title*/}
                                 <section className="article-title">
                                     <h1>{data.recipe_title}</h1>
-                                    <i>{data.first_name} {data.last_name} - {data.time_created}</i>
+                                    <i>{data.first_name} {data.last_name} - {moment(data.time_created).format("lll")}</i>
                                 </section>
                                 {/*Recipe portion and ingredient list*/}
                                 {data.ingredients &&

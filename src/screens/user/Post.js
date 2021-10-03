@@ -2,9 +2,9 @@ import React from "react";
 import "./Post.css";
 import {Redirect, Route, Switch} from "react-router-dom";
 import PostSidebar from "../../components/user/PostSidebar";
-import PostRecipe from "../../components/user/posting/PostRecipe";
-import PostVideo from "../../components/user/posting/PostVideo";
-import PostBlog from "../../components/user/posting/PostBlog";
+import PostRecipe from "../../components/user/post/PostRecipe";
+import PostVideo from "../../components/user/post/PostVideo";
+import PostBlog from "../../components/user/post/PostBlog";
 
 const Post = () => {
     return (
