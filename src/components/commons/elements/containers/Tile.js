@@ -3,23 +3,20 @@ import "./Tile.css";
 import {Link} from "react-router-dom";
 import placeholderThumbnail from "../../../../assets/card-thumbnail-default.png";
 
-const Tile = ({id, type, title, thumbnail, first_name, last_name}) => {
+const Tile = ({className, id, type, title, thumbnail, firstName, lastName}) => {
     return (
-        <div className="tile-wrapper">
-            <Link to={`/view/${type}/${id}`}>
-                <div className="tile-item">
-                    <picture className="tile-thumbnail">
-                        <source srcSet={thumbnail}/>
-                        <img src={placeholderThumbnail} alt=""/>
-                    </picture>
-                    <div className="tile-overlay">
-                        <div className="tile-description">
-                            <p className="tile-author">{first_name} {last_name}</p>
-                            <p className="tile-title">{title}</p>
-                        </div>
-                    </div>
+        <div className={`tile ${className}`}>
+            <Link className="tile-url" to={`/view/${type}/${id}`}/>
+            <picture className="tile-thumbnail">
+                <source srcSet={thumbnail}/>
+                <img src={placeholderThumbnail} alt=""/>
+            </picture>
+            <div className="tile-overlay">
+                <div className="tile-details">
+                    <h1 className="tile-title">{title}</h1>
+                    <p className="tile-author">by {firstName} {lastName}</p>
                 </div>
-            </Link>
+            </div>
         </div>
     )
 }

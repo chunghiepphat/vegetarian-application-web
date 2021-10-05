@@ -1,0 +1,86 @@
+.form-full > * {
+    width: 100%
+}
+
+label span {
+    font-weight: bold;
+}
+
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.input-group input {
+    width: 45%;
+}
+
+.banner-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -10;
+    width: 100%;
+    height: 800px;
+    background: bottom/cover no-repeat;
+}
+
+.banner-overlay {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg,
+    rgba(65, 65, 65, 0.2) 10%,
+    rgba(125, 125, 125, 0.4) 25%,
+    rgba(185, 185, 185, 0.6) 45%,
+    rgba(245, 245, 245, 0.8) 70%,
+    rgba(245, 245, 245, 1) 100%);
+    backdrop-filter: blur(2px);
+}
+
+.banner-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 40px 20%;
+    /*background: rgba(50, 50, 50, 0.4);*/
+}
+
+.banner-content > * {
+    margin: 0 40px;
+}
+
+.banner-content .profile-image {
+    width: 160px;
+    height: 160px;
+    border: thin solid lightgray;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.banner-content .profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-info * {
+    color: white;
+}
+
+.profile-info h1 {
+    font-size: 30px;
+}
+
+.profile-info i {
+    font-size: 18px;
+}

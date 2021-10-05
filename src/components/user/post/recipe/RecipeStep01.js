@@ -15,7 +15,7 @@ const RecipeStep01 = (props) => {
                 <em>Share with us some details about your new exciting recipe.</em>
             </header>
             <div className="section-content">
-                <form className="form-container" onSubmit={nextStep}>
+                <form className="form-full" onSubmit={nextStep}>
                     {/*Recipe name*/}
                     <h1>Name your recipe</h1>
                     <input aria-label="Recipe title" type="text" value={props.title}

@@ -6,6 +6,7 @@ import Navbar from "../commons/elements/bars/Navbar";
 import Card from "../commons/elements/containers/Card";
 import {apiPattern} from "../../helpers/Helpers";
 import Panel from "../commons/elements/containers/Panel";
+import {PanelLoader} from "../commons/elements/loaders/Loader";
 
 const HomeSidebar = () => {
     const api = `${apiPattern}/blogs/get5bestblog`;
@@ -50,17 +51,21 @@ const HomeSidebar = () => {
             </section>
             <section className="sidebar-widget">
                 <h1>Popular stories</h1>
-                <Panel data={data.length}>
-                    {data.map(blog => (
-                        <Card className="card-medium"
-                              key={blog.blog_id}
-                              id={blog.blog_id}
-                              type="blog"
-                              title={blog.blog_title}
-                              thumbnail={blog.blog_thumbnail}
-                              first_name={blog.first_name}
-                              last_name={blog.last_name}/>
-                    ))}
+                <Panel>
+                    {data.length ?
+                        data.map(blog => (
+                            <Card className="card-medium"
+                                  key={blog.blog_id}
+                                  id={blog.blog_id}
+                                  type="blog"
+                                  title={blog.blog_title}
+                                  thumbnail={blog.blog_thumbnail}
+                                  first_name={blog.first_name}
+                                  last_name={blog.last_name}/>
+                        ))
+                        :
+                        <PanelLoader/>
+                    }
                 </Panel>
             </section>
         </Sidebar>

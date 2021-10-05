@@ -1,0 +1,99 @@
+.form-full h1 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+}
+
+.form-full > * {
+    width: 100%
+}
+
+label span {
+    font-weight: bold;
+}
+
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.input-group input {
+    width: 45%;
+}
+
+/*.radio-button {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
+.radio-button {
+    margin: 8px 8px 0 0;
+}
+
+.radio-button input[type="radio"] {
+    display: none;
+}
+
+.radio-button input[type="radio"]:checked {
+
+}
+
+.radio-button input[type="radio"]:checked + .radio-label {
+    color: #eeeeee;
+    background: #5b8734;
+}
+
+.radio-label {
+    padding: 8px 24px;
+    white-space: nowrap;
+    color: #5a5a5a;
+    background-color: #f0f0f0;
+    border: thin solid transparent;
+    border-radius: 20px;
+}
+
+.flex-horizontal {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.flex-horizontal > * {
+    margin-right: 20px;
+}
+
+.flex-horizontal :nth-last-child(1) {
+    margin-right: 0;
+}
+
+.flex-horizontal > select {
+    width: 200px;
+}
+
+.flex-horizontal > * {
+    max-width: 50%;
+}
+
+input[type="number"] {
+    width: 100px;
+}
+
+.quill {
+    margin: 20px 0;
+}
+
+.ql-toolbar {
+    background-color: #f0f0f0;
+    border-color: lightgray!important;
+    border-radius: 4px 4px 0 0;
+}
+
+.ql-container {
+    height: 300px!important;
+    border-color: lightgray!important;
+    border-radius: 0 0 4px 4px;
+}

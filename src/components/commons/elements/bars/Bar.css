@@ -39,6 +39,7 @@
 /*Highlights link if matches current page*/
 .navbar .active {
     color: #5b8734;
+    font-weight: 600;
     border: rgba(91, 135, 25, 1);
     border-top: solid transparent;
     border-bottom: solid;

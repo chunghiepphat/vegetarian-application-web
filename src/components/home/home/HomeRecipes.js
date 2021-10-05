@@ -4,6 +4,8 @@ import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
 import Card from "../../commons/elements/containers/Card";
 import {apiPattern} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
+import Tile from "../../commons/elements/containers/Tile";
+import {PanelLoader} from "../../commons/elements/loaders/Loader";
 
 const HomeRecipes = () => {
     const api = `${apiPattern}/recipes/get10recipes`;
@@ -33,28 +35,33 @@ const HomeRecipes = () => {
                 <h1>Our community's latest recipes</h1>
                 <Link to="/browse/recipes"><FaAngleRight/>See more</Link>
             </header>
-            <Panel data={data.length}>
-                {/*Scroll buttons*/}
-                <button className="panel-scroll scroll-left" onClick={() => scroll(-350)}>
-                    <FaAngleLeft/>
-                </button>
-                <button className="panel-scroll scroll-right" onClick={() => scroll(350)}>
-                    <FaAngleRight/>
-                </button>
-                {/*Scrollable card container*/}
-                <div className="panel-slider" ref={ref}>
-                    {/*Iterates over the result JSON and renders a matching amount of card items*/}
-                    {data && data.map(recipe => (
-                        <Card className="card-narrow"
-                              key={recipe.recipe_id}
-                              id={recipe.recipe_id}
-                              type="recipe"
-                              title={recipe.recipe_title}
-                              thumbnail={recipe.recipe_thumbnail}
-                              first_name={recipe.first_name}
-                              last_name={recipe.last_name}/>
-                    ))}
-                </div>
+            <Panel>
+                {data.length > 0 ?
+                    <>{/*Scroll buttons*/}
+                        <button className="panel-scroll scroll-left" onClick={() => scroll(-350)}>
+                            <FaAngleLeft/>
+                        </button>
+                        <button className="panel-scroll scroll-right" onClick={() => scroll(350)}>
+                            <FaAngleRight/>
+                        </button>
+                        {/*Scrollable card container*/}
+                        <div className="panel-slider" ref={ref}>
+                            {/*Iterates over the result JSON and renders a matching amount of card items*/}
+                            {data.map(recipe => (
+                                <Tile className="tile-small"
+                                      key={recipe.recipe_id}
+                                      id={recipe.recipe_id}
+                                      type="recipe"
+                                      title={recipe.recipe_title}
+                                      thumbnail={recipe.recipe_thumbnail}
+                                      firstName={recipe.first_name}
+                                      lastName={recipe.last_name}/>
+                            ))}
+                        </div>
+                    </>
+                    :
+                    <PanelLoader/>
+                }
             </Panel>
         </section>
     )

@@ -28,16 +28,16 @@ const BrowseRecipes = () => {
                 <div className="panel">
                     {/*Iterates over the result JSON and renders a matching amount of card items*/}
                     {data.length > 0 ?
-                        <>{data.map(recipe => (
+                        data.map(recipe => (
                             <Card className="card-medium"
                                   key={recipe.recipe_id}
                                   id={recipe.recipe_id}
                                   type="recipe"
                                   title={recipe.recipe_title}
                                   thumbnail={recipe.recipe_thumbnail}
-                                  first_name={recipe.first_name}
-                                  last_name={recipe.last_name}/>
-                        ))}</>
+                                  firstName={recipe.first_name}
+                                  lastName={recipe.last_name}/>
+                        ))
                         :
                         <SectionLoader/>
                     }

@@ -1,0 +1,32 @@
+.comment {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 10px 0;
+    padding: 10px 0;
+
+}
+
+.comment-author {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.comment-avatar {
+    width: 37px;
+    height: 37px;
+    margin: 0 10px 0 0;
+}
+
+.comment-user {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.comment-content {
+    margin-left: 18px;
+    padding: 5px 26px;
+    border-left: thin solid lightgray;
+}

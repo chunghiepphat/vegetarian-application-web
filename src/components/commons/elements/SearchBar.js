@@ -10,8 +10,8 @@ const SearchBar = (props) => {
     const submitQuery = (e) => {
         e.preventDefault();
         history.push({
-            pathname: "/search",
-            search: `?query=${query}`,
+            pathname: "/search/recipes",
+            search: `search=${query}&type=all`,
             state: {query: query},
         })
     }

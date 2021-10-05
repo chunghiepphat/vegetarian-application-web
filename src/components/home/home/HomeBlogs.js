@@ -4,9 +4,10 @@ import {FaAngleRight} from "react-icons/fa";
 import Card from "../../commons/elements/containers/Card";
 import {apiPattern} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
+import {PanelLoader} from "../../commons/elements/loaders/Loader";
 
 const HomeBlogs = () => {
-    const api = `${apiPattern}/api/blogs/get10blogs`;
+    const api = `${apiPattern}/blogs/get10blogs`;
     const [data, setData] = useState([]);
 
     // Executes fetch once on page load
@@ -19,6 +20,7 @@ const HomeBlogs = () => {
         fetchData().catch(error => {
             console.error(error);
         });
+        console.log(data)
     }, [api]);
 
     return (
@@ -29,17 +31,20 @@ const HomeBlogs = () => {
             </header>
             <div className="section-content">
                 <Panel>
-                    {data.map(blog => (
-                        <Card className="card-full"
-                              key={blog.blog_id}
-                              id={blog.blog_id}
-                              type="blog"
-                              title={blog.blog_title}
-                              thumbnail={blog.blog_thumbnail}
-                              subtitle={blog.blog_subtitle}
-                              first_name={blog.first_name}
-                              last_name={blog.last_name}/>
-                    ))}
+                    {data.length > 0 ? data.map(blog => (
+                            <Card className="card-full"
+                                  key={blog.blog_id}
+                                  id={blog.blog_id}
+                                  type="blog"
+                                  title={blog.blog_title}
+                                  subtitle={blog.blog_subtitle}
+                                  thumbnail={blog.blog_thumbnail}
+                                  firstName={blog.first_name}
+                                  lastName={blog.last_name}/>
+                        ))
+                        :
+                        <PanelLoader/>
+                    }
                 </Panel>
             </div>
         </section>

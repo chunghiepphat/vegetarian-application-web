@@ -28,7 +28,7 @@ const RecipeStep02 = (props) => {
                         estimate the nutritional values for your recipe better.</em>
                 </header>
                 <div className="section-content">
-                    <form className="form-container" onSubmit={addIngredient}>
+                    <form className="form-full" onSubmit={addIngredient}>
                         <h1>Name an ingredient and its amount (in grams)</h1>
                         <div className="flex-horizontal">
                             <input aria-label="Ingredient" type="text" value={ingredient.ingredient_name}
@@ -46,7 +46,7 @@ const RecipeStep02 = (props) => {
                     <h1>Your ingredients</h1>
                 </header>
                 <div className="section-content">
-                    <form className="form-container" onSubmit={nextStep}>
+                    <form className="form-full" onSubmit={nextStep}>
                         {props.ingredients.length > 0 ?
                             <>
                                 <ul className="ingredient-list">

@@ -1,16 +1,20 @@
 import React, {useEffect, useState} from "react";
 import {NavLink, Redirect, Route, Switch, useParams} from "react-router-dom";
-import moment from "moment";
-import {FaClock, FaFire, FaLeaf} from "react-icons/all";
 import Navbar from "../../commons/elements/bars/Navbar";
-import ViewRecipeSteps from "./ViewRecipeSteps";
-import ViewRecipeComments from "./ViewRecipeComments";
-import ViewRecipeNutrients from "./ViewRecipeNutrients";
+import RecipeSteps from "./recipe/RecipeSteps";
+import RecipeComments from "./recipe/RecipeComments";
+import RecipeNutrients from "./recipe/RecipeNutrients";
+import {SectionLoader} from "../../commons/elements/loaders/Loader";
+import {apiPattern} from "../../../helpers/Helpers";
+import RecipeInfo from "./recipe/RecipeInfo";
+import RecipeIngredients from "./recipe/RecipeIngredients";
+import RecipeOverview from "./recipe/RecipeOverview";
+import RecipeToolbar from "./recipe/RecipeToolbar";
 
 const ViewRecipe = () => {
     let {id} = useParams();
-    const api = `http://14.161.47.36:8080/hiepphat-0.0.1-SNAPSHOT/api/recipes/getrecipeby/${id}`;
-    const [data, setData] = useState([]);
+    const api = `${apiPattern}/recipes/getrecipeby/${id}`;
+    const [data, setData] = useState();
 
     // Executes fetch once on page load
     useEffect(() => {
@@ -19,104 +23,61 @@ const ViewRecipe = () => {
             const result = await response.json();
             setData(result);
         }
-        fetchData();
-    }, [api]);
+        fetchData().catch(error => {
+            console.error(error);
+        });
+    }, []);
 
     return (
-        <main>
-            {data &&
-            <section>
-                {data.recipe_title ?
-                    <>
-                        {data.recipe_thumbnail &&
-                        <picture className="article-thumbnail">
-                            <source srcSet={data.recipe_thumbnail}/>
-                            <img src="" alt=""/>
-                        </picture>}
-                        <div className="section-content">
-                            {/*Recipe article container*/}
-                            <article>
-                                {/*Recipe title*/}
-                                <section className="article-title">
-                                    <h1>{data.recipe_title}</h1>
-                                    <i>{data.first_name} {data.last_name} - {moment(data.time_created).format("lll")}</i>
-                                </section>
-                                {/*Recipe portion and ingredient list*/}
-                                {data.ingredients &&
-                                <section className="article-info">
-                                    {data.ingredients.length > 0 ?
-                                        <>
-                                            <h2>Ingredients</h2>
-                                            <p>- per {data.portion_size}
-                                                {/* eslint-disable-next-line eqeqeq */}
-                                                {data.portion_type == 1 && <> serving(s)</>}
-                                                {/* eslint-disable-next-line eqeqeq */}
-                                                {data.portion_type == 2 && <> piece(s)</>}</p>
-                                            <ul>
-                                                {data.ingredients.map(ingredient => (
-                                                    <li>
-                                                        <FaLeaf/> {ingredient.ingredient_name} - {ingredient.amount_in_mg} (mg)
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </>
-                                        :
-                                        <>
-                                            <em>It seems the creator of this recipe did not specify any
-                                                ingredients...</em>
-                                        </>
-                                    }
-                                </section>}
-                                {/*Recipe estimates*/}
-                                <section className="article-info">
-                                    <ul>
-                                        {data.recipe_difficulty &&
-                                        <li><FaFire/> Difficulty: {data.recipe_difficulty}</li>}
-                                        {data.prep_time_minutes > 0 &&
-                                        <li><FaClock/> Prep time: {data.prep_time_minutes} minutes</li>}
-                                        {data.baking_time_minutes > 0 &&
-                                        <li><FaClock/> Baking time: {data.baking_time_minutes} minutes</li>}
-                                        {data.resting_time_minutes > 0 &&
-                                        <li><FaClock/> Resting time: {data.resting_time_minutes} minutes</li>}
-                                    </ul>
-                                </section>
-                                {/*Article tabs*/}
-                                {data.recipe_content &&
-                                <section className="article-tabs">
-                                    <Navbar>
-                                        <NavLink to={`/view/recipe/${id}/steps`}>Steps</NavLink>
-                                        <NavLink to={`/view/recipe/${id}/nutrients`}>Nutrients</NavLink>
-                                        <NavLink to={`/view/recipe/${id}/comments`}>Comments</NavLink>
-                                    </Navbar>
-                                </section>}
-                                {/*Tab content*/}
-                                <Switch>
-                                    <Route exact path="/view/recipe/:id/steps">
-                                        {data.recipe_content &&
-                                        <ViewRecipeSteps recipe_content={data.recipe_content}/>}
-                                    </Route>
-                                    <Route exact path="/view/recipe/:id/nutrients">
-                                        {data.nutrition &&
-                                        <ViewRecipeNutrients portion={data.portion_size} nutrients={data.nutrition}/>}
-                                    </Route>
-                                    <Route exact path="/view/recipe/:id/comments">
-                                        <ViewRecipeComments/>
-                                    </Route>
-                                    <Route><Redirect to={`/view/recipe/${id}/steps`}/></Route>
-                                </Switch>
-                            </article>
-                        </div>
-                    </>
-                    :
-                    <>
-                        <div className="section-content">
-                            <p>Loading article, please wait...</p>
-                        </div>
-                    </>
-                }
-            </section>
+        <section>
+            {data ?
+                <>
+                    {data.recipe_thumbnail &&
+                    <picture className="article-thumbnail">
+                        <source srcSet={data.recipe_thumbnail}/>
+                        <img src="" alt=""/>
+                    </picture>}
+                    <div className="section-content">
+                        {/*Recipe article container*/}
+                        <article>
+                            {/*Recipe title*/}
+                            <RecipeInfo data={data}/>
+                            <RecipeToolbar data={data}/>
+                            {/*Recipe portion and ingredient list*/}
+                            <RecipeIngredients data={data}/>
+                            {/*Recipe estimates*/}
+                            <RecipeOverview data={data}/>
+                            {/*Article tabs*/}
+                            {data.recipe_content &&
+                            <section className="article-tabs">
+                                <Navbar>
+                                    <NavLink to={`/view/recipe/${id}/steps`}>Steps</NavLink>
+                                    <NavLink to={`/view/recipe/${id}/nutrients`}>Nutrients</NavLink>
+                                    <NavLink to={`/view/recipe/${id}/comments`}>Comments</NavLink>
+                                </Navbar>
+                            </section>}
+                            {/*Tab content*/}
+                            <Switch>
+                                <Route exact path="/view/recipe/:id/steps">
+                                    {data.recipe_content &&
+                                    <RecipeSteps recipe_content={data.recipe_content}/>}
+                                </Route>
+                                <Route exact path="/view/recipe/:id/nutrients">
+                                    {data.nutrition &&
+                                    <RecipeNutrients portion={data.portion_size} nutrients={data.nutrition}/>}
+                                </Route>
+                                <Route exact path="/view/recipe/:id/comments">
+                                    <RecipeComments/>
+                                </Route>
+                                <Route><Redirect to={`/view/recipe/${id}/steps`}/></Route>
+                            </Switch>
+                        </article>
+                    </div>
+                </>
+                :
+                <SectionLoader/>
             }
-        </main>
+        </section>
     )
 }
 

@@ -26,7 +26,7 @@ const BrowseBlogs = () => {
                 <i>Stories, thoughts, discussions and more.</i>
                 <div className="panel">
                     {data.length > 0 ?
-                        <>{data.map(blog => (
+                        data.map(blog => (
                             <Card className="card-full"
                                   key={blog.blog_id}
                                   id={blog.blog_id}
@@ -34,10 +34,9 @@ const BrowseBlogs = () => {
                                   title={blog.blog_title}
                                   thumbnail={blog.blog_thumbnail}
                                   subtitle={blog.blog_subtitle}
-                                  first_name={blog.first_name}
-                                  last_name={blog.last_name}
-                            />
-                        ))}</>
+                                  firstName={blog.first_name}
+                                  lastName={blog.last_name}/>
+                        ))
                         :
                         <SectionLoader/>
                     }

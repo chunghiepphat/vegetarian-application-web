@@ -120,6 +120,9 @@
     font-weight: 600;
 }
 
+.card-full .card-title {
+    font-size: 18px;
+}
 .card-author a {
     position: relative;
     z-index: 10;

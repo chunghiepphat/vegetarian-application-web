@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import moment from "moment";
+import {apiPattern} from "../../../helpers/Helpers";
+import BlogContent from "./blog/BlogContent";
+import BlogComments from "./blog/BlogComments";
+import BlogInfo from "./blog/BlogInfo";
+import {SectionLoader} from "../../commons/elements/loaders/Loader";
 
 const ViewRecipe = () => {
     let {id} = useParams();
-    const api = `http://14.161.47.36:8080/hiepphat-0.0.1-SNAPSHOT/api/blogs/getblogby/${id}`;
-    const [data, setData] = useState([]);
+    const api = `${apiPattern}/blogs/getblogby/${id}`;
+    const [data, setData] = useState();
 
     // Executes fetch once on page load
     useEffect(() => {
@@ -14,28 +18,25 @@ const ViewRecipe = () => {
             const result = await response.json();
             setData(result);
         }
-        fetchData();
-    }, [api]);
+        fetchData().catch(error => {
+            console.error(error);
+        });
+    }, []);
 
     return (
-        <main>
-            {data &&
-            <section>
+        <section>
+            {data ?
                 <div className="section-content">
                     <article>
-                        <section className="article-title">
-                            <h1>{data.blog_title}</h1>
-                            <p><i>{data.first_name} {data.last_name} - {moment(data.time).format("lll")}</i></p>
-                            <p>{data.blog_subtitle}</p>
-                        </section>
-                        <section className="article-content">
-                            <div dangerouslySetInnerHTML={{__html: data.blog_content}}/>
-                        </section>
+                        <BlogInfo data={data}/>
+                        <BlogContent data={data}/>
+                        <BlogComments data={data}/>
                     </article>
                 </div>
-            </section>
+                :
+                <SectionLoader/>
             }
-        </main>
+        </section>
 
     )
 }

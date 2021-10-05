@@ -2,29 +2,42 @@ import React, {useContext, useEffect, useState} from "react";
 import './App.css';
 import Header from "components/commons/elements/site/Header";
 import {Redirect, Route, Switch, useLocation} from "react-router-dom";
-import Home from "./screens/home/Home";
-import About from "./screens/commons/About";
+import Home from "./components/home/Home";
+import About from "./components/commons/About";
 import Footer from "./components/commons/elements/site/Footer";
 import Modal from "./components/auth/Modal";
-import Profile from "./screens/user/Profile";
-import NotFound from "./screens/commons/NotFound";
-import Browse from "./screens/home/Browse";
-import View from "./screens/home/View";
-import Post from "./screens/user/Post";
-import Search from "./screens/home/Search";
+import Dashboard from "./components/user/Dashboard";
+import NotFound from "./components/commons/NotFound";
+import Browse from "./components/home/Browse";
+import View from "./components/home/View";
+import Post from "./components/user/Post";
+import Search from "./components/home/Search";
+import History from "./components/user/History";
+import Update from "./components/user/Update";
+import {apiPattern} from "./helpers/Helpers";
+import jwtDecode from "jwt-decode";
 import {UserContext} from "./context/UserContext";
 
 export default function App() {
-    const [user, setUser] = useState();
-    useEffect(() => {
-        setUser(JSON.parse(localStorage.getItem("userInfo")));
-        console.log(user)
-    }, [])
-    // Scrolls back to top on render
     let location = useLocation();
+    const [user, setUser] = useState();
+    const accessToken = localStorage.getItem("accessToken");
     useEffect(() => {
+        if (accessToken !== null) {
+            const decodedToken = jwtDecode(accessToken);
+            const api = `${apiPattern}/user/${decodedToken.id}`
+            const fetchData = async () => {
+                const response = await fetch(api);
+                const result = await response.json();
+                setUser(result);
+            }
+            fetchData().catch(error => {
+                console.error(error);
+            });
+        }
         window.scrollTo(0, 0)
-    }, [location])
+    }, [location]);
+
     const background = location.state && location.state.background;
 
     return (
@@ -32,16 +45,18 @@ export default function App() {
             <div className="App">
                 <Header/>
                 <Switch location={background || location}>
-                    {/*Home module*/}
-                    <Route exact path="/" component={() => (<Redirect to='/home'/>)}/>
-                    <Route exact path="/index" component={() => (<Redirect to='/home'/>)}/>
-                    <Route exact path="/vegetarian-application-web" component={() => (<Redirect to='/home'/>)}/>
+                    {/*Public module*/}
+                    <Route exact path="/"><Redirect to='/home'/></Route>
+                    <Route exact path="/index"><Redirect to='/home'/></Route>
+                    <Route exact path="/vegetarian-application-web"><Redirect to='/home'/></Route>
                     <Route path="/home" component={Home}/>
                     <Route path="/view" component={View}/>
                     <Route path="/search" component={Search}/>
                     <Route path="/browse" component={Browse}/>
                     {/*User module*/}
-                    {user && <Route path={`/${user.id}`} component={Profile}/>}
+                    {user && <Route path="/profile" component={Dashboard}/>}
+                    {user && <Route path="/history" component={History}/>}
+                    {user && <Route path="/update" component={Update}/>}
                     {user && <Route path="/post" component={Post}/>}
                     {/*Miscellaneous*/}
                     <Route path="/about" component={About}/>

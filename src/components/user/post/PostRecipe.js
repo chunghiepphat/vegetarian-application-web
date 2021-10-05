@@ -76,40 +76,31 @@ const PostRecipe = () => {
 
     }
     return (
-        <main>
-            <section className="page-navbar">
-                <Navbar>
-                    <NavLink to="/post/recipe">Recipe</NavLink>
-                    <NavLink to="/post/video">Video</NavLink>
-                    <NavLink to="/post/blog">Blog</NavLink>
-                </Navbar>
-            </section>
-            <Switch>
-                {/*Step 1*/}
-                <Route exact path="/post/recipe/">
-                    <RecipeStep01 title={title} setTitle={setTitle}
-                                  category={category} setCategory={setCategory}
-                                  thumbnail={thumbnail} setThumbnail={setThumbnail}
-                                  difficulty={difficulty} setDifficulty={setDifficulty}
-                                  portionSize={portionSize} setPortionSize={setPortionSize}
-                                  portionType={portionType} setPortionType={setPortionType}
-                                  prepTime={prepTime} setPrepTime={setPrepTime}
-                                  bakingTime={bakingTime} setBakingTime={setBakingTime}
-                                  restingTime={restingTime} setRestingTime={setRestingTime}/>
-                </Route>
-                {/*Step 2*/}
-                <Route exact path="/post/recipe/ingredients">
-                    <RecipeStep02 ingredients={ingredients} setIngredients={setIngredients}/>
-                </Route>
-                {/*Step 3*/}
-                <Route exact path="/post/recipe/instructions">
-                    <RecipeStep03 content={content} setContent={setContent}
-                                  submitPost={submitPost}/>
-                </Route>
-                {/*404*/}
-                <Route><Redirect to="/not-found"/></Route>
-            </Switch>
-        </main>
+        <Switch>
+            {/*Step 1*/}
+            <Route exact path="/post/recipe/">
+                <RecipeStep01 title={title} setTitle={setTitle}
+                              category={category} setCategory={setCategory}
+                              thumbnail={thumbnail} setThumbnail={setThumbnail}
+                              difficulty={difficulty} setDifficulty={setDifficulty}
+                              portionSize={portionSize} setPortionSize={setPortionSize}
+                              portionType={portionType} setPortionType={setPortionType}
+                              prepTime={prepTime} setPrepTime={setPrepTime}
+                              bakingTime={bakingTime} setBakingTime={setBakingTime}
+                              restingTime={restingTime} setRestingTime={setRestingTime}/>
+            </Route>
+            {/*Step 2*/}
+            <Route exact path="/post/recipe/ingredients">
+                <RecipeStep02 ingredients={ingredients} setIngredients={setIngredients}/>
+            </Route>
+            {/*Step 3*/}
+            <Route exact path="/post/recipe/instructions">
+                <RecipeStep03 content={content} setContent={setContent}
+                              submitPost={submitPost}/>
+            </Route>
+            {/*404*/}
+            <Route><Redirect to="/not-found"/></Route>
+        </Switch>
     )
 }
 

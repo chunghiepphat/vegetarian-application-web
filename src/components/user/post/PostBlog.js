@@ -68,38 +68,29 @@ const PostBlog = () => {
     }
 
     return (
-        <main>
-            <section className="page-navbar">
-                <Navbar>
-                    <NavLink to="/post/recipe">Recipe</NavLink>
-                    <NavLink to="/post/video">Video</NavLink>
-                    <NavLink to="/post/blog">Blog</NavLink>
-                </Navbar>
-            </section>
-            <section>
-                <header className="section-header">
-                    <h1>Share your story</h1>
-                    <em>Please keep content relevant to our site, which is about vegetarian food, recipes and
-                        lifestyle.</em>
-                </header>
-                <div className="section-content">
-                    <form className="form-container" onSubmit={submitPost}>
-                        <input aria-label="Blog title" type="text" value={title}
-                               onChange={e => setTitle(e.target.value)}
-                               placeholder="Title" required/>
-                        <input aria-label="Blog subtitle" type="text" value={subtitle}
-                               onChange={e => setSubtitle(e.target.value)}
-                               placeholder="Subtitle (optional)"/>
-                        <ReactQuill theme="snow" value={content}
-                                    onChange={handleQuill}
-                                    modules={modules}
-                                    placeholder="What's your story?">
-                        </ReactQuill>
-                        <button type="submit">Finish</button>
-                    </form>
-                </div>
-            </section>
-        </main>
+        <section>
+            <header className="section-header">
+                <h1>Share your story</h1>
+                <em>Please keep content relevant to our site, which is about vegetarian food, recipes and
+                    lifestyle.</em>
+            </header>
+            <div className="section-content">
+                <form className="form-full" onSubmit={submitPost}>
+                    <input aria-label="Blog title" type="text" value={title}
+                           onChange={e => setTitle(e.target.value)}
+                           placeholder="Title" required/>
+                    <input aria-label="Blog subtitle" type="text" value={subtitle}
+                           onChange={e => setSubtitle(e.target.value)}
+                           placeholder="Subtitle (optional)"/>
+                    <ReactQuill theme="snow" value={content}
+                                onChange={handleQuill}
+                                modules={modules}
+                                placeholder="What's your story?">
+                    </ReactQuill>
+                    <button type="submit">Finish</button>
+                </form>
+            </div>
+        </section>
     )
 }
 

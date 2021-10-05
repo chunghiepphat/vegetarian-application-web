@@ -3,7 +3,7 @@ import "./Card.css";
 import {Link} from "react-router-dom";
 import placeholderThumbnail from "../../../../assets/card-thumbnail-default.png";
 
-const Card = ({className, id, type, title, subtitle, thumbnail, first_name: firstName, last_name: lastName}) => {
+const Card = ({className, id, type, title, subtitle, thumbnail, firstName, lastName}) => {
     return (
         <div className={`card ${className}`}>
             <Link className="card-url" to={`/view/${type}/${id}`}/>

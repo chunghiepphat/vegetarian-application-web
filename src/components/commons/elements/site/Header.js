@@ -1,14 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import "./Header.css";
 import SearchBar from "../SearchBar";
 import Navbar from "../bars/Navbar";
 import {Link, NavLink, useHistory, useLocation, withRouter} from "react-router-dom";
-// import placeholderAvatar from "assets/user-image-default.png";
+import {UserContext} from "../../../../context/UserContext";
+import placeholderAvatar from "assets/user-image-default.png";
 
 const Header = () => {
     // Get user info
-    let user = JSON.parse(localStorage.getItem("userInfo"));
     let token = JSON.parse(localStorage.getItem("accessToken"));
+    const user = useContext(UserContext);
     const location = useLocation();
     const history = useHistory();
 
@@ -42,12 +43,19 @@ const Header = () => {
                             // If yes, shows user info and logout
                             <>
                                 {/*Profile image*/}
-                                <NavLink to={`/${user.id}`}>
-                                    <picture className="profile-image">
-                                        <source srcSet={user.profile_image}/>
-                                        <img src={user.profile_image} alt="avatar"/>
-                                    </picture>
-                                    {user.first_name}</NavLink>
+                                <NavLink to="/profile">
+                                    {user ?
+                                        <>
+                                            <picture className="profile-image">
+                                                <source srcSet={user.profile_image}/>
+                                                <img src={placeholderAvatar} alt=""/>
+                                            </picture>
+                                            {user.first_name}
+                                        </>
+                                        :
+                                        <>Your Profile</>
+                                    }
+                                </NavLink>
                                 {/*Logout link*/}
                                 <Link to={"/home"} onClick={() => {
                                     localStorage.removeItem("accessToken");

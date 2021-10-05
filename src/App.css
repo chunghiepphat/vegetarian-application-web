@@ -148,7 +148,7 @@ label {
     font-weight: bold;
 }
 
-.form-container {
+.form-full {
     display: flex;
     flex-direction: column;
     align-items: flex-start;

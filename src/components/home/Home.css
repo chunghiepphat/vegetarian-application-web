@@ -1,0 +1,48 @@
+/***Banner and its elements****/
+.panel-banner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 300px);
+    grid-column-gap: 1px;
+    grid-row-gap: 1px;
+}
+
+.panel-banner .tile {
+    border-radius: 0;
+}
+
+.tile-half {
+    grid-area: 1 / 1 / 3 / 3;
+}
+
+.tile-eighth-1 {
+    grid-area: 1 / 3 / 2 / 4;
+}
+
+.tile-eighth-2 {
+    grid-area: 1 / 4 / 2 / 5;
+}
+
+.tile-eighth-3 {
+    grid-area: 2 / 3 / 3 / 4;
+}
+
+.tile-eighth-4 {
+    grid-area: 2 / 4 / 3 / 5;
+}
+
+.tile-half .tile-title {
+    font-size: 30px;
+}
+
+.tile-half .tile-author {
+    font-size: 18px;
+}
+
+.tile-eighth .tile-title {
+    font-size: 18px;
+}
+
+.tile-eighth .tile-author {
+    font-size: 16px;
+}
