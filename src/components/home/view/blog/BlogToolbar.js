@@ -4,12 +4,12 @@ import {UserContext} from "../../../../context/UserContext";
 import {apiPattern} from "../../../../helpers/Helpers";
 import {useHistory} from "react-router-dom";
 
-const RecipeToolbar = ({data}) => {
+const BlogToolbar = ({data}) => {
     const history = useHistory();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const apiDelete = `${apiPattern}/recipes/delete/${data.recipe_id}`;
-    const apiLike = `${apiPattern}/recipes/like`;
+    const apiDelete = `${apiPattern}/blogs/delete/${data.blog_id}`;
+    const apiLike = `${apiPattern}/blogs/like`;
 
     // Generates request headers
     let headers = new Headers();
@@ -22,7 +22,7 @@ const RecipeToolbar = ({data}) => {
         // Generates request body
         let body = JSON.stringify({
             "user_id": user.id,
-            "recipe_id": data.recipe_id,
+            "blog_id": data.blog_id,
         });
 
         // Generates request
@@ -55,7 +55,7 @@ const RecipeToolbar = ({data}) => {
         // Executes fetch
         const response = await fetch(apiDelete, request);
         if (response.ok) {
-            alert("Your recipe has been deleted.");
+            alert("Your article has been deleted.");
             history.push("/home");
         } else if (response.status === 401) {
             alert("You are not authorized to complete the request.")
@@ -85,11 +85,10 @@ const RecipeToolbar = ({data}) => {
                     <button className="article-button" onClick={deleteArticle}>
                         <RiDeleteBin4Line/>
                     </button>
-                </>
-                }
+                </>}
             </div>}
         </section>
     )
 }
 
-export default RecipeToolbar;
+export default BlogToolbar;

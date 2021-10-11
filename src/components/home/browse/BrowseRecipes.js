@@ -36,7 +36,8 @@ const BrowseRecipes = () => {
                                   title={recipe.recipe_title}
                                   thumbnail={recipe.recipe_thumbnail}
                                   firstName={recipe.first_name}
-                                  lastName={recipe.last_name}/>
+                                  lastName={recipe.last_name}
+                                  time={recipe.time}/>
                         ))
                         :
                         <SectionLoader/>

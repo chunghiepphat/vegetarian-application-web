@@ -2,13 +2,15 @@ import React, {useEffect, useState} from "react";
 import "./SearchBar.css";
 import {FaSistrix} from "react-icons/all";
 import {useHistory} from "react-router-dom";
+import {apiPattern} from "../../../helpers/Helpers";
 
 const SearchBar = (props) => {
-    const [query, setQuery] = useState("");
+    const [query, setQuery] = useState();
     const history = useHistory();
 
-    const submitQuery = (e) => {
+    const submitQuery = async (e) => {
         e.preventDefault();
+        const api = `${apiPattern}/home/find?search=${query}&type=all`;
         history.push({
             pathname: "/search/recipes",
             search: `search=${query}&type=all`,

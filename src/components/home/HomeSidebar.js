@@ -61,7 +61,9 @@ const HomeSidebar = () => {
                                   title={blog.blog_title}
                                   thumbnail={blog.blog_thumbnail}
                                   first_name={blog.first_name}
-                                  last_name={blog.last_name}/>
+                                  last_name={blog.last_name}
+                                  time={blog.time}
+                                  totalLike={blog.totalLike}/>
                         ))
                         :
                         <PanelLoader/>

@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
 import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
-import Card from "../../commons/elements/containers/Card";
 import {apiPattern} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
 import Tile from "../../commons/elements/containers/Tile";
@@ -55,7 +54,9 @@ const HomeRecipes = () => {
                                       title={recipe.recipe_title}
                                       thumbnail={recipe.recipe_thumbnail}
                                       firstName={recipe.first_name}
-                                      lastName={recipe.last_name}/>
+                                      lastName={recipe.last_name}
+                                      time={recipe.time}
+                                      totalLike={recipe.totalLike}/>
                             ))}
                         </div>
                     </>

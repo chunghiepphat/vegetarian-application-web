@@ -1,15 +1,18 @@
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {apiPattern} from "../../../../helpers/Helpers";
+import {UserContext} from "../../../../context/UserContext";
+import Comment from "../../../commons/elements/Comment";
 
 const BlogComments = ({data}) => {
-    const user = JSON.parse(localStorage.getItem("userInfo"));
+    const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `${apiPattern}/user/commentblog`;
+    const api = `${apiPattern}/blogs/${data.blog_id}/comments`;
     const [comment, setComment] = useState();
+    const [comments, setComments] = useState([]);
 
     const submitComment = async (e) => {
         e.preventDefault();
-
+        const url = `${apiPattern}/user/commentblog`;
         // Generates request headers
         let headers = new Headers();
         headers.append("Authorization", `Bearer ${token.token}`);
@@ -31,9 +34,8 @@ const BlogComments = ({data}) => {
         };
 
         // Executes fetch
-        const response = await fetch(api, request);
+        const response = await fetch(url, request);
         if (response.ok) {
-            alert("Comment posted.");
             window.location.reload();
         } else if (response.status === 401) {
             alert("You are not authorized to do that.")
@@ -41,6 +43,18 @@ const BlogComments = ({data}) => {
             alert("Unexpected error with code: " + response.status);
         }
     }
+
+    // Executes fetch once on page load
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch(api);
+            const result = await response.json();
+            setComments(result.listCommentBlog);
+        }
+        fetchData().catch(error => {
+            console.error(error);
+        });
+    }, []);
 
     return (
         <section className="article-comments">
@@ -50,6 +64,12 @@ const BlogComments = ({data}) => {
                        onChange={e => setComment(e.target.value)}
                        placeholder="What do you think?" required/>
             </form>
+            {comments.length > 0 && comments.map(comment => (
+                <Comment userId={comment.user_id}
+                         commentId={comment.comment_id}
+                         content={comment.content}
+                         time={comment.time}/>
+            ))}
         </section>
     )
 }

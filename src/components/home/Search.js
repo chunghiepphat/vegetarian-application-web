@@ -10,15 +10,16 @@ import ResultBlogs from "./search/result/ResultBlogs";
 
 const Search = () => {
     const location = useLocation();
-    const api = `${apiPattern}/home/find${location.search}`;
+
     const [recipe, setRecipe] = useState([]);
     const [blog, setBlog] = useState([]);
 
     console.log(location.search)
     // Executes fetch once on page load
     useEffect(() => {
+        const api = `${apiPattern}/home/find${location.search}`;
         const fetchData = async () => {
-            const response = await fetch(api);
+            const response = await fetch(`${apiPattern}/home/find${location.search}`);
             const result = await response.json();
             setRecipe(result.listRecipe);
             setBlog(result.listBlog);

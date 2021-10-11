@@ -37,11 +37,12 @@ const UpdatePassword = () => {
         // Executes fetch
         const response = await fetch(api, request);
         if (response.ok) {
-            const result = await response.json();
-            alert(result.message);
+            alert("Password updated successfully.");
             window.location.reload();
+        } else if (response.status === 400) {
+            alert("Your old password is incorrect, please try again.");
         } else if (response.status === 401) {
-            alert("You are not authorized to complete the request.")
+            alert("You are not authorized to complete the request.");
         } else {
             alert("Error: " + response.status);
         }

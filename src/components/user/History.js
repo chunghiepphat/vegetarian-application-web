@@ -7,12 +7,14 @@ import HistoryRecipes from "./history/HistoryRecipes";
 import HistoryVideos from "./history/HistoryVideos";
 import HistoryComments from "./history/HIstoryComments";
 import DashboardSidebar from "./DashboardSidebar";
+import HistoryFavorites from "./history/HistoryFavorites";
 
 const History = () => {
     const urlRecipes = "/history/recipes";
     const urlVideos = "/history/videos";
     const urlBlogs = "/history/blogs";
     const urlComments = "/history/comments";
+    const urlFavorites = "/history/favorites";
 
     return (
         <div className="page-container">
@@ -24,6 +26,7 @@ const History = () => {
                             <Link to={urlVideos}>Your videos</Link>
                             <Link to={urlBlogs}>Your blogs</Link>
                             <Link to={urlComments}>Your comments</Link>
+                            <Link to={urlFavorites}>Your Favorites</Link>
                         </Navbar>
                     </section>
                     <Switch>
@@ -32,6 +35,7 @@ const History = () => {
                         <Route exact path={urlVideos}><HistoryVideos/></Route>
                         <Route exact path={urlBlogs}><HistoryBlogs/></Route>
                         <Route exact path={urlComments}><HistoryComments/></Route>
+                        <Route exact path={urlFavorites}><HistoryFavorites/></Route>
                         <Route><Redirect to="/not-found"/></Route>
                     </Switch>
                 </main>

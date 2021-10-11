@@ -1,11 +1,11 @@
-import React, {useRef, useState} from "react";
+import React from "react";
 import {useHistory} from "react-router-dom";
 
 const RecipeStep01 = (props) => {
     const history = useHistory();
 
     const nextStep = () => {
-        history.push("/post/recipe/images");
+        history.push("/post/recipe/ingredients");
     }
 
     return (

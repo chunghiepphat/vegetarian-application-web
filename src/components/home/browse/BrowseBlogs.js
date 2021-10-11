@@ -35,7 +35,8 @@ const BrowseBlogs = () => {
                                   thumbnail={blog.blog_thumbnail}
                                   subtitle={blog.blog_subtitle}
                                   firstName={blog.first_name}
-                                  lastName={blog.last_name}/>
+                                  lastName={blog.last_name}
+                                  time={blog.time}/>
                         ))
                         :
                         <SectionLoader/>

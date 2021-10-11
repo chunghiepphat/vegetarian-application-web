@@ -1,11 +1,12 @@
-import React from "react";
-import moment from "moment";
+import React, {useContext} from "react";
 import Avatar from "../../../commons/elements/Avatar";
+import moment from "moment";
+import {UserContext} from "../../../../context/UserContext";
 
-const BlogInfo = ({data}) => {
+const RecipeHeader = ({data}) => {
     return (
         <section className="article-title">
-            <h1>{data.blog_title}</h1>
+            <h1>{data.recipe_title}</h1>
             <div className="article-info">
                 <div className="article-author">
                     <Avatar className="article-avatar" data={data}/>
@@ -13,13 +14,12 @@ const BlogInfo = ({data}) => {
                         {data.first_name} {data.last_name}
                     </div>
                 </div>
-                <div className="article-time">
-                    {moment(data.time).format("lll")}
+                <div className="article-timestamp">
+                    {moment(data.time_created).format("lll")}
                 </div>
             </div>
-            <p>{data.blog_subtitle}</p>
         </section>
     )
 }
 
-export default BlogInfo;
+export default RecipeHeader

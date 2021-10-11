@@ -42,7 +42,7 @@ article > section {
     font-weight: 600;
 }
 
-.article-time {
+.article-timestamp {
     flex-shrink: 0;
     font-style: italic;
 }
@@ -55,8 +55,14 @@ article > section {
 .article-toolbar {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding: 10px 0;
+}
+
+.article-toolbar > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .article-button {
@@ -64,22 +70,28 @@ article > section {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    width: 60px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     padding: 10px;
     margin: 0 0 0 10px;
-    border: 2px solid #474c59;
-    border-radius: 20px;
+    border: 1px solid #474c59;
+    border-radius: 18px;
 }
 
 .article-button:hover {
-    background: white;
+    background: #5b8734;
 }
 
 .article-button svg {
     width: 20px;
     height: 20px;
     fill: #474c59;
+    transition: 0s;
+}
+
+.article-button:hover svg {
+    fill: #eeeeee;
+    transition: 0s;
 }
 
 .article-content h1 {

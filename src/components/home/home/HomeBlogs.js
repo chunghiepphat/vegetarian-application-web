@@ -40,7 +40,9 @@ const HomeBlogs = () => {
                                   subtitle={blog.blog_subtitle}
                                   thumbnail={blog.blog_thumbnail}
                                   firstName={blog.first_name}
-                                  lastName={blog.last_name}/>
+                                  lastName={blog.last_name}
+                                  time={blog.time}
+                                  totalLike={blog.totalLike}/>
                         ))
                         :
                         <PanelLoader/>

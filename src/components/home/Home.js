@@ -5,6 +5,7 @@ import HomeRecipes from "./home/HomeRecipes";
 import HomeSidebar from "./HomeSidebar";
 import HomeBlogs from "./home/HomeBlogs";
 import {Link} from "react-router-dom";
+import HomeVideos from "./home/HomeVideos";
 
 const Home = () => {
     return (
@@ -21,6 +22,8 @@ const Home = () => {
                             <Link className="button-link" to="/post/recipe">Have a recipe? Share with us!</Link>
                         </div>
                     </section>
+                    {/*Video showcase*/}
+                    <HomeVideos/>
                     {/*Story feed*/}
                     <HomeBlogs/>
                 </main>

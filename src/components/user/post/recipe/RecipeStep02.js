@@ -1,78 +1,55 @@
-import React, {useState} from "react";
-import {Link, useHistory} from "react-router-dom";
-
+import React, {useRef, useState} from "react";
+import {useHistory} from "react-router-dom";
 
 const RecipeStep02 = (props) => {
     const history = useHistory();
-    const [ingredient, setIngredient] = useState({ingredient_name: "", amount_in_mg: "0"});
+    const [image, setImage] = useState();
+    const inputRef = useRef();
 
-    const handleChange = (field) => (event) => {
-        setIngredient({...ingredient, [field]: event.target.value});
-    }
-    const addIngredient = (event) => {
-        event.preventDefault();
-        props.setIngredients(props.ingredients.concat(ingredient));
-        setIngredient({ingredient_name: "", amount_in_mg: "0"});
+    const uploadImage = () => {
+        // const api = "https://api.imgur.com/3/image/{{imageHash}}";
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", "Client-ID fb0b6f593b4a084");
+
+        const formData = new FormData();
+        formData.append("image", image);
+
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formData,
+            redirect: 'follow'
+        };
+
+        fetch("https://api.imgur.com/3/image", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result.data))
+            .catch(error => console.log('error', error));
+        console.log(props.thumbnail)
     }
 
     const nextStep = () => {
-        history.push("/post/recipe/instructions");
+        history.push("/post/recipe/images");
     }
 
     return (
-        <main>
-            <section>
-                <header className="section-header">
-                    <h1>Step 2 - Add your ingredients</h1>
-                    <em>Add some ingredients and their estimated amounts. Concise and precise ingredient names help us
-                        estimate the nutritional values for your recipe better.</em>
-                </header>
-                <div className="section-content">
-                    <form className="form-full" onSubmit={addIngredient}>
-                        <h1>Name an ingredient and its amount (in grams)</h1>
-                        <div className="flex-horizontal">
-                            <input aria-label="Ingredient" type="text" value={ingredient.ingredient_name}
-                                   onChange={handleChange("ingredient_name")}
-                                   placeholder="e.g: lettuce, tomato, basil,..." required/>
-                            <input aria-label="Amount" type="number" value={ingredient.amount_in_mg}
-                                   onChange={handleChange("amount_in_mg")}/>
-                        </div>
-                        <button type="submit">Add ingredient</button>
-                    </form>
-                </div>
-            </section>
-            <section>
-                <header className="section-header">
-                    <h1>Your ingredients</h1>
-                </header>
-                <div className="section-content">
-                    <form className="form-full" onSubmit={nextStep}>
-                        {props.ingredients.length > 0 ?
-                            <>
-                                <ul className="ingredient-list">
-                                    {props.ingredients.map(ingredient => (
-                                        <li className="flex-horizontal" key={ingredient.ingredient_name}>
-                                            <input aria-label="Ingredient" type="text"
-                                                   value={ingredient.ingredient_name}
-                                                   onChange={handleChange("name")}
-                                                   placeholder="e.g: lettuce, tomato, basil,..." disabled required/>
-                                            <input aria-label="Amount" type="number" value={ingredient.amount_in_mg}
-                                                   onChange={handleChange("amount")} disabled/>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <button type="submit">Next step</button>
-                            </>
-                            :
-                            <>
-                                <em>Add something to proceed with your recipe...</em>
-                                <button type="submit" disabled>Next step</button>
-                            </>
-                        }
-                    </form>
-                </div>
-            </section>
-        </main>
+        <section>
+            <header className="section-header">
+                <h1>Step 1 - Getting started</h1>
+                <em>Share with us some details about your new exciting recipe.</em>
+            </header>
+            <div className="section-content">
+                <form className="form-full" onSubmit={nextStep}>
+                    <h1>Add a picture</h1>
+                    <input aria-label="Recipe-thumbnail" type="file"
+                           onChange={() => (inputRef.current.files[0])}
+                           ref={inputRef}/>
+                    <input aria-label="Resting time" type="number" min={0} value={props.restingTime}
+                           onChange={e => props.setRestingTime(e.target.value)}/>
+                    <button type="submit">Next step</button>
+                </form>
+            </div>
+        </section>
     )
 }
 

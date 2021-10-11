@@ -24,7 +24,7 @@ const Post = () => {
                         </Navbar>
                     </section>
                     <Switch>
-                        <Route exact path={urlRecipe}><PostRecipe/></Route>
+                        <Route path={urlRecipe}><PostRecipe/></Route>
                         <Route exact path={urlVideo}><PostVideo/></Route>
                         <Route exact path={urlBlog}><PostBlog/></Route>
                     </Switch>

@@ -4,13 +4,12 @@ import 'react-quill/dist/quill.snow.css';
 import Navbar from "../../commons/elements/bars/Navbar";
 import {NavLink, Redirect, Route, Switch, useHistory} from "react-router-dom";
 import RecipeStep01 from "./recipe/RecipeStep01";
-import RecipeStep02 from "./recipe/RecipeStep02";
-import RecipeStep03 from "./recipe/RecipeStep03";
-import RecipeStep04 from "./recipe/RecipeStep04";
-import {UserContext} from "../../../context/UserContext";
+import RecipeStep02 from "./recipe/RecipeStep03";
+import RecipeStep03 from "./recipe/RecipeStep04";
 import {apiPattern} from "../../../helpers/Helpers";
+import {UserContext} from "../../../context/UserContext";
 
-const PostRecipe = () => {
+const EditRecipe = () => {
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const api = `${apiPattern}/recipes/add`;
@@ -35,7 +34,6 @@ const PostRecipe = () => {
 
     const submitPost = async (e) => {
         e.preventDefault();
-
         // Generates request headers
         let headers = new Headers();
         headers.append("Authorization", `Bearer ${token.token}`);
@@ -84,7 +82,7 @@ const PostRecipe = () => {
             <Route exact path="/post/recipe/">
                 <RecipeStep01 title={title} setTitle={setTitle}
                               category={category} setCategory={setCategory}
-
+                              thumbnail={thumbnail} setThumbnail={setThumbnail}
                               difficulty={difficulty} setDifficulty={setDifficulty}
                               portionSize={portionSize} setPortionSize={setPortionSize}
                               portionType={portionType} setPortionType={setPortionType}
@@ -93,16 +91,12 @@ const PostRecipe = () => {
                               restingTime={restingTime} setRestingTime={setRestingTime}/>
             </Route>
             {/*Step 2*/}
-            <Route path="/post/recipe/images">
-                <RecipeStep02 thumbnail={thumbnail} setThumbnail={setThumbnail}/>
+            <Route exact path="/post/recipe/ingredients">
+                <RecipeStep02 ingredients={ingredients} setIngredients={setIngredients}/>
             </Route>
             {/*Step 3*/}
-            <Route path="/post/recipe/ingredients">
-                <RecipeStep03 ingredients={ingredients} setIngredients={setIngredients}/>
-            </Route>
-            {/*Step 4*/}
-            <Route path="/post/recipe/instructions">
-                <RecipeStep04 content={content} setContent={setContent}
+            <Route exact path="/post/recipe/instructions">
+                <RecipeStep03 content={content} setContent={setContent}
                               submitPost={submitPost}/>
             </Route>
             {/*404*/}
@@ -111,4 +105,4 @@ const PostRecipe = () => {
     )
 }
 
-export default PostRecipe;
+export default EditRecipe;

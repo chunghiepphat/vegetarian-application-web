@@ -123,6 +123,13 @@
 .card-full .card-title {
     font-size: 18px;
 }
+
+.card-timestamp {
+    color: gray;
+    font-size: 14px;
+    /*font-style: italic;*/
+}
+
 .card-author a {
     position: relative;
     z-index: 10;

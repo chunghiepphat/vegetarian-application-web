@@ -1,11 +1,10 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import Navbar from "../../commons/elements/bars/Navbar";
 import {NavLink, useHistory} from "react-router-dom";
 import ReactQuill from "react-quill";
-import {UserContext} from "../../../context/UserContext";
 
-const PostBlog = () => {
-    const user = useContext(UserContext);
+const EditBlog = () => {
+    const user = JSON.parse(localStorage.getItem("userInfo"));
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const api = `http://14.161.47.36:8080/hiepphat-0.0.1-SNAPSHOT/api/blogs/add`;
     const history = useHistory();
@@ -95,4 +94,4 @@ const PostBlog = () => {
     )
 }
 
-export default PostBlog;
+export default EditBlog;

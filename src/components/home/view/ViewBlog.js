@@ -3,8 +3,9 @@ import {useParams} from "react-router-dom";
 import {apiPattern} from "../../../helpers/Helpers";
 import BlogContent from "./blog/BlogContent";
 import BlogComments from "./blog/BlogComments";
-import BlogInfo from "./blog/BlogInfo";
+import BlogHeader from "./blog/BlogHeader";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
+import BlogToolbar from "./blog/BlogToolbar";
 
 const ViewRecipe = () => {
     let {id} = useParams();
@@ -28,7 +29,8 @@ const ViewRecipe = () => {
             {data ?
                 <div className="section-content">
                     <article>
-                        <BlogInfo data={data}/>
+                        <BlogHeader data={data}/>
+                        <BlogToolbar data={data}/>
                         <BlogContent data={data}/>
                         <BlogComments data={data}/>
                     </article>

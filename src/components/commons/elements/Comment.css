@@ -7,6 +7,13 @@
 
 }
 
+.comment-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .comment-author {
     display: flex;
     flex-direction: row;
@@ -23,6 +30,10 @@
 .comment-user {
     font-size: 18px;
     font-weight: 600;
+}
+
+.comment-timestamp {
+    font-style: italic;
 }
 
 .comment-content {

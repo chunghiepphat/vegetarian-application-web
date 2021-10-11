@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 
 
-const RecipeStep03 = (props) => {
+const RecipeStep02 = (props) => {
     const history = useHistory();
     const [ingredient, setIngredient] = useState({ingredient_name: "", amount_in_mg: "0"});
 
@@ -20,7 +20,7 @@ const RecipeStep03 = (props) => {
     }
 
     return (
-        <>
+        <main>
             <section>
                 <header className="section-header">
                     <h1>Step 2 - Add your ingredients</h1>
@@ -72,8 +72,8 @@ const RecipeStep03 = (props) => {
                     </form>
                 </div>
             </section>
-        </>
+        </main>
     )
 }
 
-export default RecipeStep03;
+export default RecipeStep02;
