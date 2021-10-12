@@ -13,7 +13,7 @@ const PostSidebar = () => {
             <section className="sidebar-widget">
                 <h1>Posting as {user.first_name} {user.last_name}</h1>
                 <Navbar>
-                    <NavLink to={`/${user.id}/profile`}><FaAngleRight/>Your profile</NavLink>
+                    <NavLink to={`/profile`}><FaAngleRight/>Your profile</NavLink>
                 </Navbar>
             </section>
         </Sidebar>

@@ -14,17 +14,18 @@ const DashboardProfile = () => {
                 <Link to="/update"><FaAngleRight/>Edit</Link>
             </header>
             <div className="section-content">
-                <h1>Contact info</h1>
-                <ul>
-                    <li><FaEnvelope/>{user.email} </li>
-                    <li><FaPhoneAlt/>{user.phone_number} </li>
-                    <li><FaHome/>{user.country} </li>
-                </ul>
-                <h1>Social media</h1>
-                <ul>
-                    <li><FaFacebook/>{user.facebook_link} </li>
-                    <li><FaInstagram/>{user.instagram_link} </li>
-                </ul>
+                <div className="flex-horizontal">
+                    <ul>
+                        <li><FaEnvelope/>{user.email} </li>
+                        <li><FaPhoneAlt/>{user.phone_number} </li>
+                        <li><FaHome/>{user.country} </li>
+                    </ul>
+                    <ul>
+                        <li><FaFacebook/>{user.facebook_link} </li>
+                        <li><FaInstagram/>{user.instagram_link} </li>
+                    </ul>
+                </div>
+
             </div>
         </section>
     )

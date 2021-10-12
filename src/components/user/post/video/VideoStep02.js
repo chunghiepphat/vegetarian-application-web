@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {cloudName, uploadPreset} from "../../../../helpers/Cloudinary";
 import {ButtonLoader, PanelLoader} from "../../../commons/elements/loaders/Loader";
 import {Link} from "react-router-dom";
+import {FaAngleLeft} from "react-icons/fa";
 
 const VideoStep02 = (props) => {
     const inputRef = useRef();
@@ -32,10 +33,10 @@ const VideoStep02 = (props) => {
     }, [props.link])
     return (
         <>
-
             <section>
                 <header className="section-header">
-                    <h1>Upload</h1>
+                    <Link to="/post/recipe/step-1"><FaAngleLeft/>Previous step</Link>
+                    <h1>Step 2 - Upload</h1>
                     <em>Pick a video to upload to our server and it's done!</em>
                 </header>
                 <div className="section-content">

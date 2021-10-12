@@ -53,6 +53,9 @@ a:hover {
     filter: brightness(200%);
 }
 
+a svg {
+    margin-right: 5px;
+}
 ul {
     list-style: none;
 }
@@ -247,7 +250,7 @@ aside > section {
     align-items: center;
 }
 
-.linked-header a svg {
+.linked-header a svg, .banner-container a svg {
     fill: darkslateblue;
 }
 

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import './App.css';
 import Header from "components/commons/elements/site/Header";
 import {Redirect, Route, Switch, useLocation} from "react-router-dom";
@@ -17,6 +17,7 @@ import Update from "./components/user/Update";
 import {apiBase} from "./helpers/Helpers";
 import jwtDecode from "jwt-decode";
 import {UserContext} from "./context/UserContext";
+import Favorites from "./components/user/Favorites";
 
 export default function App() {
     let location = useLocation();
@@ -55,6 +56,7 @@ export default function App() {
                     <Route path="/browse" component={Browse}/>
                     {/*User module*/}
                     {user && <Route path="/profile" component={Dashboard}/>}
+                    {user && <Route path="/favorites" component={Favorites}/>}
                     {user && <Route path="/history" component={History}/>}
                     {user && <Route path="/update" component={Update}/>}
                     {user && <Route path="/post" component={Post}/>}

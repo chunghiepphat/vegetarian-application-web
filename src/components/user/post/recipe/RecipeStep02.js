@@ -2,33 +2,35 @@ import React, {useRef, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import {clientId} from "../../../../helpers/Imgur";
 import {FaAngleLeft} from "react-icons/fa";
+import {cloudName, uploadPreset} from "../../../../helpers/Cloudinary";
 
 const RecipeStep02 = (props) => {
     const history = useHistory();
     const inputRef = useRef();
     const [file, setFile] = useState();
 
-    const uploadImage = (e) => {
+    const uploadFile = (e) => {
         e.preventDefault();
-        const headers = new Headers();
-        headers.append("Authorization", `Client-ID ${clientId}`);
-
         const formData = new FormData();
-        formData.append("image", file);
+        formData.append("file", file);
+        formData.append("upload_preset", uploadPreset);
 
         const request = {
             method: 'POST',
-            headers: headers,
             body: formData,
             redirect: 'follow'
         };
 
-        fetch("https://api.imgur.com/3/image", request)
-            .then(response => response.text())
-            .then(result => JSON.parse(result))
-            .then(json => props.setThumbnail(json.data.link))
+        fetch(`https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`, request)
+            .then(response => response.json())
+            .then(result => props.setThumbnail(result.secure_url))
             .catch(error => console.log('error', error));
     }
+
+    const clearInput = () => {
+        props.setThumbnail();
+    }
+
     const nextStep = () => {
         history.push("/post/recipe/step-3");
     }
@@ -37,14 +39,12 @@ const RecipeStep02 = (props) => {
         <>
             <section>
                 <header className="section-header">
-                    <div className="linked-header">
-                        <h1>Step 2 - Add some images</h1>
-                        <Link to="/post/recipe/step-1"><FaAngleLeft/>Previous step</Link>
-                    </div>
+                    <Link to="/post/recipe/step-1"><FaAngleLeft/>Previous step</Link>
+                    <h1>Step 2 - Add some images</h1>
                     <em>Add some pictures to show everyone what your delightful dish would look like.</em>
                 </header>
                 <div className="section-content">
-                    <form className="form-full" onSubmit={uploadImage}>
+                    <form className="form-full" onSubmit={uploadFile}>
                         <h1>Recipe thumbnail</h1>
                         <input aria-label="Recipe thumbnail" type="file"
                                onChange={() => (setFile(inputRef.current.files[0]))}
@@ -65,6 +65,7 @@ const RecipeStep02 = (props) => {
                                     <source srcSet={props.thumbnail}/>
                                     <img src="" alt=""/>
                                 </picture>
+                                <button className="button-cancel" onClick={clearInput}>Clear</button>
                                 <button type="submit">Next step</button>
                             </>
                             :

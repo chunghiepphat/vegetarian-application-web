@@ -12,7 +12,6 @@ const Dashboard = () => {
             <DashboardBanner/>
             <div className="grid-container">
                 <main>
-                    <DashboardProfile/>
                     <DashboardRecipes/>
                     <DashboardBlogs/>
                 </main>

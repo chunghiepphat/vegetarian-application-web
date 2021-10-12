@@ -11,7 +11,8 @@ const DashboardSidebar = () => {
                 <h1>Overview</h1>
                 <Navbar>
                     <NavLink to="/profile"><FaAngleRight/>Your profile</NavLink>
-                    <NavLink to="/history"><FaAngleRight/>Activity history</NavLink>
+                    <NavLink to="/favorites"><FaAngleRight/>Your favorites</NavLink>
+                    <NavLink to="/history"><FaAngleRight/>Your posts</NavLink>
                 </Navbar>
             </section>
             <section className="sidebar-widget">

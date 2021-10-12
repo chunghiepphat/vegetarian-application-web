@@ -1,14 +1,19 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useRef, useState} from "react";
 import {useHistory} from "react-router-dom";
 import ReactQuill from "react-quill";
 import {UserContext} from "../../../context/UserContext";
 import {apiBase} from "../../../helpers/Helpers";
+import {clientId} from "../../../helpers/Imgur";
+import {cloudName, uploadPreset} from "../../../helpers/Cloudinary";
 
 const PostBlog = () => {
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const api = `${apiBase}/blogs/add`;
     const history = useHistory();
+
+    const inputRef = useRef();
+    const [file, setFile] = useState();
 
     const [title, setTitle] = useState();
     const [subtitle, setSubtitle] = useState();
@@ -29,6 +34,24 @@ const PostBlog = () => {
     const handleQuill = (value) => {
         setContent(value);
         console.log(content);
+    }
+
+    const uploadFile = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", uploadPreset);
+
+        const request = {
+            method: 'POST',
+            body: formData,
+            redirect: 'follow'
+        };
+
+        fetch(`https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`, request)
+            .then(response => response.json())
+            .then(result => setThumbnail(result.secure_url))
+            .catch(error => console.log('error', error));
     }
 
     const submitPost = async (e) => {
@@ -76,6 +99,23 @@ const PostBlog = () => {
                 <em>Please keep content relevant to our site, which is about vegetarian food, recipes and
                     lifestyle.</em>
             </header>
+            {/*Image upload form*/}
+            <div className="section-content">
+
+                <form className="form-full" onSubmit={uploadFile}>
+                    <h1>Thumbnail (optional)</h1>
+                    {thumbnail &&
+                    <picture className="preview-thumbnail">
+                        <source srcSet={thumbnail}/>
+                        <img src="" alt=""/>
+                    </picture>}
+                    <input aria-label="Recipe thumbnail" type="file"
+                           onChange={() => (setFile(inputRef.current.files[0]))}
+                           ref={inputRef}/>
+                    <button type="submit">Upload</button>
+                </form>
+            </div>
+            {/*Text input form*/}
             <div className="section-content">
                 <form className="form-full" onSubmit={submitPost}>
                     <input aria-label="Blog title" type="text" value={title}

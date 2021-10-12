@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {renderToStaticMarkup} from "react-dom/server";
+import {FaAngleLeft} from "react-icons/fa";
+import {Link} from "react-router-dom";
 
 const RecipeStep04 = (props) => {
     const [steps, setSteps] = useState([]);
@@ -42,6 +44,7 @@ const RecipeStep04 = (props) => {
         <>
             <section>
                 <header className="section-header">
+                    <Link to="/post/recipe/step-3"><FaAngleLeft/>Previous step</Link>
                     <h1>Step 4 - Add your step-by-step instructions</h1>
                     <em>Almost there! Share with us the secrets to this recipe and you're done!</em>
                 </header>

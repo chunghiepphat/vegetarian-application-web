@@ -15,7 +15,7 @@ const VideoStep01 = (props) => {
         <>
             <section>
                 <header className="section-header">
-                    <h1>Getting started</h1>
+                    <h1>Step 1 - Getting started</h1>
                     <em>Prefer a more visual approach over walls of text? Share your how-to videos instead!</em>
                 </header>
                 <div className="section-content">

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import "./Home.css";
 import SearchSidebar from "./SearchSidebar";
-import SearchResult from "./search/SearchResult";
 import {apiBase} from "../../helpers/Helpers";
 import {NavLink, Route, Switch, useLocation} from "react-router-dom";
 import Navbar from "../commons/elements/bars/Navbar";

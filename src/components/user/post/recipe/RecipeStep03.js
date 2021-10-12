@@ -24,10 +24,8 @@ const RecipeStep03 = (props) => {
         <>
             <section>
                 <header className="section-header">
-                    <div className="linked-header">
-                        <h1>Step 3 - Add your ingredients</h1>
-                        <Link to="/post/recipe/step-2"><FaAngleLeft/>Previous step</Link>
-                    </div>
+                    <Link to="/post/recipe/step-2"><FaAngleLeft/>Previous step</Link>
+                    <h1>Step 3 - Add your ingredients</h1>
                     <em>Add some ingredients and their estimated amounts. Concise and precise ingredient names help us
                         estimate the nutritional values for your recipe better.</em>
                 </header>
