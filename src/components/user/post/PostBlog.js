@@ -1,13 +1,13 @@
 import React, {useContext, useState} from "react";
-import Navbar from "../../commons/elements/bars/Navbar";
-import {NavLink, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import ReactQuill from "react-quill";
 import {UserContext} from "../../../context/UserContext";
+import {apiBase} from "../../../helpers/Helpers";
 
 const PostBlog = () => {
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `http://14.161.47.36:8080/hiepphat-0.0.1-SNAPSHOT/api/blogs/add`;
+    const api = `${apiBase}/blogs/add`;
     const history = useHistory();
 
     const [title, setTitle] = useState();
@@ -15,6 +15,7 @@ const PostBlog = () => {
     const [thumbnail, setThumbnail] = useState("");
     const [content, setContent] = useState("");
 
+    // Quill JS toolbar config
     const modules = {
         toolbar: [
             [{'header': [1, 2, 3, false]}],

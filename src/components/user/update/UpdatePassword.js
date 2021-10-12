@@ -1,12 +1,12 @@
 import React, {useContext, useState} from "react";
-import {apiPattern} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Helpers";
 import {UserContext} from "../../../context/UserContext";
 
 const UpdatePassword = () => {
     // Authentication and API stuff
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `${apiPattern}/user/update/password/${user.id}`;
+    const api = `${apiBase}/user/update/password/${user.id}`;
 
     // Initializes parameters
     const [oldPassword, setOldPassword] = useState();

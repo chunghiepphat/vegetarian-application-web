@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 
 const RecipeStep03 = (props) => {
@@ -16,14 +16,14 @@ const RecipeStep03 = (props) => {
     }
 
     const nextStep = () => {
-        history.push("/post/recipe/instructions");
+        history.push("/post/recipe/step-4");
     }
 
     return (
         <>
             <section>
                 <header className="section-header">
-                    <h1>Step 2 - Add your ingredients</h1>
+                    <h1>Step 3 - Add your ingredients</h1>
                     <em>Add some ingredients and their estimated amounts. Concise and precise ingredient names help us
                         estimate the nutritional values for your recipe better.</em>
                 </header>

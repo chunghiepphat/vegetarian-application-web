@@ -2,12 +2,12 @@ import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {FaAngleRight} from "react-icons/fa";
 import Card from "../../commons/elements/containers/Card";
-import {apiPattern} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 
 const HomeBlogs = () => {
-    const api = `${apiPattern}/blogs/get10blogs`;
+    const api = `${apiBase}/blogs/get10blogs`;
     const [data, setData] = useState([]);
 
     // Executes fetch once on page load

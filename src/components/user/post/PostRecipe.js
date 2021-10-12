@@ -1,19 +1,17 @@
 import React, {useContext, useState} from "react";
-import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import Navbar from "../../commons/elements/bars/Navbar";
-import {NavLink, Redirect, Route, Switch, useHistory} from "react-router-dom";
+import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 import RecipeStep01 from "./recipe/RecipeStep01";
 import RecipeStep02 from "./recipe/RecipeStep02";
 import RecipeStep03 from "./recipe/RecipeStep03";
 import RecipeStep04 from "./recipe/RecipeStep04";
 import {UserContext} from "../../../context/UserContext";
-import {apiPattern} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Helpers";
 
 const PostRecipe = () => {
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `${apiPattern}/recipes/add`;
+    const api = `${apiBase}/recipes/add`;
     const history = useHistory();
 
     // Step 1 parameters
@@ -82,6 +80,9 @@ const PostRecipe = () => {
         <Switch>
             {/*Step 1*/}
             <Route exact path="/post/recipe/">
+                <Redirect to="/post/recipe/step-1"/>
+            </Route>
+            <Route path="/post/recipe/step-1">
                 <RecipeStep01 title={title} setTitle={setTitle}
                               category={category} setCategory={setCategory}
 
@@ -93,15 +94,15 @@ const PostRecipe = () => {
                               restingTime={restingTime} setRestingTime={setRestingTime}/>
             </Route>
             {/*Step 2*/}
-            <Route path="/post/recipe/images">
+            <Route path="/post/recipe/step-2">
                 <RecipeStep02 thumbnail={thumbnail} setThumbnail={setThumbnail}/>
             </Route>
             {/*Step 3*/}
-            <Route path="/post/recipe/ingredients">
+            <Route path="/post/recipe/step-3">
                 <RecipeStep03 ingredients={ingredients} setIngredients={setIngredients}/>
             </Route>
             {/*Step 4*/}
-            <Route path="/post/recipe/instructions">
+            <Route path="/post/recipe/step-4">
                 <RecipeStep04 content={content} setContent={setContent}
                               submitPost={submitPost}/>
             </Route>

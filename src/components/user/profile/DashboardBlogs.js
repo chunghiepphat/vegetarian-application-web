@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {FaAngleRight} from "react-icons/fa";
 import Card from "../../commons/elements/containers/Card";
-import {apiPattern} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {UserContext} from "../../../context/UserContext";
@@ -12,7 +12,7 @@ const DashboardBlogs = () => {
     const user = useContext(UserContext);
 
     // Fetches data on page load
-    const api = `${apiPattern}/blogs/get10blogbyuser/${user.id}`;
+    const api = `${apiBase}/blogs/get10blogbyuser/${user.id}`;
     const [data, setData] = useState([]);
     useEffect(() => {
         const fetchData = async () => {

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {apiPattern} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Helpers";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 
 const HomeBanner = () => {
-    const api = `${apiPattern}/recipes/get5bestrecipes`;
+    const api = `${apiBase}/recipes/get5bestrecipes`;
     const [data, setData] = useState();
 
     // Executes fetch once on page load

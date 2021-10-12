@@ -1,34 +1,48 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {renderToStaticMarkup} from "react-dom/server";
 
 const RecipeStep04 = (props) => {
     const [steps, setSteps] = useState([]);
     const [step, setStep] = useState([]);
-    const [stepCount, setStepCount] = useState(1);
+    const [stepCount, setStepCount] = useState(0);
     const [stepBody, setStepBody] = useState();
     let count = stepCount;
 
-    // TODO: Try switching to handling the render with an array
-    //  then use Array.reduce to deal with this bullshit.
+    // 1. Submit the form and increase the step counter
     const addStep = (event) => {
         event.preventDefault();
         count++;
         setStepCount(count);
-        setStep(
-            <>
-                <h2>Step {stepCount}</h2>
-                <p>{stepBody}</p>
-            </>
-        )
-        setSteps(steps.concat(step));
     }
-    props.setContent(renderToStaticMarkup(steps));
+
+    // 2. Whenever the step counter changes and is not 0, define a new step with user input
+    useEffect(() => {
+        if (stepCount > 0) {
+            setStep(
+                <>
+                    <h2>Step {stepCount}</h2>
+                    <p>{stepBody}</p>
+                </>
+            )
+        }
+        setStepBody();
+    }, [stepCount])
+
+    // 3. Whenever a new step is defined, add it to the steps array
+    useEffect(() => {
+        setSteps(steps.concat(step));
+    }, [step])
+
+    // 4. Whenever the steps array is updated, convert it into HTML and set it as recipe content
+    useEffect(() => {
+        props.setContent(renderToStaticMarkup(steps));
+    }, [steps])
 
     return (
         <>
             <section>
                 <header className="section-header">
-                    <h1>Step 3 - Add your step-by-step instructions</h1>
+                    <h1>Step 4 - Add your step-by-step instructions</h1>
                     <em>Almost there! Share with us the secrets to this recipe and you're done!</em>
                 </header>
                 <div className="section-content">

@@ -1,13 +1,12 @@
 import React, {useContext, useEffect, useState} from "react";
 import {UserContext} from "../../../context/UserContext";
-import {apiPattern} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Helpers";
 import Card from "../../commons/elements/containers/Card";
-import {SectionLoader} from "../../commons/elements/loaders/Loader";
 
 const HistoryFavorites = () => {
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `${apiPattern}/user/${user.id}/liked`;
+    const api = `${apiBase}/user/${user.id}/liked`;
     const [recipes, setRecipes] = useState([]);
     const [blogs, setBlogs] = useState([]);
     const [favorites, setFavorites] = useState([]);

@@ -1,11 +1,13 @@
-import React, {useRef, useState} from "react";
+import React from "react";
 import {useHistory} from "react-router-dom";
 
 const RecipeStep01 = (props) => {
     const history = useHistory();
-
+    const capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     const nextStep = () => {
-        history.push("/post/recipe/images");
+        history.push("/post/recipe/step-2");
     }
 
     return (
@@ -17,10 +19,11 @@ const RecipeStep01 = (props) => {
             <div className="section-content">
                 <form className="form-full" onSubmit={nextStep}>
                     {/*Recipe name*/}
-                    <h1>Name your recipe</h1>
+                    <h1>Name your recipe (*)</h1>
                     <input aria-label="Recipe title" type="text" value={props.title}
-                           onChange={e => props.setTitle(e.target.value)}
+                           onChange={e => props.setTitle(capitalizeFirstLetter(e.target.value))}
                            placeholder="What would you call this dish?" required/>
+                    {/*Recipe type*/}
                     <h1>Recipe type</h1>
                     <select aria-label="Recipe type" value={props.category}
                             onChange={e => props.setCategory(e.target.value)}>

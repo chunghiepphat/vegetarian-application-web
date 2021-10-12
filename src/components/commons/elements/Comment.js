@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import "./Comment.css";
 import placeholderAvatar from "../../../assets/user-image-default.png";
-import {apiPattern} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Helpers";
 import Avatar from "./Avatar";
 import {UserContext} from "../../../context/UserContext";
 import {RiDeleteBin4Line, RiEditLine} from "react-icons/all";
@@ -13,7 +13,7 @@ const Comment = ({userId, commentId, content, time}) => {
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const [author, setAuthor] = useState();
-    const apiDelete = `${apiPattern}/user/deleteComment/${commentId}/recipe`;
+    const apiDelete = `${apiBase}/user/deleteComment/${commentId}/recipe`;
 
     // Generates request headers
     let headers = new Headers();
@@ -42,7 +42,7 @@ const Comment = ({userId, commentId, content, time}) => {
     }
 
     useEffect(() => {
-        const api = `${apiPattern}/user/${userId}`
+        const api = `${apiBase}/user/${userId}`
         const fetchData = async () => {
             const response = await fetch(api);
             const result = await response.json();

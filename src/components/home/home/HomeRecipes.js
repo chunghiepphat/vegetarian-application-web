@@ -1,13 +1,13 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
 import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
-import {apiPattern} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
 import Tile from "../../commons/elements/containers/Tile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 
 const HomeRecipes = () => {
-    const api = `${apiPattern}/recipes/get10recipes`;
+    const api = `${apiBase}/recipes/get10recipes`;
     const [data, setData] = useState([]);
 
     // Executes fetch once on page load

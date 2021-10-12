@@ -1,18 +1,18 @@
 import React, {useContext, useEffect, useState} from "react";
-import {apiPattern} from "../../../../helpers/Helpers";
+import {apiBase} from "../../../../helpers/Helpers";
 import {UserContext} from "../../../../context/UserContext";
 import Comment from "../../../commons/elements/Comment";
 
 const BlogComments = ({data}) => {
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `${apiPattern}/blogs/${data.blog_id}/comments`;
+    const api = `${apiBase}/blogs/${data.blog_id}/comments`;
     const [comment, setComment] = useState();
     const [comments, setComments] = useState([]);
 
     const submitComment = async (e) => {
         e.preventDefault();
-        const url = `${apiPattern}/user/commentblog`;
+        const url = `${apiBase}/user/commentblog`;
         // Generates request headers
         let headers = new Headers();
         headers.append("Authorization", `Bearer ${token.token}`);

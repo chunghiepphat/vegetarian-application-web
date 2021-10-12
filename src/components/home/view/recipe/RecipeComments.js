@@ -1,18 +1,18 @@
 import React, {useContext, useEffect, useState} from "react";
 import Comment from "../../../commons/elements/Comment";
 import {UserContext} from "../../../../context/UserContext";
-import {apiPattern} from "../../../../helpers/Helpers";
+import {apiBase} from "../../../../helpers/Helpers";
 
 const RecipeComments = ({data}) => {
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `${apiPattern}/recipes/${data.recipe_id}/comments`;
+    const api = `${apiBase}/recipes/${data.recipe_id}/comments`;
     const [comment, setComment] = useState();
     const [comments, setComments] = useState([]);
 
     const submitComment = async (e) => {
         e.preventDefault();
-        const url = `${apiPattern}/user/commentrecipe`;
+        const url = `${apiBase}/user/commentrecipe`;
         // Generates request headers
         let headers = new Headers();
         headers.append("Authorization", `Bearer ${token.token}`);

@@ -1,6 +1,5 @@
 import React from "react";
 import "./Dashboard.css";
-import {Redirect, Route, Switch} from "react-router-dom";
 import DashboardProfile from "./profile/DashboardProfile";
 import DashboardRecipes from "./profile/DashboardRecipes";
 import DashboardBlogs from "./profile/DashboardBlogs";

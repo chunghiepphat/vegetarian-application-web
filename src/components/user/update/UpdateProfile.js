@@ -1,6 +1,5 @@
 import React, {useContext, useState} from "react";
-import {apiPattern} from "../../../helpers/Helpers";
-import {useHistory} from "react-router-dom";
+import {apiBase} from "../../../helpers/Helpers";
 import CountrySelect from "../../commons/elements/CountrySelect";
 import {UserContext} from "../../../context/UserContext";
 
@@ -8,7 +7,7 @@ const UpdateProfile = () => {
     // Authentication and API stuff
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `${apiPattern}/user/update/details/${user.id}`;
+    const api = `${apiBase}/user/update/details/${user.id}`;
 
     // Initializes parameters
     const [firstName, setFirstName] = useState(user.first_name);

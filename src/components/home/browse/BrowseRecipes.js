@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import Card from "../../commons/elements/containers/Card";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
-import {apiPattern} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Helpers";
 
 const BrowseRecipes = () => {
-    const api = `${apiPattern}/recipes/getall?page=1&limit=100`;
+    const api = `${apiBase}/recipes/getall?page=1&limit=100`;
     const [data, setData] = useState([]);
 
     // Executes fetch once on page load

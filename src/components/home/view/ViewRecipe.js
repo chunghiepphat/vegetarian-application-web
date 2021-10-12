@@ -5,7 +5,7 @@ import RecipeSteps from "./recipe/RecipeSteps";
 import RecipeComments from "./recipe/RecipeComments";
 import RecipeNutrients from "./recipe/RecipeNutrients";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
-import {apiPattern} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Helpers";
 import RecipeHeader from "./recipe/RecipeHeader";
 import RecipeIngredients from "./recipe/RecipeIngredients";
 import RecipeOverview from "./recipe/RecipeOverview";
@@ -13,7 +13,7 @@ import RecipeToolbar from "./recipe/RecipeToolbar";
 
 const ViewRecipe = () => {
     let {id} = useParams();
-    const api = `${apiPattern}/recipes/getrecipeby/${id}`;
+    const api = `${apiBase}/recipes/getrecipeby/${id}`;
     const [data, setData] = useState();
 
     // Executes fetch once on page load

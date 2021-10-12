@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import "./Home.css";
 import SearchSidebar from "./SearchSidebar";
 import SearchResult from "./search/SearchResult";
-import {apiPattern} from "../../helpers/Helpers";
+import {apiBase} from "../../helpers/Helpers";
 import {NavLink, Route, Switch, useLocation} from "react-router-dom";
 import Navbar from "../commons/elements/bars/Navbar";
 import ResultRecipes from "./search/result/ResultRecipes";
@@ -17,9 +17,9 @@ const Search = () => {
     console.log(location.search)
     // Executes fetch once on page load
     useEffect(() => {
-        const api = `${apiPattern}/home/find${location.search}`;
+        const api = `${apiBase}/home/find${location.search}`;
         const fetchData = async () => {
-            const response = await fetch(`${apiPattern}/home/find${location.search}`);
+            const response = await fetch(`${apiBase}/home/find${location.search}`);
             const result = await response.json();
             setRecipe(result.listRecipe);
             setBlog(result.listBlog);

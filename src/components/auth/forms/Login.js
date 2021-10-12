@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import {apiBase} from "../../../helpers/Helpers";
 
 const Login = () => {
-    const api = "http://14.161.47.36:8080/hiepphat-0.0.1-SNAPSHOT/api/user/signin";
+    const api = `${apiBase}/user/signin`;
     const history = useHistory();
 
     // Initializes parameters

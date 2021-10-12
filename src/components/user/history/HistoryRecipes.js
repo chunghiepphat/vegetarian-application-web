@@ -1,12 +1,12 @@
 import React, {useContext, useEffect, useState} from "react";
-import {apiPattern} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Helpers";
 import Card from "../../commons/elements/containers/Card";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
 import {UserContext} from "../../../context/UserContext";
 
 const HistoryRecipes = () => {
     const user = useContext(UserContext);
-    const api = `${apiPattern}/recipes/getallbyuserID/${user.id}?page=1&limit=100`;
+    const api = `${apiBase}/recipes/getallbyuserID/${user.id}?page=1&limit=100`;
     const [data, setData] = useState([]);
 
     // Executes fetch once on page load

@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
 import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
-import {apiPattern} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import Tile from "../../commons/elements/containers/Tile";
@@ -12,7 +12,7 @@ const DashboardRecipes = () => {
     let user = useContext(UserContext);
 
     // Fetches data on page load
-    const api = `${apiPattern}/recipes/get10recipebyuser/${user.id}`;
+    const api = `${apiBase}/recipes/get10recipebyuser/${user.id}`;
     const [data, setData] = useState([]);
     useEffect(() => {
         const fetchData = async () => {

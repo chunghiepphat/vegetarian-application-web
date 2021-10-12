@@ -6,13 +6,13 @@ import {NavLink, Redirect, Route, Switch, useHistory} from "react-router-dom";
 import RecipeStep01 from "./recipe/RecipeStep01";
 import RecipeStep02 from "./recipe/RecipeStep03";
 import RecipeStep03 from "./recipe/RecipeStep04";
-import {apiPattern} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Helpers";
 import {UserContext} from "../../../context/UserContext";
 
 const EditRecipe = () => {
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `${apiPattern}/recipes/add`;
+    const api = `${apiBase}/recipes/add`;
     const history = useHistory();
 
     // Step 1 parameters

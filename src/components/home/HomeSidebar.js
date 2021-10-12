@@ -4,12 +4,12 @@ import {FaAngleRight} from "react-icons/fa";
 import Sidebar from "../commons/elements/Sidebar";
 import Navbar from "../commons/elements/bars/Navbar";
 import Card from "../commons/elements/containers/Card";
-import {apiPattern} from "../../helpers/Helpers";
+import {apiBase} from "../../helpers/Helpers";
 import Panel from "../commons/elements/containers/Panel";
 import {PanelLoader} from "../commons/elements/loaders/Loader";
 
 const HomeSidebar = () => {
-    const api = `${apiPattern}/blogs/get5bestblog`;
+    const api = `${apiBase}/blogs/get5bestblog`;
     const [data, setData] = useState([]);
 
     // Executes fetch once on page load

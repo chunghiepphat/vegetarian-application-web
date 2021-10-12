@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {apiPattern} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Helpers";
 import BlogContent from "./blog/BlogContent";
 import BlogComments from "./blog/BlogComments";
 import BlogHeader from "./blog/BlogHeader";
@@ -9,7 +9,7 @@ import BlogToolbar from "./blog/BlogToolbar";
 
 const ViewRecipe = () => {
     let {id} = useParams();
-    const api = `${apiPattern}/blogs/getblogby/${id}`;
+    const api = `${apiBase}/blogs/getblogby/${id}`;
     const [data, setData] = useState();
 
     // Executes fetch once on page load

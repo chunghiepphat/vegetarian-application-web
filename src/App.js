@@ -14,7 +14,7 @@ import Post from "./components/user/Post";
 import Search from "./components/home/Search";
 import History from "./components/user/History";
 import Update from "./components/user/Update";
-import {apiPattern} from "./helpers/Helpers";
+import {apiBase} from "./helpers/Helpers";
 import jwtDecode from "jwt-decode";
 import {UserContext} from "./context/UserContext";
 
@@ -25,7 +25,7 @@ export default function App() {
     useEffect(() => {
         if (accessToken !== null) {
             const decodedToken = jwtDecode(accessToken);
-            const api = `${apiPattern}/user/${decodedToken.id}`
+            const api = `${apiBase}/user/${decodedToken.id}`
             const fetchData = async () => {
                 const response = await fetch(api);
                 const result = await response.json();

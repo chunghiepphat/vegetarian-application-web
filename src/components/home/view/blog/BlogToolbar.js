@@ -1,15 +1,15 @@
 import React, {useContext} from "react";
 import {FaHeart, FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
 import {UserContext} from "../../../../context/UserContext";
-import {apiPattern} from "../../../../helpers/Helpers";
+import {apiBase} from "../../../../helpers/Helpers";
 import {useHistory} from "react-router-dom";
 
 const BlogToolbar = ({data}) => {
     const history = useHistory();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const apiDelete = `${apiPattern}/blogs/delete/${data.blog_id}`;
-    const apiLike = `${apiPattern}/blogs/like`;
+    const apiDelete = `${apiBase}/blogs/delete/${data.blog_id}`;
+    const apiLike = `${apiBase}/blogs/like`;
 
     // Generates request headers
     let headers = new Headers();

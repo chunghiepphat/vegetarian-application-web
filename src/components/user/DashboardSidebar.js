@@ -5,9 +5,6 @@ import {FaAngleRight} from "react-icons/fa";
 import Sidebar from "../commons/elements/Sidebar";
 
 const DashboardSidebar = () => {
-    // Gets user info
-    let user = JSON.parse(localStorage.getItem("userInfo"));
-
     return (
         <Sidebar>
             <section className="sidebar-widget">
