@@ -1,6 +1,7 @@
 import React, {useRef, useState} from "react";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {clientId} from "../../../../helpers/Imgur";
+import {FaAngleLeft} from "react-icons/fa";
 
 const RecipeStep02 = (props) => {
     const history = useHistory();
@@ -36,7 +37,10 @@ const RecipeStep02 = (props) => {
         <>
             <section>
                 <header className="section-header">
-                    <h1>Step 2 - Add some images</h1>
+                    <div className="linked-header">
+                        <h1>Step 2 - Add some images</h1>
+                        <Link to="/post/recipe/step-1"><FaAngleLeft/>Previous step</Link>
+                    </div>
                     <em>Add some pictures to show everyone what your delightful dish would look like.</em>
                 </header>
                 <div className="section-content">

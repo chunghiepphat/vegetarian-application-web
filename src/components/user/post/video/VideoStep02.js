@@ -1,73 +1,73 @@
 import React, {useEffect, useRef, useState} from "react";
-import {SectionLoader} from "../../../commons/elements/loaders/Loader";
-// Upload video to api.video
+import {cloudName, uploadPreset} from "../../../../helpers/Cloudinary";
+import {ButtonLoader, PanelLoader} from "../../../commons/elements/loaders/Loader";
+import {Link} from "react-router-dom";
+
 const VideoStep02 = (props) => {
     const inputRef = useRef();
     const [file, setFile] = useState();
+    const [uploading, setUploading] = useState(false);
 
-    const uploadVideo = (e) => {
+    const uploadFile = (e) => {
         e.preventDefault();
-
+        setUploading(true);
         const formData = new FormData();
         formData.append("file", file);
+        formData.append("upload_preset", uploadPreset);
 
         const request = {
             method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: `${props.tokenType} ${props.accessToken}`
-            },
-            body: formData
+            body: formData,
+            redirect: 'follow'
         };
 
-        fetch(`https://ws.api.video/videos/${props.videoId}/source`, request)
+        fetch(`https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`, request)
             .then(response => response.json())
-            .then(result => console.log(result))
+            .then(result => props.setLink(result.secure_url))
             .catch(error => console.log('error', error));
     }
 
-    // Refresh api.video accessToken
     useEffect(() => {
-        const request = {
-            method: 'POST',
-            headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
-            body: JSON.stringify({refreshToken: props.refreshToken})
-        };
-
-        fetch('https://ws.api.video/auth/refresh', request)
-            .then(response => response.json())
-            .then(result => {
-                props.setTokenType(result.token_type);
-                props.setAccessToken(result.access_token);
-                props.setRefreshToken(result.refresh_token);
-            })
-            .catch(err => console.error(err));
-    }, [])
-
-    useEffect(() => {
-        console.log(file);
-    }, [file])
+        console.log(props.link);
+    }, [props.link])
     return (
         <>
-            {props.videoId ?
-                <section>
-                    <header className="section-header">
-                        <h1>Upload</h1>
-                        <em>Prefer a more visual approach over walls of text? Upload your how-to video instead!</em>
-                    </header>
-                    <div className="section-content">
-                        <form className="form-full" onSubmit={uploadVideo}>
-                            <h1>Video</h1>
-                            <input aria-label="Video file" type="file"
-                                   onChange={() => (setFile(inputRef.current.files[0]))}
-                                   ref={inputRef}/>
-                            <button type="submit">Upload</button>
+
+            <section>
+                <header className="section-header">
+                    <h1>Upload</h1>
+                    <em>Pick a video to upload to our server and it's done!</em>
+                </header>
+                <div className="section-content">
+                    {props.link ?
+                        <form className="form-full" onSubmit={props.submitPost}>
+                            <h1>Preview</h1>
+                            <a href={props.link} target="_blank" rel="noopener noreferrer">Link to your video.</a>
+                            <button type="submit">Finish</button>
                         </form>
-                    </div>
-                </section>
-                :
-                <SectionLoader/>}
+                        :
+                        <form className="form-full" onSubmit={uploadFile}>
+                            <h1>Video</h1>
+                            {/*Check whether the form is uploading a video*/}
+                            {uploading ?
+                                <>
+                                    <input aria-label="Video file" type="file"
+                                           onChange={() => (setFile(inputRef.current.files[0]))}
+                                           ref={inputRef} disabled/>
+                                    <button type="submit" disabled>Uploading...</button>
+                                </>
+
+                                :
+                                <>
+                                    <input aria-label="Video file" type="file"
+                                           onChange={() => (setFile(inputRef.current.files[0]))}
+                                           ref={inputRef}/>
+                                    <button type="submit">Upload</button>
+                                </>
+                            }
+                        </form>}
+                </div>
+            </section>
         </>
     )
 }

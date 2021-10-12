@@ -24,3 +24,11 @@ export const ArticleLoader = () => {
         </div>
     )
 }
+
+export const ButtonLoader = () => {
+    return (
+        <div className="loader-wrapper button-loader">
+            <div className="loader">Loading...</div>
+        </div>
+    )
+}

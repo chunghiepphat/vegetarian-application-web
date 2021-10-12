@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 import {UserContext} from "../../../context/UserContext";
 import {apiBase} from "../../../helpers/Helpers";
-import {apiKey} from "../../../helpers/ApiVideo";
+import {apiKey} from "../../../helpers/Cloudinary";
 import VideoStep01 from "./video/VideoStep01";
 import VideoStep02 from "./video/VideoStep02";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
@@ -14,15 +14,8 @@ const PostVideo = () => {
     const history = useHistory();
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
-    // const [category, setCategory] = useState("1");
+    const [category, setCategory] = useState("1");
     const [link, setLink] = useState();
-
-    // For api.video authentication and keys
-    const [tokenType, setTokenType] = useState();
-    const [accessToken, setAccessToken] = useState();
-    const [refreshToken, setRefreshToken] = useState();
-    const [videoId, setVideoId] = useState();
-
 
     const submitPost = async (e) => {
         e.preventDefault();
@@ -37,7 +30,8 @@ const PostVideo = () => {
         let body = JSON.stringify({
             "user_id": user.id,
             "video_title": title,
-            "video_description": "1",
+            "video_category_id": "1",
+            "video_description": description,
             "video_link": link,
         });
 
@@ -61,54 +55,25 @@ const PostVideo = () => {
         }
     }
 
-    // Authenticate with api.video on page load and get its access token
-    useEffect(() => {
-        const request = {
-            method: 'POST',
-            headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
-            body: JSON.stringify({apiKey: apiKey})
-        };
-
-        fetch('https://sandbox.api.video/auth/api-key', request)
-            .then(response => response.json())
-            .then(result => {
-                setTokenType(result.token_type);
-                setAccessToken(result.access_token);
-                setRefreshToken(result.refresh_token);
-            })
-            .catch(err => console.error(err));
-    }, [])
-
     return (
         <>
-            {refreshToken ?
-                <Switch>
-                    {/*Step 1*/}
-                    <Route exact path="/post/video/">
-                        <Redirect to="/post/video/step-1"/>
-                    </Route>
-                    <Route path="/post/video/step-1">
-                        <VideoStep01 tokenType={tokenType} setTokenType={setTokenType}
-                                     accessToken={accessToken} setAccessToken={setAccessToken}
-                                     refreshToken={refreshToken} setRefreshToken={setRefreshToken}
-                                     title={title} setTitle={setTitle}
-                                     description={description} setDescription={setDescription}
-                                     setVideoId={setVideoId}/>
-                    </Route>
-                    {/*Step 2*/}
-                    <Route path="/post/video/step-2">
-                        <VideoStep02 tokenType={tokenType} setTokenType={setTokenType}
-                                     accessToken={accessToken} setAccessToken={setAccessToken}
-                                     refreshToken={refreshToken} setRefreshToken={setRefreshToken}
-                                     link={link} setLink={setLink}
-                                     videoId={videoId}/>
-                    </Route>
-                    {/*Not found*/}
-                    <Route><Redirect to="/not-found"/></Route>
-                </Switch>
-                :
-                <SectionLoader/>
-            }
+            <Switch>
+                {/*Step 1*/}
+                <Route exact path="/post/video/">
+                    <Redirect to="/post/video/step-1"/>
+                </Route>
+                <Route path="/post/video/step-1">
+                    <VideoStep01 title={title} setTitle={setTitle}
+                                 description={description} setDescription={setDescription}/>
+                </Route>
+                {/*Step 2*/}
+                <Route path="/post/video/step-2">
+                    <VideoStep02 link={link} setLink={setLink}
+                                 submitPost={submitPost}/>
+                </Route>
+                {/*Not found*/}
+                <Route><Redirect to="/not-found"/></Route>
+            </Switch>
         </>
 
     )

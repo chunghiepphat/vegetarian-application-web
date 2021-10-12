@@ -41,6 +41,9 @@ p {
 }
 
 a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     color: darkslateblue;
     font-weight: 600;
     text-decoration: none;
@@ -168,7 +171,6 @@ figure img {
 }
 
 svg {
-    vertical-align: middle;
     width: 22px;
 }
 
@@ -243,6 +245,10 @@ aside > section {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+.linked-header a svg {
+    fill: darkslateblue;
 }
 
 .section-content {

@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import {FaAngleLeft} from "react-icons/fa";
 
 
 const RecipeStep03 = (props) => {
@@ -23,7 +24,10 @@ const RecipeStep03 = (props) => {
         <>
             <section>
                 <header className="section-header">
-                    <h1>Step 3 - Add your ingredients</h1>
+                    <div className="linked-header">
+                        <h1>Step 3 - Add your ingredients</h1>
+                        <Link to="/post/recipe/step-2"><FaAngleLeft/>Previous step</Link>
+                    </div>
                     <em>Add some ingredients and their estimated amounts. Concise and precise ingredient names help us
                         estimate the nutritional values for your recipe better.</em>
                 </header>
@@ -55,9 +59,9 @@ const RecipeStep03 = (props) => {
                                             <input aria-label="Ingredient" type="text"
                                                    value={ingredient.ingredient_name}
                                                    onChange={handleChange("name")}
-                                                   placeholder="e.g: lettuce, tomato, basil,..." disabled required/>
+                                                   placeholder="e.g: lettuce, tomato, basil,..." required/>
                                             <input aria-label="Amount" type="number" value={ingredient.amount_in_mg}
-                                                   onChange={handleChange("amount")} disabled/>
+                                                   onChange={handleChange("amount")}/>
                                         </li>
                                     ))}
                                 </ul>
