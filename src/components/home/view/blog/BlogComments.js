@@ -66,9 +66,10 @@ const BlogComments = ({data}) => {
             </form>
             {comments.length > 0 && comments.map(comment => (
                 <Comment userId={comment.user_id}
-                         commentId={comment.comment_id}
+                         commentId={comment.id}
                          content={comment.content}
-                         time={comment.time}/>
+                         time={comment.time}
+                         articleType="blog"/>
             ))}
         </section>
     )

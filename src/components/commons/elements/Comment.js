@@ -8,32 +8,37 @@ import {RiDeleteBin4Line, RiEditLine} from "react-icons/all";
 import {useHistory} from "react-router-dom";
 import moment from "moment";
 
-const Comment = ({userId, commentId, content, time}) => {
+const Comment = ({userId, commentId, content, time, articleType}) => {
     const history = useHistory();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const [author, setAuthor] = useState();
-    const apiDelete = `${apiBase}/user/deleteComment/${commentId}/recipe`;
-
-    // Generates request headers
-    let headers = new Headers();
-    headers.append("Authorization", `Bearer ${token.token}`);
-    headers.append("Content-Type", "application/json");
-    headers.append("Accept", "application/json");
+    const apiDelete = `${apiBase}/user/deleteComment/${commentId}/${articleType}`;
 
     const deleteComment = async (e) => {
         e.preventDefault();
+        // Generates request headers
+        let headers = new Headers();
+        headers.append("Authorization", `Bearer ${token.token}`);
+        headers.append("Content-Type", "application/json");
+        headers.append("Accept", "application/json");
+
+        let body = JSON.stringify({
+            "user_id": userId,
+        });
+
         // Generates request
         let request = {
             method: 'DELETE',
             headers: headers,
+            body: body
         };
 
         // Executes fetch
         const response = await fetch(apiDelete, request);
         if (response.ok) {
             alert("Your comment has been deleted.");
-            history.push("/home");
+            window.location.reload();
         } else if (response.status === 401) {
             alert("You are not authorized to complete the request.")
         } else {
@@ -66,18 +71,17 @@ const Comment = ({userId, commentId, content, time}) => {
                 <div className="comment-timestamp">
                     {moment(time).format("lll")}
                 </div>
-                {/*{user && user.id === userId &&*/}
-                {/*<>*/}
-                {/*    <button className="article-button">*/}
-                {/*        <RiEditLine/>*/}
-                {/*    </button>*/}
-                {/*    <button className="article-button" onClick={deleteComment}>*/}
-                {/*        <RiDeleteBin4Line/>*/}
-                {/*    </button>*/}
-                {/*</>*/}
-                {/*}*/}
             </div>
             <div className="comment-content">{content}</div>
+            {user && user.id === userId &&
+            <div className="comment-toolbar">
+                <button className="comment-button">
+                    <RiEditLine/>
+                </button>
+                <button className="comment-button" onClick={deleteComment}>
+                    <RiDeleteBin4Line/>
+                </button>
+            </div>}
         </div>
     )
 }
