@@ -51,6 +51,7 @@ const HomeSidebar = () => {
             </section>
             <section className="sidebar-widget">
                 <h1>Popular stories</h1>
+                {data &&
                 <Panel>
                     {data.length ?
                         data.map(blog => (
@@ -68,7 +69,7 @@ const HomeSidebar = () => {
                         :
                         <PanelLoader/>
                     }
-                </Panel>
+                </Panel>}
             </section>
         </Sidebar>
     )

@@ -34,6 +34,7 @@ const HomeRecipes = () => {
                 <h1>Our community's latest recipes</h1>
                 <Link to="/browse/recipes"><FaAngleRight/>See more</Link>
             </header>
+            {data &&
             <Panel>
                 {data.length > 0 ?
                     <>{/*Scroll buttons*/}
@@ -63,7 +64,7 @@ const HomeRecipes = () => {
                     :
                     <PanelLoader/>
                 }
-            </Panel>
+            </Panel>}
         </section>
     )
 }

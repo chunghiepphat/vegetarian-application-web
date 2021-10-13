@@ -30,6 +30,7 @@ const HomeBlogs = () => {
                 <Link to="/browse/blogs"><FaAngleRight/>See more</Link>
             </header>
             <div className="section-content">
+                {data &&
                 <Panel>
                     {data.length > 0 ? data.map(blog => (
                             <Card className="card-full"
@@ -47,7 +48,7 @@ const HomeBlogs = () => {
                         :
                         <PanelLoader/>
                     }
-                </Panel>
+                </Panel>}
             </div>
         </section>
     )

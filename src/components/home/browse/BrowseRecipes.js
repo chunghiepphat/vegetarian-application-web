@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Card from "../../commons/elements/containers/Card";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
 import {apiBase} from "../../../helpers/Helpers";
+import Panel from "../../commons/elements/containers/Panel";
 
 const BrowseRecipes = () => {
     const api = `${apiBase}/recipes/getall?page=1&limit=100`;
@@ -25,7 +26,8 @@ const BrowseRecipes = () => {
                 <h1>Recipes</h1>
                 <i>Vegetarian doesn't have to mean salads. Explore new and absolutely delicious recipes from
                     our community.</i>
-                <div className="panel">
+                {data &&
+                <Panel>
                     {/*Iterates over the result JSON and renders a matching amount of card items*/}
                     {data.length > 0 ?
                         data.map(recipe => (
@@ -42,7 +44,7 @@ const BrowseRecipes = () => {
                         :
                         <SectionLoader/>
                     }
-                </div>
+                </Panel>}
             </div>
         </section>
     )

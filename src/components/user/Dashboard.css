@@ -73,6 +73,10 @@ label span {
     object-fit: cover;
 }
 
+.banner-content li {
+    padding: 2px 0;
+}
+
 .profile-info {
     display: flex;
     flex-direction: column;

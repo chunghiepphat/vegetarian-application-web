@@ -1,10 +1,10 @@
 import React from "react";
 import "./Dashboard.css";
-import DashboardProfile from "./profile/DashboardProfile";
-import DashboardRecipes from "./profile/DashboardRecipes";
-import DashboardBlogs from "./profile/DashboardBlogs";
+import DashboardProfile from "./dashboard/DashboardProfile";
+import DashboardRecipes from "./dashboard/DashboardRecipes";
+import DashboardBlogs from "./dashboard/DashboardBlogs";
 import DashboardSidebar from "./DashboardSidebar";
-import DashboardBanner from "./profile/DashboardBanner";
+import DashboardBanner from "./dashboard/DashboardBanner";
 
 const Dashboard = () => {
     return (
