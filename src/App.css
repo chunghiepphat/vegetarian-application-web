@@ -53,9 +53,6 @@ a:hover {
     filter: brightness(200%);
 }
 
-a svg {
-    margin-right: 5px;
-}
 ul {
     list-style: none;
 }

@@ -13,7 +13,9 @@ const BlogToolbar = ({data}) => {
 
     // Generates request headers
     let headers = new Headers();
-    headers.append("Authorization", `Bearer ${token.token}`);
+    if (token !== null) {
+        headers.append("Authorization", `Bearer ${token.token}`);
+    }
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
 
