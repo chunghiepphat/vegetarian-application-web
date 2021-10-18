@@ -14,7 +14,13 @@ const RecipeHeader = ({data}) => {
                     </div>
                 </div>
                 <div className="article-timestamp">
-                    {moment(data.time_created).format("lll")}
+                    <span>
+                        {moment(data.time_created).format("lll")}
+                    </span>
+                    {data.time_updated &&
+                    <span>
+                        (edited {moment(data.time_updated).format("lll")})
+                    </span>}
                 </div>
             </div>
         </section>

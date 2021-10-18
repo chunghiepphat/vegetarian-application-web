@@ -63,13 +63,17 @@ const RecipeComments = ({data}) => {
                        onChange={e => setComment(e.target.value)}
                        placeholder="Share your thoughts about this recipe..." required/>
             </form>
-            {comments.length > 0 && comments.map(comment => (
-                <Comment userId={comment.user_id}
-                         commentId={comment.id}
-                         content={comment.content}
-                         time={comment.time}
-                         articleType="recipe"/>
-            ))}
+            {comments.length > 0 ?
+                comments.map(comment => (
+                    <Comment userId={comment.user_id}
+                             commentId={comment.id}
+                             content={comment.content}
+                             time={comment.time}
+                             articleType="recipe"/>
+                ))
+                :
+                <em>Be the first to comment on this recipe!</em>
+            }
         </section>
     )
 }

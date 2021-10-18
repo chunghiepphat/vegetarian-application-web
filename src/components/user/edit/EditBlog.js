@@ -1,14 +1,12 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import BlogHeader from "../../home/view/blog/BlogHeader";
 import EditSubtitle from "./blog/EditSubtitle";
 import EditContent from "./blog/EditContent";
-import {UserContext} from "../../../context/UserContext";
 import {apiBase} from "../../../helpers/Helpers";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import Form from "../../commons/elements/form/Form";
 
 const EditBlog = ({id, data}) => {
-    const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const history = useHistory();
 
@@ -54,6 +52,11 @@ const EditBlog = ({id, data}) => {
         }
     }
 
+    const cancelUpdate = () => {
+        history.push(`/view/blog/${id}`);
+        window.location.reload();
+    }
+
     return (
         <div className="section-content">
             {/*Recipe article container*/}
@@ -61,8 +64,10 @@ const EditBlog = ({id, data}) => {
                 {/*Recipe title*/}
                 <BlogHeader data={data}/>
                 <Form onSubmit={updatePost}>
+                    <Link onClick={cancelUpdate}>Go back</Link>
                     <EditSubtitle subtitle={subtitle} setSubtitle={setSubtitle}/>
                     <EditContent content={content} setContent={setContent}/>
+                    <button className="button-cancel" onClick={cancelUpdate}>Cancel</button>
                     <button type="submit">Finish</button>
                 </Form>
             </article>

@@ -56,9 +56,8 @@ const RecipeStep04 = (props) => {
                         {props.steps.length > 0 ?
                             <ul className="form-dynamic">
                                 {props.steps.map((item, index) => (
-
                                     <div key={index}>
-                                        <label htmlFor={`Step ${index}`}>Step {index}</label>
+                                        <label htmlFor={`Step ${index}`}>Step {index + 1}</label>
                                         <InputGroup>
                                         <textarea id={`Step ${index}`} name="step_content"
                                                   value={item.step_content}

@@ -35,20 +35,20 @@
 }
 
 .navbar a:hover, .toolbar div:hover {
-    color: #91972a;
-    background: rgba(145, 151, 42, 0.2);
+    color: #717744;
+    background: rgba(171, 172, 127, 0.4);
     filter: none;
 }
 
 .navbar a:hover svg {
-    fill: #91972a;
+    fill: #717744;
 }
 
 /*Highlights link if matches current page*/
 .navbar .active {
-    color: #91972a;
+    color: #717744;
     font-weight: 600;
-    border: rgba(145, 151, 42, 1);
+    border: #717744;
     border-top: solid transparent;
     border-bottom: solid;
     filter: none;
@@ -56,7 +56,7 @@
 }
 
 .navbar .active svg {
-    fill: #91972a;
+    fill: #717744;
 }
 
 /*Pictures inside links (like user profile images)*/

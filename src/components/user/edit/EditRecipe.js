@@ -1,16 +1,14 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import EditIngredients from "./recipe/EditIngredients";
-import {UserContext} from "../../../context/UserContext";
 import {apiBase} from "../../../helpers/Helpers";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import EditEstimations from "./recipe/EditEstimations";
 import RecipeHeader from "../../home/view/recipe/RecipeHeader";
 import EditSteps from "./recipe/EditSteps";
+import Form from "../../commons/elements/form/Form";
 
-const EditRecipe = ({data}) => {
-    const user = useContext(UserContext);
+const EditRecipe = ({id, data}) => {
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `${apiBase}/recipes/add`;
     const history = useHistory();
 
     const [difficulty, setDifficulty] = useState(data.recipe_difficulty);
@@ -22,22 +20,90 @@ const EditRecipe = ({data}) => {
 
     const [ingredients, setIngredients] = useState([].concat(data.ingredients));
 
+    const [steps, setSteps] = useState([].concat(data.steps));
+
+    const updatePost = async (e) => {
+        e.preventDefault();
+
+        // Generates request headers
+        let headers = new Headers();
+        headers.append("Authorization", `Bearer ${token.token}`);
+        headers.append("Content-Type", "application/json");
+        headers.append("Accept", "application/json");
+
+        // Generates request body
+        let body = JSON.stringify({
+            "recipe_categories_id": data.recipe_categories_id,
+            "recipe_thumbnail": data.recipe_thumbnail,
+            "recipe_difficulty": difficulty,
+            "portion_size": portionSize,
+            "portion_type": portionType,
+            "prep_time_minutes": prepTime,
+            "baking_time_minutes": bakingTime,
+            "resting_time_minutes": restingTime,
+            "ingredients": ingredients,
+            "steps": steps,
+        });
+
+        // Generates request
+        let request = {
+            method: 'PUT',
+            headers: headers,
+            body: body,
+        };
+
+        // Executes fetch
+        const api = `${apiBase}/recipes/edit/${id}`;
+        const response = await fetch(api, request);
+        if (response.ok) {
+            alert("Recipe updated successfully!");
+            history.push(`/view/recipe/${id}`);
+            window.location.reload();
+
+        } else if (response.status === 401) {
+            alert("You are not authorized to do that.")
+        } else {
+            alert("Unexpected error with code: " + response.status);
+        }
+    }
+
+    const cancelUpdate = () => {
+        history.push(`/view/recipe/${id}`);
+        window.location.reload();
+    }
+
     return (
-        <div className="section-content">
-            {/*Recipe article container*/}
-            <article>
-                {/*Recipe title*/}
-                <RecipeHeader data={data}/>
-                <EditEstimations difficulty={difficulty} setDifficulty={setDifficulty}
-                                 portionSize={portionSize} setPortionSize={setPortionSize}
-                                 portionType={portionType} setPortionType={setPortionType}
-                                 prepTime={prepTime} setPrepTime={setPrepTime}
-                                 bakingTime={bakingTime} setBakingTime={setBakingTime}
-                                 restingTime={restingTime} setRestingTime={setRestingTime}/>
-                <EditIngredients ingredients={ingredients} setIngredients={setIngredients}/>
-                <EditSteps/>
-            </article>
-        </div>
+        <>
+            {data.recipe_thumbnail &&
+            <picture className="article-thumbnail">
+                <source srcSet={data.recipe_thumbnail}/>
+                <img src="" alt=""/>
+            </picture>}
+            <div className="section-content">
+                {/*Recipe article container*/}
+                <article>
+                    {/*Recipe title*/}
+                    <RecipeHeader data={data}/>
+
+                    <Form onSubmit={updatePost}>
+                        <Link onClick={cancelUpdate}>Go back</Link>
+                        <EditEstimations data={data}
+                                         difficulty={difficulty} setDifficulty={setDifficulty}
+                                         portionSize={portionSize} setPortionSize={setPortionSize}
+                                         portionType={portionType} setPortionType={setPortionType}
+                                         prepTime={prepTime} setPrepTime={setPrepTime}
+                                         bakingTime={bakingTime} setBakingTime={setBakingTime}
+                                         restingTime={restingTime} setRestingTime={setRestingTime}/>
+                        <EditIngredients data={data}
+                                         ingredients={ingredients} setIngredients={setIngredients}/>
+                        <EditSteps data={data}
+                                   steps={steps} setSteps={setSteps}/>
+                        <button className="button-cancel" onClick={cancelUpdate}>Cancel</button>
+                        <button type="submit" className="button-submit">Finish</button>
+                    </Form>
+                </article>
+            </div>
+        </>
     )
 }
 export default EditRecipe;

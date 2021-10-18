@@ -5,7 +5,7 @@ import {apiBase} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
 
 const BrowseRecipes = () => {
-    const api = `${apiBase}/recipes/getall?page=1&limit=100`;
+    const api = `${apiBase}/recipes/getall?page=1&limit=300`;
     const [data, setData] = useState([]);
 
     // Executes fetch once on page load

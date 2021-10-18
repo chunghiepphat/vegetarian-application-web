@@ -38,7 +38,7 @@ const ViewRecipe = () => {
                 {/*Edit mode*/}
                 {user && data && user.id === data.user_id &&
                 <Route path={`/view/recipe/:id/edit`}>
-                    <EditRecipe data={data}/>
+                    <EditRecipe id={id} data={data}/>
                 </Route>}
                 {/*View mode*/}
                 <Route>
@@ -60,24 +60,21 @@ const ViewRecipe = () => {
                                     {/*Recipe estimates*/}
                                     <RecipeEstimations data={data}/>
                                     {/*Article tabs*/}
-                                    {data.recipe_content &&
                                     <section className="article-tabs">
                                         <Navbar>
                                             <NavLink to={`/view/recipe/${id}/steps`}>Steps</NavLink>
                                             <NavLink to={`/view/recipe/${id}/nutrients`}>Nutrients</NavLink>
                                             <NavLink to={`/view/recipe/${id}/comments`}>Comments</NavLink>
                                         </Navbar>
-                                    </section>}
+                                    </section>
                                     {/*Tab content*/}
                                     <Switch>
                                         <Route exact path="/view/recipe/:id/steps">
-                                            {data.recipe_content &&
-                                            <RecipeSteps recipe_content={data.recipe_content}/>}
+                                            <RecipeSteps steps={data.steps}/>
                                         </Route>
                                         <Route exact path="/view/recipe/:id/nutrients">
-                                            {data.nutrition &&
                                             <RecipeNutrients portion={data.portion_size}
-                                                             nutrients={data.nutrition}/>}
+                                                             nutrients={data.nutrition}/>
                                         </Route>
                                         <Route exact path="/view/recipe/:id/comments">
                                             <RecipeComments data={data}/>
@@ -85,7 +82,6 @@ const ViewRecipe = () => {
                                         <Route><Redirect to={`/view/recipe/${id}/steps`}/></Route>
                                     </Switch>
                                 </article>
-
                             </div>
                         </>
                         :

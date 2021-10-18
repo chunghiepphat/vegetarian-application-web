@@ -8,9 +8,9 @@ button, input, select, textarea {
 /*Buttons*/
 button, .button-link {
     height: 40px;
-    color: #656665;
+    color: #eeeeee;
     font-weight: 600;
-    background: #e6d3a3;
+    background: #656665;
     border: none;
     border-radius: 8px;
     box-shadow: 0 2px 4px #d0d0d0;
@@ -36,17 +36,17 @@ button:disabled:hover, .button-link:disabled:hover {
     justify-content: center;
     align-items: center;
     color: #eeeeee;
-    background: #91972a;
+    background: #717744;
 }
 
 .button-submit {
     color: #eeeeee;
-    background: #91972a;
+    background: #717744;
 }
 
 .button-cancel {
-    color: #eeeeee;
-    background: #dd7230;
+    color: #656665;
+    background: #e6d3a3;
 }
 
 /*Text fields and dropdowns*/
@@ -99,7 +99,7 @@ label {
     width: 96%;
     margin: 0 2%;
     padding: 20px 80px;
-    border: 1px none #91972a;
+    border: 1px none #717744;
     border-left-style: solid;
 }
 
@@ -131,7 +131,8 @@ label span {
 
 .radio-button input[type="radio"]:checked + .radio-label {
     color: #eeeeee;
-    background: #91972a;
+    background: #656665;
+    border-color: #656665;
 }
 
 /*Styling for radio buttons*/
@@ -141,7 +142,7 @@ label span {
     color: #5a5a5a;
     background-color: #f0f0f0;
     border: thin solid lightgray;
-    border-radius: 60px;
+    border-radius: 100px;
 }
 
 input[type="number"] {

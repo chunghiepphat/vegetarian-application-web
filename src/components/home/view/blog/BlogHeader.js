@@ -14,7 +14,13 @@ const BlogHeader = ({data}) => {
                     </div>
                 </div>
                 <div className="article-timestamp">
-                    {moment(data.time).format("lll")}
+                    <span>
+                        {moment(data.time).format("lll")}
+                    </span>
+                    {data.time_updated &&
+                    <span>
+                        (edited {moment(data.time_updated).format("lll")})
+                    </span>}
                 </div>
             </div>
             <p>{data.blog_subtitle}</p>
