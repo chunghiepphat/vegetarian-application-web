@@ -1,0 +1,177 @@
+/***Form elements styling***/
+button, input, select, textarea {
+    width: 100%;
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+/*Buttons*/
+button, .button-link {
+    height: 40px;
+    color: #656665;
+    font-weight: 600;
+    background: #e6d3a3;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px #d0d0d0;
+    cursor: pointer;
+}
+
+button:hover, .button-link:hover {
+    filter: brightness(1.1);
+}
+
+button:disabled, .button-link:disabled {
+    color: #656665;
+    background: #eeeeee;
+    border-color: #eeeeee;
+}
+
+button:disabled:hover, .button-link:disabled:hover {
+    filter: none;
+}
+
+.button-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #eeeeee;
+    background: #91972a;
+}
+
+.button-submit {
+    color: #eeeeee;
+    background: #91972a;
+}
+
+.button-cancel {
+    color: #eeeeee;
+    background: #dd7230;
+}
+
+/*Text fields and dropdowns*/
+input, select, textarea {
+    padding: 0 24px;
+    color: #040f0f;
+    background-color: #f2f4f3;
+    border: thin solid lightgray;
+    border-radius: 8px;
+}
+
+input, select {
+    height: 40px;
+}
+
+textarea {
+    min-height: 80px;
+    resize: none;
+}
+
+input:hover, select:hover, textarea:hover {
+    filter: brightness(102%);
+}
+
+input:focus, select:focus, textarea:focus {
+    background: white;
+    outline: none;
+}
+
+input:disabled, option:disabled, textarea:disabled {
+    font-style: italic;
+    color: rgba(71, 76, 89, 0.6);
+}
+
+
+label {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0 0 0;
+    color: #656665;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-items: center;
+    width: 96%;
+    margin: 0 2%;
+    padding: 20px 80px;
+    border: 1px none #91972a;
+    border-left-style: solid;
+}
+
+.form-container h1 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+}
+
+.form-container > * {
+    width: 100%
+}
+
+label span {
+    font-weight: bold;
+}
+
+.radio-button {
+    margin: 8px 8px 0 0;
+}
+
+.radio-button input[type="radio"] {
+    display: none;
+}
+
+.radio-button input[type="radio"]:checked {
+
+}
+
+.radio-button input[type="radio"]:checked + .radio-label {
+    color: #eeeeee;
+    background: #91972a;
+}
+
+/*Styling for radio buttons*/
+.radio-label {
+    padding: 8px 20px;
+    white-space: nowrap;
+    color: #5a5a5a;
+    background-color: #f0f0f0;
+    border: thin solid lightgray;
+    border-radius: 60px;
+}
+
+input[type="number"] {
+    width: 100px;
+    transition: fill .4s ease;;
+}
+
+/*Quill JS stuff*/
+.quill {
+    margin: 20px 0;
+}
+
+.ql-toolbar {
+    background-color: #f0f0f0;
+    border-color: lightgray !important;
+    border-radius: 4px 4px 0 0;
+}
+
+.ql-container {
+    height: 300px !important;
+    border-color: lightgray !important;
+    border-radius: 0 0 4px 4px;
+}
+
+.preview-thumbnail {
+
+}
+
+.preview-thumbnail img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}

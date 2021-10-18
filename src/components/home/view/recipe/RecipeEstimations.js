@@ -1,7 +1,7 @@
 import React from "react";
 import {FaClock, FaFire} from "react-icons/all";
 
-const RecipeOverview = ({data}) => {
+const RecipeEstimations = ({data}) => {
     return (
         <section className="article-list">
             <ul>
@@ -18,4 +18,4 @@ const RecipeOverview = ({data}) => {
     )
 }
 
-export default RecipeOverview;
+export default RecipeEstimations;

@@ -156,3 +156,8 @@ article > section {
     max-width: 100%;
     max-height: 400px;
 }
+
+article .form-container {
+    padding: 0;
+    border: none;
+}

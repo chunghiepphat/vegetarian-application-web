@@ -1,44 +1,47 @@
-import React, {useEffect, useState} from "react";
-import {renderToStaticMarkup} from "react-dom/server";
+import React, {useEffect} from "react";
 import {FaAngleLeft} from "react-icons/fa";
 import {Link} from "react-router-dom";
+import Form from "../../../commons/elements/form/Form";
+import {ImCross} from "react-icons/all";
+import InputGroup from "../../../commons/elements/form/InputGroup";
 
 const RecipeStep04 = (props) => {
-    const [steps, setSteps] = useState([]);
-    const [step, setStep] = useState([]);
-    const [stepCount, setStepCount] = useState(0);
-    const [stepBody, setStepBody] = useState();
-    let count = stepCount;
 
-    // 1. Submit the form and increase the step counter
-    const addStep = (event) => {
-        event.preventDefault();
-        count++;
-        setStepCount(count);
+    const handleAddField = (e) => {
+        e.preventDefault();
+        const step = {
+            step_content: "",
+        }
+        props.setSteps((prev) => [...prev, step]);
+    }
+    const handleRemoveField = (e, index) => {
+        e.preventDefault();
+        props.setSteps((prev) => prev.filter((item) => item !== prev[index]));
     }
 
-    // 2. Whenever the step counter changes and is not 0, define a new step with user input
-    useEffect(() => {
-        if (stepCount > 0) {
-            setStep(
-                <>
-                    <h2>Step {stepCount}</h2>
-                    <p>{stepBody}</p>
-                </>
-            )
-        }
-        setStepBody();
-    }, [stepCount])
+    const handleClear = (e) => {
+        e.preventDefault();
+        props.setSteps([]);
+    }
 
-    // 3. Whenever a new step is defined, add it to the steps array
-    useEffect(() => {
-        setSteps(steps.concat(step));
-    }, [step])
+    const handleChange = (e, index) => {
+        e.preventDefault();
+        e.persist();
+        props.setSteps((prev) => {
+            return prev.map((item, i) => {
+                if (i !== index) {
+                    return item;
+                }
+                return {
+                    ...item, [e.target.name]: e.target.value,
+                };
+            });
+        });
+    }
 
-    // 4. Whenever the steps array is updated, convert it into HTML and set it as recipe content
     useEffect(() => {
-        props.setContent(renderToStaticMarkup(steps));
-    }, [steps])
+        console.log(props.ingredients)
+    }, [props.ingredients])
 
     return (
         <>
@@ -49,36 +52,38 @@ const RecipeStep04 = (props) => {
                     <em>Almost there! Share with us the secrets to this recipe and you're done!</em>
                 </header>
                 <div className="section-content">
-                    <form className="form-full" onSubmit={addStep}>
-                        <h1>Add your instructions</h1>
-                        <textarea aria-label="Instruction" value={stepBody}
-                                  onChange={e => setStepBody(e.target.value)} required/>
-                        <button type="submit">Add step</button>
-                    </form>
-                </div>
-            </section>
-            <section>
-                <header className="section-header">
-                    <h1>Preview</h1>
-                </header>
-                <div className="section-content">
-                    <form className="form-full" onSubmit={props.submitPost}>
-                        {steps.length > 0 ?
-                            <>
-                                <ul className="ingredient-list">
-                                    {steps.map(step => (
-                                        <li>{step}</li>
-                                    ))}
-                                </ul>
-                                <button type="submit">Finish</button>
-                            </>
+                    <Form onSubmit={props.submitPost}>
+                        {props.steps.length > 0 ?
+                            <ul className="form-dynamic">
+                                {props.steps.map((item, index) => (
+
+                                    <div key={index}>
+                                        <label htmlFor={`Step ${index}`}>Step {index}</label>
+                                        <InputGroup>
+                                        <textarea id={`Step ${index}`} name="step_content"
+                                                  value={item.step_content}
+                                                  onChange={(e) => handleChange(e, index)}
+                                                  placeholder="What to do?" required/>
+                                            <button className="button-remove"
+                                                    onClick={(e) => handleRemoveField(e, index)}>
+                                                <ImCross/>
+                                            </button>
+                                        </InputGroup>
+                                    </div>
+                                ))}
+                            </ul>
                             :
-                            <>
-                                <em>Add some instructions to complete your recipe!</em>
-                                <button type="submit" disabled>Finish</button>
-                            </>
+                            <em>Add some ingredients to your recipe...</em>}
+                        <div className="input-group">
+                            <button onClick={handleAddField}>Add a step</button>
+                            <button className="button-cancel" onClick={handleClear}>Clear</button>
+                        </div>
+                        {props.steps.length > 0 ?
+                            <button type="submit" className="button-submit">Finish</button>
+                            :
+                            <button disabled>Finish</button>
                         }
-                    </form>
+                    </Form>
                 </div>
             </section>
         </>

@@ -42,7 +42,7 @@
 .tile-thumbnail {
     width: 100%;
     height: 100%;
-    background: rgba(116, 162, 53, 0.4);
+    background: #e6d3a3;
 }
 
 .tile-thumbnail img {

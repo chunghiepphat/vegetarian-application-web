@@ -62,7 +62,7 @@ const UpdateProfile = () => {
                 <h1>Profile details</h1>
             </header>
             <div className="section-content">
-                <form className="form-full" onSubmit={editProfile}>
+                <form className="form-container" onSubmit={editProfile}>
                     {/*Name*/}
                     <label>
                         <span>Name</span>

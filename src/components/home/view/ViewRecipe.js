@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {NavLink, Redirect, Route, Switch, useParams} from "react-router-dom";
 import Navbar from "../../commons/elements/bars/Navbar";
 import RecipeSteps from "./recipe/RecipeSteps";
@@ -8,11 +8,15 @@ import {SectionLoader} from "../../commons/elements/loaders/Loader";
 import {apiBase} from "../../../helpers/Helpers";
 import RecipeHeader from "./recipe/RecipeHeader";
 import RecipeIngredients from "./recipe/RecipeIngredients";
-import RecipeOverview from "./recipe/RecipeOverview";
+import RecipeEstimations from "./recipe/RecipeEstimations";
 import RecipeToolbar from "./recipe/RecipeToolbar";
+import EditIngredients from "../../user/edit/recipe/EditIngredients";
+import EditRecipe from "../../user/edit/EditRecipe";
+import {UserContext} from "../../../context/UserContext";
 
 const ViewRecipe = () => {
     let {id} = useParams();
+    const user = useContext(UserContext);
     const api = `${apiBase}/recipes/getrecipeby/${id}`;
     const [data, setData] = useState();
 
@@ -30,53 +34,72 @@ const ViewRecipe = () => {
 
     return (
         <section>
-            {data ?
-                <>
-                    {data.recipe_thumbnail &&
-                    <picture className="article-thumbnail">
-                        <source srcSet={data.recipe_thumbnail}/>
-                        <img src="" alt=""/>
-                    </picture>}
-                    <div className="section-content">
-                        {/*Recipe article container*/}
-                        <article>
-                            {/*Recipe title*/}
-                            <RecipeHeader data={data}/>
-                            <RecipeToolbar data={data}/>
-                            {/*Recipe portion and ingredient list*/}
-                            <RecipeIngredients data={data}/>
-                            {/*Recipe estimates*/}
-                            <RecipeOverview data={data}/>
-                            {/*Article tabs*/}
-                            {data.recipe_content &&
-                            <section className="article-tabs">
-                                <Navbar>
-                                    <NavLink to={`/view/recipe/${id}/steps`}>Steps</NavLink>
-                                    <NavLink to={`/view/recipe/${id}/nutrients`}>Nutrients</NavLink>
-                                    <NavLink to={`/view/recipe/${id}/comments`}>Comments</NavLink>
-                                </Navbar>
-                            </section>}
-                            {/*Tab content*/}
-                            <Switch>
-                                <Route exact path="/view/recipe/:id/steps">
-                                    {data.recipe_content &&
-                                    <RecipeSteps recipe_content={data.recipe_content}/>}
-                                </Route>
-                                <Route exact path="/view/recipe/:id/nutrients">
-                                    {data.nutrition &&
-                                    <RecipeNutrients portion={data.portion_size} nutrients={data.nutrition}/>}
-                                </Route>
-                                <Route exact path="/view/recipe/:id/comments">
-                                    <RecipeComments data={data}/>
-                                </Route>
-                                <Route><Redirect to={`/view/recipe/${id}/steps`}/></Route>
-                            </Switch>
-                        </article>
-                    </div>
-                </>
-                :
-                <SectionLoader/>
-            }
+            <Route path={`/view/recipe/${id}`}>
+                <Switch>
+                    {/*Edit mode*/}
+                    {user && data && user.id === data.user_id &&
+                    <Route path={`/view/recipe/:id/edit`}>
+                        <EditRecipe data={data}/>
+                    </Route>}
+                    {/*View mode*/}
+                    <Route>
+                        {data ?
+                            <>
+                                {data.recipe_thumbnail &&
+                                <picture className="article-thumbnail">
+                                    <source srcSet={data.recipe_thumbnail}/>
+                                    <img src="" alt=""/>
+                                </picture>}
+                                <div className="section-content">
+                                    {/*Recipe article container*/}
+                                    <article>
+                                        {/*Recipe title*/}
+                                        <RecipeHeader data={data}/>
+                                        <RecipeToolbar id={id} data={data}/>
+                                        {/*Recipe portion and ingredient list*/}
+                                        <RecipeIngredients data={data}/>
+                                        {/*Recipe estimates*/}
+                                        <RecipeEstimations data={data}/>
+                                        {/*Article tabs*/}
+                                        {data.recipe_content &&
+                                        <section className="article-tabs">
+                                            <Navbar>
+                                                <NavLink to={`/view/recipe/${id}/steps`}>Steps</NavLink>
+                                                <NavLink to={`/view/recipe/${id}/nutrients`}>Nutrients</NavLink>
+                                                <NavLink to={`/view/recipe/${id}/comments`}>Comments</NavLink>
+                                            </Navbar>
+                                        </section>}
+                                        {/*Tab content*/}
+                                        <Switch>
+                                            <Route exact path="/view/recipe/:id/steps">
+                                                {data.recipe_content &&
+                                                <RecipeSteps recipe_content={data.recipe_content}/>}
+                                            </Route>
+                                            <Route exact path="/view/recipe/:id/nutrients">
+                                                {data.nutrition &&
+                                                <RecipeNutrients portion={data.portion_size}
+                                                                 nutrients={data.nutrition}/>}
+                                            </Route>
+                                            <Route exact path="/view/recipe/:id/comments">
+                                                <RecipeComments data={data}/>
+                                            </Route>
+                                            <Route><Redirect to={`/view/recipe/${id}/steps`}/></Route>
+                                        </Switch>
+                                    </article>
+
+                                </div>
+                            </>
+                            :
+                            <SectionLoader/>
+                        }
+                    </Route>
+                </Switch>
+            </Route>
+
+            {/*Catch urls*/}
+            {/*<Route>*/}
+            {/*    <Redirect to={`/view/recipe/${id}`}/>*/}
+            {/*</Route>*/}
         </section>
     )
 }

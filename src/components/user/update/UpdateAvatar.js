@@ -79,7 +79,7 @@ const UpdateAvatar = () => {
                 <h1>Profile picture</h1>
             </header>
             <div className="section-content">
-                <form className="form-full" onSubmit={uploadFile}>
+                <form className="form-container" onSubmit={uploadFile}>
                     {/*Dashboard picture*/}
                     <label>
                         <span>Profile image</span>

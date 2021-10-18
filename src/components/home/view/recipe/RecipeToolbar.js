@@ -2,14 +2,12 @@ import React, {useContext} from "react";
 import {FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
 import {UserContext} from "../../../../context/UserContext";
 import {apiBase} from "../../../../helpers/Helpers";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory, useParams} from "react-router-dom";
 
-const RecipeToolbar = ({data}) => {
+const RecipeToolbar = ({id, data}) => {
     const history = useHistory();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const apiDelete = `${apiBase}/recipes/delete/${data.recipe_id}`;
-    const apiLike = `${apiBase}/recipes/like`;
 
     // Generates request headers
     let headers = new Headers();
@@ -19,7 +17,7 @@ const RecipeToolbar = ({data}) => {
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
 
-    const likeArticle = async (e) => {
+    const favoriteArticle = async (e) => {
         e.preventDefault();
         // Generates request body
         let body = JSON.stringify({
@@ -35,7 +33,8 @@ const RecipeToolbar = ({data}) => {
         };
 
         // Executes fetch
-        const response = await fetch(apiLike, request);
+        const api = `${apiBase}/recipes/like`;
+        const response = await fetch(api, request);
         if (response.ok) {
             alert("Added to favorites.");
             window.location.reload();
@@ -44,6 +43,10 @@ const RecipeToolbar = ({data}) => {
         } else {
             alert("Error: " + response.status);
         }
+    }
+
+    const editArticle = () => {
+        history.push(`/view/recipe/${id}/edit`)
     }
 
     const deleteArticle = async (e) => {
@@ -55,7 +58,8 @@ const RecipeToolbar = ({data}) => {
         };
 
         // Executes fetch
-        const response = await fetch(apiDelete, request);
+        const api = `${apiBase} / recipes / delete /${data.recipe_id}`;
+        const response = await fetch(api, request);
         if (response.ok) {
             alert("Your recipe has been deleted.");
             history.push("/home");
@@ -67,13 +71,12 @@ const RecipeToolbar = ({data}) => {
     }
 
     return (
-
         <section className="article-toolbar">
             <div>
                 <p><FaRegHeart/> {data.totalLike}</p>
             </div>
             {token && <div>
-                <button className="article-button" onClick={likeArticle}>
+                <button className="article-button" onClick={favoriteArticle}>
                     <FaRegHeart/>
                 </button>
                 {/*<button className="article-button">*/}
@@ -81,7 +84,7 @@ const RecipeToolbar = ({data}) => {
                 {/*</button>*/}
                 {user && data && user.id === data.user_id &&
                 <>
-                    <button className="article-button">
+                    <button className="article-button" onClick={editArticle}>
                         <RiEditLine/>
                     </button>
                     <button className="article-button" onClick={deleteArticle}>

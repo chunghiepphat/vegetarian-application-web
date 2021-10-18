@@ -32,7 +32,7 @@ const RecipeStep03 = (props) => {
                     <em>Almost there! Share with us the secrets to this recipe and you're done!</em>
                 </header>
                 <div className="section-content">
-                    <form className="form-full" onSubmit={addStep}>
+                    <form className="form-container" onSubmit={addStep}>
                         <h1>Add your instructions</h1>
                         <textarea aria-label="Instruction" value={stepBody}
                                   onChange={e => setStepBody(e.target.value)} required/>
@@ -45,7 +45,7 @@ const RecipeStep03 = (props) => {
                     <h1>Preview</h1>
                 </header>
                 <div className="section-content">
-                    <form className="form-full" onSubmit={props.submitPost}>
+                    <form className="form-container" onSubmit={props.submitPost}>
                         {steps.length > 0 ?
                             <>
                                 <ul className="ingredient-list">

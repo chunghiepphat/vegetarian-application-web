@@ -19,7 +19,7 @@ const BlogToolbar = ({data}) => {
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
 
-    const likeArticle = async (e) => {
+    const favoriteArticle = async (e) => {
         e.preventDefault();
         // Generates request body
         let body = JSON.stringify({
@@ -73,7 +73,7 @@ const BlogToolbar = ({data}) => {
                 <p><FaRegHeart/> {data.totalLike}</p>
             </div>
             {token && <div>
-                <button className="article-button" onClick={likeArticle}>
+                <button className="article-button" onClick={favoriteArticle}>
                     <FaRegHeart/>
                 </button>
                 {/*<button className="article-button">*/}

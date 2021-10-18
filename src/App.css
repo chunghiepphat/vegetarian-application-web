@@ -11,10 +11,11 @@
     font-family: "Segoe UI", sans-serif;
     font-size: 16px;
     line-height: 1.8;
-    color: #474c59;
+    color: #040f0f;
 }
 
 h1, h2, h3 {
+    color: #656665;
     font-weight: normal;
     line-height: 1.6;
 }
@@ -57,112 +58,6 @@ ul {
     list-style: none;
 }
 
-
-/***Form elements styling***/
-button, input, select, textarea {
-    width: 100%;
-    margin: 8px 0;
-    font-size: 16px;
-}
-
-/*Buttons*/
-button, .button-link {
-    height: 40px;
-    color: #5b8734;
-    font-weight: bold;
-    background: white;
-    border: 2px solid #5b8734;
-    border-radius: 20px;
-    box-shadow: 0 1px 1px #d0d0d0;
-    cursor: pointer;
-}
-
-button:hover, .button-link:hover {
-    filter: brightness(1.1);
-    color: #eeeeee;
-    background: #5b8734;
-}
-
-button:disabled, .button-link:disabled {
-    color: #474C59;
-    background: #eeeeee;
-    border-color: #eeeeee;
-}
-
-button:disabled:hover, .button-link:disabled:hover {
-    color: #474C59;
-    background: #eeeeee;
-    border-color: #eeeeee;
-    filter: none;
-}
-
-.button-link {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-.button-cancel {
-    color: #eeeeee;
-    background: #d15741;
-    border-color: #d15741;
-}
-
-.button-cancel:hover {
-    background: #d15741;
-}
-
-/*Text fields and dropdowns*/
-input, select, textarea {
-    padding: 0 24px;
-    color: #5a5a5a;
-    background-color: #f0f0f0;
-    border: thin solid lightgray;
-    border-radius: 20px;
-}
-
-input, select {
-    height: 40px;
-}
-
-textarea {
-    min-height: 80px;
-    resize: none;
-}
-
-input:hover, select:hover, textarea:hover {
-    filter: brightness(102%);
-}
-
-input:focus, select:focus, textarea:focus {
-    background: white;
-    outline: none;
-}
-
-input:disabled, option:disabled, textarea:disabled {
-    font-style: italic;
-    color: rgba(71, 76, 89, 0.6);
-}
-
-
-label {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.form-full {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-items: center;
-    width: 96%;
-    margin: 0 2%;
-    padding: 20px 80px;
-    border: 1px none #5b8734;
-    border-left-style: solid;
-}
-
 /***Images and icons***/
 figure img {
     width: 100%;
@@ -180,7 +75,7 @@ svg {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #fafafa;
+    background: #f2f4f3;
     padding: 20px 0 60px 0;
 }
 

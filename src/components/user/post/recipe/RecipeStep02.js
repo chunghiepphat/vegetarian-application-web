@@ -3,6 +3,8 @@ import {Link, useHistory} from "react-router-dom";
 import {clientId} from "../../../../helpers/Imgur";
 import {FaAngleLeft} from "react-icons/fa";
 import {cloudName, uploadPreset} from "../../../../helpers/Cloudinary";
+import Form from "../../../commons/elements/form/Form";
+import InputGroup from "../../../commons/elements/form/InputGroup";
 
 const RecipeStep02 = (props) => {
     const history = useHistory();
@@ -44,37 +46,31 @@ const RecipeStep02 = (props) => {
                     <em>Add some pictures to show everyone what your delightful dish would look like.</em>
                 </header>
                 <div className="section-content">
-                    <form className="form-full" onSubmit={uploadFile}>
-                        <h1>Recipe thumbnail</h1>
-                        <input aria-label="Recipe thumbnail" type="file"
-                               onChange={() => (setFile(inputRef.current.files[0]))}
-                               ref={inputRef}/>
-                        <button type="submit">Upload</button>
-                    </form>
-                </div>
-            </section>
-            <section>
-                <header className="section-header">
-                    <h1>Preview</h1>
-                </header>
-                <div className="section-content">
-                    <form className="form-full" onSubmit={nextStep}>
+                    <Form>
                         {props.thumbnail ?
-                            <>
-                                <picture className="preview-thumbnail">
-                                    <source srcSet={props.thumbnail}/>
-                                    <img src="" alt=""/>
-                                </picture>
-                                <button className="button-cancel" onClick={clearInput}>Clear</button>
-                                <button type="submit">Next step</button>
-                            </>
+                            <picture className="preview-thumbnail">
+                                <source srcSet={props.thumbnail}/>
+                                <img src="" alt=""/>
+                            </picture>
                             :
-                            <>
-                                <em>Upload an image and preview it here...</em>
-                                <button type="submit" disabled>Next step</button>
-                            </>
+                            <em>Upload an image and preview it here...</em>
                         }
-                    </form>
+                        <label>Recipe thumbnail
+                            <input aria-label="Recipe thumbnail" type="file"
+                                   onChange={() => (setFile(inputRef.current.files[0]))}
+                                   ref={inputRef}/>
+                        </label>
+                        <InputGroup>
+                            <button onClick={uploadFile}>Upload</button>
+                            {props.thumbnail &&
+                            <button className="button-cancel" onClick={clearInput}>Clear</button>}
+                        </InputGroup>
+                        {props.thumbnail ?
+                            <button className="button-submit" onClick={nextStep}>Next step</button>
+                            :
+                            <button disabled>Next step</button>
+                        }
+                    </Form>
                 </div>
             </section>
         </>

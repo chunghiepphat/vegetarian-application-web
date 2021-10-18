@@ -15,7 +15,7 @@ const RecipeStep01 = (props) => {
                 <em>Share with us some details about your new exciting recipe.</em>
             </header>
             <div className="section-content">
-                <form className="form-full" onSubmit={nextStep}>
+                <form className="form-container" onSubmit={nextStep}>
                     {/*Recipe name*/}
                     <h1>Name your recipe</h1>
                     <input aria-label="Recipe title" type="text" value={props.title}
@@ -29,7 +29,7 @@ const RecipeStep01 = (props) => {
                     </select>
                     {/*Difficulty radio buttons*/}
                     <h1>Recipe difficulty</h1>
-                    <div className="flex-horizontal">
+                    <div className="input-group">
                         <label className="radio-button">
                             <input type="radio" name="difficulty" value="1" defaultChecked
                                    onChange={e => props.setDifficulty(e.target.value)}/>
@@ -58,7 +58,7 @@ const RecipeStep01 = (props) => {
                     </div>
                     {/*Portion estimates*/}
                     <h1>Portion</h1>
-                    <div className="flex-horizontal">
+                    <div className="input-group">
                         <input aria-label="Portion size" type="number" min={1} value={props.portionSize}
                                onChange={e => props.setPortionSize(e.target.value)}/>
                         <select aria-label="Portion type" value={props.portionType}

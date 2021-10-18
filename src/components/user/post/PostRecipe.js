@@ -27,9 +27,9 @@ const PostRecipe = () => {
     // Step 2 parameters
     const [ingredients, setIngredients] = useState([]);
     // Step 3 parameters
-    const [content, setContent] = useState("");
+    const [steps, setSteps] = useState([]);
 
-    console.log(title, category, thumbnail, difficulty, portionSize, portionType, prepTime, bakingTime, restingTime, ingredients, content)
+    console.log(title, category, thumbnail, difficulty, portionSize, portionType, prepTime, bakingTime, restingTime, ingredients, steps)
 
     const submitPost = async (e) => {
         e.preventDefault();
@@ -53,7 +53,7 @@ const PostRecipe = () => {
             "baking_time_minutes": bakingTime,
             "resting_time_minutes": restingTime,
             "ingredients": ingredients,
-            "recipe_content": content,
+            "steps": steps,
         });
 
         console.log(body)
@@ -103,7 +103,7 @@ const PostRecipe = () => {
             </Route>
             {/*Step 4*/}
             <Route path="/post/recipe/step-4">
-                <RecipeStep04 content={content} setContent={setContent}
+                <RecipeStep04 steps={steps} setSteps={setSteps}
                               submitPost={submitPost}/>
             </Route>
             {/*404*/}

@@ -1,0 +1,59 @@
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.input-group > * {
+    margin-right: 20px;
+}
+
+.input-group :nth-last-child(1) {
+    margin-right: 0;
+}
+
+.input-group > select {
+    width: 200px;
+}
+
+.input-group input[type=text] {
+    width: 240px;
+}
+
+.input-group input[type=number] {
+    width: 120px;
+}
+
+.input-group .button-remove {
+    display: flex;
+    flex-grow: 0;
+    flex-direction: row;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    background: none;
+    border: none;
+    border-radius: 18px;
+    box-shadow: none;
+}
+
+.input-group .button-remove:hover {
+}
+
+.input-group .button-remove:hover svg {
+    fill: #d15741;
+}
+
+.input-group button {
+    flex-grow: 1;
+    width: unset;
+}
+
+.input-group input[type=text],
+.input-group textarea {
+    flex-grow: 1;
+    width: unset;
+}

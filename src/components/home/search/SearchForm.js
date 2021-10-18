@@ -7,7 +7,7 @@ const SearchForm = () => {
     return (
         <section>
             <div className="section-content">
-                <form className="form-full">
+                <form className="form-container">
                     <input aria-label="Search" type="text" value={query}
                            onChange={e => setQuery(e.target.value)}
                            placeholder="Recipe name, blog title, author's name..." required/>

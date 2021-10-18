@@ -102,7 +102,7 @@ const PostBlog = () => {
             {/*Image upload form*/}
             <div className="section-content">
 
-                <form className="form-full" onSubmit={uploadFile}>
+                <form className="form-container" onSubmit={uploadFile}>
                     <h1>Thumbnail (optional)</h1>
                     {thumbnail &&
                     <picture className="preview-thumbnail">
@@ -117,7 +117,7 @@ const PostBlog = () => {
             </div>
             {/*Text input form*/}
             <div className="section-content">
-                <form className="form-full" onSubmit={submitPost}>
+                <form className="form-container" onSubmit={submitPost}>
                     <input aria-label="Blog title" type="text" value={title}
                            onChange={e => setTitle(e.target.value)}
                            placeholder="Title" required/>

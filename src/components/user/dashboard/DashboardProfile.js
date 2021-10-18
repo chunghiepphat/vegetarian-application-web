@@ -14,7 +14,7 @@ const DashboardProfile = () => {
                 <Link to="/update"><FaAngleRight/>Edit</Link>
             </header>
             <div className="section-content">
-                <div className="flex-horizontal">
+                <div className="input-group">
                     <ul>
                         <li><FaEnvelope/>{user.email} </li>
                         <li><FaPhoneAlt/>{user.phone_number} </li>

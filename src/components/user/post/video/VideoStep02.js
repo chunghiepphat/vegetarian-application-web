@@ -41,13 +41,13 @@ const VideoStep02 = (props) => {
                 </header>
                 <div className="section-content">
                     {props.link ?
-                        <form className="form-full" onSubmit={props.submitPost}>
+                        <form className="form-container" onSubmit={props.submitPost}>
                             <h1>Preview</h1>
                             <a href={props.link} target="_blank" rel="noopener noreferrer">Link to your video.</a>
                             <button type="submit">Finish</button>
                         </form>
                         :
-                        <form className="form-full" onSubmit={uploadFile}>
+                        <form className="form-container" onSubmit={uploadFile}>
                             <h1>Video</h1>
                             {/*Check whether the form is uploading a video*/}
                             {uploading ?

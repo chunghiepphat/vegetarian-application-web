@@ -1,5 +1,4 @@
 import React from "react";
-import "./Post.css";
 import {NavLink, Redirect, Route, Switch} from "react-router-dom";
 import PostSidebar from "./PostSidebar";
 import EditRecipe from "./edit/EditRecipe";

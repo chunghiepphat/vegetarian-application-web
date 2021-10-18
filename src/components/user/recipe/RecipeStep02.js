@@ -28,9 +28,9 @@ const RecipeStep02 = (props) => {
                         estimate the nutritional values for your recipe better.</em>
                 </header>
                 <div className="section-content">
-                    <form className="form-full" onSubmit={addIngredient}>
+                    <form className="form-container" onSubmit={addIngredient}>
                         <h1>Name an ingredient and its amount (in grams)</h1>
-                        <div className="flex-horizontal">
+                        <div className="input-group">
                             <input aria-label="Ingredient" type="text" value={ingredient.ingredient_name}
                                    onChange={handleChange("ingredient_name")}
                                    placeholder="e.g: lettuce, tomato, basil,..." required/>
@@ -46,12 +46,12 @@ const RecipeStep02 = (props) => {
                     <h1>Your ingredients</h1>
                 </header>
                 <div className="section-content">
-                    <form className="form-full" onSubmit={nextStep}>
+                    <form className="form-container" onSubmit={nextStep}>
                         {props.ingredients.length > 0 ?
                             <>
                                 <ul className="ingredient-list">
                                     {props.ingredients.map(ingredient => (
-                                        <li className="flex-horizontal" key={ingredient.ingredient_name}>
+                                        <li className="input-group" key={ingredient.ingredient_name}>
                                             <input aria-label="Ingredient" type="text"
                                                    value={ingredient.ingredient_name}
                                                    onChange={handleChange("name")}

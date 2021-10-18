@@ -1,21 +1,32 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {Link, useHistory} from "react-router-dom";
 import {FaAngleLeft} from "react-icons/fa";
+import {ImCross} from "react-icons/all";
+import Form from "../../../commons/elements/form/Form";
+import InputGroup from "../../../commons/elements/form/InputGroup";
 
 
 const RecipeStep03 = (props) => {
     const history = useHistory();
-    const [ingredient, setIngredient] = useState({ingredient_name: "", amount_in_mg: "0"});
 
-    const handleAddItem = (e) => {
+    const handleAddField = (e) => {
         e.preventDefault();
         const ingredient = {
             ingredient_name: "",
-            amount_in_mg: "0",
+            amount_in_mg: "1",
         }
         props.setIngredients((prev) => [...prev, ingredient]);
     }
-    const handleChange = (index, e) => {
+    const handleRemoveField = (e, index) => {
+        e.preventDefault();
+        props.setIngredients((prev) => prev.filter((item) => item !== prev[index]));
+    }
+
+    const handleClear = (e) => {
+        e.preventDefault();
+        props.setIngredients([]);
+    }
+    const handleChange = (e, index) => {
         e.preventDefault();
         e.persist();
         props.setIngredients((prev) => {
@@ -48,29 +59,37 @@ const RecipeStep03 = (props) => {
                         estimate the nutritional values for your recipe better.</em>
                 </header>
                 <div className="section-content">
-                    <form className="form-full">
+                    <Form onSubmit={nextStep}>
                         <h1>Name an ingredient and its amount (in grams)</h1>
                         {props.ingredients.length > 0 ?
-                            <ul className="ingredient-list">
+                            <div className="form-dynamic">
                                 {props.ingredients.map((item, index) => (
-                                    <li className="flex-horizontal" key={index}>
+                                    <InputGroup key={index}>
                                         <input name="ingredient_name" type="text"
                                                value={item.ingredient_name}
-                                               onChange={(e) => handleChange(index, e)}
+                                               onChange={(e) => handleChange(e, index)}
                                                placeholder="e.g: lettuce, tomato, basil,..." required/>
                                         <input name="amount_in_mg" type="number"
-                                               value={item.amount_in_mg}
-                                               onChange={(e) => handleChange(index, e)}/>
-                                    </li>
+                                               value={item.amount_in_mg} min="1"
+                                               onChange={(e) => handleChange(e, index)}/>
+                                        <button className="button-remove" onClick={(e) => handleRemoveField(e, index)}>
+                                            <ImCross/>
+                                        </button>
+                                    </InputGroup>
                                 ))}
-                            </ul>
+                            </div>
                             :
                             <em>Add some ingredients to your recipe...</em>}
-                        <div className="flex-horizontal">
-                            <button onClick={handleAddItem}>Add ingredient</button>
-                            <button onClick={nextStep} type="submit">Next step</button>
+                        <div className="input-group">
+                            <button onClick={handleAddField}>Add ingredient</button>
+                            <button className="button-cancel" onClick={handleClear}>Clear</button>
                         </div>
-                    </form>
+                        {props.ingredients.length > 0 ?
+                            <button type="submit" className="button-submit">Next step</button>
+                            :
+                            <button disabled>Next step</button>
+                        }
+                    </Form>
                 </div>
             </section>
         </>

@@ -53,7 +53,7 @@ const UpdatePassword = () => {
                 <h1>Change password</h1>
             </header>
             <div className="section-content">
-                <form className="form-full" onSubmit={updatePassword}>
+                <form className="form-container" onSubmit={updatePassword}>
                     {/*Password*/}
                     <label>
                         <span>Your current password</span>

@@ -19,7 +19,7 @@ const VideoStep01 = (props) => {
                     <em>Prefer a more visual approach over walls of text? Share your how-to videos instead!</em>
                 </header>
                 <div className="section-content">
-                    <form className="form-full" onSubmit={nextStep}>
+                    <form className="form-container" onSubmit={nextStep}>
                         {/*Recipe name*/}
                         <h1>Title (*)</h1>
                         <input aria-label="Video title" type="text" value={props.title}
