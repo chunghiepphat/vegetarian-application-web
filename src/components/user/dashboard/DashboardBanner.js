@@ -24,13 +24,13 @@ const DashboardBanner = () => {
                 </div>
                 <div className="banner-content">
                     <ul>
-                        <li><FaEnvelope/>{user.email} </li>
-                        <li><FaPhoneAlt/>{user.phone_number} </li>
-                        <li><FaHome/>{user.country} </li>
+                        <li><FaEnvelope/> {user.email} </li>
+                        <li><FaPhoneAlt/> {user.phone_number} </li>
+                        <li><FaHome/> {user.country} </li>
                     </ul>
                     <ul>
-                        <li><FaFacebook/>{user.facebook_link} </li>
-                        <li><FaInstagram/>{user.instagram_link} </li>
+                        <li><FaFacebook/> {user.facebook_link} </li>
+                        <li><FaInstagram/> {user.instagram_link} </li>
                         <li><Link to="/update"><FaAngleRight/>Edit</Link></li>
                     </ul>
                 </div>

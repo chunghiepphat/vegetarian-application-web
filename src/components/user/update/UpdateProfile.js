@@ -2,6 +2,8 @@ import React, {useContext, useState} from "react";
 import {apiBase} from "../../../helpers/Helpers";
 import CountrySelect from "../../commons/elements/CountrySelect";
 import {UserContext} from "../../../context/UserContext";
+import Form from "../../commons/elements/form/Form";
+import InputGroup from "../../commons/elements/form/InputGroup";
 
 const UpdateProfile = () => {
     // Authentication and API stuff
@@ -62,56 +64,39 @@ const UpdateProfile = () => {
                 <h1>Profile details</h1>
             </header>
             <div className="section-content">
-                <form className="form-container" onSubmit={editProfile}>
-                    {/*Name*/}
-                    <label>
-                        <span>Name</span>
-                        <div className="input-group">
+                <Form onSubmit={editProfile}>
+                    <label>Name
+                        <InputGroup>
                             <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)}
                                    placeholder="First name"/>
                             <input type="text" value={lastName} onChange={e => setLastName(e.target.value)}
                                    placeholder="Last name"/>
-                        </div>
+                        </InputGroup>
                     </label>
-                    {/*Email*/}
-                    <label>
-                        <span>Email address</span>
-                        <span className="tooltip">(?)
-                        <span className="tooltip-text">You cannot edit your email address.
-                            If you wish to have yours changed, please contact support.</span></span>
+                    <label>Email address
                         <input type="text" value={user.email} placeholder="" disabled/>
                     </label>
-                    {/*Phone*/}
-                    <label>
-                        <span>Phone number</span>
+                    <label>Phone number
                         <input type="phone" value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)}
                                placeholder="09876..."/>
                     </label>
-                    {/*Country*/}
-                    <label>
-                        <span>Country</span>
+                    <label>Country
                         <CountrySelect value={country} onChange={e => setCountry(e.target.value)}/>
                     </label>
-                    {/*Facebook*/}
-                    <label>
-                        <span>Facebook profile</span>
+                    <label>Facebook profile
                         <input type="text" value={facebookLink} onChange={e => setFacebookLink(e.target.value)}
                                placeholder="https://www.facebook.com/..."/>
                     </label>
-                    {/*Instagram*/}
-                    <label>
-                        <span>Instagram profile</span>
+                    <label>Instagram profile
                         <input type="text" value={instagramLink} onChange={e => setInstagramLink(e.target.value)}
                                placeholder="https://www.instagram.com/..."/>
                     </label>
-                    {/*Bio*/}
-                    <label>
-                        <span>Bio</span>
+                    <label>Bio
                         <textarea value={aboutMe} onChange={e => setAboutMe(e.target.value)}
                                   placeholder="Write a short something about you..."/>
                     </label>
-                    <button>Update</button>
-                </form>
+                    <button type="submit" className="button-submit">Update</button>
+                </Form>
             </div>
         </section>
     );

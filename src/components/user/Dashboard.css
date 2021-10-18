@@ -94,3 +94,13 @@ label span {
 .profile-info i {
     font-size: 18px;
 }
+
+.banner-content li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.banner-content li > svg {
+    margin-right: 5px;
+}

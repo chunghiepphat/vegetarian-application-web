@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useLayoutEffect, useRef, useState} from "r
 import {cloudName, uploadPreset} from "../../../helpers/Cloudinary";
 import {UserContext} from "../../../context/UserContext";
 import {apiBase} from "../../../helpers/Helpers";
+import Form from "../../commons/elements/form/Form";
 
 const UpdateAvatar = () => {
     // Authentication and API stuff
@@ -79,16 +80,15 @@ const UpdateAvatar = () => {
                 <h1>Profile picture</h1>
             </header>
             <div className="section-content">
-                <form className="form-container" onSubmit={uploadFile}>
+                <Form onSubmit={uploadFile}>
                     {/*Dashboard picture*/}
-                    <label>
-                        <span>Profile image</span>
+                    <label>Profile image
                         <input type="file"
                                onChange={() => (setFile(inputRef.current.files[0]))}
                                ref={inputRef}/>
                     </label>
-                    <button>Update</button>
-                </form>
+                    <button type="submit" className="button-submit">Update</button>
+                </Form>
             </div>
         </section>
     )

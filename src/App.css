@@ -50,8 +50,12 @@ a {
     text-decoration: none;
 }
 
+a svg {
+    fill: darkslateblue;
+}
+
 a:hover {
-    filter: brightness(200%);
+    filter: brightness(1.2);
 }
 
 ul {
@@ -140,10 +144,6 @@ aside > section {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-}
-
-.linked-header a svg, .banner-container a svg {
-    fill: darkslateblue;
 }
 
 .section-content {

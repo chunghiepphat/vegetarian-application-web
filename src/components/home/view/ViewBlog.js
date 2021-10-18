@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {Route, Switch, useParams} from "react-router-dom";
 import {apiBase} from "../../../helpers/Helpers";
 import BlogContent from "./blog/BlogContent";
 import BlogComments from "./blog/BlogComments";
 import BlogHeader from "./blog/BlogHeader";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
 import BlogToolbar from "./blog/BlogToolbar";
+import EditBlog from "../../user/edit/EditBlog";
 
 const ViewRecipe = () => {
     let {id} = useParams();
@@ -26,18 +27,25 @@ const ViewRecipe = () => {
 
     return (
         <section>
-            {data ?
-                <div className="section-content">
-                    <article>
-                        <BlogHeader data={data}/>
-                        <BlogToolbar data={data}/>
-                        <BlogContent data={data}/>
-                        <BlogComments data={data}/>
-                    </article>
-                </div>
-                :
-                <SectionLoader/>
-            }
+            <Switch>
+                <Route path={`/view/blog/:id/edit`}>
+                    <EditBlog id={id} data={data}/>
+                </Route>
+                <Route>
+                    {data ?
+                        <div className="section-content">
+                            <article>
+                                <BlogHeader data={data}/>
+                                <BlogToolbar id={id} data={data}/>
+                                <BlogContent data={data}/>
+                                <BlogComments data={data}/>
+                            </article>
+                        </div>
+                        :
+                        <SectionLoader/>
+                    }
+                </Route>
+            </Switch>
         </section>
 
     )

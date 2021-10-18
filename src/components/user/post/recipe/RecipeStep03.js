@@ -70,7 +70,7 @@ const RecipeStep03 = (props) => {
                                                onChange={(e) => handleChange(e, index)}
                                                placeholder="e.g: lettuce, tomato, basil,..." required/>
                                         <input name="amount_in_mg" type="number"
-                                               value={item.amount_in_mg} min="1"
+                                               value={item.amount_in_mg} min={1}
                                                onChange={(e) => handleChange(e, index)}/>
                                         <button className="button-remove" onClick={(e) => handleRemoveField(e, index)}>
                                             <ImCross/>

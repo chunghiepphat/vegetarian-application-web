@@ -4,7 +4,7 @@ import {UserContext} from "../../../../context/UserContext";
 import {apiBase} from "../../../../helpers/Helpers";
 import {useHistory} from "react-router-dom";
 
-const BlogToolbar = ({data}) => {
+const BlogToolbar = ({id, data}) => {
     const history = useHistory();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -46,6 +46,10 @@ const BlogToolbar = ({data}) => {
         }
     }
 
+    const editArticle = () => {
+        history.push(`/view/blog/${id}/edit`)
+    }
+
     const deleteArticle = async (e) => {
         e.preventDefault();
         // Generates request
@@ -81,7 +85,7 @@ const BlogToolbar = ({data}) => {
                 {/*</button>*/}
                 {user && data && user.id === data.user_id &&
                 <>
-                    <button className="article-button">
+                    <button className="article-button" onClick={editArticle}>
                         <RiEditLine/>
                     </button>
                     <button className="article-button" onClick={deleteArticle}>

@@ -21,6 +21,7 @@ const EditRecipe = ({data}) => {
     const [restingTime, setRestingTime] = useState(data.resting_time_minutes);
 
     const [ingredients, setIngredients] = useState([].concat(data.ingredients));
+
     return (
         <div className="section-content">
             {/*Recipe article container*/}

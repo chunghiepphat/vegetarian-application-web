@@ -23,17 +23,25 @@
     align-items: center;
     height: 100%;
     padding: 0 20px;
-    color: rgb(71, 76, 89);
+    color: #040f0f;
     font-size: 16px;
     font-weight: normal;
     text-decoration: none;
     border: 2px none rgba(71, 76, 89, 0.8);
 }
 
+.navbar a svg {
+    fill: #040f0f;
+}
+
 .navbar a:hover, .toolbar div:hover {
     color: #91972a;
     background: rgba(145, 151, 42, 0.2);
     filter: none;
+}
+
+.navbar a:hover svg {
+    fill: #91972a;
 }
 
 /*Highlights link if matches current page*/
@@ -45,6 +53,10 @@
     border-bottom: solid;
     filter: none;
     transition: none;
+}
+
+.navbar .active svg {
+    fill: #91972a;
 }
 
 /*Pictures inside links (like user profile images)*/

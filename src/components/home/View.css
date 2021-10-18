@@ -2,7 +2,7 @@ article {
     padding: 20px 60px;
 }
 
-article > section {
+article section {
     padding: 20px 0;
     border-bottom: thin solid lightgray;
 }

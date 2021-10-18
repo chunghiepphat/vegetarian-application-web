@@ -1,6 +1,7 @@
 import React, {useContext, useState} from "react";
 import {apiBase} from "../../../helpers/Helpers";
 import {UserContext} from "../../../context/UserContext";
+import Form from "../../commons/elements/form/Form";
 
 const UpdatePassword = () => {
     // Authentication and API stuff
@@ -53,17 +54,15 @@ const UpdatePassword = () => {
                 <h1>Change password</h1>
             </header>
             <div className="section-content">
-                <form className="form-container" onSubmit={updatePassword}>
+                <Form onSubmit={updatePassword}>
                     {/*Password*/}
-                    <label>
-                        <span>Your current password</span>
+                    <label>Your current password
                         <input type="password"
                                value={oldPassword}
                                onChange={e => setOldPassword(e.target.value)}
                                placeholder="Current password" required/>
                     </label>
-                    <label>
-                        <span>New password</span>
+                    <label>New password
                         <input type="password"
                                value={newPassword}
                                onChange={e => setNewPassword(e.target.value)}
@@ -73,8 +72,8 @@ const UpdatePassword = () => {
                                onChange={e => setConfirmPassword(e.target.value)}
                                placeholder="Confirm password" required/>
                     </label>
-                    <button>Update</button>
-                </form>
+                    <button type="submit" className="button-submit">Update</button>
+                </Form>
             </div>
         </section>
     )

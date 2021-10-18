@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import {FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
 import {UserContext} from "../../../../context/UserContext";
 import {apiBase} from "../../../../helpers/Helpers";
-import {Link, useHistory, useParams} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 const RecipeToolbar = ({id, data}) => {
     const history = useHistory();
