@@ -129,7 +129,7 @@ const PostBlog = () => {
                                 modules={modules}
                                 placeholder="What's your story?">
                     </ReactQuill>
-                    <button type="submit">Finish</button>
+                    <button type="submit" className="button-submit">Finish</button>
                 </form>
             </div>
         </section>

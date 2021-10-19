@@ -6,17 +6,6 @@ label span {
     font-weight: bold;
 }
 
-.input-group {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.input-group input {
-    width: 45%;
-}
-
 .profile-banner {
     display: flex;
     flex-direction: row;

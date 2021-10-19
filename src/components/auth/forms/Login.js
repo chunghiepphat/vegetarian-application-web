@@ -1,11 +1,12 @@
 import React, {useState} from "react";
-import {Link, useHistory} from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import {apiBase} from "../../../helpers/Helpers";
 
 const Login = () => {
     const api = `${apiBase}/user/signin`;
     const history = useHistory();
+    const location = useLocation();
 
     // Initializes parameters
     const [email, setEmail] = useState("")
@@ -65,12 +66,12 @@ const Login = () => {
         <div className="modal-content">
             <h1>Welcome back!</h1>
             <p>Don't have an account? <Link to={{
-                pathname: "/register"
+                pathname: "/register",
             }}>Sign up!</Link></p>
             {/*Social authentication*/}
             <h2>Continue with your social media</h2>
-            <button>Placeholder</button>
-            <button>Placeholder</button>
+            <button>Facebook placeholder</button>
+            <button>Google placeholder</button>
             {/*Email authentication*/}
             <h2>Sign in with your email</h2>
             <form className="modal-form" onSubmit={signIn}>
@@ -79,7 +80,7 @@ const Login = () => {
                        required/>
                 <input type="password" name="password" placeholder="Enter password"
                        onChange={e => setPassword(e.target.value)} required/>
-                <button type="submit">Sign in</button>
+                <button type="submit" className="button-submit">Sign in</button>
             </form>
         </div>
     )

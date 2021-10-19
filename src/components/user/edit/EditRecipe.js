@@ -6,6 +6,8 @@ import EditEstimations from "./recipe/EditEstimations";
 import RecipeHeader from "../../home/view/recipe/RecipeHeader";
 import EditSteps from "./recipe/EditSteps";
 import Form from "../../commons/elements/form/Form";
+import {FaAngleLeft} from "react-icons/fa";
+import InputGroup from "../../commons/elements/form/InputGroup";
 
 const EditRecipe = ({id, data}) => {
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -58,8 +60,6 @@ const EditRecipe = ({id, data}) => {
         if (response.ok) {
             alert("Recipe updated successfully!");
             history.push(`/view/recipe/${id}`);
-            window.location.reload();
-
         } else if (response.status === 401) {
             alert("You are not authorized to do that.")
         } else {
@@ -69,7 +69,6 @@ const EditRecipe = ({id, data}) => {
 
     const cancelUpdate = () => {
         history.push(`/view/recipe/${id}`);
-        window.location.reload();
     }
 
     return (
@@ -83,10 +82,10 @@ const EditRecipe = ({id, data}) => {
                 {/*Recipe article container*/}
                 <article>
                     {/*Recipe title*/}
+                    <Link onClick={`/view/recipe/${id}`}><FaAngleLeft/>Go back</Link>
                     <RecipeHeader data={data}/>
+                    <Form id="updateForm" onSubmit={updatePost}>
 
-                    <Form onSubmit={updatePost}>
-                        <Link onClick={cancelUpdate}>Go back</Link>
                         <EditEstimations data={data}
                                          difficulty={difficulty} setDifficulty={setDifficulty}
                                          portionSize={portionSize} setPortionSize={setPortionSize}
@@ -98,10 +97,15 @@ const EditRecipe = ({id, data}) => {
                                          ingredients={ingredients} setIngredients={setIngredients}/>
                         <EditSteps data={data}
                                    steps={steps} setSteps={setSteps}/>
-                        <button className="button-cancel" onClick={cancelUpdate}>Cancel</button>
-                        <button type="submit" className="button-submit">Finish</button>
                     </Form>
+
                 </article>
+                <div className="sticky-bottom">
+                    <InputGroup>
+                        <button className="button-cancel" onClick={cancelUpdate}>Cancel</button>
+                        <button type="submit" form="updateForm" className="button-submit">Finish</button>
+                    </InputGroup>
+                </div>
             </div>
         </>
     )

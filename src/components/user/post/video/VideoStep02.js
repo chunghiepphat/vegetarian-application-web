@@ -63,7 +63,7 @@ const VideoStep02 = (props) => {
                                     <input aria-label="Video file" type="file"
                                            onChange={() => (setFile(inputRef.current.files[0]))}
                                            ref={inputRef}/>
-                                    <button type="submit">Upload</button>
+                                    <button type="submit" className="button-submit">Upload</button>
                                 </>
                             }
                         </form>}

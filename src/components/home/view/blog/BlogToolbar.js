@@ -4,7 +4,7 @@ import {UserContext} from "../../../../context/UserContext";
 import {apiBase} from "../../../../helpers/Helpers";
 import {useHistory} from "react-router-dom";
 
-const BlogToolbar = ({id, data}) => {
+const BlogToolbar = ({id, data, reload}) => {
     const history = useHistory();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -38,7 +38,7 @@ const BlogToolbar = ({id, data}) => {
         const response = await fetch(apiLike, request);
         if (response.ok) {
             alert("Added to favorites.");
-            window.location.reload();
+            reload();
         } else if (response.status === 401) {
             alert("You are not authorized to complete the request.")
         } else {

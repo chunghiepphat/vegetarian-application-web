@@ -4,6 +4,19 @@ article {
 
 article section {
     padding: 20px 0;
+}
+
+.article-thumbnail {
+    border-radius: 20px;
+    margin: -30px 0 20px 0;
+}
+
+.article-thumbnail img {
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.article-title {
     border-bottom: thin solid lightgray;
 }
 
@@ -21,6 +34,7 @@ article section {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: 40px;
 }
 
 .article-author {
@@ -31,13 +45,13 @@ article section {
     align-items: center;
 }
 
-.article-avatar {
-    width: 36px;
-    height: 36px;
+.author-avatar {
+    width: 32px;
+    height: 32px;
     margin: 0 14px 0 0;
 }
 
-.article-user {
+.author-name {
     font-size: 18px;
     font-weight: 600;
 }
@@ -46,6 +60,15 @@ article section {
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
+}
+
+.timestamp-created,
+.timestamp-updated {
+    font-size: 14px;
+}
+
+.timestamp-updated {
+    color: gray;
     font-style: italic;
 }
 
@@ -79,24 +102,18 @@ article section {
     height: 36px;
     padding: 8px;
     margin: 0 0 0 10px;
-    border: 1px solid #474c59;
-    border-radius: 18px;
-}
-
-.article-button:hover {
-    background: #5b8734;
+    background: none;
+    border-radius: 50%;
 }
 
 .article-button svg {
     width: 30px;
     height: 30px;
-    fill: #474c59;
-    transition: 0s;
+    fill: #656665;
 }
 
-.article-button:hover svg {
-    fill: #eeeeee;
-    transition: 0s;
+.article-button:hover {
+    background: #e6d3a3;
 }
 
 .article-content h1 {
@@ -126,17 +143,6 @@ article section {
 
 .article-content ul, .article-content ol {
     padding: 0 30px;
-}
-
-.article-thumbnail {
-
-}
-
-.article-thumbnail img {
-    width: 100%;
-    max-height: 300px;
-    margin: -30px 0 0 0;
-    object-fit: cover;
 }
 
 .article-list h2 {
@@ -187,8 +193,6 @@ article section {
 
 .article-tabs {
     padding: 0;
-    background: white;
-    border: none;
 }
 
 .article-tabs .navbar {

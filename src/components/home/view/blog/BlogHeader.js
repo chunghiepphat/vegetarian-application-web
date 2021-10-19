@@ -6,24 +6,24 @@ const BlogHeader = ({data}) => {
     return (
         <section className="article-title">
             <h1>{data.blog_title}</h1>
+            <p>{data.blog_subtitle}</p>
             <div className="article-info">
                 <div className="article-author">
-                    <Avatar className="article-avatar" data={data}/>
-                    <div className="article-user">
+                    <Avatar className="author-avatar" data={data}/>
+                    <div className="author-name">
                         {data.first_name} {data.last_name}
                     </div>
                 </div>
                 <div className="article-timestamp">
-                    <span>
+                    <span className="timestamp-created">
                         {moment(data.time).format("lll")}
                     </span>
                     {data.time_updated &&
-                    <span>
+                    <span className="timestamp-updated">
                         (edited {moment(data.time_updated).format("lll")})
                     </span>}
                 </div>
             </div>
-            <p>{data.blog_subtitle}</p>
         </section>
     )
 }

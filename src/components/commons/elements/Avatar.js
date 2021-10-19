@@ -4,7 +4,7 @@ import placeholderAvatar from "../../../assets/user-image-default.png";
 import jwtDecode from "jwt-decode";
 import {apiBase} from "../../../helpers/Helpers";
 
-const Avatar = ({className, data}) => {
+const Avatar = ({className, data, userImage}) => {
     const [user, setUser] = useState();
 
     useEffect(() => {
@@ -25,6 +25,8 @@ const Avatar = ({className, data}) => {
         <picture className={`avatar ${className}`}>
             {user &&
             <source srcSet={user.profile_image}/>}
+            {userImage &&
+            <source srcSet={userImage}/>}
             <img src={placeholderAvatar} alt=""/>
         </picture>
     )

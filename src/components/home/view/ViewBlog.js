@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Route, Switch, useParams} from "react-router-dom";
+import {Route, Switch, useLocation, useParams} from "react-router-dom";
 import {apiBase} from "../../../helpers/Helpers";
 import BlogContent from "./blog/BlogContent";
 import BlogComments from "./blog/BlogComments";
@@ -10,20 +10,22 @@ import EditBlog from "../../user/edit/EditBlog";
 
 const ViewRecipe = () => {
     let {id} = useParams();
-    const api = `${apiBase}/blogs/getblogby/${id}`;
+    const location = useLocation();
     const [data, setData] = useState();
+
+    const fetchData = async () => {
+        const api = `${apiBase}/blogs/getblogby/${id}`;
+        const response = await fetch(api);
+        const result = await response.json();
+        setData(result);
+    }
 
     // Executes fetch once on page load
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(api);
-            const result = await response.json();
-            setData(result);
-        }
         fetchData().catch(error => {
             console.error(error);
         });
-    }, []);
+    }, [location]);
 
     return (
         <section>
@@ -36,7 +38,7 @@ const ViewRecipe = () => {
                         <div className="section-content">
                             <article>
                                 <BlogHeader data={data}/>
-                                <BlogToolbar id={id} data={data}/>
+                                <BlogToolbar id={id} data={data} reload={fetchData}/>
                                 <BlogContent data={data}/>
                                 <BlogComments data={data}/>
                             </article>

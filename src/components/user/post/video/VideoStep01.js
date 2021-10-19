@@ -29,7 +29,7 @@ const VideoStep01 = (props) => {
                         <input aria-label="Video title" type="text" value={props.description}
                                onChange={e => props.setDescription(e.target.value)}
                                placeholder="Your video description"/>
-                        <button type="submit">Proceed</button>
+                        <button type="submit" className="button-submit">Proceed</button>
                     </form>
                 </div>
             </section>

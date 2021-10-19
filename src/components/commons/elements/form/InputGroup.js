@@ -3,7 +3,7 @@ import "./InputGroup.css";
 
 const InputGroup = (props) => {
     return (
-        <div className="input-group">
+        <div className="input-group" style={props.style}>
             {props.children}
         </div>
     )

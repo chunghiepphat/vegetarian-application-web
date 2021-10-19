@@ -1,15 +1,16 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
 import {UserContext} from "../../../../context/UserContext";
 import {apiBase} from "../../../../helpers/Helpers";
 import {useHistory} from "react-router-dom";
 
-const RecipeToolbar = ({id, data}) => {
+const RecipeToolbar = ({id, data, reload}) => {
     const history = useHistory();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
+    const [isFavorite, setIsFavorite] = useState(false);
 
-    // Generates request headers
+    // Generates common request headers
     let headers = new Headers();
     if (token !== null) {
         headers.append("Authorization", `Bearer ${token.token}`);
@@ -17,8 +18,8 @@ const RecipeToolbar = ({id, data}) => {
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
 
-    const favoriteArticle = async (e) => {
-        e.preventDefault();
+    // Checks if article is already favorite for current user
+    const checkFavorite = async () => {
         // Generates request body
         let body = JSON.stringify({
             "user_id": user.id,
@@ -33,11 +34,37 @@ const RecipeToolbar = ({id, data}) => {
         };
 
         // Executes fetch
+        const api = `${apiBase}/user/recipe/islike`
+        const response = await fetch(api, request);
+        const result = await response.json();
+        console.log(result);
+        setIsFavorite(result);
+    }
+
+    // Handles like-unlike function
+    const favoriteArticle = async (e) => {
+        e.preventDefault();
+        // Generates request body
+        let body = JSON.stringify({
+            "user_id": user.id,
+            "recipe_id": data.recipe_id,
+        });
+        // Generates request
+        let request = {
+            method: 'POST',
+            headers: headers,
+            body: body,
+        };
+        // Executes fetch
         const api = `${apiBase}/recipes/like`;
         const response = await fetch(api, request);
         if (response.ok) {
-            alert("Added to favorites.");
-            window.location.reload();
+            if (isFavorite) {
+                alert("Removed from favorites.")
+            } else {
+                alert("Added to favorites.");
+            }
+            reload();
         } else if (response.status === 401) {
             alert("You are not authorized to complete the request.")
         } else {
@@ -45,10 +72,12 @@ const RecipeToolbar = ({id, data}) => {
         }
     }
 
+    // Handles edit article - sends user to edit form
     const editArticle = () => {
         history.push(`/view/recipe/${id}/edit`)
     }
 
+    // Handle delete article - sends user to homepage upon completion
     const deleteArticle = async (e) => {
         e.preventDefault();
         // Generates request
@@ -56,7 +85,6 @@ const RecipeToolbar = ({id, data}) => {
             method: 'DELETE',
             headers: headers,
         };
-
         // Executes fetch
         const api = `${apiBase} / recipes / delete /${data.recipe_id}`;
         const response = await fetch(api, request);
@@ -69,6 +97,8 @@ const RecipeToolbar = ({id, data}) => {
             alert("Error: " + response.status);
         }
     }
+
+    useEffect(checkFavorite, []);
 
     return (
         <section className="article-toolbar">

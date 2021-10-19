@@ -47,9 +47,15 @@
     fill: #d15741;
 }
 
-.input-group button {
+.input-group button,
+.input-group .button-link {
     flex-grow: 1;
     width: unset;
+}
+
+.input-group button,
+.input-group .button-link {
+    flex-basis: 0;
 }
 
 .input-group input[type=text],

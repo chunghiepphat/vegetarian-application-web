@@ -8,17 +8,17 @@ const RecipeHeader = ({data}) => {
             <h1>{data.recipe_title}</h1>
             <div className="article-info">
                 <div className="article-author">
-                    <Avatar className="article-avatar" data={data}/>
-                    <div className="article-user">
+                    <Avatar className="author-avatar" data={data}/>
+                    <div className="author-name">
                         {data.first_name} {data.last_name}
                     </div>
                 </div>
                 <div className="article-timestamp">
-                    <span>
+                    <span className="timestamp-created">
                         {moment(data.time_created).format("lll")}
                     </span>
                     {data.time_updated &&
-                    <span>
+                    <span className="timestamp-updated">
                         (edited {moment(data.time_updated).format("lll")})
                     </span>}
                 </div>

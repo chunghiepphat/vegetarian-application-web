@@ -7,8 +7,14 @@ const BlogComments = ({data}) => {
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const api = `${apiBase}/blogs/${data.blog_id}/comments`;
-    const [comment, setComment] = useState();
+    const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
+
+    const fetchData = async () => {
+        const response = await fetch(api);
+        const result = await response.json();
+        setComments(result.listCommentBlog);
+    }
 
     const submitComment = async (e) => {
         e.preventDefault();
@@ -36,7 +42,8 @@ const BlogComments = ({data}) => {
         // Executes fetch
         const response = await fetch(url, request);
         if (response.ok) {
-            window.location.reload();
+            await fetchData();
+            setComment("");
         } else if (response.status === 401) {
             alert("You are not authorized to do that.")
         } else {
@@ -46,11 +53,6 @@ const BlogComments = ({data}) => {
 
     // Executes fetch once on page load
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(api);
-            const result = await response.json();
-            setComments(result.listCommentBlog);
-        }
         fetchData().catch(error => {
             console.error(error);
         });
@@ -69,7 +71,8 @@ const BlogComments = ({data}) => {
                          commentId={comment.id}
                          content={comment.content}
                          time={comment.time}
-                         articleType="blog"/>
+                         articleType="blog"
+                         reload={fetchData}/>
             ))}
         </section>
     )

@@ -8,8 +8,8 @@ const VideoHeader = ({data}) => {
             <h1>{data.video_title}</h1>
             <div className="article-info">
                 <div className="article-author">
-                    <Avatar className="article-avatar" data={data}/>
-                    <div className="article-user">
+                    <Avatar className="author-avatar" data={data}/>
+                    <div className="author-name">
                         {data.first_name} {data.last_name}
                     </div>
                 </div>

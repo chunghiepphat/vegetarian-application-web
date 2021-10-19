@@ -49,7 +49,8 @@ const EditIngredients = (props) => {
                             <input name="amount_in_mg" type="number"
                                    value={item.amount_in_mg} min={1}
                                    onChange={(e) => handleChange(e, index)}/>
-                            <button className="button-remove" onClick={(e) => handleRemoveField(e, index)}>
+                            <button className="button-remove"
+                                    onClick={(e) => handleRemoveField(e, index)}>
                                 <ImCross/>
                             </button>
                         </InputGroup>

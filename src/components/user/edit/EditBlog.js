@@ -5,6 +5,8 @@ import EditContent from "./blog/EditContent";
 import {apiBase} from "../../../helpers/Helpers";
 import {Link, useHistory} from "react-router-dom";
 import Form from "../../commons/elements/form/Form";
+import {FaAngleLeft} from "react-icons/fa";
+import InputGroup from "../../commons/elements/form/InputGroup";
 
 const EditBlog = ({id, data}) => {
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -43,8 +45,6 @@ const EditBlog = ({id, data}) => {
         if (response.ok) {
             alert("Blog updated successfully!");
             history.push(`/view/blog/${id}`);
-            window.location.reload();
-
         } else if (response.status === 401) {
             alert("You are not authorized to do that.")
         } else {
@@ -54,7 +54,6 @@ const EditBlog = ({id, data}) => {
 
     const cancelUpdate = () => {
         history.push(`/view/blog/${id}`);
-        window.location.reload();
     }
 
     return (
@@ -62,15 +61,19 @@ const EditBlog = ({id, data}) => {
             {/*Recipe article container*/}
             <article>
                 {/*Recipe title*/}
+                <Link to={`/view/blog/${id}`}><FaAngleLeft/>Go back</Link>
                 <BlogHeader data={data}/>
-                <Form onSubmit={updatePost}>
-                    <Link onClick={cancelUpdate}>Go back</Link>
+                <Form id="updateForm" onSubmit={updatePost}>
                     <EditSubtitle subtitle={subtitle} setSubtitle={setSubtitle}/>
                     <EditContent content={content} setContent={setContent}/>
-                    <button className="button-cancel" onClick={cancelUpdate}>Cancel</button>
-                    <button type="submit">Finish</button>
                 </Form>
             </article>
+            <div className="sticky-bottom">
+                <InputGroup>
+                    <button className="button-cancel" onClick={cancelUpdate}>Cancel</button>
+                    <button type="submit" form="updateForm" className="button-submit">Finish</button>
+                </InputGroup>
+            </div>
         </div>
     )
 }

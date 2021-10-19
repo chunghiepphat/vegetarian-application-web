@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {NavLink, Redirect, Route, Switch, useParams} from "react-router-dom";
+import {NavLink, Redirect, Route, Switch, useLocation, useParams} from "react-router-dom";
 import Navbar from "../../commons/elements/bars/Navbar";
 import RecipeSteps from "./recipe/RecipeSteps";
 import RecipeComments from "./recipe/RecipeComments";
@@ -17,20 +17,21 @@ import {UserContext} from "../../../context/UserContext";
 const ViewRecipe = () => {
     let {id} = useParams();
     const user = useContext(UserContext);
-    const api = `${apiBase}/recipes/getrecipeby/${id}`;
+    const location = useLocation();
     const [data, setData] = useState();
 
+    const fetchData = async () => {
+        const api = `${apiBase}/recipes/getrecipeby/${id}`;
+        const response = await fetch(api);
+        const result = await response.json();
+        setData(result);
+    }
     // Executes fetch once on page load
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(api);
-            const result = await response.json();
-            setData(result);
-        }
         fetchData().catch(error => {
             console.error(error);
         });
-    }, []);
+    }, [location]);
 
     return (
         <section>
@@ -44,17 +45,17 @@ const ViewRecipe = () => {
                 <Route>
                     {data ?
                         <>
-                            {data.recipe_thumbnail &&
-                            <picture className="article-thumbnail">
-                                <source srcSet={data.recipe_thumbnail}/>
-                                <img src="" alt=""/>
-                            </picture>}
                             <div className="section-content">
                                 {/*Recipe article container*/}
                                 <article>
+                                    {data.recipe_thumbnail &&
+                                    <picture className="article-thumbnail">
+                                        <source srcSet={data.recipe_thumbnail}/>
+                                        <img src="" alt=""/>
+                                    </picture>}
                                     {/*Recipe title*/}
                                     <RecipeHeader data={data}/>
-                                    <RecipeToolbar id={id} data={data}/>
+                                    <RecipeToolbar id={id} data={data} reload={fetchData}/>
                                     {/*Recipe portion and ingredient list*/}
                                     <RecipeIngredients data={data}/>
                                     {/*Recipe estimates*/}

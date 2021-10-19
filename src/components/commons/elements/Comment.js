@@ -8,7 +8,7 @@ import {RiDeleteBin4Line, RiEditLine} from "react-icons/all";
 import {useHistory} from "react-router-dom";
 import moment from "moment";
 
-const Comment = ({userId, commentId, content, time, articleType}) => {
+const Comment = ({userId, commentId, content, time, articleType, reload}) => {
     const history = useHistory();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -38,7 +38,7 @@ const Comment = ({userId, commentId, content, time, articleType}) => {
         const response = await fetch(apiDelete, request);
         if (response.ok) {
             alert("Your comment has been deleted.");
-            window.location.reload();
+            reload();
         } else if (response.status === 401) {
             alert("You are not authorized to complete the request.")
         } else {
@@ -57,31 +57,37 @@ const Comment = ({userId, commentId, content, time, articleType}) => {
             console.error(error);
         });
     }, [userId]);
-
+    console.log(author)
     return (
         <div className="comment">
             <div className="comment-info">
                 <div className="comment-author">
-                    <Avatar className={"comment-avatar"}/>
+                    {author &&
+                    <Avatar className={"comment-avatar"} userImage={author.profile_image}/>}
                     {author &&
                     <h1 className="comment-user">
-                        {author.first_name}
+                        {author.first_name} {author.last_name}
+                        {user && user.id === author.id &&
+                        <> (you)</>}
+                        <span className="comment-timestamp">
+                            {moment(time).format("lll")}
+                        </span>
                     </h1>}
                 </div>
-                <div className="comment-timestamp">
-                    {moment(time).format("lll")}
-                </div>
+                {user && user.id === userId &&
+                <div className="comment-toolbar">
+                    <button className="comment-button">
+                        Edit
+                    </button>
+                    <button className="comment-button" onClick={deleteComment}>
+                        Delete
+                    </button>
+                </div>}
             </div>
-            <div className="comment-content">{content}</div>
-            {user && user.id === userId &&
-            <div className="comment-toolbar">
-                <button className="comment-button">
-                    <RiEditLine/>
-                </button>
-                <button className="comment-button" onClick={deleteComment}>
-                    <RiDeleteBin4Line/>
-                </button>
-            </div>}
+            <div className="comment-content">
+                {content}
+            </div>
+
         </div>
     )
 }

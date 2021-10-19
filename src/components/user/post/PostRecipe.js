@@ -68,14 +68,13 @@ const PostRecipe = () => {
         if (response.ok) {
             alert("Recipe posted successfully!");
             history.push("/home");
-
         } else if (response.status === 401) {
             alert("You are not authorized to do that.")
         } else {
             alert("Unexpected error with code: " + response.status);
         }
-
     }
+
     return (
         <Switch>
             {/*Step 1*/}

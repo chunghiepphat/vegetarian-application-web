@@ -1,0 +1,23 @@
+.menu-week {
+    padding: 0 40px;
+}
+.menu-day {
+    padding: 20px 0;
+    border-bottom: thin solid lightgray;
+}
+
+.menu-day summary {
+    color: #656665;
+    font-size: 24px;
+}
+
+.menu-day .panel {
+    padding: 0;
+    justify-content: center;
+}
+
+.menu-meal {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}

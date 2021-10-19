@@ -3,7 +3,7 @@ import "./Form.css";
 
 const Form = (props) => {
     return (
-        <form className="form-container" onSubmit={props.onSubmit}>
+        <form id={props.id} className={`form-container ${props.className}`} onSubmit={props.onSubmit}>
             {props.children}
         </form>
     )

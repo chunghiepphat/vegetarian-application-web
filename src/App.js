@@ -18,6 +18,8 @@ import {apiBase} from "./helpers/Helpers";
 import jwtDecode from "jwt-decode";
 import {UserContext} from "./context/UserContext";
 import Favorites from "./components/user/Favorites";
+import Menu from "./components/user/Menu";
+import Bmi from "./components/user/Bmi";
 
 export default function App() {
     let location = useLocation();
@@ -25,6 +27,7 @@ export default function App() {
     const accessToken = localStorage.getItem("accessToken");
     useEffect(() => {
         if (accessToken !== null) {
+            // Decode access token and add user info to UserContext
             const decodedToken = jwtDecode(accessToken);
             const api = `${apiBase}/user/${decodedToken.id}`
             const fetchData = async () => {
@@ -35,8 +38,12 @@ export default function App() {
             fetchData().catch(error => {
                 console.error(error);
             });
+        } else {
+            // Clear UserContext if no access token is found
+            setUser();
         }
         window.scrollTo(0, 0)
+        console.log(background)
     }, [location]);
 
     const background = location.state && location.state.background;
@@ -60,6 +67,8 @@ export default function App() {
                     {user && <Route path="/history" component={History}/>}
                     {user && <Route path="/update" component={Update}/>}
                     {user && <Route path="/post" component={Post}/>}
+                    {user && <Route path="/menu" component={Menu}/>}
+                    {user && <Route path="/bmi" component={Bmi}/>}
                     {/*Miscellaneous*/}
                     <Route path="/about" component={About}/>
                     <Route component={NotFound}/>

@@ -1,13 +1,14 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./Home.css";
 import HomeBanner from "./home/HomeBanner";
 import HomeRecipes from "./home/HomeRecipes";
 import HomeSidebar from "./HomeSidebar";
 import HomeBlogs from "./home/HomeBlogs";
-import {Link} from "react-router-dom";
 import HomeVideos from "./home/HomeVideos";
+import HomeShortcuts from "./home/HomeShortcuts";
 
 const Home = () => {
+
     return (
         <div className="page-container">
             <HomeBanner/>
@@ -16,12 +17,8 @@ const Home = () => {
                 <main>
                     {/*Recipe slider*/}
                     <HomeRecipes/>
-                    {/*Create content button*/}
-                    <section>
-                        <div className="section-content">
-                            <Link className="button-link" to="/post/recipe">Have a recipe? Share with us!</Link>
-                        </div>
-                    </section>
+                    {/*Quick access*/}
+                    <HomeShortcuts/>
                     {/*Video showcase*/}
                     <HomeVideos/>
                     {/*Story feed*/}
