@@ -5,20 +5,21 @@ import {apiBase} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
 
 const BrowseRecipes = () => {
-    const api = `${apiBase}/recipes/getall?page=1&limit=300`;
     const [data, setData] = useState([]);
+
+    const fetchData = async () => {
+        const api = `${apiBase}/recipes/getall?page=1&limit=300`;
+        const response = await fetch(api);
+        const result = await response.json();
+        setData(result.listResult);
+    }
 
     // Executes fetch once on page load
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(api);
-            const result = await response.json();
-            setData(result.listResult);
-        }
         fetchData().catch(error => {
             console.error(error);
         });
-    }, [api]);
+    }, []);
 
     return (
         <section>

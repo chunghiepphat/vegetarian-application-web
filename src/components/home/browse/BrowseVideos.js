@@ -5,20 +5,21 @@ import {SectionLoader} from "../../commons/elements/loaders/Loader";
 import Panel from "../../commons/elements/containers/Panel";
 
 const BrowseVideos = () => {
-    const api = `${apiBase}/video/getall?page=1&limit=100`;
     const [data, setData] = useState([]);
+
+    const fetchData = async () => {
+        const api = `${apiBase}/video/getall?page=1&limit=100`;
+        const response = await fetch(api);
+        const result = await response.json();
+        setData(result.listVideo);
+    }
 
     // Executes fetch once on page load
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(api);
-            const result = await response.json();
-            setData(result.listVideo);
-        }
         fetchData().catch(error => {
             console.error(error);
         });
-    }, [api]);
+    }, []);
 
     return (
         <section>

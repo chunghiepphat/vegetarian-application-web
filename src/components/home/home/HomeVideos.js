@@ -7,7 +7,7 @@ import Card from "../../commons/elements/containers/Card";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 
 const HomeVideos = () => {
-    const api = `${apiBase}/video/get3videos`;
+    const api = `${apiBase}/video/get4videos`;
     const [data, setData] = useState([]);
 
     // Executes fetch once on page load
@@ -33,7 +33,7 @@ const HomeVideos = () => {
                 {data &&
                 <Panel>
                     {data.length > 0 ? data.map(video => (
-                            <video width="320" height="240" controls>
+                            <video width="320" controls>
                                 <source src={video.video_link} type="video/mp4"/>
                             </video>
                         ))

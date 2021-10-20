@@ -9,20 +9,21 @@ import Panel from "../commons/elements/containers/Panel";
 import {PanelLoader} from "../commons/elements/loaders/Loader";
 
 const HomeSidebar = () => {
-    const api = `${apiBase}/blogs/get5bestblog`;
     const [data, setData] = useState([]);
+
+    const fetchData = async () => {
+        const api = `${apiBase}/blogs/get5bestblog`;
+        const response = await fetch(api);
+        const result = await response.json();
+        setData(result.listResult);
+    }
 
     // Executes fetch once on page load
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(api);
-            const result = await response.json();
-            setData(result.listResult);
-        }
         fetchData().catch(error => {
             console.error(error);
         });
-    }, [api]);
+    }, []);
 
     return (
         <Sidebar>
@@ -61,8 +62,8 @@ const HomeSidebar = () => {
                                   type="blog"
                                   title={blog.blog_title}
                                   thumbnail={blog.blog_thumbnail}
-                                  first_name={blog.first_name}
-                                  last_name={blog.last_name}
+                                  firstName={blog.first_name}
+                                  lastName={blog.last_name}
                                   time={blog.time}
                                   totalLike={blog.totalLike}/>
                         ))

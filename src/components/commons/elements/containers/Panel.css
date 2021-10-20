@@ -3,11 +3,13 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: flex-start;
     padding-top: 20px;
 }
-
+.panel video {
+    flex-grow: 1;
+}
 /*Scrollable container*/
 .panel-slider {
     display: flex;

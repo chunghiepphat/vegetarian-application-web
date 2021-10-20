@@ -6,7 +6,6 @@ import {apiBase} from "../../../helpers/Helpers";
 const Login = () => {
     const api = `${apiBase}/user/signin`;
     const history = useHistory();
-    const location = useLocation();
 
     // Initializes parameters
     const [email, setEmail] = useState("")

@@ -5,11 +5,13 @@ import MenuView from "./menu/MenuView";
 import MenuGenerate from "./menu/MenuGenerate";
 import {UserContext} from "../../context/UserContext";
 import {apiBase} from "../../helpers/Helpers";
+import {useLocation} from "react-router-dom";
 
 const Menu = () => {
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const [data, setData] = useState([]);
+    const location = useLocation();
 
     const fetchData = async () => {
         // Request headers with access token
@@ -35,7 +37,7 @@ const Menu = () => {
         fetchData().catch(error => {
             console.error(error);
         });
-    }, []);
+    }, [location]);
 
     return (
         <div className="page-container">

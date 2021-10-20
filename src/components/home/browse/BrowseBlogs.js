@@ -4,20 +4,20 @@ import {apiBase} from "../../../helpers/Helpers";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
 
 const BrowseBlogs = () => {
-    const api = `${apiBase}/blogs/getall?page=1&limit=100`;
     const [data, setData] = useState([]);
 
+    const fetchData = async () => {
+        const api = `${apiBase}/blogs/getall?page=1&limit=100`;
+        const response = await fetch(api);
+        const result = await response.json();
+        setData(result.listResult);
+    }
     // Executes fetch once on page load
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(api);
-            const result = await response.json();
-            setData(result.listResult);
-        }
         fetchData().catch(error => {
             console.error(error);
         });
-    }, [api]);
+    }, []);
 
     return (
         <section>

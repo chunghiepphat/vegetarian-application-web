@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
+import {FaHeart, FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
 import {UserContext} from "../../../../context/UserContext";
 import {apiBase} from "../../../../helpers/Helpers";
 import {useHistory} from "react-router-dom";
@@ -20,27 +20,22 @@ const RecipeToolbar = ({id, data, reload}) => {
 
     // Checks if article is already favorite for current user
     const checkFavorite = async () => {
-        // Generates request body
-        let body = JSON.stringify({
-            "user_id": user.id,
-            "recipe_id": data.recipe_id,
-        });
-
         // Generates request
         let request = {
-            method: 'POST',
+            method: 'GET',
             headers: headers,
-            body: body,
         };
 
         // Executes fetch
-        const api = `${apiBase}/user/recipe/islike`
-        const response = await fetch(api, request);
-        const result = await response.json();
-        console.log(result);
-        setIsFavorite(result);
+        if (user !== undefined) {
+            const api = `${apiBase}/user/recipe/islike?userID=${user.id}&recipeID=${id}`
+            const response = await fetch(api, request);
+            const result = await response.json();
+            console.log(result.is_Liked);
+            setIsFavorite(result.is_Liked);
+        }
     }
-
+    console.log(isFavorite)
     // Handles like-unlike function
     const favoriteArticle = async (e) => {
         e.preventDefault();
@@ -59,11 +54,6 @@ const RecipeToolbar = ({id, data, reload}) => {
         const api = `${apiBase}/recipes/like`;
         const response = await fetch(api, request);
         if (response.ok) {
-            if (isFavorite) {
-                alert("Removed from favorites.")
-            } else {
-                alert("Added to favorites.");
-            }
             reload();
         } else if (response.status === 401) {
             alert("You are not authorized to complete the request.")
@@ -77,7 +67,7 @@ const RecipeToolbar = ({id, data, reload}) => {
         history.push(`/view/recipe/${id}/edit`)
     }
 
-    // Handle delete article - sends user to homepage upon completion
+    // Handle delete article - sends user to previous page upon completion
     const deleteArticle = async (e) => {
         e.preventDefault();
         // Generates request
@@ -86,11 +76,11 @@ const RecipeToolbar = ({id, data, reload}) => {
             headers: headers,
         };
         // Executes fetch
-        const api = `${apiBase} / recipes / delete /${data.recipe_id}`;
+        const api = `${apiBase}/recipes/delete/${data.recipe_id}`;
         const response = await fetch(api, request);
         if (response.ok) {
             alert("Your recipe has been deleted.");
-            history.push("/home");
+            history.goBack();
         } else if (response.status === 401) {
             alert("You are not authorized to complete the request.")
         } else {
@@ -98,7 +88,7 @@ const RecipeToolbar = ({id, data, reload}) => {
         }
     }
 
-    useEffect(checkFavorite, []);
+    useEffect(checkFavorite);
 
     return (
         <section className="article-toolbar">
@@ -107,11 +97,12 @@ const RecipeToolbar = ({id, data, reload}) => {
             </div>
             {token && <div>
                 <button className="article-button" onClick={favoriteArticle}>
-                    <FaRegHeart/>
+                    {isFavorite === false ?
+                        <FaRegHeart/>
+                        :
+                        <FaHeart/>
+                    }
                 </button>
-                {/*<button className="article-button">*/}
-                {/*    <FaHeart/>*/}
-                {/*</button>*/}
                 {user && data && user.id === data.user_id &&
                 <>
                     <button className="article-button" onClick={editArticle}>

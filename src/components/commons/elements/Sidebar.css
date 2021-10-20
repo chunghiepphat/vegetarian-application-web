@@ -66,18 +66,6 @@ aside li {
     padding: 20px;
 }
 
-.sidebar-widget .thread-wrapper {
-    margin: 0 0 10px 0;
-}
-
-.sidebar-widget .thread-item {
-    flex-direction: column;
-}
-
-.sidebar-widget .thread-thumbnail {
-    width: 100%;
-}
-
-.sidebar-widget .thread-overview {
-    width: 100%;
+.sidebar-widget .card-medium .card-thumbnail {
+    height: 140px;
 }

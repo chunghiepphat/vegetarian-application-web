@@ -5,7 +5,6 @@ import Tile from "../../commons/elements/containers/Tile";
 
 const MenuView = ({data}) => {
     const date = new Date();
-
     const weekdays = new Array(7);
     weekdays[0] = "Sunday";
     weekdays[1] = "Monday";
@@ -17,6 +16,7 @@ const MenuView = ({data}) => {
 
     let today = weekdays[date.getDay()];
     let tomorrow = weekdays[date.getDay() + 1]
+
     return (
         <section>
             <header className="section-header">
