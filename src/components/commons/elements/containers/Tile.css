@@ -2,7 +2,6 @@
 .tile-wrapper {
     width: 49%;
     height: 260px;
-
 }
 
 .tile {
@@ -71,9 +70,11 @@
 .tile-details {
     padding: 20px 20px;
 }
+
 .tile-small .tile-details {
     padding: 20px 15px;
 }
+
 .tile-url {
     display: block;
     position: absolute;
@@ -101,5 +102,17 @@
 }
 
 .tile-small .tile-author {
-    display: none;
+    /*display: none;*/
+}
+
+.tile-likes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #eeeeee;
+}
+
+.tile-likes svg {
+    fill: #eeeeee;
+    margin-right: 5px;
 }

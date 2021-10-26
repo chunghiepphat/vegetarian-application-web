@@ -43,7 +43,7 @@ const HomeBlogs = () => {
                                   firstName={blog.first_name}
                                   lastName={blog.last_name}
                                   time={blog.time}
-                                  totalLike={blog.totalLike}/>
+                                  totalLikes={blog.totalLike}/>
                         ))
                         :
                         <PanelLoader/>

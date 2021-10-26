@@ -28,11 +28,11 @@ const BrowseRecipes = () => {
                 <i>Vegetarian doesn't have to mean salads. Explore new and absolutely delicious recipes from
                     our community.</i>
                 {data &&
-                <Panel>
+                <Panel filler="card-narrow">
                     {/*Iterates over the result JSON and renders a matching amount of card items*/}
                     {data.length > 0 ?
                         data.map(recipe => (
-                            <Card className="card-medium"
+                            <Card className="card-narrow"
                                   key={recipe.recipe_id}
                                   id={recipe.recipe_id}
                                   type="recipe"
@@ -40,7 +40,8 @@ const BrowseRecipes = () => {
                                   thumbnail={recipe.recipe_thumbnail}
                                   firstName={recipe.first_name}
                                   lastName={recipe.last_name}
-                                  time={recipe.time}/>
+                                  time={recipe.time_created}
+                                  totalLikes={recipe.totalLike}/>
                         ))
                         :
                         <SectionLoader/>

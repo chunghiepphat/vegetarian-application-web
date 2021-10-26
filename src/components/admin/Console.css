@@ -1,0 +1,64 @@
+.console-container {
+    display: grid;
+    grid-template-columns: repeat(14, 1fr);
+    width: 100%;
+    height: calc(100vh - 66px);
+}
+
+.console-container aside {
+    grid-column: span 2;
+    padding: 0;
+    box-shadow: 1px 0 1px #d0d0d0;
+    /*border-right: thin solid lightgray;*/
+}
+
+.console-container main {
+    grid-column: span 12;
+}
+
+.console > section {
+    margin: 0;
+    padding: 0;
+}
+
+.console-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 80px;
+    padding: 0 60px;
+    border-bottom: thin solid lightgray;
+}
+
+.console-header h1 {
+    padding: 20px 0 10px 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.console-header .navbar {
+    justify-content: flex-start;
+    height: 60px;
+}
+
+.console-header > .navbar a {
+    flex-grow: 0;
+}
+
+.console-content {
+    display: flex;
+    flex-direction: row;
+    /*justify-content: center;*/
+    height: calc(100vh - 66px - 80px);
+    padding: 20px 60px;
+    overflow-y: scroll;
+}
+
+.hidden-flex-item {
+    content: "";
+    flex: 1 0 240px;
+    /*padding: 5px;*/
+    margin: 0 15px 20px 0;
+    visibility: hidden;
+}

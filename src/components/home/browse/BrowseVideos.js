@@ -27,7 +27,7 @@ const BrowseVideos = () => {
                 <h1>Videos</h1>
                 <i>Follow along and try for yourself with these how-to videos.</i>
                 {data &&
-                <Panel>
+                <Panel filler="card-medium">
                     {/*Iterates over the result JSON and renders a matching amount of card items*/}
                     {data.length > 0 ?
                         data.map(video => (

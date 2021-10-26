@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Card from "../../commons/elements/containers/Card";
 import {apiBase} from "../../../helpers/Helpers";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
+import Panel from "../../commons/elements/containers/Panel";
 
 const BrowseBlogs = () => {
     const [data, setData] = useState([]);
@@ -24,7 +25,7 @@ const BrowseBlogs = () => {
             <div className="section-content">
                 <h1>Blogs</h1>
                 <i>Stories, thoughts, discussions and more.</i>
-                <div className="panel">
+                <Panel filler="card-full">
                     {data.length > 0 ?
                         data.map(blog => (
                             <Card className="card-full"
@@ -36,12 +37,13 @@ const BrowseBlogs = () => {
                                   subtitle={blog.blog_subtitle}
                                   firstName={blog.first_name}
                                   lastName={blog.last_name}
-                                  time={blog.time}/>
+                                  time={blog.time_created}
+                                  totalLikes={blog.totalLike}/>
                         ))
                         :
                         <SectionLoader/>
                     }
-                </div>
+                </Panel>
             </div>
         </section>
     )

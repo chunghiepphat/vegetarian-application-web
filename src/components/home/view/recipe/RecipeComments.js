@@ -60,6 +60,7 @@ const RecipeComments = ({data}) => {
 
     return (
         <section className="article-comments">
+            <h2>Comments</h2>
             <form className="form-comment" onSubmit={submitComment}>
                 <input aria-label="Blog title" type="text" value={comment}
                        onChange={e => setComment(e.target.value)}

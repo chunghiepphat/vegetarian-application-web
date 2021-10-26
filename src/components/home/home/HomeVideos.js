@@ -15,7 +15,6 @@ const HomeVideos = () => {
         const fetchData = async () => {
             const response = await fetch(api);
             const result = await response.json();
-            console.log(result)
             setData(result.listVideo);
         }
         fetchData().catch(error => {
@@ -33,7 +32,7 @@ const HomeVideos = () => {
                 {data &&
                 <Panel>
                     {data.length > 0 ? data.map(video => (
-                            <video width="320" controls>
+                            <video width="320" height="210" controls>
                                 <source src={video.video_link} type="video/mp4"/>
                             </video>
                         ))

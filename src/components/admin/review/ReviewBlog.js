@@ -8,7 +8,7 @@ import {SectionLoader} from "../../commons/elements/loaders/Loader";
 import BlogToolbar from "./blog/BlogToolbar";
 import EditBlog from "../../user/edit/EditBlog";
 
-const ViewBlog = () => {
+const ViewRecipe = () => {
     let {id} = useParams();
     const location = useLocation();
     const [data, setData] = useState();
@@ -58,4 +58,4 @@ const ViewBlog = () => {
     )
 }
 
-export default ViewBlog;
+export default ViewRecipe;

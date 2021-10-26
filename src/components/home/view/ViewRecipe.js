@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {NavLink, Redirect, Route, Switch, useLocation, useParams} from "react-router-dom";
-import Navbar from "../../commons/elements/bars/Navbar";
+import {Route, Switch, useLocation, useParams} from "react-router-dom";
 import RecipeSteps from "./recipe/RecipeSteps";
 import RecipeComments from "./recipe/RecipeComments";
 import RecipeNutrients from "./recipe/RecipeNutrients";
@@ -10,7 +9,6 @@ import RecipeHeader from "./recipe/RecipeHeader";
 import RecipeIngredients from "./recipe/RecipeIngredients";
 import RecipeEstimations from "./recipe/RecipeEstimations";
 import RecipeToolbar from "./recipe/RecipeToolbar";
-import EditIngredients from "../../user/edit/recipe/EditIngredients";
 import EditRecipe from "../../user/edit/EditRecipe";
 import {UserContext} from "../../../context/UserContext";
 
@@ -61,27 +59,18 @@ const ViewRecipe = () => {
                                     {/*Recipe estimates*/}
                                     <RecipeEstimations data={data}/>
                                     {/*Article tabs*/}
-                                    <section className="article-tabs">
-                                        <Navbar>
-                                            <NavLink to={`/view/recipe/${id}/steps`}>Steps</NavLink>
-                                            <NavLink to={`/view/recipe/${id}/nutrients`}>Nutrients</NavLink>
-                                            <NavLink to={`/view/recipe/${id}/comments`}>Comments</NavLink>
-                                        </Navbar>
-                                    </section>
+                                    {/*<section className="article-tabs">*/}
+                                    {/*    <Navbar>*/}
+                                    {/*        <NavLink to={`/view/recipe/${id}/steps`}>Steps</NavLink>*/}
+                                    {/*        <NavLink to={`/view/recipe/${id}/nutrients`}>Nutrients</NavLink>*/}
+                                    {/*        <NavLink to={`/view/recipe/${id}/comments`}>Comments</NavLink>*/}
+                                    {/*    </Navbar>*/}
+                                    {/*</section>*/}
                                     {/*Tab content*/}
-                                    <Switch>
-                                        <Route exact path="/view/recipe/:id/steps">
-                                            <RecipeSteps steps={data.steps}/>
-                                        </Route>
-                                        <Route exact path="/view/recipe/:id/nutrients">
-                                            <RecipeNutrients portion={data.portion_size}
-                                                             nutrients={data.nutrition}/>
-                                        </Route>
-                                        <Route exact path="/view/recipe/:id/comments">
-                                            <RecipeComments data={data}/>
-                                        </Route>
-                                        <Route><Redirect to={`/view/recipe/${id}/steps`}/></Route>
-                                    </Switch>
+                                    <RecipeSteps steps={data.steps}/>
+                                    <RecipeNutrients portion={data.portion_size}
+                                                     nutrients={data.nutrition}/>
+                                    <RecipeComments data={data}/>
                                 </article>
                             </div>
                         </>

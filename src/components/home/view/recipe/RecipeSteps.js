@@ -2,7 +2,8 @@ import React from "react";
 
 const RecipeSteps = (props) => {
     return (
-        <section className="article-content">
+        <section className="article-instructions">
+            <h2>Step-by-step instructions</h2>
             {props.steps.length > 0 ?
                 props.steps.map(step => (
                     <div className="article-step">

@@ -6,6 +6,10 @@
     transition: 0.3s ease-in-out;
 }
 
+html, body, #root, .App {
+    height: 100%
+}
+
 /***Text elements styling***/
 * {
     font-family: "Segoe UI", sans-serif;
@@ -103,7 +107,7 @@ svg {
 /*Grid layout*/
 .banner-container {
     z-index: 10;
-    width: 1154px;
+    width: 1280px;
     margin: 0 0 10px 0;
     background: white;
     box-shadow: 0 1px 1px #d0d0d0;
@@ -112,24 +116,24 @@ svg {
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    width: 1154px;
+    grid-template-columns: repeat(4, 1fr);
+    width: 1280px;
 }
 
 main {
-    grid-column: span 6;
+    grid-column: span 3;
     z-index: 10;
 }
 
 aside {
-    grid-column: span 2;
+    grid-column: span 1;
     z-index: 10;
-    padding-left: 10px;
+    padding: 0 10px;
 }
 
 main > section {
     margin: 0 0 10px 0;
-    padding: 30px 1px;
+    padding: 30px 0;
     /*background: white;*/
     /*border-radius: 10px;*/
     /*box-shadow: 0 1px 1px #d0d0d0;*/
@@ -141,7 +145,7 @@ main > nav {
 
 aside > section {
     margin: 0 0 10px 0;
-    padding: 30px 1px;
+    padding: 30px 0;
     background: transparent;
 }
 
@@ -168,7 +172,6 @@ aside > section {
     margin: 0 60px;
 }
 
-
 .page-navbar, .page-toolbar {
     padding: 0;
 }
@@ -181,6 +184,10 @@ aside > section {
 .page-navbar .navbar a,
 .page-toolbar .navbar div {
     text-transform: uppercase;
+}
+
+article {
+    width: 848px;
 }
 
 .sticky-bottom {
@@ -215,4 +222,16 @@ aside > section {
 
 .tooltip:hover .tooltip-text {
     visibility: visible;
+}
+
+.text-positive {
+    color: #2a6d3c;
+}
+
+.text-neutral {
+    color: #a4650a;
+}
+
+.text-negative {
+    color: #930a0a;
 }

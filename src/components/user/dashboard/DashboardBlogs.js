@@ -32,24 +32,28 @@ const DashboardBlogs = () => {
                 <Link to="/history/blogs"><FaAngleRight/>View all</Link>
             </header>
             <div className="section-content">
-                <Panel>
-                    {data.length > 0 ?
-                        data.map(blog => (
-                            <Card className="card-full"
-                                  id={blog.blog_id}
-                                  type="blog"
-                                  title={blog.blog_title}
-                                  thumbnail={blog.blog_thumbnail}
-                                  subtitle={blog.blog_subtitle}
-                                  firstName={blog.first_name}
-                                  lastName={blog.last_name}
-                                  time={blog.time}
-                                  totalLike={blog.totalLike}/>
-                        ))
-                        :
-                        <PanelLoader/>
-                    }
-                </Panel>
+                {data ?
+                    <Panel>
+                        {data.length > 0 ?
+                            data.map(blog => (
+                                <Card className="card-full"
+                                      id={blog.blog_id}
+                                      type="blog"
+                                      title={blog.blog_title}
+                                      thumbnail={blog.blog_thumbnail}
+                                      subtitle={blog.blog_subtitle}
+                                      firstName={blog.first_name}
+                                      lastName={blog.last_name}
+                                      time={blog.time}
+                                      totalLike={blog.totalLike}/>
+                            ))
+                            :
+                            <PanelLoader/>
+                        }
+                    </Panel>
+                    :
+                    <em>Seems empty here...</em>
+                }
             </div>
         </section>
     )
