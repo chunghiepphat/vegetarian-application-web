@@ -26,9 +26,9 @@ const DashboardSidebar = () => {
             <section className="sidebar-widget">
                 <h1>Useful tools</h1>
                 <Navbar>
-                    <Link to="/bmi"><FaAngleRight/>Calculate BMI</Link>
-                    <Link to="/menu"><FaAngleRight/>Your weekly menu</Link>
-                    <Link to="/nearby-stores"><FaAngleRight/>Find vegan stores</Link>
+                    <NavLink to="/health"><FaAngleRight/>Your health profile</NavLink>
+                    <NavLink to="/menu"><FaAngleRight/>Your weekly menu</NavLink>
+                    <NavLink to="/nearby-stores"><FaAngleRight/>Find vegan stores</NavLink>
                 </Navbar>
             </section>
             <section className="sidebar-widget">

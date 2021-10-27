@@ -25,7 +25,8 @@ const Card = ({
                 {subtitle &&
                 <p className="card-subtitle">{subtitle.substring(0, 150)}{subtitle.length > 150 && <>...</>}</p>}
                 <p className="card-author"><Link to={`/user`}>{firstName} {lastName}</Link></p>
-                <p className="card-timestamp">{moment(time).format("lll")}</p>
+                {time &&
+                <p className="card-timestamp">{moment(time).format("lll")}</p>}
                 {totalLikes !== null &&
                 <div className="card-likes"><FaRegHeart/> {totalLikes}</div>}
                 {status &&

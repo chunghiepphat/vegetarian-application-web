@@ -72,42 +72,40 @@ const EditRecipe = ({id, data}) => {
     }
 
     return (
-        <>
-            {data.recipe_thumbnail &&
-            <picture className="article-thumbnail">
-                <source srcSet={data.recipe_thumbnail}/>
-                <img src="" alt=""/>
-            </picture>}
-            <div className="section-content">
-                {/*Recipe article container*/}
-                <article>
-                    {/*Recipe title*/}
-                    <Link onClick={`/view/recipe/${id}`}><FaAngleLeft/>Go back</Link>
-                    <RecipeHeader data={data}/>
-                    <Form id="updateForm" onSubmit={updatePost}>
+        <div className="section-content">
+            {/*Recipe article container*/}
+            <article>
+                {data.recipe_thumbnail &&
+                <picture className="article-thumbnail">
+                    <source srcSet={data.recipe_thumbnail}/>
+                    <img src="" alt=""/>
+                </picture>}
+                {/*Recipe title*/}
+                <Link to={`/view/recipe/${id}`}><FaAngleLeft/>Go back</Link>
+                <RecipeHeader data={data}/>
+                <Form id="updateForm" onSubmit={updatePost}>
 
-                        <EditEstimations data={data}
-                                         difficulty={difficulty} setDifficulty={setDifficulty}
-                                         portionSize={portionSize} setPortionSize={setPortionSize}
-                                         portionType={portionType} setPortionType={setPortionType}
-                                         prepTime={prepTime} setPrepTime={setPrepTime}
-                                         bakingTime={bakingTime} setBakingTime={setBakingTime}
-                                         restingTime={restingTime} setRestingTime={setRestingTime}/>
-                        <EditIngredients data={data}
-                                         ingredients={ingredients} setIngredients={setIngredients}/>
-                        <EditSteps data={data}
-                                   steps={steps} setSteps={setSteps}/>
-                    </Form>
+                    <EditEstimations data={data}
+                                     difficulty={difficulty} setDifficulty={setDifficulty}
+                                     portionSize={portionSize} setPortionSize={setPortionSize}
+                                     portionType={portionType} setPortionType={setPortionType}
+                                     prepTime={prepTime} setPrepTime={setPrepTime}
+                                     bakingTime={bakingTime} setBakingTime={setBakingTime}
+                                     restingTime={restingTime} setRestingTime={setRestingTime}/>
+                    <EditIngredients data={data}
+                                     ingredients={ingredients} setIngredients={setIngredients}/>
+                    <EditSteps data={data}
+                               steps={steps} setSteps={setSteps}/>
+                </Form>
 
-                </article>
-                <div className="sticky-bottom">
-                    <InputGroup>
-                        <button className="button-cancel" onClick={cancelUpdate}>Cancel</button>
-                        <button type="submit" form="updateForm" className="button-submit">Finish</button>
-                    </InputGroup>
-                </div>
+            </article>
+            <div className="sticky-bottom">
+                <InputGroup>
+                    <button className="button-cancel" onClick={cancelUpdate}>Cancel</button>
+                    <button type="submit" form="updateForm" className="button-submit">Finish</button>
+                </InputGroup>
             </div>
-        </>
+        </div>
     )
 }
 export default EditRecipe;

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {apiBase} from "../../../helpers/Helpers";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
+import {FaRegHeart} from "react-icons/all";
 
 const HomeBanner = () => {
     const api = `${apiBase}/recipes/get5bestrecipes`;
@@ -32,6 +33,8 @@ const HomeBanner = () => {
                         </picture>
                         <div className="tile-overlay">
                             <div className="tile-details">
+                                {data[0].totalLike !== undefined &&
+                                <div className="tile-likes"><FaRegHeart/> {data[0].totalLike}</div>}
                                 <h1 className="tile-title">{data[0].recipe_title}</h1>
                                 <p className="tile-author">by {data[0].first_name} {data[0].last_name}</p>
                             </div>
@@ -46,6 +49,8 @@ const HomeBanner = () => {
                         </picture>
                         <div className="tile-overlay">
                             <div className="tile-details">
+                                {data[1].totalLike !== undefined &&
+                                <div className="tile-likes"><FaRegHeart/> {data[1].totalLike}</div>}
                                 <h1 className="tile-title">{data[1].recipe_title}</h1>
                                 <p className="tile-author">by {data[1].first_name} {data[1].last_name}</p>
                             </div>
@@ -60,6 +65,8 @@ const HomeBanner = () => {
                         </picture>
                         <div className="tile-overlay">
                             <div className="tile-details">
+                                {data[2].totalLike !== undefined &&
+                                <div className="tile-likes"><FaRegHeart/> {data[2].totalLike}</div>}
                                 <h1 className="tile-title">{data[2].recipe_title}</h1>
                                 <p className="tile-author">by {data[2].first_name} {data[2].last_name}</p>
                             </div>
@@ -74,6 +81,8 @@ const HomeBanner = () => {
                         </picture>
                         <div className="tile-overlay">
                             <div className="tile-details">
+                                {data[3].totalLike !== undefined &&
+                                <div className="tile-likes"><FaRegHeart/> {data[3].totalLike}</div>}
                                 <h1 className="tile-title">{data[3].recipe_title}</h1>
                                 <p className="tile-author">by {data[3].first_name} {data[3].last_name}</p>
                             </div>
@@ -88,6 +97,8 @@ const HomeBanner = () => {
                         </picture>
                         <div className="tile-overlay">
                             <div className="tile-details">
+                                {data[4].totalLike !== undefined &&
+                                <div className="tile-likes"><FaRegHeart/> {data[4].totalLike}</div>}
                                 <h1 className="tile-title">{data[4].recipe_title}</h1>
                                 <p className="tile-author">by {data[4].first_name} {data[4].last_name}</p>
                             </div>

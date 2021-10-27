@@ -60,6 +60,11 @@ const EditBlog = ({id, data}) => {
         <div className="section-content">
             {/*Recipe article container*/}
             <article>
+                {data.blog_thumbnail &&
+                <picture className="article-thumbnail">
+                    <source srcSet={data.blog_thumbnail}/>
+                    <img src="" alt=""/>
+                </picture>}
                 {/*Recipe title*/}
                 <Link to={`/view/blog/${id}`}><FaAngleLeft/>Go back</Link>
                 <BlogHeader data={data}/>

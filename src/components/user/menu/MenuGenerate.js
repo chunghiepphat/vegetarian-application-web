@@ -10,7 +10,7 @@ const MenuGenerate = (props) => {
             </header>
             <div className="section-content">
                 <Form onSubmit={props.generate}>
-                    <button type="submit">
+                    <button type="submit" className="button-submit">
                         Generate your menu
                     </button>
                 </Form>

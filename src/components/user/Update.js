@@ -4,7 +4,6 @@ import Navbar from "../commons/elements/bars/Navbar";
 import UpdateAvatar from "./update/UpdateAvatar";
 import UpdateProfile from "./update/UpdateProfile";
 import UpdatePassword from "./update/UpdatePassword";
-import Home from "../home/Home";
 import DashboardSidebar from "./DashboardSidebar";
 
 const Update = () => {

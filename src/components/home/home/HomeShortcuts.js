@@ -23,8 +23,8 @@ const HomeShortcuts = () => {
                         <Link className="button-link" to="/menu">
                             Create your menu for this week
                         </Link>
-                        <Link className="button-link" to="/bmi">
-                            Calculate your BMI
+                        <Link className="button-link" to="/health">
+                            Manage your health profile & preferences
                         </Link>
                     </InputGroup>
                 </div>

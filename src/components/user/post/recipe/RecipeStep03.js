@@ -41,7 +41,6 @@ const RecipeStep03 = (props) => {
         });
     }
 
-
     const nextStep = () => {
         history.push("/post/recipe/step-4");
     }
@@ -55,8 +54,8 @@ const RecipeStep03 = (props) => {
                 <header className="section-header">
                     <Link to="/post/recipe/step-2"><FaAngleLeft/>Previous step</Link>
                     <h1>Step 3 - Add your ingredients</h1>
-                    <em>Add some ingredients and their estimated amounts. Concise and precise ingredient names help us
-                        estimate the nutritional values for your recipe better.</em>
+                    <p>Add some ingredients and their estimated amounts. Concise and precise ingredient names help us
+                        estimate the nutritional values for your recipe better.</p>
                 </header>
                 <div className="section-content">
                     <Form onSubmit={nextStep}>
@@ -79,7 +78,8 @@ const RecipeStep03 = (props) => {
                                 ))}
                             </div>
                             :
-                            <em>Add some ingredients to your recipe...</em>}
+                            <em>Add some ingredients to your recipe...</em>
+                        }
                         <div className="input-group">
                             <button onClick={handleAddField}>Add ingredient</button>
                             <button className="button-cancel" onClick={handleClear}>Clear</button>

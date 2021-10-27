@@ -1,7 +1,7 @@
 /***Form elements styling***/
 button, input, select, textarea {
     width: 100%;
-    margin: 8px 0;
+    margin: 4px 0;
     font-size: 16px;
 }
 
@@ -10,7 +10,7 @@ button, .button-link {
     height: 40px;
     color: #eeeeee;
     font-weight: 600;
-    background: #656665;
+    background: #abac7f;
     border: none;
     border-radius: 8px;
     box-shadow: 0 2px 4px #d0d0d0;
@@ -49,7 +49,7 @@ button:disabled:hover, .button-link:disabled:hover {
 
 /*Text fields and dropdowns*/
 input, select, textarea {
-    padding: 0 24px;
+    padding: 0 20px;
     color: #040f0f;
     background-color: #f2f4f3;
     border: thin solid lightgray;
@@ -57,7 +57,7 @@ input, select, textarea {
 }
 
 input, select {
-    height: 40px;
+    height: 38px;
 }
 
 textarea {
@@ -83,10 +83,11 @@ input:disabled, option:disabled, textarea:disabled {
 label {
     display: flex;
     flex-direction: column;
-    margin: 10px 0 0 0;
+    margin: 5px 0;
     color: #656665;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
+    line-height: 1.5;
 }
 
 .form-container {

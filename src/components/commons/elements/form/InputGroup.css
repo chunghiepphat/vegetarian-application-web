@@ -14,10 +14,6 @@
     margin-right: 0;
 }
 
-.input-group > select {
-    width: 200px;
-}
-
 .input-group input[type=text] {
     width: 240px;
 }

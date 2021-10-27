@@ -19,7 +19,7 @@ import jwtDecode from "jwt-decode";
 import {UserContext} from "./context/UserContext";
 import Favorites from "./components/user/Favorites";
 import Menu from "./components/user/Menu";
-import Bmi from "./components/user/Bmi";
+import Health from "./components/user/Health";
 import Console from "./components/admin/Console";
 
 export default function App() {
@@ -27,6 +27,7 @@ export default function App() {
     const [user, setUser] = useState();
     const [isAdmin, setIsAdmin] = useState(false);
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
     useEffect(() => {
         if (userInfo !== null) {
             // Decode access token and add user info to UserContext
@@ -54,7 +55,6 @@ export default function App() {
     }, [location]);
 
     console.log(user);
-    console.log(userInfo);
     console.log(isAdmin);
     const background = location.state && location.state.background;
 
@@ -78,7 +78,7 @@ export default function App() {
                     {user && !isAdmin && <Route path="/update" component={Update}/>}
                     {user && !isAdmin && <Route path="/post" component={Post}/>}
                     {user && !isAdmin && <Route path="/menu" component={Menu}/>}
-                    {user && !isAdmin && <Route path="/bmi" component={Bmi}/>}
+                    {user && !isAdmin && <Route path="/health" component={Health}/>}
                     {/*Admin module*/}
                     {user && isAdmin && <Route path="/console" component={Console}/>}
                     {user && isAdmin && <Route><Redirect to="/console"/></Route>}

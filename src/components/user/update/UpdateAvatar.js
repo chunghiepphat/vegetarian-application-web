@@ -23,7 +23,7 @@ const UpdateAvatar = () => {
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
 
-    const editAvatar = async (e) => {
+    const updateAvatar = async (e) => {
         // e.preventDefault()
         // Generates request body
         let body = JSON.stringify({
@@ -66,14 +66,16 @@ const UpdateAvatar = () => {
             .then(result => setProfileImage(result.secure_url))
             .catch(error => console.log('error', error));
     }
+
     const firstUpdate = useRef(true);
     useLayoutEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
             return;
         }
-        editAvatar();
+        updateAvatar();
     }, [profileImage]);
+
     return (
         <section>
             <header className="section-header">
