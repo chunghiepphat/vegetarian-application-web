@@ -74,30 +74,22 @@ const HomeSidebar = () => {
                     <NavLink to="/search"><FaAngleRight/>Advanced search</NavLink>
                 </Navbar>
             </section>
-            <section className="sidebar-widget">
-                <h1>Try these</h1>
-                <Navbar>
-                    <Link to="/tags/main-courses"><FaAngleRight/>Main courses</Link>
-                    <Link to="/tags/soups"><FaAngleRight/>Soups</Link>
-                    <Link to="/tags/snacks"><FaAngleRight/>Snacks</Link>
-                    <Link to="/tags/desserts"><FaAngleRight/>Desserts</Link>
-                </Navbar>
-            </section>
             {recommendations &&
             <section className="sidebar-widget">
                 <h1>Recommended for you</h1>
                 <Panel>
                     {recommendations.length ?
-                        recommendations.map(recipe => (
+                        recommendations.map(item => (
                             <Card className="card-medium"
-                                  key={recipe.recipe_id}
-                                  id={recipe.recipe_id}
+                                  key={item.recipe_id}
+                                  id={item.recipe_id}
                                   type="recipe"
-                                  title={recipe.recipe_title}
-                                  thumbnail={recipe.recipe_thumbnail}
-                                  firstName={recipe.first_name}
-                                  lastName={recipe.last_name}
-                                  totalLikes={recipe.totalLike}/>
+                                  title={item.recipe_title}
+                                  thumbnail={item.recipe_thumbnail}
+                                  userId={item.user_id}
+                                  firstName={item.first_name}
+                                  lastName={item.last_name}
+                                  totalLikes={item.totalLike}/>
                         ))
                         :
                         <PanelLoader/>
@@ -109,18 +101,19 @@ const HomeSidebar = () => {
                 {blogs &&
                 <Panel>
                     {blogs.length ?
-                        blogs.map(blog => (
+                        blogs.map(item => (
                             <Card className="card-medium"
-                                  key={blog.blog_id}
-                                  id={blog.blog_id}
+                                  key={item.blog_id}
+                                  id={item.blog_id}
                                   type="blog"
                                   hideThumbnail={true}
-                                  title={blog.blog_title}
-                                  subtitle={blog.blog_subtitle}
-                                  thumbnail={blog.blog_thumbnail}
-                                  firstName={blog.first_name}
-                                  lastName={blog.last_name}
-                                  totalLikes={blog.totalLike}/>
+                                  title={item.blog_title}
+                                  subtitle={item.blog_subtitle}
+                                  thumbnail={item.blog_thumbnail}
+                                  userId={item.user_id}
+                                  firstName={item.first_name}
+                                  lastName={item.last_name}
+                                  totalLikes={item.totalLike}/>
                         ))
                         :
                         <PanelLoader/>

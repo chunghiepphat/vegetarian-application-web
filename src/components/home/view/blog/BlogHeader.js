@@ -1,6 +1,7 @@
 import React from "react";
 import moment from "moment";
 import Avatar from "../../../commons/elements/Avatar";
+import {Link} from "react-router-dom";
 
 const BlogHeader = ({data}) => {
     return (
@@ -13,6 +14,7 @@ const BlogHeader = ({data}) => {
                     <div className="author-name">
                         {data.first_name} {data.last_name}
                     </div>
+                    <Link to={`/view/user/${data.user_id}`}/>
                 </div>
                 <div className="article-timestamp">
                     <span className="timestamp-created">

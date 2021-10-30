@@ -2,7 +2,7 @@ import React from "react";
 
 const BlogContent = ({data}) => {
     return (
-        <section className="article-content">
+        <section className="article-raw">
             <div dangerouslySetInnerHTML={{__html: data.blog_content}}/>
         </section>
     )

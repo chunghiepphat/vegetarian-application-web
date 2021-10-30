@@ -1,15 +1,13 @@
-import React, {useContext, useEffect, useState} from "react";
-import {apiBase} from "../../../helpers/Helpers";
-import Card from "../../commons/elements/containers/Card";
-import {SectionLoader} from "../../commons/elements/loaders/Loader";
-import {UserContext} from "../../../context/UserContext";
+import React, {useEffect, useState} from "react";
+import {apiBase} from "../../../../helpers/Helpers";
+import Card from "../../../commons/elements/containers/Card";
+import {SectionLoader} from "../../../commons/elements/loaders/Loader";
 
-const HistoryRecipes = () => {
-    const user = useContext(UserContext);
+const UserBlogs = ({userId}) => {
     const [data, setData] = useState([]);
 
     const fetchData = async () => {
-        const api = `${apiBase}/recipes/getallbyuserID/${user.id}?page=1&limit=100`;
+        const api = `${apiBase}/blogs/getallbyuserIDdifferent/${userId}?page=1&limit=100`;
         const response = await fetch(api);
         const result = await response.json();
         setData(result.listResult);
@@ -25,19 +23,19 @@ const HistoryRecipes = () => {
     return (
         <section>
             <div className="section-content">
-                <h1>Recipes</h1>
-                <i>Your recipes are shown here.</i>
+                <h1>Blogs</h1>
+                <i>Blogs and stories shared by this user are shown here.</i>
                 {data &&
                 <div className="panel">
-                    {/*Iterates over the result JSON and renders a matching amount of card items*/}
                     {data.length > 0 ?
                         data.map(item => (
                             <Card className="card-full"
-                                  key={item.recipe_id}
-                                  id={item.recipe_id}
-                                  type="recipe"
-                                  title={item.recipe_title}
-                                  thumbnail={item.recipe_thumbnail}
+                                  key={item.blog_id}
+                                  id={item.blog_id}
+                                  type="blog"
+                                  title={item.blog_title}
+                                  thumbnail={item.blog_thumbnail}
+                                  subtitle={item.blog_subtitle}
                                   userId={item.user_id}
                                   firstName={item.first_name}
                                   lastName={item.last_name}/>
@@ -45,10 +43,11 @@ const HistoryRecipes = () => {
                         :
                         <SectionLoader/>
                     }
-                </div>}
+                </div>
+                }
             </div>
         </section>
     )
 }
 
-export default HistoryRecipes;
+export default UserBlogs;

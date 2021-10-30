@@ -32,18 +32,19 @@ const HomeBlogs = () => {
             <div className="section-content">
                 {data &&
                 <Panel>
-                    {data.length > 0 ? data.map(blog => (
+                    {data.length > 0 ? data.map(item => (
                             <Card className="card-full"
-                                  key={blog.blog_id}
-                                  id={blog.blog_id}
+                                  key={item.blog_id}
+                                  id={item.blog_id}
                                   type="blog"
-                                  title={blog.blog_title}
-                                  subtitle={blog.blog_subtitle}
-                                  thumbnail={blog.blog_thumbnail}
-                                  firstName={blog.first_name}
-                                  lastName={blog.last_name}
-                                  time={blog.time}
-                                  totalLikes={blog.totalLike}/>
+                                  title={item.blog_title}
+                                  subtitle={item.blog_subtitle}
+                                  thumbnail={item.blog_thumbnail}
+                                  userId={item.user_id}
+                                  firstName={item.first_name}
+                                  lastName={item.last_name}
+                                  time={item.time}
+                                  totalLikes={item.totalLike}/>
                         ))
                         :
                         <PanelLoader/>

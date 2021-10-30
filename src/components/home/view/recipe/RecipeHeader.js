@@ -1,6 +1,8 @@
 import React, {useContext} from "react";
 import Avatar from "../../../commons/elements/Avatar";
 import moment from "moment";
+import {Link} from "react-router-dom";
+import {FaAngleRight} from "react-icons/fa";
 
 const RecipeHeader = ({data}) => {
     return (
@@ -10,8 +12,9 @@ const RecipeHeader = ({data}) => {
                 <div className="article-author">
                     <Avatar className="author-avatar" data={data}/>
                     <div className="author-name">
-                        {data.first_name} {data.last_name}
+                        {data.first_name} {data.last_name} <FaAngleRight/>
                     </div>
+                    <Link to={`/view/user/${data.user_id}`}/>
                 </div>
                 <div className="article-timestamp">
                     <span className="timestamp-created">

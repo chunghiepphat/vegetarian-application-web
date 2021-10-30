@@ -13,7 +13,7 @@ import View from "./components/home/View";
 import Post from "./components/user/Post";
 import Search from "./components/home/Search";
 import History from "./components/user/History";
-import Update from "./components/user/Update";
+import Profile from "./components/user/Profile";
 import {apiBase} from "./helpers/Helpers";
 import jwtDecode from "jwt-decode";
 import {UserContext} from "./context/UserContext";
@@ -28,21 +28,22 @@ export default function App() {
     const [isAdmin, setIsAdmin] = useState(false);
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
+    const fetchData = async () => {
+        const api = `${apiBase}/user/${userInfo.id}`
+        const response = await fetch(api);
+        const result = await response.json();
+        setUser(result);
+        if (result.id === 48) {
+            setIsAdmin(true);
+        } else {
+            setIsAdmin(false);
+        }
+    }
+
     useEffect(() => {
         if (userInfo !== null) {
             // Decode access token and add user info to UserContext
             // const decodedToken = jwtDecode(userInfo);
-            const api = `${apiBase}/user/${userInfo.id}`
-            const fetchData = async () => {
-                const response = await fetch(api);
-                const result = await response.json();
-                setUser(result);
-                if (result.id === 48) {
-                    setIsAdmin(true);
-                } else {
-                    setIsAdmin(false);
-                }
-            }
             fetchData().catch(error => {
                 console.error(error);
             });
@@ -75,7 +76,7 @@ export default function App() {
                     {user && !isAdmin && <Route path="/profile" component={Dashboard}/>}
                     {user && !isAdmin && <Route path="/favorites" component={Favorites}/>}
                     {user && !isAdmin && <Route path="/history" component={History}/>}
-                    {user && !isAdmin && <Route path="/update" component={Update}/>}
+                    {user && !isAdmin && <Route path="/update" component={Profile}/>}
                     {user && !isAdmin && <Route path="/post" component={Post}/>}
                     {user && !isAdmin && <Route path="/menu" component={Menu}/>}
                     {user && !isAdmin && <Route path="/health" component={Health}/>}

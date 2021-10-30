@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {FaHeart, FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
 import {UserContext} from "../../../../context/UserContext";
 import {apiBase} from "../../../../helpers/Helpers";
@@ -8,8 +8,7 @@ const BlogToolbar = ({id, data, reload}) => {
     const history = useHistory();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const apiDelete = `${apiBase}/blogs/delete/${data.blog_id}`;
-    const apiLike = `${apiBase}/blogs/like`;
+    const [isFavorite, setIsFavorite] = useState(false);
 
     // Generates request headers
     let headers = new Headers();
@@ -18,6 +17,24 @@ const BlogToolbar = ({id, data, reload}) => {
     }
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
+
+    // Checks if article is already favorite for current user
+    const checkFavorite = async () => {
+        // Generates request
+        let request = {
+            method: 'GET',
+            headers: headers,
+        };
+
+        // Executes fetch
+        if (user !== undefined) {
+            const api = `${apiBase}/user/blog/islike?userID=${user.id}&blogID=${id}`
+            const response = await fetch(api, request);
+            const result = await response.json();
+            console.log(result.is_Liked);
+            setIsFavorite(result.is_Liked);
+        }
+    }
 
     const favoriteArticle = async (e) => {
         e.preventDefault();
@@ -35,9 +52,9 @@ const BlogToolbar = ({id, data, reload}) => {
         };
 
         // Executes fetch
-        const response = await fetch(apiLike, request);
+        const api = `${apiBase}/blogs/like`;
+        const response = await fetch(api, request);
         if (response.ok) {
-            alert("Added to favorites.");
             reload();
         } else if (response.status === 401) {
             alert("You are not authorized to complete the request.")
@@ -59,7 +76,8 @@ const BlogToolbar = ({id, data, reload}) => {
         };
 
         // Executes fetch
-        const response = await fetch(apiDelete, request);
+        const api = `${apiBase}/blogs/delete/${data.blog_id}`;
+        const response = await fetch(api, request);
         if (response.ok) {
             alert("Your article has been deleted.");
             history.push("/home");
@@ -70,6 +88,8 @@ const BlogToolbar = ({id, data, reload}) => {
         }
     }
 
+    useEffect(checkFavorite);
+
     return (
 
         <section className="article-toolbar">
@@ -77,12 +97,13 @@ const BlogToolbar = ({id, data, reload}) => {
                 <p><FaRegHeart/> {data.totalLike}</p>
             </div>
             {token && <div>
-                <button className="article-button" onClick={favoriteArticle}>
-                    <FaRegHeart/>
+                <button className={`article-button ${isFavorite && "button-active"}`} onClick={favoriteArticle}>
+                    {isFavorite === false ?
+                        <FaRegHeart/>
+                        :
+                        <FaHeart/>
+                    }
                 </button>
-                {/*<button className="article-button">*/}
-                {/*    <FaHeart/>*/}
-                {/*</button>*/}
                 {user && data && user.id === data.user_id &&
                 <>
                     <button className="article-button" onClick={editArticle}>

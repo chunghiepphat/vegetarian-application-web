@@ -127,33 +127,46 @@ const HomeBanner = () => {
                 <button onClick={executeScroll} className="button-scroll"><span/></button>
                 <section className="banner-section banner-shortcuts">
                     <div ref={scrollRef} style={{position: "absolute", top: "-60px", left: "0"}}/>
-                    <header className="section-header">
-                        <h1>What can we help you with?</h1>
-                    </header>
                     {user ?
-                        <div className="section-content">
-                            <Link className="banner-shortcut" to="/post/recipe">
-                                Share a recipe <FaAngleRight/>
-                            </Link>
-                            <Link className="banner-shortcut" to="/post/blog">
-                                Share a story <FaAngleRight/>
-                            </Link>
-                            <Link className="banner-shortcut" to="/menu">
-                                Let us suggest this week's menu for you <FaAngleRight/>
-                            </Link>
-                            <Link className="banner-shortcut" to="/health">
-                                Manage your health profile & food preferences <FaAngleRight/>
-                            </Link>
-                        </div>
+                        <>
+                            <header className="section-header">
+                                <h1>What can we help you with?</h1>
+                            </header>
+                            <div className="section-content">
+                                <Link className="banner-shortcut" to="/post/recipe">
+                                    Share a recipe <FaAngleRight/>
+                                </Link>
+                                <Link className="banner-shortcut" to="/post/blog">
+                                    Share a story <FaAngleRight/>
+                                </Link>
+                                <Link className="banner-shortcut" to="/menu">
+                                    Let us suggest this week's menu for you <FaAngleRight/>
+                                </Link>
+                                <Link className="banner-shortcut" to="/health">
+                                    Manage your health profile & food preferences <FaAngleRight/>
+                                </Link>
+                            </div>
+                        </>
                         :
-                        <div className="section-content">
-                            <Link className="banner-shortcut" to={{
-                                pathname: "/login",
-                                state: {background: location}
-                            }}>
-                                Sign in to get access to more features!
-                            </Link>
-                        </div>
+                        <>
+                            <header className="section-header">
+                                <h1>Sign in to get access to more features!</h1>
+                            </header>
+                            <div className="section-content">
+                                <Link className="banner-shortcut" to={{
+                                    pathname: "/login",
+                                    state: {background: location}
+                                }}>
+                                    Sign in
+                                </Link>
+                                <Link className="banner-shortcut" to={{
+                                    pathname: "/register",
+                                    state: {background: location}
+                                }}>
+                                    Create an account
+                                </Link>
+                            </div>
+                        </>
                     }
                 </section>
             </div>

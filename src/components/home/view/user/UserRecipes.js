@@ -1,15 +1,14 @@
-import React, {useContext, useEffect, useState} from "react";
-import {apiBase} from "../../../helpers/Helpers";
-import Card from "../../commons/elements/containers/Card";
-import {SectionLoader} from "../../commons/elements/loaders/Loader";
-import {UserContext} from "../../../context/UserContext";
+import React, {useEffect, useState} from "react";
+import Card from "../../../commons/elements/containers/Card";
+import {SectionLoader} from "../../../commons/elements/loaders/Loader";
+import {apiBase} from "../../../../helpers/Helpers";
+import Panel from "../../../commons/elements/containers/Panel";
 
-const HistoryRecipes = () => {
-    const user = useContext(UserContext);
+const UserRecipes = ({userId}) => {
     const [data, setData] = useState([]);
 
     const fetchData = async () => {
-        const api = `${apiBase}/recipes/getallbyuserID/${user.id}?page=1&limit=100`;
+        const api = `${apiBase}/recipes/getallbyuserIDdifferent/${userId}?page=1&limit=100`;
         const response = await fetch(api);
         const result = await response.json();
         setData(result.listResult);
@@ -26,13 +25,13 @@ const HistoryRecipes = () => {
         <section>
             <div className="section-content">
                 <h1>Recipes</h1>
-                <i>Your recipes are shown here.</i>
+                <i>Recipes created by this user are shown here.</i>
                 {data &&
-                <div className="panel">
+                <Panel>
                     {/*Iterates over the result JSON and renders a matching amount of card items*/}
                     {data.length > 0 ?
                         data.map(item => (
-                            <Card className="card-full"
+                            <Card className="card-narrow"
                                   key={item.recipe_id}
                                   id={item.recipe_id}
                                   type="recipe"
@@ -45,10 +44,10 @@ const HistoryRecipes = () => {
                         :
                         <SectionLoader/>
                     }
-                </div>}
+                </Panel>}
             </div>
         </section>
     )
 }
 
-export default HistoryRecipes;
+export default UserRecipes;

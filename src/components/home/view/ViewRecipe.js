@@ -58,18 +58,11 @@ const ViewRecipe = () => {
                                     <RecipeIngredients data={data}/>
                                     {/*Recipe estimates*/}
                                     <RecipeEstimations data={data}/>
-                                    {/*Article tabs*/}
-                                    {/*<section className="article-tabs">*/}
-                                    {/*    <Navbar>*/}
-                                    {/*        <NavLink to={`/view/recipe/${id}/steps`}>Steps</NavLink>*/}
-                                    {/*        <NavLink to={`/view/recipe/${id}/nutrients`}>Nutrients</NavLink>*/}
-                                    {/*        <NavLink to={`/view/recipe/${id}/comments`}>Comments</NavLink>*/}
-                                    {/*    </Navbar>*/}
-                                    {/*</section>*/}
-                                    {/*Tab content*/}
-                                    <RecipeSteps steps={data.steps}/>
+                                    {/*Recipe nutrients*/}
                                     <RecipeNutrients portion={data.portion_size}
                                                      nutrients={data.nutrition}/>
+                                    {/*Recipe instructions*/}
+                                    <RecipeSteps steps={data.steps}/>
                                     <RecipeComments data={data}/>
                                 </article>
                             </div>

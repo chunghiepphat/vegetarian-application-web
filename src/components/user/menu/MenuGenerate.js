@@ -9,11 +9,9 @@ const MenuGenerate = (props) => {
                 <em>Let us suggest a menu for the week based on your body index!</em>
             </header>
             <div className="section-content">
-                <Form onSubmit={props.generate}>
-                    <button type="submit" className="button-submit">
-                        Generate your menu
-                    </button>
-                </Form>
+                <button type="submit" className="button-submit" onClick={props.generate}>
+                    Generate a new menu
+                </button>
             </div>
         </section>
     )

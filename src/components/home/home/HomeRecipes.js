@@ -47,17 +47,18 @@ const HomeRecipes = () => {
                         {/*Scrollable card container*/}
                         <div className="panel-slider" ref={ref}>
                             {/*Iterates over the result JSON and renders a matching amount of card items*/}
-                            {data.map(recipe => (
+                            {data.map(item => (
                                 <Tile className="tile-small"
-                                      key={recipe.recipe_id}
-                                      id={recipe.recipe_id}
+                                      key={item.recipe_id}
+                                      id={item.recipe_id}
                                       type="recipe"
-                                      title={recipe.recipe_title}
-                                      thumbnail={recipe.recipe_thumbnail}
-                                      firstName={recipe.first_name}
-                                      lastName={recipe.last_name}
-                                      time={recipe.time}
-                                      totalLikes={recipe.totalLike}/>
+                                      title={item.recipe_title}
+                                      thumbnail={item.recipe_thumbnail}
+                                      userId={item.user_id}
+                                      firstName={item.first_name}
+                                      lastName={item.last_name}
+                                      time={item.time}
+                                      totalLikes={item.totalLike}/>
                             ))}
                         </div>
                     </>

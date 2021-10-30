@@ -30,13 +30,14 @@ const BrowseVideos = () => {
                 <Panel filler="card-medium">
                     {/*Iterates over the result JSON and renders a matching amount of card items*/}
                     {data.length > 0 ?
-                        data.map(video => (
+                        data.map(item => (
                             <Card className="card-medium"
-                                  key={video.id}
-                                  id={video.id}
+                                  key={item.id}
+                                  id={item.id}
                                   type="video"
-                                  title={video.video_title}
-                                  thumbnail={video.video_link}/>
+                                  title={item.video_title}
+                                  thumbnail={item.video_link}
+                                  userId={item.user_id}/>
                         ))
                         :
                         <SectionLoader/>

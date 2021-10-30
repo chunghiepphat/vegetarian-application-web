@@ -9,7 +9,7 @@ const Card = ({
                   adminConsole,
                   className, id, type, hideThumbnail,
                   title, subtitle, thumbnail,
-                  firstName, lastName, time,
+                  userId, firstName, lastName, time,
                   totalLikes, status,
               }) => {
 
@@ -25,7 +25,7 @@ const Card = ({
                 <h1 className="card-title">{title}</h1>
                 {subtitle &&
                 <p className="card-subtitle">{subtitle.substring(0, 150)}{subtitle.length > 150 && <>...</>}</p>}
-                <p className="card-author"><Link to={`/user`}>{firstName} {lastName}</Link></p>
+                <p className="card-author"><Link to={`/view/user/${userId}`}>{firstName} {lastName}</Link></p>
                 {time &&
                 <p className="card-timestamp">{moment(time).format("lll")}</p>}
                 {totalLikes !== null &&

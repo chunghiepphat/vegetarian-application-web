@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import "./Avatar.css";
 import placeholderAvatar from "../../../assets/user-image-default.png";
-import jwtDecode from "jwt-decode";
 import {apiBase} from "../../../helpers/Helpers";
 
 const Avatar = ({className, data, userImage}) => {

@@ -42,17 +42,18 @@ const DashboardBlogs = () => {
                 {data ?
                     <Panel>
                         {data.length > 0 ?
-                            data.map(blog => (
+                            data.map(item => (
                                 <Card className="card-full"
-                                      id={blog.blog_id}
+                                      id={item.blog_id}
                                       type="blog"
-                                      title={blog.blog_title}
-                                      thumbnail={blog.blog_thumbnail}
-                                      subtitle={blog.blog_subtitle}
-                                      firstName={blog.first_name}
-                                      lastName={blog.last_name}
-                                      time={blog.time}
-                                      totalLikes={blog.totalLike}/>
+                                      title={item.blog_title}
+                                      thumbnail={item.blog_thumbnail}
+                                      subtitle={item.blog_subtitle}
+                                      userId={item.user_id}
+                                      firstName={item.first_name}
+                                      lastName={item.last_name}
+                                      time={item.time}
+                                      totalLikes={item.totalLike}/>
                             ))
                             :
                             <PanelLoader/>

@@ -43,6 +43,19 @@ article section {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    position: relative;
+}
+
+.article-author > a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.article-author:hover * {
+    filter: brightness(1.2);
 }
 
 .author-avatar {
@@ -52,8 +65,16 @@ article section {
 }
 
 .author-name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: darkslateblue;
     font-size: 18px;
     font-weight: 600;
+}
+
+.author-name svg {
+    fill: darkslateblue;
 }
 
 .article-timestamp {
@@ -112,8 +133,20 @@ article section {
     fill: #656665;
 }
 
+.button-active {
+    background: #f33334;
+}
+
+.button-active svg {
+    fill: #eeeeee;
+}
+
 .article-button:hover {
     background: #e6d3a3;
+}
+
+.article-button:hover svg {
+    fill: #656665;
 }
 
 .article-raw h1 {
@@ -145,10 +178,13 @@ article section {
     padding: 0 30px;
 }
 
+.article-raw img {
+    max-width: 100%;
+}
+
 .article-instructions > h2 {
     padding: 10px 0;
     border-bottom: thin solid lightgray;
-    /*text-align: center;*/
 }
 
 article > section > h2 {
@@ -213,4 +249,85 @@ article > section > h2 {
 article .form-container {
     padding: 0;
     border: none;
+}
+
+.banner-user .banner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    padding: 40px 40px;
+}
+
+.banner-user .banner-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.banner-user .banner-section > * {
+    margin: 0 40px;
+}
+
+.banner-user .banner-section .profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.banner-user .banner-section .profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.banner-user .banner-section li {
+    padding: 2px 0;
+}
+
+.banner-user .profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 10px 0 0 0;
+
+}
+
+.banner-user .profile-info h1 {
+    padding: 0 5px;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.banner-user .banner-section li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.banner-user .banner-section li > svg {
+    margin-right: 5px;
+}
+
+.banner-user .banner-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -10;
+    width: 60%;
+    height: 100%;
+    background: center/cover no-repeat;
+}
+
+.banner-user .banner-overlay {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg,
+    rgba(254, 254, 254, 0.0) 0%,
+    rgba(254, 254, 254, 1) 50%,
+    rgba(254, 254, 254, 1) 100%);
+    backdrop-filter: blur(6px);
 }

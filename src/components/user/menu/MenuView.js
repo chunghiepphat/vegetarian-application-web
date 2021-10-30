@@ -2,8 +2,9 @@ import React, {} from "react";
 import Panel from "../../commons/elements/containers/Panel";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
 import Tile from "../../commons/elements/containers/Tile";
+import Form from "../../commons/elements/form/Form";
 
-const MenuView = ({data}) => {
+const MenuView = ({data, save}) => {
     const date = new Date();
     const weekdays = new Array(7);
     weekdays[0] = "Sunday";
@@ -58,6 +59,7 @@ const MenuView = ({data}) => {
                         <SectionLoader/>
                     }
                 </div>}
+                <button className="button-submit" onClick={save}>Save this menu</button>
             </div>
         </section>
     )

@@ -5,7 +5,7 @@ import {UserContext} from "../../../context/UserContext";
 import Form from "../../commons/elements/form/Form";
 import InputGroup from "../../commons/elements/form/InputGroup";
 
-const UpdateProfile = () => {
+const ProfileDetails = () => {
     // Authentication and API stuff
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -129,4 +129,4 @@ const UpdateProfile = () => {
     );
 }
 
-export default UpdateProfile;
+export default ProfileDetails;

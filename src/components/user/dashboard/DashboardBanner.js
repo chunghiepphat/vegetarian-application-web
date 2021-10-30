@@ -8,8 +8,8 @@ const DashboardBanner = () => {
     const user = useContext(UserContext);
 
     return (
-        <div className="banner-container">
-            <div className="banner banner-dashboard">
+        <div className="banner-container banner-dashboard">
+            <div className="banner">
                 <div className="banner-section">
                     <picture className="profile-image">
                         <source srcSet={user.profile_image}/>

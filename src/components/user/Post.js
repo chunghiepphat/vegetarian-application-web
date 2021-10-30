@@ -25,7 +25,7 @@ const Post = () => {
                     <Switch>
                         <Route path={urlRecipe}><PostRecipe/></Route>
                         <Route path={urlVideo}><PostVideo/></Route>
-                        <Route exact path={urlBlog}><PostBlog/></Route>
+                        <Route exact={urlBlog}><PostBlog/></Route>
                     </Switch>
                 </main>
 

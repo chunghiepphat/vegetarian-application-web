@@ -4,7 +4,7 @@ import {UserContext} from "../../../context/UserContext";
 import {apiBase} from "../../../helpers/Helpers";
 import Form from "../../commons/elements/form/Form";
 
-const UpdateAvatar = () => {
+const ProfileAvatar = () => {
     // Authentication and API stuff
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -96,4 +96,4 @@ const UpdateAvatar = () => {
     )
 }
 
-export default UpdateAvatar;
+export default ProfileAvatar;

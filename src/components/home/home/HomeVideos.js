@@ -31,9 +31,9 @@ const HomeVideos = () => {
             <div className="section-content">
                 {data &&
                 <Panel>
-                    {data.length > 0 ? data.map(video => (
+                    {data.length > 0 ? data.map(item => (
                             <video width="320" height="210" controls>
-                                <source src={video.video_link} type="video/mp4"/>
+                                <source src={item.video_link} type="video/mp4"/>
                             </video>
                         ))
                         :

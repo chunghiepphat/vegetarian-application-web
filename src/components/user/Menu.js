@@ -90,15 +90,14 @@ const Menu = () => {
         fetchData().catch(error => {
             console.error(error);
         });
-    }, [location]);
+    }, []);
 
     return (
         <div className="page-container">
             <div className="grid-container">
                 <main>
+                    <MenuView data={data} save={saveMenu}/>
                     <MenuGenerate generate={generateMenu}/>
-                    <MenuView data={data}/>
-                    <button className="button-submit" onClick={saveMenu}>Save this menu</button>
                 </main>
                 <DashboardSidebar/>
             </div>
