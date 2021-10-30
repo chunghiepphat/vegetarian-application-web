@@ -1,13 +1,156 @@
 /***Banner and its elements****/
-.panel-banner {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 300px);
-    grid-column-gap: 1px;
-    grid-row-gap: 1px;
+.banner-home .banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 60px + 400px);
 }
 
-.panel-banner .tile {
+.banner-home .banner-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    margin: 0;
+}
+
+.banner-home .banner-section .section-content {
+    margin: 0;
+}
+
+.banner-home .banner-showcase {
+    width: 100%;
+    max-width: 1600px;
+    height: calc(100vh - 60px - 80px);
+    min-height: 720px;
+    padding: 20px 2% 0 2%;
+}
+
+.banner-home .banner-showcase .section-header {
+    width: 100%;
+    height: 10%;
+}
+
+.banner-home .banner-showcase .section-header h1 {
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.banner-home .banner-showcase .section-content {
+    height: 85%;
+}
+
+.banner-home .button-scroll {
+    position: relative;
+    height: 80px;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.banner-home .button-scroll span {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin-left: -20px;
+    border-left: 2px solid #373d20;
+    border-bottom: 2px solid #373d20;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-animation: sdb05 1.5s infinite;
+    animation: sdb05 1.5s infinite;
+    box-sizing: border-box;
+}
+
+.banner-home .banner-shortcuts {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 400px;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.banner-home .banner-shortcuts .section-header {
+    flex-grow: 1;
+    flex-basis: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0 40px;
+}
+
+.banner-home .banner-shortcuts .section-header h1 {
+    color: #eeeeee;
+    font-size: 26px;
+    font-weight: 600;
+    text-align: right;
+}
+
+.banner-home .banner-shortcuts .section-content {
+    flex-grow: 1;
+    flex-basis: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-content: center;
+    align-items: flex-start;
+    border-left: thin solid lightgray;
+}
+
+.banner-home .banner-shortcut {
+    width: 100%;
+    height: 30px;
+    padding: 18px 20px;
+    color: #eeeeee;
+}
+
+.banner-home .banner-shortcut svg {
+    fill: #eeeeee;
+}
+
+.banner-home .banner-shortcut:hover {
+    color: #373d20;
+    background: rgba(171, 172, 127, 0.4);
+}
+
+.banner-home .banner-shortcut:hover svg {
+    fill: #373d20;
+}
+
+.banner-home .banner-background {
+    width: 100%;
+}
+
+.banner-home .banner-overlay {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(20deg,
+    rgba(254, 254, 254, 0.0) 0%,
+    rgba(254, 254, 254, 1) 70%,
+    rgba(254, 254, 254, 1) 100%);
+    backdrop-filter: blur(4px);
+}
+
+.banner-panel {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 50%);
+    grid-auto-rows: auto;
+    grid-column-gap: 1px;
+    grid-row-gap: 1px;
+    width: 100%;
+    height: 100%;
+}
+
+.banner-panel .tile {
     border-radius: 0;
 }
 
@@ -45,4 +188,32 @@
 
 .tile-eighth .tile-author {
     font-size: 16px;
+}
+
+@-webkit-keyframes sdb05 {
+    0% {
+        -webkit-transform: rotate(-45deg) translate(0, 0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: rotate(-45deg) translate(-14px, 14px);
+        opacity: 0;
+    }
+}
+
+@keyframes sdb05 {
+    0% {
+        transform: rotate(-45deg) translate(0, 0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: rotate(-45deg) translate(-14px, 14px);
+        opacity: 0;
+    }
 }

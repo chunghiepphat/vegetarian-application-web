@@ -10,20 +10,27 @@ import {UserContext} from "../../../context/UserContext";
 const DashboardBlogs = () => {
     // Gets current user's info
     const user = useContext(UserContext);
-
-    // Fetches data on page load
-    const api = `${apiBase}/blogs/get10blogbyuser/${user.id}`;
+    const token = JSON.parse(localStorage.getItem("accessToken"));
     const [data, setData] = useState([]);
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(api);
-            const result = await response.json();
-            setData(result.listResult);
-        }
-        fetchData().catch(error => {
-            console.error(error);
-        });
-    }, [api]);
+
+    let headers = new Headers();
+    headers.append("Authorization", `Bearer ${token.token}`);
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
+
+    const fetchData = async () => {
+        // Generate request
+        let request = {
+            method: 'GET',
+            headers: headers,
+        };
+        const api = `${apiBase}/blogs/get10blogbyuser/${user.id}`;
+        const response = await fetch(api, request);
+        const result = await response.json();
+        setData(result.listResult);
+    }
+
+    useEffect(fetchData, []);
 
     return (
         <section>

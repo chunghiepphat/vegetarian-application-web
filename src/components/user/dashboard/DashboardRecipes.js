@@ -10,20 +10,31 @@ import {UserContext} from "../../../context/UserContext";
 const DashboardRecipes = () => {
     // Gets current user's info
     let user = useContext(UserContext);
-
-    // Fetches data on page load
-    const api = `${apiBase}/recipes/get10recipebyuser/${user.id}`;
+    const token = JSON.parse(localStorage.getItem("accessToken"));
     const [data, setData] = useState([]);
+
+    let headers = new Headers();
+    headers.append("Authorization", `Bearer ${token.token}`);
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
+
+    const fetchData = async () => {
+        // Generate request
+        let request = {
+            method: 'GET',
+            headers: headers,
+        };
+        const api = `${apiBase}/recipes/get10recipebyuser/${user.id}`;
+        const response = await fetch(api, request);
+        const result = await response.json();
+        setData(result.listResult);
+    }
+
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(api);
-            const result = await response.json();
-            setData(result.listResult);
-        }
         fetchData().catch(error => {
             console.error(error);
         });
-    }, [api]);
+    }, []);
 
     // Handles slider scrolling on button click
     const ref = useRef(null);

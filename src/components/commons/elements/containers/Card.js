@@ -7,7 +7,7 @@ import {FaRegHeart} from "react-icons/all";
 
 const Card = ({
                   adminConsole,
-                  className, id, type,
+                  className, id, type, hideThumbnail,
                   title, subtitle, thumbnail,
                   firstName, lastName, time,
                   totalLikes, status,
@@ -16,10 +16,11 @@ const Card = ({
     return (
         <div className={`card ${className}`}>
             <Link className="card-url" to={adminConsole ? `/console/${type}/${id}` : `/view/${type}/${id}`}/>
+            {!hideThumbnail &&
             <picture className="card-thumbnail">
                 <source srcSet={thumbnail}/>
                 <img src={placeholderThumbnail} alt=""/>
-            </picture>
+            </picture>}
             <div className="card-details">
                 <h1 className="card-title">{title}</h1>
                 {subtitle &&

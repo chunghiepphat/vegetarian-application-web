@@ -6,11 +6,12 @@ label span {
     font-weight: bold;
 }
 
-.profile-banner {
+.banner-dashboard {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 40px 5%;
+    position: relative;
+    padding: 60px 120px;
 }
 
 .banner-background {
@@ -18,55 +19,50 @@ label span {
     top: 0;
     left: 0;
     z-index: -10;
-    width: 100%;
-    height: 800px;
-    background: bottom/cover no-repeat;
+    width: 60%;
+    height: 100%;
+    background: center/cover no-repeat;
 }
 
 .banner-overlay {
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg,
-    rgba(65, 65, 65, 0.2) 10%,
-    rgba(125, 125, 125, 0.4) 30%,
-    rgba(185, 185, 185, 0.6) 50%,
-    rgba(245, 245, 245, 0.8) 70%,
-    rgba(250, 250, 250, 1) 90%,
-    rgba(250, 250, 250, 1) 100%);
-    backdrop-filter: blur(2px);
+    background: linear-gradient(30deg,
+    rgba(254, 254, 254, 0.0) 0%,
+    rgba(254, 254, 254, 1) 60%,
+    rgba(254, 254, 254, 1) 100%);
+    backdrop-filter: blur(6px);
 }
 
-.banner-content {
+.banner-dashboard .banner-section {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-
-    /*background: rgba(50, 50, 50, 0.4);*/
 }
 
-.banner-content > * {
+.banner-dashboard .banner-section > * {
     margin: 0 40px;
 }
 
-.banner-content .profile-image {
+.banner-dashboard .banner-section .profile-image {
     width: 120px;
     height: 120px;
     border-radius: 50%;
     overflow: hidden;
 }
 
-.banner-content .profile-image img {
+.banner-dashboard .banner-section .profile-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.banner-content li {
+.banner-dashboard .banner-section li {
     padding: 2px 0;
 }
 
-.profile-info {
+.banner-dashboard .profile-info {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -74,22 +70,22 @@ label span {
 
 }
 
-.profile-info h1 {
+.banner-dashboard .profile-info h1 {
     padding: 0 5px;
     font-size: 30px;
     font-weight: 500;
 }
 
-.profile-info i {
+.banner-dashboard .profile-info i {
     font-size: 18px;
 }
 
-.banner-content li {
+.banner-dashboard .banner-section li {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.banner-content li > svg {
+.banner-dashboard .banner-section li > svg {
     margin-right: 5px;
 }

@@ -20,10 +20,12 @@ const SearchBar = (props) => {
 
     return (
         <form className="form-search" onSubmit={submitQuery}>
-            <FaSistrix/>
-            <input aria-label="search" type="text"
-                   value={query} onChange={e => setQuery(e.target.value)}
-                   placeholder={props.placeholder}/>
+            <label>
+                <FaSistrix/>
+                <input aria-label="search" type="text"
+                       value={query} onChange={e => setQuery(e.target.value)}
+                       placeholder={props.placeholder}/>
+            </label>
         </form>
     )
 }

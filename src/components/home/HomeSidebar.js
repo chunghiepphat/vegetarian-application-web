@@ -114,7 +114,9 @@ const HomeSidebar = () => {
                                   key={blog.blog_id}
                                   id={blog.blog_id}
                                   type="blog"
+                                  hideThumbnail={true}
                                   title={blog.blog_title}
+                                  subtitle={blog.blog_subtitle}
                                   thumbnail={blog.blog_thumbnail}
                                   firstName={blog.first_name}
                                   lastName={blog.last_name}

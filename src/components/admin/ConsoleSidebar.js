@@ -11,7 +11,9 @@ const ConsoleSidebar = () => {
                 <h1>Community</h1>
                 <Navbar>
                     <NavLink to="/console/manage-content"><FaAngleRight/>Moderate content</NavLink>
+                    <NavLink to="/console/manage-categories"><FaAngleRight/>Manage categories</NavLink>
                     <NavLink to="/console/manage-members"><FaAngleRight/>Manage members</NavLink>
+
                 </Navbar>
             </section>
             <section className="sidebar-widget">

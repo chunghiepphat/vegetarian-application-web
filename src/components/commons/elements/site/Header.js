@@ -5,6 +5,7 @@ import Navbar from "../bars/Navbar";
 import {Link, NavLink, useHistory, useLocation, withRouter} from "react-router-dom";
 import {UserContext} from "../../../../context/UserContext";
 import placeholderAvatar from "assets/user-image-default.png";
+import Brand from "./Brand";
 
 const Header = () => {
     // Get user info
@@ -14,30 +15,31 @@ const Header = () => {
     const history = useHistory();
 
     // Checks scroll offset to resize header with conditional CSS class
-    const [small, setSmall] = useState(false);
+    const [show, setShow] = useState(false);
     useEffect(() => {
         if (typeof window !== "undefined") {
             window.addEventListener("scroll", () =>
-                setSmall(window.pageYOffset > 200)
+                setShow(window.pageYOffset > 800)
             );
         }
     }, []);
 
     // Renders the header
     return (
-        <header className={`header-container${small ? " small" : ""}`}>
+        <header className={`header-container ${show ? "header-show" : ""}`}>
             {/*Left side nav with logo and basic navigation links*/}
             <div className="header-content">
-                <div>
+                <section className="header-section">
+                    <Brand/>
                     <Navbar>
                         {/*<Link to="/"><Brand/></Link>*/}
                         <NavLink to="/home">Home</NavLink>
                         <NavLink to="/about">About</NavLink>
                     </Navbar>
                     <SearchBar placeholder="What would you have for dinner?"/>
-                </div>
+                </section>
                 {/*Right-side nav with authentication and profile links*/}
-                <div>
+                <section className="header-section">
                     <Navbar>
                         {token ?
                             // If yes, shows user info and logout
@@ -78,7 +80,7 @@ const Header = () => {
                             </>
                         }
                     </Navbar>
-                </div>
+                </section>
             </div>
         </header>
     );

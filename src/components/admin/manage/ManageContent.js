@@ -12,7 +12,7 @@ const ManageContent = () => {
     return (
         <section>
             <header className="console-header">
-                <h1>Community content</h1>
+                <h1>Content submitted by the community</h1>
                 <Navbar>
                     <NavLink to={`/console/manage-content/recipes`}>Recipes</NavLink>
                     <NavLink to={`/console/manage-content/videos`}>Videos</NavLink>

@@ -255,7 +255,7 @@ const CountrySelect = (props) => {
             <option value="Uzbekistan">Uzbekistan</option>
             <option value="Vanuatu">Vanuatu</option>
             <option value="Venezuela">Venezuela</option>
-            <option value="Viet Nam">Viet Nam</option>
+            <option value="Vietnam">Vietnam</option>
             <option value="Virgin Islands, British">Virgin Islands, British</option>
             <option value="Virgin Islands, U.S.">Virgin Islands, U.S.</option>
             <option value="Wallis and Futuna">Wallis and Futuna</option>
