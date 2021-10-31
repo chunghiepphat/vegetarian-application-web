@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "/vegetarian-application-web/static/css/main.4a9d6c17.chunk.css",
-    "main.js": "/vegetarian-application-web/static/js/main.dca31269.chunk.js",
-    "main.js.map": "/vegetarian-application-web/static/js/main.dca31269.chunk.js.map",
-    "runtime-main.js": "/vegetarian-application-web/static/js/runtime-main.53c7f3b2.js",
-    "runtime-main.js.map": "/vegetarian-application-web/static/js/runtime-main.53c7f3b2.js.map",
-    "static/css/2.f83b9687.chunk.css": "/vegetarian-application-web/static/css/2.f83b9687.chunk.css",
-    "static/js/2.05d6b30e.chunk.js": "/vegetarian-application-web/static/js/2.05d6b30e.chunk.js",
-    "static/js/2.05d6b30e.chunk.js.map": "/vegetarian-application-web/static/js/2.05d6b30e.chunk.js.map",
-    "static/js/3.17db1d84.chunk.js": "/vegetarian-application-web/static/js/3.17db1d84.chunk.js",
-    "static/js/3.17db1d84.chunk.js.map": "/vegetarian-application-web/static/js/3.17db1d84.chunk.js.map",
-    "index.html": "/vegetarian-application-web/index.html",
-    "static/css/2.f83b9687.chunk.css.map": "/vegetarian-application-web/static/css/2.f83b9687.chunk.css.map",
-    "static/css/main.4a9d6c17.chunk.css.map": "/vegetarian-application-web/static/css/main.4a9d6c17.chunk.css.map",
-    "static/js/2.05d6b30e.chunk.js.LICENSE.txt": "/vegetarian-application-web/static/js/2.05d6b30e.chunk.js.LICENSE.txt",
-    "static/media/card-thumbnail-default.cd96809e.png": "/vegetarian-application-web/static/media/card-thumbnail-default.cd96809e.png",
-    "static/media/error-side-image.b3ab696b.png": "/vegetarian-application-web/static/media/error-side-image.b3ab696b.png",
-    "static/media/profile-banner-default.d0850e6b.png": "/vegetarian-application-web/static/media/profile-banner-default.d0850e6b.png"
+    "main.css": "/static/css/main.721d6e85.chunk.css",
+    "main.js": "/static/js/main.563184dd.chunk.js",
+    "main.js.map": "/static/js/main.563184dd.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.4fce8db3.js",
+    "runtime-main.js.map": "/static/js/runtime-main.4fce8db3.js.map",
+    "static/css/2.f83b9687.chunk.css": "/static/css/2.f83b9687.chunk.css",
+    "static/js/2.24ec753a.chunk.js": "/static/js/2.24ec753a.chunk.js",
+    "static/js/2.24ec753a.chunk.js.map": "/static/js/2.24ec753a.chunk.js.map",
+    "static/js/3.7da8824c.chunk.js": "/static/js/3.7da8824c.chunk.js",
+    "static/js/3.7da8824c.chunk.js.map": "/static/js/3.7da8824c.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.f83b9687.chunk.css.map": "/static/css/2.f83b9687.chunk.css.map",
+    "static/css/main.721d6e85.chunk.css.map": "/static/css/main.721d6e85.chunk.css.map",
+    "static/js/2.24ec753a.chunk.js.LICENSE.txt": "/static/js/2.24ec753a.chunk.js.LICENSE.txt",
+    "static/media/card-thumbnail-default.a5b0bfe9.png": "/static/media/card-thumbnail-default.a5b0bfe9.png",
+    "static/media/error-side-image.b3ab696b.png": "/static/media/error-side-image.b3ab696b.png",
+    "static/media/profile-banner-default.d0850e6b.png": "/static/media/profile-banner-default.d0850e6b.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.53c7f3b2.js",
+    "static/js/runtime-main.4fce8db3.js",
     "static/css/2.f83b9687.chunk.css",
-    "static/js/2.05d6b30e.chunk.js",
-    "static/css/main.4a9d6c17.chunk.css",
-    "static/js/main.dca31269.chunk.js"
+    "static/js/2.24ec753a.chunk.js",
+    "static/css/main.721d6e85.chunk.css",
+    "static/js/main.563184dd.chunk.js"
   ]
 }
