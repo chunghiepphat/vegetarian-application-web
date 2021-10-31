@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "../../commons/elements/containers/Card";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
+import Panel from "../../commons/elements/containers/Panel";
 
 const FavoriteBlogs = ({data}) => {
     return (
@@ -8,10 +9,10 @@ const FavoriteBlogs = ({data}) => {
             <div className="section-content">
                 <h1>Blogs</h1>
                 <i>Stories you added to favorites will be shown here.</i>
-                <div className="panel">
+                <Panel>
                     {data.length > 0 ?
                         data.map(blog => (
-                            <Card className="card-full"
+                            <Card className="card-medium"
                                   key={blog.blog_id}
                                   id={blog.blog_id}
                                   type="blog"
@@ -25,7 +26,7 @@ const FavoriteBlogs = ({data}) => {
                         :
                         <SectionLoader/>
                     }
-                </div>
+                </Panel>
             </div>
         </section>
     )

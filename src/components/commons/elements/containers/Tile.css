@@ -116,3 +116,9 @@
     fill: #eeeeee;
     margin-right: 5px;
 }
+
+.tile-status {
+    font-weight: 600;
+    line-height: 1.5;
+    filter: brightness(2);
+}

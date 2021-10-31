@@ -45,6 +45,7 @@ const EditRecipe = ({id, data}) => {
             "resting_time_minutes": restingTime,
             "ingredients": ingredients,
             "steps": steps,
+            "status": 1,
         });
         // Generates request
         let request = {
@@ -82,7 +83,6 @@ const EditRecipe = ({id, data}) => {
                 <Link to={`/view/recipe/${id}`}><FaAngleLeft/>Go back</Link>
                 <RecipeHeader data={data}/>
                 <Form id="updateForm" onSubmit={updatePost}>
-
                     <EditEstimations data={data}
                                      difficulty={difficulty} setDifficulty={setDifficulty}
                                      portionSize={portionSize} setPortionSize={setPortionSize}

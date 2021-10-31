@@ -45,7 +45,12 @@ const Card = ({
                 <source srcSet={thumbnail}/>
                 <img src={placeholderThumbnail} alt=""/>
             </picture>}
+
             <div className="card-details">
+                {status &&
+                <p className={`card-status ${statusColor[status - 1]}`}>
+                    {statusText[status - 1]}
+                </p>}
                 <h1 className="card-title">{title}</h1>
                 {subtitle &&
                 <p className="card-subtitle">{subtitle.substring(0, 150)}{subtitle.length > 150 && <>...</>}</p>}
@@ -54,10 +59,6 @@ const Card = ({
                 <p className="card-timestamp">{moment(time).format("lll")}</p>}
                 {totalLikes !== undefined &&
                 <div className="card-likes"><FaRegHeart/>{totalLikes}</div>}
-                {status &&
-                <p className="card-status">
-                    <span className={statusColor[status - 1]}>{statusText[status - 1]}</span>
-                </p>}
                 {recommendationCriteria && <p>
                     {recommendationText[recommendationCriteria - 1]}
                 </p>}
