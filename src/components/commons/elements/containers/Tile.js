@@ -17,7 +17,8 @@ const Tile = ({className, id, type, title, thumbnail, firstName, lastName, total
                     {totalLikes !== undefined &&
                     <div className="tile-likes"><FaRegHeart/> {totalLikes}</div>}
                     <h1 className="tile-title">{title}</h1>
-                    <div className="tile-author">by {firstName} {lastName}</div>
+                    {firstName &&
+                    <div className="tile-author">by {firstName} {lastName}</div>}
                 </div>
             </div>
         </div>

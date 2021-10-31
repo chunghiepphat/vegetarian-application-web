@@ -51,10 +51,10 @@ const Register = () => {
             })
             // Saves access token if response is green
             .then(result => {
-                if (result != null) {
+                if (result) {
                     localStorage.setItem("accessToken", JSON.stringify(result));
                     localStorage.setItem("userInfo", JSON.stringify(jwtDecode(JSON.stringify(result))));
-                    history.push("/home");
+                    history.goBack();
                 }
             })
             // Throws other errors
@@ -82,7 +82,7 @@ const Register = () => {
                        onChange={e => setPassword(e.target.value)}
                        required/>
                 <input type="password" placeholder="Confirm password (placeholder)"/>
-                <button type="submit">Create new account</button>
+                <button type="submit" className="button-submit">Create new account</button>
             </form>
         </div>
     )

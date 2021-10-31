@@ -6,20 +6,34 @@ import {UserContext} from "../../../context/UserContext";
 
 const HistoryBlogs = () => {
     const user = useContext(UserContext);
-    const api = `${apiBase}/blogs/getallbyuserID/${user.id}?page=1&limit=100`;
+    const token = JSON.parse(localStorage.getItem("accessToken"));
     const [data, setData] = useState([]);
 
+    // Generates request headers
+    let headers = new Headers();
+    if (token) {
+        headers.append("Authorization", `Bearer ${token.token}`);
+    }
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
+
+    const fetchData = async () => {
+        // Generates request
+        let request = {
+            method: 'GET',
+            headers: headers,
+        };
+        const api = `${apiBase}/blogs/getallbyuserID/${user.id}?page=1&limit=100`;
+        const response = await fetch(api, request);
+        const result = await response.json();
+        setData(result.listResult);
+    }
     // Executes fetch once on page load
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(api);
-            const result = await response.json();
-            setData(result.listResult);
-        }
         fetchData().catch(error => {
             console.error(error);
         });
-    }, [api]);
+    }, [user]);
 
     return (
         <section>
@@ -39,7 +53,9 @@ const HistoryBlogs = () => {
                                   subtitle={item.blog_subtitle}
                                   userId={item.user_id}
                                   firstName={item.first_name}
-                                  lastName={item.last_name}/>
+                                  lastName={item.last_name}
+                                  totalLikes={item.totalLike}
+                                  status={item.status}/>
                         ))
                         :
                         <SectionLoader/>

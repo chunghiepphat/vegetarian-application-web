@@ -39,7 +39,8 @@ const UserRecipes = ({userId}) => {
                                   thumbnail={item.recipe_thumbnail}
                                   userId={item.user_id}
                                   firstName={item.first_name}
-                                  lastName={item.last_name}/>
+                                  lastName={item.last_name}
+                                  totalLikes={item.totalLike}/>
                         ))
                         :
                         <SectionLoader/>

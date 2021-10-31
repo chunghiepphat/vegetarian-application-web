@@ -8,11 +8,12 @@ const DashboardSidebar = () => {
     return (
         <Sidebar>
             <section className="sidebar-widget">
-                <h1>Overview</h1>
+                <h1>Dashboard</h1>
                 <Navbar>
-                    <NavLink to="/profile"><FaAngleRight/>Your profile</NavLink>
-                    <NavLink to="/favorites"><FaAngleRight/>Your favorites</NavLink>
-                    <NavLink to="/history"><FaAngleRight/>Your posts</NavLink>
+                    <NavLink to="/profile"><FaAngleRight/>Overview</NavLink>
+                    <NavLink to="/favorites"><FaAngleRight/>Your favorite posts</NavLink>
+                    <NavLink to="/history"><FaAngleRight/>Your post history</NavLink>
+                    <NavLink to="/drafts"><FaAngleRight/>Your drafts</NavLink>
                 </Navbar>
             </section>
             <section className="sidebar-widget">
@@ -24,18 +25,11 @@ const DashboardSidebar = () => {
                 </Navbar>
             </section>
             <section className="sidebar-widget">
-                <h1>Useful tools</h1>
+                <h1>Tools & settings</h1>
                 <Navbar>
-                    <NavLink to="/health"><FaAngleRight/>Your health profile</NavLink>
                     <NavLink to="/menu"><FaAngleRight/>Your weekly menu</NavLink>
-                    <NavLink to="/nearby-stores"><FaAngleRight/>Find vegan stores</NavLink>
-                </Navbar>
-            </section>
-            <section className="sidebar-widget">
-                <h1>Settings</h1>
-                <Navbar>
-                    <NavLink to="/update"><FaAngleRight/>Edit your
-                        profile</NavLink>
+                    <NavLink to="/health"><FaAngleRight/>Health profile & preferences</NavLink>
+                    <NavLink to="/update"><FaAngleRight/>Edit account details</NavLink>
                 </Navbar>
             </section>
         </Sidebar>

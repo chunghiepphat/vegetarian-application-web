@@ -71,7 +71,8 @@ const DashboardRecipes = () => {
                                           firstName={item.first_name}
                                           lastName={item.last_name}
                                           time={item.time}
-                                          totalLikes={item.totalLike}/>
+                                          totalLikes={item.totalLike}
+                                          status={item.status}/>
                                 ))}
                             </div>
                         </>

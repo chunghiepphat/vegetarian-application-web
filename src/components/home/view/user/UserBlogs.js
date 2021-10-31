@@ -38,7 +38,8 @@ const UserBlogs = ({userId}) => {
                                   subtitle={item.blog_subtitle}
                                   userId={item.user_id}
                                   firstName={item.first_name}
-                                  lastName={item.last_name}/>
+                                  lastName={item.last_name}
+                                  totalLikes={item.totalLike}/>
                         ))
                         :
                         <SectionLoader/>

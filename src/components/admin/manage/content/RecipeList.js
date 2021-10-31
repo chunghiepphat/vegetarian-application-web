@@ -6,10 +6,23 @@ import {SectionLoader} from "../../../commons/elements/loaders/Loader";
 
 const RecipeList = () => {
     const [data, setData] = useState([]);
+    const token = JSON.parse(localStorage.getItem("accessToken"));
+
+    let headers = new Headers();
+    if (token) {
+        headers.append("Authorization", `Bearer ${token.token}`);
+    }
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
 
     const fetchData = async () => {
-        const api = `${apiBase}/recipes/getall?page=1&limit=300`;
-        const response = await fetch(api);
+        // Generate request
+        let request = {
+            method: 'GET',
+            headers: headers,
+        };
+        const api = `${apiBase}/recipes/admin/getall?page=1&limit=300`;
+        const response = await fetch(api, request);
         const result = await response.json();
         setData(result.listResult);
     }
@@ -39,7 +52,7 @@ const RecipeList = () => {
                               lastName={recipe.last_name}
                               time={recipe.time_created}
                               totalLikes={recipe.totalLike}
-                              status={1}/>
+                              status={recipe.status}/>
                     ))
                     :
                     <SectionLoader/>

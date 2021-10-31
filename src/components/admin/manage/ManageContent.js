@@ -4,9 +4,6 @@ import {NavLink, Redirect, Route, Switch} from "react-router-dom";
 import RecipeList from "./content/RecipeList";
 import VideoList from "./content/VideoList";
 import BlogList from "./content/BlogList";
-import ViewRecipe from "../../home/view/ViewRecipe";
-import ViewBlog from "../../home/view/ViewBlog";
-import ViewVideo from "../../home/view/ViewVideo";
 
 const ManageContent = () => {
     return (

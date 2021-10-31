@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Link, NavLink, withRouter} from "react-router-dom";
+import {Link, NavLink, useLocation, withRouter} from "react-router-dom";
 import {FaAngleRight} from "react-icons/fa";
 import Sidebar from "../commons/elements/Sidebar";
 import Navbar from "../commons/elements/bars/Navbar";
@@ -10,6 +10,7 @@ import {PanelLoader} from "../commons/elements/loaders/Loader";
 import {UserContext} from "../../context/UserContext";
 
 const HomeSidebar = () => {
+    const location = useLocation();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const [blogs, setBlogs] = useState([]);
@@ -55,7 +56,7 @@ const HomeSidebar = () => {
         fetchRecommendations().catch(error => {
             console.error(error);
         });
-    }, []);
+    }, [user]);
     console.log(recommendations)
 
     return (
@@ -74,9 +75,10 @@ const HomeSidebar = () => {
                     <NavLink to="/search"><FaAngleRight/>Advanced search</NavLink>
                 </Navbar>
             </section>
-            {recommendations &&
+            {user &&
             <section className="sidebar-widget">
-                <h1>Recommended for you</h1>
+                <h1>Try these recipes</h1>
+                {recommendations &&
                 <Panel>
                     {recommendations.length ?
                         recommendations.map(item => (
@@ -89,12 +91,12 @@ const HomeSidebar = () => {
                                   userId={item.user_id}
                                   firstName={item.first_name}
                                   lastName={item.last_name}
-                                  totalLikes={item.totalLike}/>
+                                  recommendationCriteria={item.criteria}/>
                         ))
                         :
                         <PanelLoader/>
                     }
-                </Panel>
+                </Panel>}
             </section>}
             <section className="sidebar-widget">
                 <h1>Popular stories</h1>

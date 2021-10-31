@@ -95,7 +95,7 @@ const RecipeToolbar = ({id, data, reload}) => {
             <div>
                 <p><FaRegHeart/> {data.totalLike}</p>
             </div>
-            {token && <div>
+            {user && user.role !== "admin" && <div>
                 <button className={`article-button ${isFavorite && "button-active"}`} onClick={favoriteArticle}>
                     {isFavorite === false ?
                         <FaRegHeart/>

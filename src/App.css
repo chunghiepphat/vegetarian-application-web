@@ -212,11 +212,12 @@ article {
 
 .sticky-bottom {
     position: sticky;
-    bottom: 0;
+    bottom: 10px;
+    z-index: 20;
     padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
-    border-top: thin solid lightgray;
+    box-shadow: 0 0 4px #d0d0d0;
 }
 
 /***Hover tooltips***/

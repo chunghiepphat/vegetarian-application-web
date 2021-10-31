@@ -48,10 +48,10 @@ const Login = () => {
             })
             // Saves result if response is green
             .then(result => {
-                if (result != null) {
+                if (result) {
                     localStorage.setItem("accessToken", JSON.stringify(result));
                     localStorage.setItem("userInfo", JSON.stringify(jwtDecode(JSON.stringify(result))));
-                    history.push("/home");
+                    history.goBack();
                 }
             })
             // Throws other errors

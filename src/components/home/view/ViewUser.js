@@ -31,9 +31,9 @@ const ViewUser = () => {
             <UserBanner data={data}/>
             <section className="page-navbar">
                 <Navbar>
-                    <NavLink to={urlRecipe}>Recipe</NavLink>
-                    <NavLink to={urlVideo}>Video</NavLink>
-                    <NavLink to={urlBlog}>Blog</NavLink>
+                    <NavLink to={urlRecipe}>{data ? <>{data.first_name}</> : <>User</>}'s recipes</NavLink>
+                    <NavLink to={urlVideo}>{data ? <>{data.first_name}</> : <>User</>}'s videos</NavLink>
+                    <NavLink to={urlBlog}>{data ? <>{data.first_name}</> : <>User</>}'s blogs</NavLink>
                 </Navbar>
             </section>
             <Switch>

@@ -1,21 +1,45 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./Card.css";
 import {Link} from "react-router-dom";
 import placeholderThumbnail from "../../../../assets/card-thumbnail-default.png";
 import moment from "moment";
 import {FaRegHeart} from "react-icons/all";
+import {UserContext} from "../../../../context/UserContext";
 
 const Card = ({
-                  adminConsole,
                   className, id, type, hideThumbnail,
                   title, subtitle, thumbnail,
                   userId, firstName, lastName, time,
-                  totalLikes, status,
+                  totalLikes, status, recommendationCriteria
               }) => {
+
+    const user = useContext(UserContext);
+
+    const statusText = [
+        "Waiting for review.",
+        "Approved and published.",
+        "Declined."
+    ]
+
+    const statusColor = [
+        "text-neutral",
+        "text-positive",
+        "text-negative"
+    ]
+
+    const recommendationText = [
+        "Includes your preferred ingredients.", // 1 - preferences
+        "Based on your favorite recipes.",      // 2 - tendency
+        "Based on your recent search history",  // 3 - behavior
+        "Suitable for your BMI and routine.",   // 4 - body
+        "Popular recipe."                       // 5 - popular
+    ];
 
     return (
         <div className={`card ${className}`}>
-            <Link className="card-url" to={adminConsole ? `/console/${type}/${id}` : `/view/${type}/${id}`}/>
+            <Link className="card-url" to={user && user.role === "admin" ?
+                `/console/${type}/${id}`
+                : `/view/${type}/${id}`}/>
             {!hideThumbnail &&
             <picture className="card-thumbnail">
                 <source srcSet={thumbnail}/>
@@ -28,16 +52,14 @@ const Card = ({
                 <p className="card-author"><Link to={`/view/user/${userId}`}>{firstName} {lastName}</Link></p>
                 {time &&
                 <p className="card-timestamp">{moment(time).format("lll")}</p>}
-                {totalLikes !== null &&
-                <div className="card-likes"><FaRegHeart/> {totalLikes}</div>}
+                {totalLikes !== undefined &&
+                <div className="card-likes"><FaRegHeart/>{totalLikes}</div>}
                 {status &&
                 <p className="card-status">
-                    {status === 1 &&
-                    <span className="text-neutral">Waiting for approval</span>}
-                    {status === 2 &&
-                    <span className="text-positive">Approved and published</span>}
-                    {status === 3 &&
-                    <span className="text-negative">Declined</span>}
+                    <span className={statusColor[status - 1]}>{statusText[status - 1]}</span>
+                </p>}
+                {recommendationCriteria && <p>
+                    {recommendationText[recommendationCriteria - 1]}
                 </p>}
             </div>
         </div>

@@ -26,13 +26,13 @@ const EditRecipe = ({id, data}) => {
 
     const updatePost = async (e) => {
         e.preventDefault();
-
         // Generates request headers
         let headers = new Headers();
-        headers.append("Authorization", `Bearer ${token.token}`);
+        if (token) {
+            headers.append("Authorization", `Bearer ${token.token}`);
+        }
         headers.append("Content-Type", "application/json");
         headers.append("Accept", "application/json");
-
         // Generates request body
         let body = JSON.stringify({
             "recipe_categories_id": data.recipe_categories_id,
@@ -46,14 +46,12 @@ const EditRecipe = ({id, data}) => {
             "ingredients": ingredients,
             "steps": steps,
         });
-
         // Generates request
         let request = {
             method: 'PUT',
             headers: headers,
             body: body,
         };
-
         // Executes fetch
         const api = `${apiBase}/recipes/edit/${id}`;
         const response = await fetch(api, request);

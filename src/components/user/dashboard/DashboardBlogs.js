@@ -43,7 +43,7 @@ const DashboardBlogs = () => {
                     <Panel>
                         {data.length > 0 ?
                             data.map(item => (
-                                <Card className="card-full"
+                                <Card className="card-medium"
                                       id={item.blog_id}
                                       type="blog"
                                       title={item.blog_title}
@@ -53,7 +53,8 @@ const DashboardBlogs = () => {
                                       firstName={item.first_name}
                                       lastName={item.last_name}
                                       time={item.time}
-                                      totalLikes={item.totalLike}/>
+                                      totalLikes={item.totalLike}
+                                      status={item.status}/>
                             ))
                             :
                             <PanelLoader/>

@@ -17,13 +17,13 @@ const EditBlog = ({id, data}) => {
 
     const updatePost = async (e) => {
         e.preventDefault();
-
         // Generates request headers
         let headers = new Headers();
-        headers.append("Authorization", `Bearer ${token.token}`);
+        if (token) {
+            headers.append("Authorization", `Bearer ${token.token}`);
+        }
         headers.append("Content-Type", "application/json");
         headers.append("Accept", "application/json");
-
         // Generates request body
         let body = JSON.stringify({
             "blog_title": data.blog_title,
@@ -31,14 +31,12 @@ const EditBlog = ({id, data}) => {
             "blog_thumbnail": data.blog_thumbnail,
             "blog_content": content,
         });
-
         // Generates request
         let request = {
             method: 'PUT',
             headers: headers,
             body: body,
         };
-
         // Executes fetch
         const api = `${apiBase}/blogs/edit/${id}`;
         const response = await fetch(api, request);

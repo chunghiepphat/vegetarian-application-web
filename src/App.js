@@ -33,7 +33,7 @@ export default function App() {
         const response = await fetch(api);
         const result = await response.json();
         setUser(result);
-        if (result.id === 48) {
+        if (result.role === "admin") {
             setIsAdmin(true);
         } else {
             setIsAdmin(false);

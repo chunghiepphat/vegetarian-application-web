@@ -145,3 +145,7 @@
 .card-likes svg {
     margin-right: 5px;
 }
+
+.card-status {
+    font-weight: 600;
+}
