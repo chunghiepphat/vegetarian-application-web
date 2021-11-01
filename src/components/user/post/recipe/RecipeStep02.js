@@ -1,6 +1,5 @@
 import React, {useRef, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
-import {clientId} from "../../../../helpers/Imgur";
 import {FaAngleLeft} from "react-icons/fa";
 import {cloudName, uploadPreset} from "../../../../helpers/Cloudinary";
 import Form from "../../../commons/elements/form/Form";

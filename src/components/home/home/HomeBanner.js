@@ -39,6 +39,7 @@ const HomeBanner = () => {
                         {data ?
                             <div className="banner-panel">
                                 {/*Large tile*/}
+                                {data[0] &&
                                 <div className="tile tile-half">
                                     <Link className="tile-url" to={`/view/recipe/${data[0].recipe_id}`}/>
                                     <picture className="tile-thumbnail">
@@ -53,8 +54,9 @@ const HomeBanner = () => {
                                             <p className="tile-author">by {data[0].first_name} {data[0].last_name}</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div>}
                                 {/*Top left small tile*/}
+                                {data[1] &&
                                 <div className="tile tile-eighth tile-eighth-1">
                                     <Link className="tile-url" to={`/view/recipe/${data[1].recipe_id}`}/>
                                     <picture className="tile-thumbnail">
@@ -69,8 +71,9 @@ const HomeBanner = () => {
                                             <p className="tile-author">by {data[1].first_name} {data[1].last_name}</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div>}
                                 {/*Top right small tile*/}
+                                {data[2] &&
                                 <div className="tile tile-eighth tile-eighth-2">
                                     <Link className="tile-url" to={`/view/recipe/${data[2].recipe_id}`}/>
                                     <picture className="tile-thumbnail">
@@ -85,8 +88,9 @@ const HomeBanner = () => {
                                             <p className="tile-author">by {data[2].first_name} {data[2].last_name}</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div>}
                                 {/*Bottom left small tile*/}
+                                {data[3] &&
                                 <div className="tile tile-eighth tile-eighth-3">
                                     <Link className="tile-url" to={`/view/recipe/${data[3].recipe_id}`}/>
                                     <picture className="tile-thumbnail">
@@ -101,8 +105,9 @@ const HomeBanner = () => {
                                             <p className="tile-author">by {data[3].first_name} {data[3].last_name}</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div>}
                                 {/*Bottom right small tile*/}
+                                {data[4] &&
                                 <div className="tile tile-eighth tile-eighth-4">
                                     <Link className="tile-url" to={`/view/recipe/${data[4].recipe_id}`}/>
                                     <picture className="tile-thumbnail">
@@ -117,7 +122,7 @@ const HomeBanner = () => {
                                             <p className="tile-author">by {data[4].first_name} {data[4].last_name}</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div>}
                             </div>
                             :
                             <PanelLoader/>
