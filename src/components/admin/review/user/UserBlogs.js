@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from "react";
-import ArticleCard from "../../commons/elements/containers/ArticleCard";
-import {apiBase} from "../../../helpers/Helpers";
-import {SectionLoader} from "../../commons/elements/loaders/Loader";
-import Panel from "../../commons/elements/containers/Panel";
+import {apiBase} from "../../../../helpers/Helpers";
+import ArticleCard from "../../../commons/elements/containers/ArticleCard";
+import {SectionLoader} from "../../../commons/elements/loaders/Loader";
 
-const BrowseBlogs = () => {
+const UserBlogs = ({userId}) => {
     const [data, setData] = useState([]);
 
     const fetchData = async () => {
-        const api = `${apiBase}/blogs/getall?page=1&limit=100`;
+        const api = `${apiBase}/blogs/getallbyuserIDdifferent/${userId}?page=1&limit=100`;
         const response = await fetch(api);
         const result = await response.json();
         setData(result.listResult);
     }
+
     // Executes fetch once on page load
     useEffect(() => {
         fetchData().catch(error => {
@@ -23,12 +23,11 @@ const BrowseBlogs = () => {
     return (
         <section>
             <div className="section-content">
-                <h1>Blogs</h1>
-                <i>Stories, thoughts, discussions and more.</i>
-                <Panel filler="card-full">
+                {data &&
+                <div className="panel">
                     {data.length > 0 ?
                         data.map(item => (
-                            <ArticleCard className="card-full"
+                            <ArticleCard className="card-medium"
                                          key={item.blog_id}
                                          id={item.blog_id}
                                          type="blog"
@@ -38,16 +37,16 @@ const BrowseBlogs = () => {
                                          userId={item.user_id}
                                          firstName={item.first_name}
                                          lastName={item.last_name}
-                                         time={item.time_created}
                                          totalLikes={item.totalLike}/>
                         ))
                         :
                         <SectionLoader/>
                     }
-                </Panel>
+                </div>
+                }
             </div>
         </section>
     )
 }
 
-export default BrowseBlogs;
+export default UserBlogs;

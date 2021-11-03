@@ -6,6 +6,7 @@ import {apiBase} from "../../../helpers/Helpers";
 const Login = () => {
     const api = `${apiBase}/user/signin`;
     const history = useHistory();
+    const [isLoading, setIsLoading] = useState(false);
 
     // Initializes parameters
     const [email, setEmail] = useState("")
@@ -14,7 +15,7 @@ const Login = () => {
     // Handles login requests
     const signIn = async (event) => {
         event.preventDefault();
-
+        setIsLoading(true);
         // Generates request headers
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
@@ -41,8 +42,10 @@ const Login = () => {
                     alert("Authentication successful.");
                     return response.json();
                 } else if (response.status === 401) {
+                    setIsLoading(false);
                     alert("Invalid credentials, please check your email and/or password.");
                 } else {
+                    setIsLoading(false);
                     alert("Unable to complete request. There was an unexpected error.")
                 }
             })
@@ -56,6 +59,7 @@ const Login = () => {
             })
             // Throws other errors
             .catch(error => {
+                setIsLoading(false);
                 alert("There was an unexpected error. Error message: " + error);
             });
     }
@@ -65,7 +69,7 @@ const Login = () => {
         <div className="modal-content">
             <h1>Welcome back!</h1>
             <p>Don't have an account? <Link to={{
-                pathname: "/register",
+                pathname: "/register"
             }}>Sign up!</Link></p>
             {/*Social authentication*/}
             <h2>Continue with your social media</h2>
@@ -79,7 +83,11 @@ const Login = () => {
                        required/>
                 <input type="password" name="password" placeholder="Enter password"
                        onChange={e => setPassword(e.target.value)} required/>
-                <button type="submit" className="button-submit">Sign in</button>
+                {!isLoading ?
+                    <button type="submit" className="button-submit">Sign in</button>
+                    :
+                    <button disabled>Logging you in...</button>
+                }
             </form>
         </div>
     )

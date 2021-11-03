@@ -2,9 +2,10 @@ import React, {useContext, useEffect, useState} from "react";
 import {FaHeart, FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
 import {UserContext} from "../../../../context/UserContext";
 import {apiBase} from "../../../../helpers/Helpers";
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 
 const BlogToolbar = ({id, data, reload}) => {
+    const location = useLocation();
     const history = useHistory();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -91,29 +92,44 @@ const BlogToolbar = ({id, data, reload}) => {
     useEffect(checkFavorite);
 
     return (
-
         <section className="article-toolbar">
-            <div>
-                <p><FaRegHeart/> {data.totalLike}</p>
-            </div>
-            {token && <div>
-                <button className={`article-button ${isFavorite && "button-active"}`} onClick={favoriteArticle}>
-                    {isFavorite === false ?
-                        <FaRegHeart/>
-                        :
-                        <FaHeart/>
+            {user && user.role !== "admin" ?
+                // If user is logged in, show toolbar
+                <div>
+                    <button className={`article-button button-labeled ${isFavorite && "button-active"}`}
+                            onClick={favoriteArticle}>
+                        {!isFavorite ?
+                            <FaRegHeart/>
+                            :
+                            <FaHeart/>
+                        }
+                        {data.totalLike}
+                    </button>
+                    {data && user.id === data.user_id &&
+                    // If user is the author of the article, allow modify
+                    <>
+                        <button className="article-button" onClick={editArticle}>
+                            <RiEditLine/>
+                        </button>
+                        <button className="article-button" onClick={deleteArticle}>
+                            <RiDeleteBin4Line/>
+                        </button>
+                    </>
                     }
-                </button>
-                {user && data && user.id === data.user_id &&
-                <>
-                    <button className="article-button" onClick={editArticle}>
-                        <RiEditLine/>
+                </div>
+                :
+                // If not logged in, the favorite button directs to login form
+                <div>
+                    <button className={`article-button button-labeled ${isFavorite && "button-active"}`}
+                            onClick={() => history.push({
+                                pathname: "/login",
+                                state: {background: location}
+                            })}>
+                        <FaRegHeart/>
+                        {data.totalLike}
                     </button>
-                    <button className="article-button" onClick={deleteArticle}>
-                        <RiDeleteBin4Line/>
-                    </button>
-                </>}
-            </div>}
+                </div>
+            }
         </section>
     )
 }

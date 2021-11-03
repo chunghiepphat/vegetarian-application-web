@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {apiBase} from "../../../../helpers/Helpers";
 import Panel from "../../../commons/elements/containers/Panel";
-import ArticleCard from "../../../commons/elements/containers/ArticleCard";
 import {SectionLoader} from "../../../commons/elements/loaders/Loader";
+import UserCard from "../../../commons/elements/containers/UserCard";
+import Avatar from "../../../commons/elements/Avatar";
 
-const RecipeList = () => {
+const UserList = () => {
     const [data, setData] = useState([]);
     const token = JSON.parse(localStorage.getItem("accessToken"));
 
@@ -21,10 +22,10 @@ const RecipeList = () => {
             method: 'GET',
             headers: headers,
         };
-        const api = `${apiBase}/recipes/admin/getall?page=1&limit=300`;
+        const api = `${apiBase}/user/viewall?page=1&limit=200`;
         const response = await fetch(api, request);
         const result = await response.json();
-        setData(result.listResult);
+        setData(result.listUser);
     }
 
     // Executes fetch once on page load
@@ -36,23 +37,21 @@ const RecipeList = () => {
 
     return (
         <>
+
             {data &&
-            <Panel filler="card-medium">
+            <Panel>
                 {/*Iterates over the result JSON and renders a matching amount of card items*/}
                 {data.length > 0 ?
                     data.map(item => (
-                        <ArticleCard className="card-medium"
-                                     key={item.recipe_id}
-                                     id={item.recipe_id}
-                                     type="recipe"
-                                     title={item.recipe_title}
-                                     thumbnail={item.recipe_thumbnail}
-                                     firstName={item.first_name}
-                                     lastName={item.last_name}
-                                     userId={item.user_id}
-                                     time={item.time_created}
-                                     totalLikes={item.totalLike}
-                                     status={item.status}/>
+                        <UserCard key={item.id}
+                                  id={item.id}
+                                  isActive={item.is_active}
+                                  avatar={item.profile_image}
+                                  firstName={item.first_name}
+                                  lastName={item.last_name}
+                                  email={item.email}
+                                  country={item.country}
+                                  role={item.role}/>
                     ))
                     :
                     <SectionLoader/>
@@ -60,7 +59,6 @@ const RecipeList = () => {
             </Panel>}
         </>
     )
-
 }
 
-export default RecipeList;
+export default UserList;

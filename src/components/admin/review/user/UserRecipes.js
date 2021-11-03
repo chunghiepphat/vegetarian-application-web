@@ -24,8 +24,6 @@ const UserRecipes = ({userId}) => {
     return (
         <section>
             <div className="section-content">
-                <h1>Recipes</h1>
-                <i>Recipes created by this user are shown here.</i>
                 {data &&
                 <Panel>
                     {/*Iterates over the result JSON and renders a matching amount of card items*/}

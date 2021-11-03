@@ -3,7 +3,7 @@ import {Link, NavLink, useLocation, withRouter} from "react-router-dom";
 import {FaAngleRight} from "react-icons/fa";
 import Sidebar from "../commons/elements/Sidebar";
 import Navbar from "../commons/elements/bars/Navbar";
-import Card from "../commons/elements/containers/Card";
+import ArticleCard from "../commons/elements/containers/ArticleCard";
 import {apiBase} from "../../helpers/Helpers";
 import Panel from "../commons/elements/containers/Panel";
 import {PanelLoader} from "../commons/elements/loaders/Loader";
@@ -82,16 +82,16 @@ const HomeSidebar = () => {
                 <Panel>
                     {recommendations.length ?
                         recommendations.map(item => (
-                            <Card className="card-medium"
-                                  key={item.recipe_id}
-                                  id={item.recipe_id}
-                                  type="recipe"
-                                  title={item.recipe_title}
-                                  thumbnail={item.recipe_thumbnail}
-                                  userId={item.user_id}
-                                  firstName={item.first_name}
-                                  lastName={item.last_name}
-                                  recommendationCriteria={item.criteria}/>
+                            <ArticleCard className="card-compact"
+                                         key={item.recipe_id}
+                                         id={item.recipe_id}
+                                         type="recipe"
+                                         title={item.recipe_title}
+                                         thumbnail={item.recipe_thumbnail}
+                                         userId={item.user_id}
+                                         firstName={item.first_name}
+                                         lastName={item.last_name}
+                                         recommendationCriteria={item.criteria}/>
                         ))
                         :
                         <PanelLoader/>
@@ -104,18 +104,18 @@ const HomeSidebar = () => {
                 <Panel>
                     {blogs.length ?
                         blogs.map(item => (
-                            <Card className="card-medium"
-                                  key={item.blog_id}
-                                  id={item.blog_id}
-                                  type="blog"
-                                  hideThumbnail={true}
-                                  title={item.blog_title}
-                                  subtitle={item.blog_subtitle}
-                                  thumbnail={item.blog_thumbnail}
-                                  userId={item.user_id}
-                                  firstName={item.first_name}
-                                  lastName={item.last_name}
-                                  totalLikes={item.totalLike}/>
+                            <ArticleCard className="card-medium"
+                                         key={item.blog_id}
+                                         id={item.blog_id}
+                                         type="blog"
+                                         hideThumbnail={false}
+                                         title={item.blog_title}
+                                         subtitle={item.blog_subtitle}
+                                         thumbnail={item.blog_thumbnail}
+                                         userId={item.user_id}
+                                         firstName={item.first_name}
+                                         lastName={item.last_name}
+                                         totalLikes={item.totalLike}/>
                         ))
                         :
                         <PanelLoader/>

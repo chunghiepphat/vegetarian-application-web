@@ -1,10 +1,12 @@
 import React, {useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import {apiBase} from "../../../helpers/Helpers";
 
 const Register = () => {
-    const api = "http://14.161.47.36:8080/hiepphat-0.0.1-SNAPSHOT/api/user/signup";
+    const api = `${apiBase}/user/signup`;
     const history = useHistory();
+    const [isLoading, setIsLoading] = useState(false);
 
     // Initializes parameters
     const [firstName, setFirstName] = useState("");
@@ -15,7 +17,7 @@ const Register = () => {
     // Handle registration requests
     const signUp = async (event) => {
         event.preventDefault();
-
+        setIsLoading(true);
         // Generates request headers
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
@@ -44,8 +46,10 @@ const Register = () => {
                     alert("Account created successfully, logging you in...");
                     return response.json();
                 } else if (response.status === 401) {
+                    setIsLoading(false);
                     alert("An account with that email already exists, please try another.");
                 } else {
+                    setIsLoading(false);
                     alert("Unable to complete request, there was an unexpected error.")
                 }
             })
@@ -59,6 +63,7 @@ const Register = () => {
             })
             // Throws other errors
             .catch(error => {
+                setIsLoading(false);
                 alert("There was an unexpected error. Error message: " + error);
             });
     }
@@ -82,7 +87,11 @@ const Register = () => {
                        onChange={e => setPassword(e.target.value)}
                        required/>
                 <input type="password" placeholder="Confirm password (placeholder)"/>
-                <button type="submit" className="button-submit">Create new account</button>
+                {!isLoading ?
+                    <button type="submit" className="button-submit">Create new account</button>
+                    :
+                    <button disabled>Creating your account...</button>
+                }
             </form>
         </div>
     )

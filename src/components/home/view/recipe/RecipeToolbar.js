@@ -1,14 +1,28 @@
 import React, {useContext, useEffect, useState} from "react";
-import {FaHeart, FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
+import {AiOutlineEye, AiOutlineEyeInvisible, FaHeart, FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
 import {UserContext} from "../../../../context/UserContext";
 import {apiBase} from "../../../../helpers/Helpers";
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 
 const RecipeToolbar = ({id, data, reload}) => {
+    const location = useLocation();
     const history = useHistory();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const [isFavorite, setIsFavorite] = useState(false);
+    const [isPrivate, setIsPrivate] = useState(data.is_private);
+
+    const statusText = [
+        "Waiting for review.",
+        "Approved and published.",
+        "Rejected by administrator."
+    ];
+
+    const statusColor = [
+        "text-neutral",
+        "text-positive",
+        "text-negative"
+    ];
 
     // Generates common request headers
     let headers = new Headers();
@@ -35,7 +49,7 @@ const RecipeToolbar = ({id, data, reload}) => {
             setIsFavorite(result.is_Liked);
         }
     }
-    console.log(isFavorite)
+
     // Handles like-unlike function
     const favoriteArticle = async (e) => {
         e.preventDefault();
@@ -59,6 +73,30 @@ const RecipeToolbar = ({id, data, reload}) => {
             alert("You are not authorized to complete the request.")
         } else {
             alert("Error: " + response.status);
+        }
+    }
+
+    const publishArticle = async (e) => {
+        e.preventDefault();
+        // Generates request body
+        let body = JSON.stringify({
+            "is_private": !isPrivate,
+        });
+        // Generates request
+        let request = {
+            method: 'PUT',
+            headers: headers,
+            body: body,
+        };
+        // Executes fetch
+        const api = `${apiBase}/recipes/edit/${id}`;
+        const response = await fetch(api, request);
+        if (response.ok) {
+            reload();
+        } else if (response.status === 401) {
+            alert("You are not authorized to do that.")
+        } else {
+            alert("Unexpected error with code: " + response.status);
         }
     }
 
@@ -92,28 +130,57 @@ const RecipeToolbar = ({id, data, reload}) => {
 
     return (
         <section className="article-toolbar">
-            <div>
-                <p><FaRegHeart/> {data.totalLike}</p>
-            </div>
-            {user && user.role !== "admin" && <div>
-                <button className={`article-button ${isFavorite && "button-active"}`} onClick={favoriteArticle}>
-                    {isFavorite === false ?
-                        <FaRegHeart/>
-                        :
-                        <FaHeart/>
-                    }
-                </button>
-                {user && data && user.id === data.user_id &&
-                <>
-                    <button className="article-button" onClick={editArticle}>
-                        <RiEditLine/>
-                    </button>
-                    <button className="article-button" onClick={deleteArticle}>
-                        <RiDeleteBin4Line/>
-                    </button>
-                </>
-                }
+            {user && data && user.id === data.user_id &&
+            <div className="article-status">
+                <p className={statusColor[data.status - 1]}>{statusText[data.status - 1]}</p>
             </div>}
+            {user && user.role !== "admin" ?
+                // If user is logged in, show toolbar
+                <div className="article-controls">
+                    <button title="Add to favorites"
+                            className={`article-button button-labeled ${isFavorite && "button-active"}`}
+                            onClick={favoriteArticle}>
+                        {!isFavorite ?
+                            <FaRegHeart/>
+                            :
+                            <FaHeart/>
+                        }
+                        {data.totalLike}
+                    </button>
+                    {data && user.id === data.user_id &&
+                    // If user is the author of the article, allow modify
+                    <>
+
+                        <button title="Article visibility" className="article-button button-labeled"
+                                onClick={publishArticle}>
+                            {!isPrivate ?
+                                <><AiOutlineEye/> Public</>
+                                :
+                                <><AiOutlineEyeInvisible/> Private</>
+                            }
+                        </button>
+                        <button title="Edit article" className="article-button" onClick={editArticle}>
+                            <RiEditLine/>
+                        </button>
+                        <button title="Delete article" className="article-button" onClick={deleteArticle}>
+                            <RiDeleteBin4Line/>
+                        </button>
+                    </>
+                    }
+                </div>
+                :
+                // If not logged in, the favorite button directs to login form
+                <div className="article-controls">
+                    <button className={`article-button button-labeled ${isFavorite && "button-active"}`}
+                            onClick={() => history.push({
+                                pathname: "/login",
+                                state: {background: location}
+                            })}>
+                        <FaRegHeart/>
+                        {data.totalLike}
+                    </button>
+                </div>
+            }
         </section>
     )
 }

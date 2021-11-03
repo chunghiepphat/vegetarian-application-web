@@ -1,10 +1,10 @@
 import React from "react";
-import "./Tile.css";
+import "./ArticleTile.css";
 import {Link} from "react-router-dom";
 import placeholderThumbnail from "../../../../assets/card-thumbnail-default.png";
 import {FaRegHeart} from "react-icons/all";
 
-const Tile = ({className, id, type, title, thumbnail, firstName, lastName, totalLikes, status}) => {
+const ArticleTile = ({className, id, type, title, thumbnail, firstName, lastName, totalLikes, status}) => {
 
     const statusText = [
         "Review pending.",
@@ -42,4 +42,4 @@ const Tile = ({className, id, type, title, thumbnail, firstName, lastName, total
     )
 }
 
-export default Tile;
+export default ArticleTile;

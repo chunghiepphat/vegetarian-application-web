@@ -3,6 +3,7 @@
     grid-template-columns: repeat(14, 1fr);
     width: 100%;
     height: calc(100vh - 66px);
+    overflow: hidden;
 }
 
 .console-container aside {
@@ -17,21 +18,28 @@
 }
 
 .console > section {
+    display: grid;
+    grid-template-columns: repeat(1, auto);
+    grid-template-rows: 100px calc(100vh - 60px - 100px);
+    grid-column-gap: 0;
+    grid-row-gap: 0;
     margin: 0;
     padding: 0;
 }
 
 .console-header {
+    grid-area: 1 / 1 / 2 / 2;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
-    height: 80px;
     padding: 0 60px;
+    border-top: thin solid lightgray;
     border-bottom: thin solid lightgray;
 }
 
-.console-header h1 {
+.console-header h1,
+.console-header h1 * {
     padding: 20px 0 10px 0;
     font-size: 20px;
     font-weight: bold;
@@ -46,19 +54,47 @@
     flex-grow: 0;
 }
 
+.console-header .input-group button {
+    margin: 0;
+    border-radius: 0;
+}
+
 .console-content {
+    /*grid-area: 2 / 1 / 3 / 2;*/
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     /*justify-content: center;*/
-    height: calc(100vh - 66px - 80px);
+    /*min-height: 600px;*/
+    /*max-height: 3000px;*/
+    height: 100%;
     padding: 20px 60px;
     overflow-y: scroll;
 }
 
-.hidden-flex-item {
-    content: "";
-    flex: 1 0 240px;
-    /*padding: 5px;*/
-    margin: 0 15px 20px 0;
-    visibility: hidden;
+.user-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+}
+
+.user-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.user-image {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+}
+
+.user-info h1 {
+    padding: 0
 }

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import Card from "../../commons/elements/containers/Card";
+import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
 import {apiBase} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
@@ -32,17 +32,17 @@ const BrowseRecipes = () => {
                     {/*Iterates over the result JSON and renders a matching amount of card items*/}
                     {data.length > 0 ?
                         data.map(item => (
-                            <Card className="card-narrow"
-                                  key={item.recipe_id}
-                                  id={item.recipe_id}
-                                  type="recipe"
-                                  title={item.recipe_title}
-                                  thumbnail={item.recipe_thumbnail}
-                                  userId={item.user_id}
-                                  firstName={item.first_name}
-                                  lastName={item.last_name}
-                                  time={item.time_created}
-                                  totalLikes={item.totalLike}/>
+                            <ArticleCard className="card-narrow"
+                                         key={item.recipe_id}
+                                         id={item.recipe_id}
+                                         type="recipe"
+                                         title={item.recipe_title}
+                                         thumbnail={item.recipe_thumbnail}
+                                         userId={item.user_id}
+                                         firstName={item.first_name}
+                                         lastName={item.last_name}
+                                         time={item.time_created}
+                                         totalLikes={item.totalLike}/>
                         ))
                         :
                         <SectionLoader/>

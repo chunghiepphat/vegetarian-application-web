@@ -15,6 +15,16 @@ const Panel = (props) => {
             <div className={`flex-filler ${props.filler}`}/>
             <div className={`flex-filler ${props.filler}`}/>
             <div className={`flex-filler ${props.filler}`}/>
+            <div className={`flex-filler ${props.filler}`}/>
+            <div className={`flex-filler ${props.filler}`}/>
+            <div className={`flex-filler ${props.filler}`}/>
+            <div className={`flex-filler ${props.filler}`}/>
+            <div className={`flex-filler ${props.filler}`}/>
+            <div className={`flex-filler ${props.filler}`}/>
+            <div className={`flex-filler ${props.filler}`}/>
+            <div className={`flex-filler ${props.filler}`}/>
+            <div className={`flex-filler ${props.filler}`}/>
+            <div className={`flex-filler ${props.filler}`}/>
         </div>
     )
 }

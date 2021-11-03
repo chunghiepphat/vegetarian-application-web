@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {apiBase} from "../../../helpers/Helpers";
-import Card from "../../commons/elements/containers/Card";
+import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
 import {UserContext} from "../../../context/UserContext";
 
@@ -44,18 +44,18 @@ const HistoryBlogs = () => {
                 <div className="panel">
                     {data.length > 0 ?
                         data.map(item => (
-                            <Card className="card-full"
-                                  key={item.blog_id}
-                                  id={item.blog_id}
-                                  type="blog"
-                                  title={item.blog_title}
-                                  thumbnail={item.blog_thumbnail}
-                                  subtitle={item.blog_subtitle}
-                                  userId={item.user_id}
-                                  firstName={item.first_name}
-                                  lastName={item.last_name}
-                                  totalLikes={item.totalLike}
-                                  status={item.status}/>
+                            <ArticleCard className="card-full"
+                                         key={item.blog_id}
+                                         id={item.blog_id}
+                                         type="blog"
+                                         title={item.blog_title}
+                                         thumbnail={item.blog_thumbnail}
+                                         subtitle={item.blog_subtitle}
+                                         userId={item.user_id}
+                                         firstName={item.first_name}
+                                         lastName={item.last_name}
+                                         totalLikes={item.totalLike}
+                                         status={item.status}/>
                         ))
                         :
                         <SectionLoader/>

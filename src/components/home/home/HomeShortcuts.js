@@ -10,6 +10,7 @@ const HomeShortcuts = () => {
     return (
         <section>
             {user ?
+                // If user is logged in
                 <div className="section-content">
                     <InputGroup style={{marginBottom: "10px"}}>
                         <Link className="button-link button-submit" to="/post/recipe">
@@ -29,6 +30,7 @@ const HomeShortcuts = () => {
                     </InputGroup>
                 </div>
                 :
+                // Otherwise
                 <div className="section-content">
                     <Link className="button-link" to={{
                         pathname: "/login",

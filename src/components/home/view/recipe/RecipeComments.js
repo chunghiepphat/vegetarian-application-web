@@ -2,8 +2,11 @@ import React, {useContext, useEffect, useState} from "react";
 import Comment from "../../../commons/elements/Comment";
 import {UserContext} from "../../../../context/UserContext";
 import {apiBase} from "../../../../helpers/Helpers";
+import {Link, useLocation} from "react-router-dom";
+import {FaAngleRight} from "react-icons/fa";
 
 const RecipeComments = ({data}) => {
+    const location = useLocation();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const api = `${apiBase}/recipes/${data.recipe_id}/comments`;
@@ -61,11 +64,20 @@ const RecipeComments = ({data}) => {
     return (
         <section className="article-comments">
             <h2>Comments</h2>
-            <form className="form-comment" onSubmit={submitComment}>
-                <input aria-label="Blog title" type="text" value={comment}
-                       onChange={e => setComment(e.target.value)}
-                       placeholder="Share your thoughts about this recipe..." required/>
-            </form>
+            {user && user.role !== "admin" ?
+                <form className="form-comment" onSubmit={submitComment}>
+                    <input aria-label="Blog title" type="text" value={comment}
+                           onChange={e => setComment(e.target.value)}
+                           placeholder="Share your thoughts about this recipe..." required/>
+                </form>
+                :
+                <Link to={{
+                    pathname: "/login",
+                    state: {background: location}
+                }}>
+                    Sign in to comment! <FaAngleRight/>
+                </Link>
+            }
             {comments.length > 0 ?
                 comments.map(comment => (
                     <Comment userId={comment.user_id}

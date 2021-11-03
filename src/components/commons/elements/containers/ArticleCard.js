@@ -1,24 +1,24 @@
 import React, {useContext} from "react";
-import "./Card.css";
+import "./ArticleCard.css";
 import {Link} from "react-router-dom";
 import placeholderThumbnail from "../../../../assets/card-thumbnail-default.png";
 import moment from "moment";
 import {FaRegHeart} from "react-icons/all";
 import {UserContext} from "../../../../context/UserContext";
 
-const Card = ({
-                  className, id, type, hideThumbnail,
-                  title, subtitle, thumbnail,
-                  userId, firstName, lastName, time,
-                  totalLikes, status, recommendationCriteria
-              }) => {
+const ArticleCard = ({
+                         className, id, type, hideThumbnail,
+                         title, subtitle, thumbnail,
+                         userId, firstName, lastName, time,
+                         totalLikes, status, recommendationCriteria
+                     }) => {
 
     const user = useContext(UserContext);
 
     const statusText = [
         "Waiting for review.",
         "Approved and published.",
-        "Declined."
+        "Rejected by admin."
     ]
 
     const statusColor = [
@@ -36,16 +36,14 @@ const Card = ({
     ];
 
     return (
-        <div className={`card ${className}`}>
+        <div className={`article-card ${className}`}>
             <Link className="card-url" to={user && user.role === "admin" ?
-                `/console/${type}/${id}`
-                : `/view/${type}/${id}`}/>
+                `/console/${type}/${id}` : `/view/${type}/${id}`}/>
             {!hideThumbnail &&
             <picture className="card-thumbnail">
                 <source srcSet={thumbnail}/>
                 <img src={placeholderThumbnail} alt=""/>
             </picture>}
-
             <div className="card-details">
                 {status &&
                 <p className={`card-status ${statusColor[status - 1]}`}>
@@ -54,17 +52,24 @@ const Card = ({
                 <h1 className="card-title">{title}</h1>
                 {subtitle &&
                 <p className="card-subtitle">{subtitle.substring(0, 150)}{subtitle.length > 150 && <>...</>}</p>}
-                <p className="card-author"><Link to={`/view/user/${userId}`}>{firstName} {lastName}</Link></p>
+                <p className="card-author">
+                    <Link to={user && user.role === "admin" ?
+                        `/console/user/${userId}` : `/view/user/${userId}`}>
+                        {firstName} {lastName}
+                    </Link>
+                </p>
                 {time &&
                 <p className="card-timestamp">{moment(time).format("lll")}</p>}
                 {totalLikes !== undefined &&
                 <div className="card-likes"><FaRegHeart/>{totalLikes}</div>}
-                {recommendationCriteria && <p>
+                {recommendationCriteria &&
+                <p className="card-criteria">
                     {recommendationText[recommendationCriteria - 1]}
                 </p>}
             </div>
+
         </div>
     )
 }
 
-export default Card;
+export default ArticleCard;

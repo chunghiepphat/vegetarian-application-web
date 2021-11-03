@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {FaAngleRight} from "react-icons/fa";
-import Card from "../../commons/elements/containers/Card";
+import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {apiBase} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
@@ -43,18 +43,18 @@ const DashboardBlogs = () => {
                     <Panel>
                         {data.length > 0 ?
                             data.map(item => (
-                                <Card className="card-medium"
-                                      id={item.blog_id}
-                                      type="blog"
-                                      title={item.blog_title}
-                                      thumbnail={item.blog_thumbnail}
-                                      subtitle={item.blog_subtitle}
-                                      userId={item.user_id}
-                                      firstName={item.first_name}
-                                      lastName={item.last_name}
-                                      time={item.time}
-                                      totalLikes={item.totalLike}
-                                      status={item.status}/>
+                                <ArticleCard className="card-medium"
+                                             id={item.blog_id}
+                                             type="blog"
+                                             title={item.blog_title}
+                                             thumbnail={item.blog_thumbnail}
+                                             subtitle={item.blog_subtitle}
+                                             userId={item.user_id}
+                                             firstName={item.first_name}
+                                             lastName={item.last_name}
+                                             time={item.time}
+                                             totalLikes={item.totalLike}
+                                             status={item.status}/>
                             ))
                             :
                             <PanelLoader/>

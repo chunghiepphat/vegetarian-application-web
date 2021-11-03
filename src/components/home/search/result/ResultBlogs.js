@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "../../../commons/elements/containers/Card";
+import ArticleCard from "../../../commons/elements/containers/ArticleCard";
 import {useLocation} from "react-router-dom";
 
 const ResultBlogs = () => {
@@ -12,14 +12,14 @@ const ResultBlogs = () => {
                 <h1>Blogs</h1>
                 <div className="panel">
                     {data.map(blog => (
-                        <Card className="card-narrow"
-                              key={blog.blog_id}
-                              id={blog.blog_id}
-                              type="blog"
-                              title={blog.blog_title}
-                              thumbnail={blog.blog_thumbnail}
-                              first_name={blog.first_name}
-                              last_name={blog.last_name}/>
+                        <ArticleCard className="card-narrow"
+                                     key={blog.blog_id}
+                                     id={blog.blog_id}
+                                     type="blog"
+                                     title={blog.blog_title}
+                                     thumbnail={blog.blog_thumbnail}
+                                     first_name={blog.first_name}
+                                     last_name={blog.last_name}/>
                     ))}
                 </div>
             </div>

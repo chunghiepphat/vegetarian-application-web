@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {FaAngleRight} from "react-icons/fa";
 import {apiBase} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
-import Card from "../../commons/elements/containers/Card";
+import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 
 const HomeVideos = () => {

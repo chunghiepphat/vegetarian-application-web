@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import Card from "../../../commons/elements/containers/Card";
+import ArticleCard from "../../../commons/elements/containers/ArticleCard";
 import {useLocation} from "react-router-dom";
 
 const ResultVideos = () => {

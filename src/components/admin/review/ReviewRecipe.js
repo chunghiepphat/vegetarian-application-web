@@ -13,7 +13,6 @@ import InputGroup from "../../commons/elements/form/InputGroup";
 
 const ReviewRecipe = () => {
     let {id} = useParams();
-    const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const location = useLocation();
     const [data, setData] = useState();
@@ -21,7 +20,7 @@ const ReviewRecipe = () => {
     const statusText = [
         "Waiting for review.",
         "Approved and published.",
-        "Declined."
+        "Rejected."
     ]
 
     const statusColor = [
@@ -80,12 +79,21 @@ const ReviewRecipe = () => {
         <section>
             <div className="console-header">
                 {data &&
-                <h1>Review recipe - ID {id} - {statusText[data.status - 1]} </h1>}
+                <h1>Review recipe - ID {id} - <span
+                    className={statusColor[data.status - 1]}>{statusText[data.status - 1]}</span></h1>}
+                {data &&
                 <InputGroup style={{minWidth: "300px"}}>
-                    <button className="button-submit" onClick={e => approveArticle(e, 2)}>Approve</button>
-                    <button className="button-cancel" onClick={e => approveArticle(e, 3)}>Reject</button>
-                </InputGroup>
-
+                    {data.status !== 2 ?
+                        <button className="button-submit" onClick={e => approveArticle(e, 2)}>Approve</button>
+                        :
+                        <button disabled>APPROVED</button>
+                    }
+                    {data.status !== 3 ?
+                        <button className="button-cancel" onClick={e => approveArticle(e, 3)}>Reject</button>
+                        :
+                        <button disabled>REJECTED</button>
+                    }
+                </InputGroup>}
             </div>
             <div className="console-content">
                 {data ?

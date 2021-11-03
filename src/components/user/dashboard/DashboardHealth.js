@@ -87,15 +87,16 @@ const DashboardHealth = () => {
                 </div>}
                 <ul style={{paddingTop: "20px"}}>
                     {user.birth_date &&
-                    <li>Date of birth: {user.birth_date} ({ageYear} years old)</li>}
+                    <li><span style={{fontWeight: "bold"}}>Date of birth:</span> {user.birth_date} ({ageYear} years old)
+                    </li>}
                     {user.gender &&
-                    <li>Gender: {user.gender} </li>}
+                    <li><span style={{fontWeight: "bold"}}>Gender:</span> {user.gender} </li>}
                     {user.height &&
-                    <li><span>Height:</span> {user.height} cm </li>}
+                    <li><span style={{fontWeight: "bold"}}>Height:</span> {user.height} cm </li>}
                     {user.weight &&
-                    <li>Weight: {user.weight} kg </li>}
+                    <li><span style={{fontWeight: "bold"}}>Weight:</span> {user.weight} kg </li>}
                     {user.workout_routine &&
-                    <li>Workout routine: {routine} </li>}
+                    <li><span style={{fontWeight: "bold"}}>Workout routine:</span> {routine} </li>}
                 </ul>
                 <Link to="/menu">Let us suggest your menu <FaAngleRight/></Link>
             </div>

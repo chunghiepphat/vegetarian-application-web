@@ -4,7 +4,7 @@ import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
 import {apiBase} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
-import Tile from "../../commons/elements/containers/Tile";
+import ArticleTile from "../../commons/elements/containers/ArticleTile";
 import {UserContext} from "../../../context/UserContext";
 
 const DashboardRecipes = () => {
@@ -62,17 +62,17 @@ const DashboardRecipes = () => {
                             <div className="panel-slider" ref={ref}>
                                 {/*Iterates over the result JSON and renders a matching amount of card items*/}
                                 {data.map(item => (
-                                    <Tile className="tile-small"
-                                          id={item.recipe_id}
-                                          type="recipe"
-                                          title={item.recipe_title}
-                                          thumbnail={item.recipe_thumbnail}
-                                          userId={item.user_id}
-                                          firstName={item.first_name}
-                                          lastName={item.last_name}
-                                          time={item.time}
-                                          totalLikes={item.totalLike}
-                                          status={item.status}/>
+                                    <ArticleTile className="tile-small"
+                                                 id={item.recipe_id}
+                                                 type="recipe"
+                                                 title={item.recipe_title}
+                                                 thumbnail={item.recipe_thumbnail}
+                                                 userId={item.user_id}
+                                                 firstName={item.first_name}
+                                                 lastName={item.last_name}
+                                                 time={item.time}
+                                                 totalLikes={item.totalLike}
+                                                 status={item.status}/>
                                 ))}
                             </div>
                         </>

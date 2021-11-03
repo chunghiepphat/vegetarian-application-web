@@ -1,7 +1,7 @@
 import React, {} from "react";
 import Panel from "../../commons/elements/containers/Panel";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
-import Tile from "../../commons/elements/containers/Tile";
+import ArticleTile from "../../commons/elements/containers/ArticleTile";
 import moment from "moment";
 
 const MenuView = (props) => {
@@ -44,15 +44,15 @@ const MenuView = (props) => {
                                         <div className="menu-meal">
                                             <h3>{meal.meal_of_day}</h3>
                                             <i>About {meal.calo} calories</i>
-                                            <Tile className="tile-small"
-                                                  key={meal.recipe_id}
-                                                  id={meal.recipe_id}
-                                                  type="recipe"
-                                                  title={meal.recipe_title}
-                                                  thumbnail={meal.recipe_thumbnail}
-                                                  firstName={meal.first_name}
-                                                  lastName={meal.last_name}
-                                                  time={meal.time}/>
+                                            <ArticleTile className="tile-small"
+                                                         key={meal.recipe_id}
+                                                         id={meal.recipe_id}
+                                                         type="recipe"
+                                                         title={meal.recipe_title}
+                                                         thumbnail={meal.recipe_thumbnail}
+                                                         firstName={meal.first_name}
+                                                         lastName={meal.last_name}
+                                                         time={meal.time}/>
                                         </div>
                                     ))}
                                 </Panel>

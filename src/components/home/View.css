@@ -20,7 +20,8 @@ article section {
     border-bottom: thin solid lightgray;
 }
 
-.article-title h1 {
+.article-title h1,
+.article-title h1 * {
     margin: 0 0 10px 0;
 }
 
@@ -115,6 +116,19 @@ article section {
     align-items: center;
 }
 
+.article-status {
+    flex-shrink: 0;
+}
+
+.article-status p {
+    font-weight: 600;
+}
+
+.article-controls {
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
 .article-button {
     display: flex;
     flex-direction: row;
@@ -123,30 +137,32 @@ article section {
     height: 36px;
     padding: 8px;
     margin: 0 0 0 10px;
+    color: #656665;
     background: none;
-    border-radius: 50%;
+    border-radius: 18px;
 }
 
 .article-button svg {
-    width: 30px;
-    height: 30px;
+    flex-grow: 0;
+    width: 20px;
+    height: 20px;
     fill: #656665;
 }
 
-.button-active {
-    background: #f33334;
+.button-labeled {
+    width: auto;
+}
+
+.button-labeled svg {
+    margin-right: 10px;
 }
 
 .button-active svg {
-    fill: #eeeeee;
+    fill: #f33334;
 }
 
 .article-button:hover {
     background: #e6d3a3;
-}
-
-.article-button:hover svg {
-    fill: #656665;
 }
 
 .article-raw h1 {

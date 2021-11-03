@@ -89,3 +89,31 @@ label span {
 .banner-dashboard .banner-section li > svg {
     margin-right: 5px;
 }
+
+.avatar-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.avatar-overlay svg {
+    width: 50%;
+    height: 50%;
+    fill: #eeeeee;
+}
+
+.avatar-link:hover {
+    filter: none;
+}
+
+.avatar-link:hover .avatar-overlay {
+    opacity: 1;
+}

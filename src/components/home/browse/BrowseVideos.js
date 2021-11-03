@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {apiBase} from "../../../helpers/Helpers";
-import Card from "../../commons/elements/containers/Card";
+import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
 import Panel from "../../commons/elements/containers/Panel";
 
@@ -31,13 +31,13 @@ const BrowseVideos = () => {
                     {/*Iterates over the result JSON and renders a matching amount of card items*/}
                     {data.length > 0 ?
                         data.map(item => (
-                            <Card className="card-medium"
-                                  key={item.id}
-                                  id={item.id}
-                                  type="video"
-                                  title={item.video_title}
-                                  thumbnail={item.video_link}
-                                  userId={item.user_id}/>
+                            <ArticleCard className="card-medium"
+                                         key={item.id}
+                                         id={item.id}
+                                         type="video"
+                                         title={item.video_title}
+                                         thumbnail={item.video_link}
+                                         userId={item.user_id}/>
                         ))
                         :
                         <SectionLoader/>

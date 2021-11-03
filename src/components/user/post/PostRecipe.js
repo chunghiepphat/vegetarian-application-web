@@ -56,7 +56,6 @@ const PostRecipe = () => {
             "steps": steps,
         });
 
-        console.log(body)
         // Generates request
         let request = {
             method: 'POST',

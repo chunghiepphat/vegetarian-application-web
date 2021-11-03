@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "../../../commons/elements/containers/Card";
+import ArticleCard from "../../../commons/elements/containers/ArticleCard";
 import Navbar from "../../../commons/elements/bars/Navbar";
 import {useLocation} from "react-router-dom";
 
@@ -23,14 +23,14 @@ const ResultRecipes = () => {
                     <h1>Recipes</h1>
                     <div className="panel">
                         {data.map(recipe => (
-                            <Card className="card-narrow"
-                                  key={recipe.recipe_id}
-                                  id={recipe.recipe_id}
-                                  type="recipe"
-                                  title={recipe.recipe_title}
-                                  thumbnail={recipe.recipe_thumbnail}
-                                  first_name={recipe.first_name}
-                                  last_name={recipe.last_name}/>
+                            <ArticleCard className="card-narrow"
+                                         key={recipe.recipe_id}
+                                         id={recipe.recipe_id}
+                                         type="recipe"
+                                         title={recipe.recipe_title}
+                                         thumbnail={recipe.recipe_thumbnail}
+                                         first_name={recipe.first_name}
+                                         last_name={recipe.last_name}/>
                         ))}
                     </div>
                 </div>
