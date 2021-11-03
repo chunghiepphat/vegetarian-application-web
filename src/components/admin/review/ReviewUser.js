@@ -50,7 +50,7 @@ const ReviewUser = () => {
     }
 
     const fetchData = async () => {
-        const api = `${apiBase}/user/${id}`
+        const api = `${apiBase}/user/${id}/getbyadmin`
         const response = await fetch(api);
         const result = await response.json();
         setData(result);

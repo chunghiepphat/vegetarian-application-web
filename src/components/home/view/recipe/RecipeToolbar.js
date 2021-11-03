@@ -79,17 +79,17 @@ const RecipeToolbar = ({id, data, reload}) => {
     const publishArticle = async (e) => {
         e.preventDefault();
         // Generates request body
-        let body = JSON.stringify({
-            "is_private": !isPrivate,
-        });
+        // let body = JSON.stringify({
+        //     "is_private": !isPrivate,
+        // });
         // Generates request
         let request = {
             method: 'PUT',
             headers: headers,
-            body: body,
+            // body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/recipes/edit/${id}`;
+        const api = `${apiBase}/recipes/edit/private/${id}`;
         const response = await fetch(api, request);
         if (response.ok) {
             reload();

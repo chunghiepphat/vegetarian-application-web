@@ -6,10 +6,23 @@ import Panel from "../../../commons/elements/containers/Panel";
 
 const UserRecipes = ({userId}) => {
     const [data, setData] = useState([]);
+    const token = JSON.parse(localStorage.getItem("accessToken"));
+
+    let headers = new Headers();
+    if (token) {
+        headers.append("Authorization", `Bearer ${token.token}`);
+    }
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
 
     const fetchData = async () => {
-        const api = `${apiBase}/recipes/getallbyuserIDdifferent/${userId}?page=1&limit=100`;
-        const response = await fetch(api);
+        // Generate request
+        let request = {
+            method: 'GET',
+            headers: headers,
+        };
+        const api = `${apiBase}/recipes/admin/getallbyuser/${userId}?page=1&limit=100`;
+        const response = await fetch(api, request);
         const result = await response.json();
         setData(result.listResult);
     }
@@ -25,7 +38,7 @@ const UserRecipes = ({userId}) => {
         <section>
             <div className="section-content">
                 {data &&
-                <Panel>
+                <Panel filler="card-narrow">
                     {/*Iterates over the result JSON and renders a matching amount of card items*/}
                     {data.length > 0 ?
                         data.map(item => (
