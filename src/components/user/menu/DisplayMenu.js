@@ -4,7 +4,7 @@ import {SectionLoader} from "../../commons/elements/loaders/Loader";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";
 import moment from "moment";
 
-const MenuView = (props) => {
+const DisplayMenu = (props) => {
     let currentDate = new Date;
     let nextDate = new Date();
     nextDate.setDate(nextDate.getDate() + 1);
@@ -67,5 +67,5 @@ const MenuView = (props) => {
     )
 }
 
-export default MenuView;
+export default DisplayMenu;
 

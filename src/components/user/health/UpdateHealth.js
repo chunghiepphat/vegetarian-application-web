@@ -4,7 +4,7 @@ import InputGroup from "../../commons/elements/form/InputGroup";
 import {UserContext} from "../../../context/UserContext";
 import {apiBase} from "../../../helpers/Helpers";
 
-const HealthDetails = () => {
+const UpdateHealth = () => {
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
 
@@ -200,4 +200,4 @@ const HealthDetails = () => {
     )
 }
 
-export default HealthDetails;
+export default UpdateHealth;

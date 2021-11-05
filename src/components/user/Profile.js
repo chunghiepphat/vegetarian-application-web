@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {Link, NavLink, Redirect, Route, Switch, useHistory} from "react-router-dom";
 import Navbar from "../commons/elements/bars/Navbar";
-import ProfileAvatar from "./profile/ProfileAvatar";
-import ProfileDetails from "./profile/ProfileDetails";
-import ProfilePassword from "./profile/ProfilePassword";
+import UpdateAvatar from "./profile/UpdateAvatar";
+import UpdateProfile from "./profile/UpdateProfile";
+import UpdatePassword from "./profile/UpdatePassword";
 import DashboardSidebar from "./DashboardSidebar";
 
 const Profile = () => {
@@ -24,9 +24,9 @@ const Profile = () => {
                     </section>
                     <Switch>
                         <Route exact path="/update"><Redirect to={urlProfile}/></Route>
-                        <Route path={urlAvatar}><ProfileAvatar/></Route>
-                        <Route path={urlProfile}><ProfileDetails/></Route>
-                        <Route path={urlPassword}><ProfilePassword/></Route>
+                        <Route path={urlAvatar}><UpdateAvatar/></Route>
+                        <Route path={urlProfile}><UpdateProfile/></Route>
+                        <Route path={urlPassword}><UpdatePassword/></Route>
                     </Switch>
                 </main>
                 <DashboardSidebar/>

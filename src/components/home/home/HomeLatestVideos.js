@@ -6,7 +6,7 @@ import Panel from "../../commons/elements/containers/Panel";
 import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 
-const HomeVideos = () => {
+const HomeLatestVideos = () => {
     const api = `${apiBase}/video/get4videos`;
     const [data, setData] = useState([]);
 
@@ -45,4 +45,4 @@ const HomeVideos = () => {
     )
 }
 
-export default HomeVideos;
+export default HomeLatestVideos;

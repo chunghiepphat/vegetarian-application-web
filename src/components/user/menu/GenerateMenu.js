@@ -2,13 +2,9 @@ import React from "react";
 import Form from "../../commons/elements/form/Form";
 import InputGroup from "../../commons/elements/form/InputGroup";
 
-const MenuGenerate = (props) => {
+const GenerateMenu = (props) => {
     return (
         <section className="sticky-bottom">
-            <header className="section-header">
-                <h1>Generate a menu</h1>
-                <em>Let us suggest a menu for the week based on your body index!</em>
-            </header>
             <div className="section-content">
                 <InputGroup>
                     <button className="button-cancel" onClick={props.generate}>
@@ -22,7 +18,7 @@ const MenuGenerate = (props) => {
                         :
                         <>
                             <button className="button-cancel" disabled>Showing your saved menu</button>
-                            <button className="button-submit" disabled>Generate a new menu to save</button>
+                            <button className="button-submit" disabled>Already saved</button>
                         </>
                     }
                 </InputGroup>
@@ -31,4 +27,4 @@ const MenuGenerate = (props) => {
     )
 }
 
-export default MenuGenerate;
+export default GenerateMenu;

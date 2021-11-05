@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import DashboardSidebar from "./DashboardSidebar";
-import HealthDetails from "./health/HealthDetails";
-import FoodAllergies from "./health/FoodAllergies";
-import FoodPreferences from "./health/FoodPreferences";
+import UpdateHealth from "./health/UpdateHealth";
+import UpdateAllergies from "./health/UpdateAllergies";
+import UpdatePreferences from "./health/UpdatePreferences";
 import {NavLink, Redirect, Route, Switch} from "react-router-dom";
 import Navbar from "../commons/elements/bars/Navbar";
 
@@ -24,9 +24,9 @@ const Health = () => {
                     </section>
                     <Switch>
                         <Route exact path="/health"><Redirect to={urlDetails}/></Route>
-                        <Route path={urlDetails}><HealthDetails/></Route>
-                        <Route path={urlAllergies}><FoodAllergies/></Route>
-                        <Route path={urlPreferences}><FoodPreferences/></Route>
+                        <Route path={urlDetails}><UpdateHealth/></Route>
+                        <Route path={urlAllergies}><UpdateAllergies/></Route>
+                        <Route path={urlPreferences}><UpdatePreferences/></Route>
                     </Switch>
                 </main>
                 <DashboardSidebar/>

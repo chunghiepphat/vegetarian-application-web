@@ -1,10 +1,11 @@
 import React, {useState} from "react";
-import {Link, useHistory} from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import {apiBase} from "../../../helpers/Helpers";
 
 const Register = () => {
     const api = `${apiBase}/user/signup`;
+    const location = useLocation();
     const history = useHistory();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -70,13 +71,14 @@ const Register = () => {
 
     // Render the form
     return (
-        <div className="modal-content">
+        <div className="auth-section">
             <h1>Welcome</h1>
             <p>Already have an account? <Link to={{
-                pathname: "/auth",
+                pathname: "/login",
+                state: {background: location}
             }}>Sign in!</Link></p>
             <h2>Sign up with your email</h2>
-            <form className="modal-form" onSubmit={signUp}>
+            <form className="auth-form" onSubmit={signUp}>
                 <input type="text" placeholder="First name"
                        onChange={e => setFirstName(e.target.value)} required/>
                 <input type="text" placeholder="Last name"

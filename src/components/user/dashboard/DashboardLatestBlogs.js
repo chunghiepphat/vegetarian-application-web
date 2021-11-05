@@ -7,7 +7,7 @@ import Panel from "../../commons/elements/containers/Panel";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {UserContext} from "../../../context/UserContext";
 
-const DashboardBlogs = () => {
+const DashboardLatestBlogs = () => {
     // Gets current user's info
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -68,4 +68,4 @@ const DashboardBlogs = () => {
     )
 }
 
-export default DashboardBlogs;
+export default DashboardLatestBlogs;

@@ -5,7 +5,7 @@ import {Redirect, Route, Switch, useLocation} from "react-router-dom";
 import Home from "./components/home/Home";
 import About from "./components/commons/About";
 import Footer from "./components/commons/elements/site/Footer";
-import Modal from "./components/auth/Modal";
+import Modal from "./components/auth/AuthModal";
 import Dashboard from "./components/user/Dashboard";
 import NotFound from "./components/commons/NotFound";
 import Browse from "./components/home/Browse";
@@ -21,12 +21,15 @@ import Favorites from "./components/user/Favorites";
 import Menu from "./components/user/Menu";
 import Health from "./components/user/Health";
 import Console from "./components/admin/Console";
+import {B} from "react-select/dist/index-4bd03571.esm";
+import Drafts from "./components/user/Drafts";
+import Auth from "./components/auth/Auth";
 
 export default function App() {
     let location = useLocation();
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     const [user, setUser] = useState();
     const [isAdmin, setIsAdmin] = useState(false);
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
     const fetchData = async () => {
         const api = `${apiBase}/user/${userInfo.id}`
@@ -55,8 +58,6 @@ export default function App() {
         window.scrollTo(0, 0)
     }, [location]);
 
-    console.log(user);
-    console.log(isAdmin);
     const background = location.state && location.state.background;
 
     return (
@@ -65,30 +66,39 @@ export default function App() {
                 <Header/>
                 <Switch location={background || location}>
                     {/*Public module*/}
+                    {/*<Route exact path="/"><Redirect to="/home"/></Route>*/}
                     <Route exact path="/"><Redirect to="/home"/></Route>
                     <Route exact path="/index"><Redirect to="/home"/></Route>
-                    {!isAdmin && <Route exact path="/console"><Redirect to="/home"/></Route>}
-                    {!isAdmin && <Route path="/home" component={Home}/>}
-                    {!isAdmin && <Route path="/view" component={View}/>}
-                    {!isAdmin && <Route path="/search" component={Search}/>}
-                    {!isAdmin && <Route path="/browse" component={Browse}/>}
+                    {!isAdmin && <Route path="/console"><Redirect to="/home"/></Route>}
+                    {!isAdmin && <Route path="/home"><Home/></Route>}
+                    {!isAdmin && <Route path="/view"><View/></Route>}
+                    {!isAdmin && <Route path="/search"><Search/></Route>}
+                    {!isAdmin && <Route path="/browse"><Browse/></Route>}
+                    {/*Auth module*/}
+                    {!user && <Route path="/auth"><Auth/></Route>}
                     {/*User module*/}
-                    {user && !isAdmin && <Route path="/profile" component={Dashboard}/>}
-                    {user && !isAdmin && <Route path="/favorites" component={Favorites}/>}
-                    {user && !isAdmin && <Route path="/history" component={History}/>}
-                    {user && !isAdmin && <Route path="/update" component={Profile}/>}
-                    {user && !isAdmin && <Route path="/post" component={Post}/>}
-                    {user && !isAdmin && <Route path="/menu" component={Menu}/>}
-                    {user && !isAdmin && <Route path="/health" component={Health}/>}
+                    {user && !isAdmin && <Route path="/profile"><Dashboard/></Route>}
+                    {user && !isAdmin && <Route path="/update"><Profile/></Route>}
+                    {user && !isAdmin && <Route path="/health"><Health/></Route>}
+                    {user && !isAdmin && <Route path="/drafts"><Drafts/></Route>}
+                    {user && !isAdmin && <Route path="/history"><History/></Route>}
+                    {user && !isAdmin && <Route path="/favorites"><Favorites/></Route>}
+                    {user && !isAdmin && <Route path="/post"><Post/></Route>}
+                    {user && !isAdmin && <Route path="/menu"><Menu/></Route>}
                     {/*Admin module*/}
-                    {user && isAdmin && <Route path="/console" component={Console}/>}
+                    {user && isAdmin && <Route path="/console"><Console/></Route>}
                     {user && isAdmin && <Route><Redirect to="/console"/></Route>}
                     {/*Miscellaneous*/}
-                    {!isAdmin && <Route path="/about" component={About}/>}
-                    {!isAdmin && <Route component={NotFound}/>}
+                    {!isAdmin && <Route path="/about"><About/></Route>}
+                    {!isAdmin && <Route path="/not-found"><NotFound/></Route>}
+                    {!isAdmin && <Redirect to="/not-found"/>}
                 </Switch>
                 {background && <Route path="/" children={<Modal/>}/>}
-                {!isAdmin && <Footer/>}
+                {!isAdmin
+                && location.pathname !== "/auth/register"
+                && location.pathname !== "/auth/verify"
+                && location.pathname !== "/not-found"
+                && <Footer/>}
             </div>
         </UserContext.Provider>
     );

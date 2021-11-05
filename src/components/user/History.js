@@ -1,9 +1,9 @@
 import React from "react";
 import Navbar from "../commons/elements/bars/Navbar";
 import {NavLink, Redirect, Route, Switch} from "react-router-dom";
-import HistoryBlogs from "./history/HistoryBlogs";
-import HistoryRecipes from "./history/HistoryRecipes";
-import HistoryVideos from "./history/HistoryVideos";
+import PostedBlogs from "./history/PostedBlogs";
+import PostedRecipes from "./history/PostedRecipes";
+import PostedVideos from "./history/PostedVideos";
 import DashboardSidebar from "./DashboardSidebar";
 
 const History = () => {
@@ -24,9 +24,9 @@ const History = () => {
                     </section>
                     <Switch>
                         <Route exact path="/history"><Redirect to={urlRecipes}/></Route>
-                        <Route exact path={urlRecipes}><HistoryRecipes/></Route>
-                        <Route exact path={urlVideos}><HistoryVideos/></Route>
-                        <Route exact path={urlBlogs}><HistoryBlogs/></Route>
+                        <Route exact path={urlRecipes}><PostedRecipes/></Route>
+                        <Route exact path={urlVideos}><PostedVideos/></Route>
+                        <Route exact path={urlBlogs}><PostedBlogs/></Route>
                         <Route><Redirect to="/not-found"/></Route>
                     </Switch>
                 </main>

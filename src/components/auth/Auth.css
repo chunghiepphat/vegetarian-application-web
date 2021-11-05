@@ -1,0 +1,99 @@
+.page-full {
+    position: relative;
+    /*height: 1080px;*/
+}
+
+.page-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: center/cover no-repeat;
+}
+
+.page-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(254, 254, 254, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.auth-container {
+    grid-column: 2 / 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: calc(100vh - 60px);
+    min-height: 720px;
+    /*min-height: 1080px;*/
+    /*margin: 100px 0 200px 0;*/
+    padding: 120px 100px;
+    background: rgba(254, 254, 254, 0.9);
+}
+
+
+/*The forms*/
+.auth-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    min-width: 360px;
+    max-width: 360px;
+    text-align: center;
+}
+
+.auth-section > * {
+    width: 100%;
+    max-width: 480px;
+}
+
+.auth-section > h2 {
+    margin: 20px 0 10px 0;
+    font-size: 20px;
+}
+
+.auth-form > * {
+    width: 100%;
+}
+
+.auth-section > button {
+    margin: 5px 0;
+}
+
+/*Blackens the backdrop*/
+.modal-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+/*The modal popup*/
+.modal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 520px;
+    padding: 60px 20px;
+    background-color: white;
+    border-radius: 20px;
+}

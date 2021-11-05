@@ -101,7 +101,7 @@ svg {
     flex-direction: column;
     align-items: center;
     background: #fefefe;
-    padding: 0 0 60px 0;
+    padding: 0;
 }
 
 /*Grid layout*/
@@ -131,6 +131,7 @@ svg {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     width: 1280px;
+    height: 100%;
 }
 
 main {
@@ -147,9 +148,6 @@ aside {
 main > section {
     margin: 0 0 10px 0;
     padding: 30px 0;
-    /*background: white;*/
-    /*border-radius: 10px;*/
-    /*box-shadow: 0 1px 1px #d0d0d0;*/
 }
 
 main > nav {
@@ -213,7 +211,7 @@ article {
 
 .sticky-bottom {
     position: sticky;
-    bottom: 10px;
+    bottom: 5px;
     z-index: 20;
     padding: 10px 20px;
     background: rgba(255, 255, 255, 0.8);

@@ -6,7 +6,7 @@ import Panel from "../../commons/elements/containers/Panel";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 
-const HomeRecipes = () => {
+const HomeLatestRecipes = () => {
     const api = `${apiBase}/recipes/get10recipes`;
     const [data, setData] = useState([]);
 
@@ -70,4 +70,4 @@ const HomeRecipes = () => {
     )
 }
 
-export default HomeRecipes;
+export default HomeLatestRecipes;

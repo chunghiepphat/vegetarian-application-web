@@ -1,7 +1,7 @@
 import React from "react";
 import "./View.css";
 import HomeSidebar from "./HomeSidebar";
-import {Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import ViewRecipe from "./view/ViewRecipe";
 import ViewVideo from "./view/ViewVideo";
 import ViewBlog from "./view/ViewBlog";
@@ -18,6 +18,7 @@ const View = () => {
                         <Route path="/view/video/:id" component={ViewVideo}/>
                         <Route path="/view/blog/:id" component={ViewBlog}/>
                         <Route path="/view/user/:id" component={ViewUser}/>
+                        <Route><Redirect to="/not-found"/></Route>
                     </Switch>
                 </main>
                 {/*Right sidebar*/}

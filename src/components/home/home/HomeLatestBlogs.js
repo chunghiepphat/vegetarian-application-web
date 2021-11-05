@@ -6,7 +6,7 @@ import {apiBase} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 
-const HomeBlogs = () => {
+const HomeLatestBlogs = () => {
     const api = `${apiBase}/blogs/get10blogs`;
     const [data, setData] = useState([]);
 
@@ -55,4 +55,4 @@ const HomeBlogs = () => {
     )
 }
 
-export default HomeBlogs;
+export default HomeLatestBlogs;

@@ -1,6 +1,6 @@
 import React from "react";
 
-const HistoryComments = () => {
+const PostedComments = () => {
     return (
         <section>
 
@@ -8,4 +8,4 @@ const HistoryComments = () => {
     )
 }
 
-export default HistoryComments;
+export default PostedComments;

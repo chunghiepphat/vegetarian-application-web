@@ -74,8 +74,7 @@ const Header = () => {
                                     state: {background: location}
                                 }}>Sign in</NavLink>
                                 <NavLink to={{
-                                    pathname: "/register",
-                                    state: {background: location}
+                                    pathname: "/auth/register",
                                 }}>Sign up</NavLink>
                             </>
                         }

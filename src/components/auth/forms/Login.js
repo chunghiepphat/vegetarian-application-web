@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link, useHistory, useLocation} from "react-router-dom";
+import {Link, useHistory, useLocation, withRouter} from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import {apiBase} from "../../../helpers/Helpers";
 
@@ -66,10 +66,10 @@ const Login = () => {
 
     // Renders the form
     return (
-        <div className="modal-content">
+        <div className="auth-section">
             <h1>Welcome back!</h1>
             <p>Don't have an account? <Link to={{
-                pathname: "/register"
+                pathname: "/auth/register",
             }}>Sign up!</Link></p>
             {/*Social authentication*/}
             <h2>Continue with your social media</h2>
@@ -77,7 +77,7 @@ const Login = () => {
             <button>Google placeholder</button>
             {/*Email authentication*/}
             <h2>Sign in with your email</h2>
-            <form className="modal-form" onSubmit={signIn}>
+            <form className="auth-form" onSubmit={signIn}>
                 <input type="email" name="email" placeholder="Enter email"
                        onChange={e => setEmail(e.target.value)}
                        required/>

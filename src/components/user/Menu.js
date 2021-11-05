@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
 import "./Menu.css";
 import DashboardSidebar from "./DashboardSidebar";
-import MenuView from "./menu/MenuView";
-import MenuGenerate from "./menu/MenuGenerate";
+import DisplayMenu from "./menu/DisplayMenu";
+import GenerateMenu from "./menu/GenerateMenu";
 import {UserContext} from "../../context/UserContext";
 import {apiBase} from "../../helpers/Helpers";
 
@@ -94,8 +94,8 @@ const Menu = () => {
         <div className="page-container">
             <div className="grid-container">
                 <main>
-                    <MenuView data={data} isNew={isNew}/>
-                    <MenuGenerate generate={generateMenu} isNew={isNew}
+                    <DisplayMenu data={data} isNew={isNew}/>
+                    <GenerateMenu generate={generateMenu} isNew={isNew}
                                   save={saveMenu} load={loadMenu}/>
                 </main>
                 <DashboardSidebar/>

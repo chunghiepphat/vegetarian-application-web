@@ -4,6 +4,7 @@ import {UserContext} from "../../../../context/UserContext";
 import {apiBase} from "../../../../helpers/Helpers";
 import {Link, useLocation} from "react-router-dom";
 import {FaAngleRight} from "react-icons/fa";
+import {SectionLoader} from "../../../commons/elements/loaders/Loader";
 
 const RecipeComments = ({data}) => {
     const location = useLocation();
@@ -12,11 +13,16 @@ const RecipeComments = ({data}) => {
     const api = `${apiBase}/recipes/${data.recipe_id}/comments`;
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
+    const [isError, setIsError] = useState(false);
 
     const fetchData = async () => {
         const response = await fetch(api);
-        const result = await response.json();
-        setComments(result.listCommentRecipe);
+        if (response.ok) {
+            const result = await response.json();
+            setComments(result.listCommentRecipe);
+        } else if (response.status >= 400 && response.status < 600) {
+            setIsError(true);
+        }
     }
 
     const submitComment = async (e) => {
@@ -27,21 +33,18 @@ const RecipeComments = ({data}) => {
         headers.append("Authorization", `Bearer ${token.token}`);
         headers.append("Content-Type", "application/json");
         headers.append("Accept", "application/json");
-
         // Generates request body
         let body = JSON.stringify({
             "user_id": user.id,
             "recipe_id": data.recipe_id,
             "content": comment,
         });
-
         // Generates request
         let request = {
             method: 'POST',
             headers: headers,
             body: body,
         };
-
         // Executes fetch
         const response = await fetch(url, request);
         if (response.ok) {
@@ -53,13 +56,12 @@ const RecipeComments = ({data}) => {
             alert("Unexpected error with code: " + response.status);
         }
     }
-
     // Executes fetch once on page load
     useEffect(() => {
         fetchData().catch(error => {
             console.error(error);
         });
-    }, []);
+    }, [data]);
 
     return (
         <section className="article-comments">
@@ -78,17 +80,22 @@ const RecipeComments = ({data}) => {
                     Sign in to comment! <FaAngleRight/>
                 </Link>
             }
-            {comments.length > 0 ?
-                comments.map(comment => (
-                    <Comment userId={comment.user_id}
-                             commentId={comment.id}
-                             content={comment.content}
-                             time={comment.time}
-                             articleType="recipe"
-                             reload={fetchData}/>
-                ))
+            {!isError ?
+                <>
+                    {comments && comments.length > 0 ?
+                        comments.map(comment => (
+                            <Comment userId={comment.user_id}
+                                     commentId={comment.id}
+                                     content={comment.content}
+                                     time={comment.time}
+                                     articleType="recipe"
+                                     reload={fetchData}/>))
+                        :
+                        <em>Be the first to comment on this recipe!</em>
+                    }
+                </>
                 :
-                <em>Be the first to comment on this recipe!</em>
+                <em>We couldn't load the comments.</em>
             }
         </section>
     )

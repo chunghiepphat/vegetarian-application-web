@@ -1,12 +1,13 @@
-import React from "react";
-import "./Modal.css";
+import React, {useState} from "react";
+import "./Auth.css";
 import Login from "./forms/Login";
 import Register from "./forms/Register";
 import {createPortal} from "react-dom";
 import {Route, useHistory, withRouter} from "react-router-dom";
 
-const Modal = () => {
+const AuthModal = () => {
     const history = useHistory();
+    const [display, setDisplay] = useState();
 
     const closeModal = e => {
         e.stopPropagation();
@@ -16,9 +17,8 @@ const Modal = () => {
     return createPortal(
         <div className="modal-overlay">
             <div className="modal-container">
-                <Route path="/login" component={Login}/>
-                <Route path="/register" component={Register}/>
-                <div className="modal-content">
+                <Route path="/login"><Login/></Route>
+                <div className="auth-section">
                     <button className="button-cancel" onClick={closeModal}>Close</button>
                 </div>
             </div>
@@ -27,4 +27,4 @@ const Modal = () => {
     )
 }
 
-export default withRouter(Modal);
+export default withRouter(AuthModal);

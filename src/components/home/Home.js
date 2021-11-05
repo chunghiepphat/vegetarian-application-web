@@ -1,10 +1,10 @@
 import React from "react";
 import "./Home.css";
 import HomeBanner from "./home/HomeBanner";
-import HomeRecipes from "./home/HomeRecipes";
+import HomeLatestRecipes from "./home/HomeLatestRecipes";
 import HomeSidebar from "./HomeSidebar";
-import HomeBlogs from "./home/HomeBlogs";
-import HomeVideos from "./home/HomeVideos";
+import HomeLatestBlogs from "./home/HomeLatestBlogs";
+import HomeLatestVideos from "./home/HomeLatestVideos";
 
 const Home = () => {
 
@@ -15,11 +15,11 @@ const Home = () => {
                 {/*Main content*/}
                 <main>
                     {/*Recipe slider*/}
-                    <HomeRecipes/>
+                    <HomeLatestRecipes/>
                     {/*Video showcase*/}
-                    <HomeVideos/>
+                    <HomeLatestVideos/>
                     {/*Story feed*/}
-                    <HomeBlogs/>
+                    <HomeLatestBlogs/>
                 </main>
                 {/*Right sidebar*/}
                 <HomeSidebar/>

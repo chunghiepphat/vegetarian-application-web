@@ -7,7 +7,7 @@ import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";
 import {UserContext} from "../../../context/UserContext";
 
-const DashboardRecipes = () => {
+const DashboardLatestRecipes = () => {
     // Gets current user's info
     let user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -89,4 +89,4 @@ const DashboardRecipes = () => {
     )
 }
 
-export default DashboardRecipes;
+export default DashboardLatestRecipes;

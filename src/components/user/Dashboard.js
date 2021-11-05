@@ -1,7 +1,7 @@
 import React from "react";
 import "./Dashboard.css";
-import DashboardRecipes from "./dashboard/DashboardRecipes";
-import DashboardBlogs from "./dashboard/DashboardBlogs";
+import DashboardLatestRecipes from "./dashboard/DashboardLatestRecipes";
+import DashboardLatestBlogs from "./dashboard/DashboardLatestBlogs";
 import DashboardSidebar from "./DashboardSidebar";
 import DashboardBanner from "./dashboard/DashboardBanner";
 import DashboardHealth from "./dashboard/DashboardHealth";
@@ -13,8 +13,8 @@ const Dashboard = () => {
             <div className="grid-container">
                 <main>
                     <DashboardHealth/>
-                    <DashboardRecipes/>
-                    <DashboardBlogs/>
+                    <DashboardLatestRecipes/>
+                    <DashboardLatestBlogs/>
                 </main>
                 <DashboardSidebar/>
             </div>

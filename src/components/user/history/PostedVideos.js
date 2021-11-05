@@ -1,6 +1,6 @@
 import React from "react";
 
-const HistoryVideos = () => {
+const PostedVideos = () => {
     return (
         <section>
 
@@ -8,4 +8,4 @@ const HistoryVideos = () => {
     )
 }
 
-export default HistoryVideos;
+export default PostedVideos;
