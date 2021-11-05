@@ -13,12 +13,16 @@ const ViewUser = () => {
     const urlVideo = `/view/user/${id}/videos`;
     const urlBlog = `/view/user/${id}/blogs`;
     const [data, setData] = useState();
-
+    const [isError, setIsError] = useState(false);
     const fetchData = async () => {
         const api = `${apiBase}/user/${id}`
         const response = await fetch(api);
-        const result = await response.json();
-        setData(result);
+        if (response.ok) {
+            const result = await response.json();
+            setData(result);
+        } else if (response.status >= 400 && response.status < 600) {
+            setIsError(true);
+        }
     }
     useEffect(() => {
         fetchData().catch(error => {
@@ -38,9 +42,10 @@ const ViewUser = () => {
             </section>
             <Switch>
                 <Route exact path={`/view/user/${id}`}><Redirect to={urlRecipe}/></Route>
-                <Route path={urlRecipe}><UserRecipes userId={id}/></Route>
-                <Route path={urlVideo}><UserVideos userId={id}/></Route>
-                <Route path={urlBlog}><UserBlogs userId={id}/></Route>
+                {!isError && <Route exact path={urlRecipe}><UserRecipes userId={id}/></Route>}
+                {!isError && <Route exact path={urlVideo}><UserVideos userId={id}/></Route>}
+                {!isError && <Route exact path={urlBlog}><UserBlogs userId={id}/></Route>}
+                <Redirect to="/not-found"/>
             </Switch>
         </>
     )

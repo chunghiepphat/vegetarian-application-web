@@ -12,11 +12,8 @@ const RecipeSteps = (props) => {
                             <span className="step-total">{props.steps.length}</span>
                         </div>
                         <p className="step-content">{step.step_content}</p>
-                    </div>
-                ))
-                :
-                <em>It seems there aren't any instructions for this recipe...</em>
-            }
+                    </div>))
+                : <em>It seems there aren't any instructions for this recipe...</em>}
         </section>
     )
 }

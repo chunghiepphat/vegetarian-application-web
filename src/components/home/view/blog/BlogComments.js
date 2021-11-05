@@ -1,46 +1,49 @@
 import React, {useContext, useEffect, useState} from "react";
 import {apiBase} from "../../../../helpers/Helpers";
 import {UserContext} from "../../../../context/UserContext";
+import {Link, useLocation} from "react-router-dom";
 import Comment from "../../../commons/elements/Comment";
+import {FaAngleRight} from "react-icons/fa";
 
 const BlogComments = ({data}) => {
+    const location = useLocation();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `${apiBase}/blogs/${data.blog_id}/comments`;
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
-
+    const [isError, setIsError] = useState(false);
     const fetchData = async () => {
+        const api = `${apiBase}/blogs/${data.blog_id}/comments`;
         const response = await fetch(api);
-        const result = await response.json();
-        setComments(result.listCommentBlog);
+        if (response.ok) {
+            const result = await response.json();
+            setComments(result.listCommentBlog);
+        } else if (response.status >= 400 && response.status < 600) {
+            setIsError(true);
+        }
     }
-
     const submitComment = async (e) => {
         e.preventDefault();
-        const url = `${apiBase}/user/commentblog`;
         // Generates request headers
         let headers = new Headers();
         headers.append("Authorization", `Bearer ${token.token}`);
         headers.append("Content-Type", "application/json");
         headers.append("Accept", "application/json");
-
         // Generates request body
         let body = JSON.stringify({
             "user_id": user.id,
             "blog_id": data.blog_id,
             "content": comment,
         });
-
         // Generates request
         let request = {
             method: 'POST',
             headers: headers,
             body: body,
         };
-
         // Executes fetch
-        const response = await fetch(url, request);
+        const api = `${apiBase}/user/commentblog`;
+        const response = await fetch(api, request);
         if (response.ok) {
             await fetchData();
             setComment("");
@@ -60,20 +63,29 @@ const BlogComments = ({data}) => {
 
     return (
         <section className="article-comments">
-            <h3>Comments</h3>
-            <form className="form-comment" onSubmit={submitComment}>
-                <input aria-label="Blog title" type="text" value={comment}
-                       onChange={e => setComment(e.target.value)}
-                       placeholder="What do you think?" required/>
-            </form>
-            {comments.length > 0 && comments.map(comment => (
-                <Comment userId={comment.user_id}
-                         commentId={comment.id}
-                         content={comment.content}
-                         time={comment.time}
-                         articleType="blog"
-                         reload={fetchData}/>
-            ))}
+            <h2>Comments</h2>
+            {user && user.role !== "admin" ?
+                <form className="form-comment" onSubmit={submitComment}>
+                    <input aria-label="Comment" type="text" value={comment}
+                           onChange={e => setComment(e.target.value)}
+                           placeholder="What do you think?" required/>
+                </form> : <Link to={{
+                    pathname: "/login",
+                    state: {background: location}
+                }}>Sign in to comment! <FaAngleRight/></Link>}
+            {!isError ?
+                <>
+                    {comments && comments.length > 0 ? comments.map(item => (
+                            <Comment userId={item.user_id}
+                                     commentId={item.id}
+                                     content={item.content}
+                                     time={item.time}
+                                     articleType="blog"
+                                     reload={fetchData}/>
+                        ))
+                        : <em>Be the first to comment on this recipe!</em>}
+                </>
+                : <em>We couldn't load the comments.</em>}}
         </section>
     )
 }

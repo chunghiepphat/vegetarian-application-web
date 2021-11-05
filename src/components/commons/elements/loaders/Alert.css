@@ -1,0 +1,29 @@
+.alert-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.alert-wrapper p {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.alert-wrapper button {
+    max-width: 320px;
+}
+
+.panel-alert {
+    min-height: 300px;
+}
+
+.banner-container .panel-alert {
+    height: 600px;
+}
+
+.section-alert, .article-alert {
+    min-height: 600px;
+}
+

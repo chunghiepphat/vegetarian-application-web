@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Route, Switch, useLocation, useParams} from "react-router-dom";
+import React, {useContext, useEffect, useState} from "react";
+import {Redirect, Route, Switch, useLocation, useParams} from "react-router-dom";
 import {apiBase} from "../../../helpers/Helpers";
 import BlogContent from "./blog/BlogContent";
 import BlogComments from "./blog/BlogComments";
@@ -7,33 +7,42 @@ import BlogHeader from "./blog/BlogHeader";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
 import BlogToolbar from "./blog/BlogToolbar";
 import EditBlog from "../../user/edit/EditBlog";
+import {UserContext} from "../../../context/UserContext";
 
 const ViewBlog = () => {
     let {id} = useParams();
     const location = useLocation();
+    const user = useContext(UserContext);
     const [data, setData] = useState();
-
+    const [isError, setIsError] = useState(false);
     const fetchData = async () => {
-        const api = `${apiBase}/blogs/getblogby/${id}`;
+        const api = `${apiBase}/blogs/getblogby/${id}?userID=${user.id}`;
         const response = await fetch(api);
-        const result = await response.json();
-        setData(result);
+        if (response.ok) {
+            const result = await response.json();
+            setData(result);
+        } else if (response.status >= 400 && response.status < 600) {
+            setIsError(true);
+        }
     }
-
     // Executes fetch once on page load
     useEffect(() => {
         fetchData().catch(error => {
             console.error(error);
         });
-    }, [location]);
+    }, [id, location]);
 
     return (
         <section>
             <Switch>
-                <Route path={`/view/blog/:id/edit`}>
+                {/*Edit mode*/}
+                {user && data && user.id === data.user_id &&
+                <Route exact path={`/view/blog/:id/edit`}>
                     <EditBlog id={id} data={data}/>
-                </Route>
-                <Route>
+                </Route>}
+                {/*View mode*/}
+                {!isError &&
+                <Route exact path={`/view/blog/:id/`}>
                     {data ?
                         <div className="section-content">
                             <article>
@@ -48,13 +57,11 @@ const ViewBlog = () => {
                                 <BlogComments data={data}/>
                             </article>
                         </div>
-                        :
-                        <SectionLoader/>
-                    }
-                </Route>
+                        : <SectionLoader/>}
+                </Route>}
+                <Redirect to="/not-found"/>
             </Switch>
         </section>
-
     )
 }
 

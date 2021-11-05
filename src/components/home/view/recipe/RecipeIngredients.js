@@ -6,8 +6,7 @@ const RecipeIngredients = ({data}) => {
         <>
             {data.ingredients &&
             <section className="article-list">
-                {data.ingredients.length > 0 ?
-                    <>{/*If ingredients were specified*/}
+                {data.ingredients.length > 0 ? <>
                         <h2>Ingredients</h2>
                         <p>- per {data.portion_size}
                             {/* eslint-disable-next-line eqeqeq */}
@@ -22,14 +21,8 @@ const RecipeIngredients = ({data}) => {
                             ))}
                         </ul>
                     </>
-                    :
-                    <>{/*Otherwise*/}
-                        <em>It seems the creator of this recipe did not specify any
-                            ingredients...</em>
-                    </>
-                }
-            </section>
-            }
+                    : <em>It seems the creator of this recipe did not specify any ingredients...</em>}
+            </section>}
         </>
     )
 }

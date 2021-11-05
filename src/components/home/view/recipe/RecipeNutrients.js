@@ -4,13 +4,12 @@ import {AiFillThunderbolt, IoMdNutrition} from "react-icons/all";
 const RecipeNutrients = (props) => {
     return (
         <section className="article-list">
-            {props.nutrients ?
-                <>
+            {props.nutrients ? <>
                     <h2>Estimated nutritional values per serving</h2>
                     <ul>
                         {props.nutrients.protein > 0 &&
-                        <li><
-                            IoMdNutrition/> Protein (mg): {Math.round(props.nutrients.protein / props.portion)}
+                        <li>
+                            <IoMdNutrition/> Protein (mg): {Math.round(props.nutrients.protein / props.portion)}
                         </li>}
                         {props.nutrients.fat > 0 &&
                         <li>
@@ -25,18 +24,13 @@ const RecipeNutrients = (props) => {
                             <AiFillThunderbolt/> Calories (cal): {Math.round(props.nutrients.calories / props.portion)}
                         </li>}
                     </ul>
+                    <br/>
+                    <p><em>(*) These values are only (very) rough estimates based on the ingredients of this
+                        recipe.</em></p>
+                    <p><em>(**) Be noted that these values might be (extremely) inaccurate if one or more ingredients
+                        were not defined in our databases.</em></p>
                 </>
-                :
-                <em>It seems we couldn't calculate the nutritional values for this recipe...</em>
-            }
-            <br/>
-            <p>
-                <em>(*) These values are only (very) rough estimates based on the ingredients of this recipe.</em>
-            </p>
-            <p>
-                <em>(**) Be noted that these values might be (extremely) inaccurate if one or more ingredients were not
-                    defined in our databases.</em>
-            </p>
+                : <em>It seems we couldn't calculate the nutritional values for this recipe...</em>}
         </section>
     )
 }

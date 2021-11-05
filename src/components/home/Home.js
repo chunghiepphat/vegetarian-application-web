@@ -14,11 +14,8 @@ const Home = () => {
             <div className="grid-container">
                 {/*Main content*/}
                 <main>
-                    {/*Recipe slider*/}
                     <HomeLatestRecipes/>
-                    {/*Video showcase*/}
                     <HomeLatestVideos/>
-                    {/*Story feed*/}
                     <HomeLatestBlogs/>
                 </main>
                 {/*Right sidebar*/}

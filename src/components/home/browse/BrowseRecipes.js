@@ -44,9 +44,7 @@ const BrowseRecipes = () => {
                                          time={item.time_created}
                                          totalLikes={item.totalLike}/>
                         ))
-                        :
-                        <SectionLoader/>
-                    }
+                        : <SectionLoader/>}
                 </Panel>}
             </div>
         </section>

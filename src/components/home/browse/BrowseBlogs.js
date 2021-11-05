@@ -25,6 +25,7 @@ const BrowseBlogs = () => {
             <div className="section-content">
                 <h1>Blogs</h1>
                 <i>Stories, thoughts, discussions and more.</i>
+                {data &&
                 <Panel filler="card-full">
                     {data.length > 0 ?
                         data.map(item => (
@@ -41,10 +42,8 @@ const BrowseBlogs = () => {
                                          time={item.time_created}
                                          totalLikes={item.totalLike}/>
                         ))
-                        :
-                        <SectionLoader/>
-                    }
-                </Panel>
+                        : <SectionLoader/>}
+                </Panel>}
             </div>
         </section>
     )
