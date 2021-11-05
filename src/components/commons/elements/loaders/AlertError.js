@@ -1,7 +1,7 @@
 import React from "react";
 import "./Alert.css";
 
-export const PanelAlert = ({reload}) => {
+export const PanelErr = ({reload}) => {
     return (
         <div className="alert-wrapper panel-alert">
             <p>We couldn't load the content.</p>
@@ -10,7 +10,7 @@ export const PanelAlert = ({reload}) => {
     )
 }
 
-export const SectionAlert = ({reload}) => {
+export const SectionErr = ({reload}) => {
     return (
         <div className="alert-wrapper section-alert">
             <p>We couldn't load the content.</p>
@@ -19,7 +19,7 @@ export const SectionAlert = ({reload}) => {
     )
 }
 
-export const ArticleAlert = ({reload}) => {
+export const ArticleErr = ({reload}) => {
     return (
         <div className="alert-wrapper article-alert">
             <p>We couldn't load the content.</p>

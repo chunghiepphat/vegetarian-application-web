@@ -91,14 +91,21 @@ const DashboardHealth = () => {
                     </li>}
                     {user.gender &&
                     <li><span style={{fontWeight: "bold"}}>Gender:</span> {user.gender} </li>}
-                    {user.height &&
+                    {user.height > 0 &&
                     <li><span style={{fontWeight: "bold"}}>Height:</span> {user.height} cm </li>}
-                    {user.weight &&
+                    {user.weight > 0 &&
                     <li><span style={{fontWeight: "bold"}}>Weight:</span> {user.weight} kg </li>}
-                    {user.workout_routine &&
+                    {user.workout_routine > 0 &&
                     <li><span style={{fontWeight: "bold"}}>Workout routine:</span> {routine} </li>}
                 </ul>
-                <Link to="/menu">Let us suggest your menu <FaAngleRight/></Link>
+                {user.birth_date && user.gender
+                && user.height > 0 && user.weight > 0
+                && user.workout_routine > 0 ?
+                    <Link to="/menu">Let us suggest your menu <FaAngleRight/></Link>
+                    : <><em>Share with us some details about you, so that we may recommend recipes that suit you
+                        best.</em>
+                        <Link to="/health">Get started<FaAngleRight/></Link></>}
+
             </div>
         </section>
     )

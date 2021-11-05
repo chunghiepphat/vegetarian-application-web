@@ -5,8 +5,9 @@ import {apiBase} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
-import {PanelAlert} from "../../commons/elements/loaders/Alert";
+import {PanelErr} from "../../commons/elements/loaders/AlertError";
 import {UserContext} from "../../../context/UserContext";
+import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 
 const HomeLatestRecipes = () => {
     const location = useLocation();
@@ -16,7 +17,7 @@ const HomeLatestRecipes = () => {
     const [isError, setIsError] = useState(false);
     const fetchData = async () => {
         setIsLoading(true);
-        const api = `${apiBase}/recipes/get10recipes?userID=${user.id}`;
+        const api = `${apiBase}/recipes/get10recipes`;
         const response = await fetch(api);
         if (response.ok) {
             const result = await response.json();
@@ -31,6 +32,7 @@ const HomeLatestRecipes = () => {
     useEffect(() => {
         fetchData().catch(error => {
             console.error(error);
+            setIsError(true);
         });
     }, [location]);
     // Handles slider scrolling on button click
@@ -49,7 +51,7 @@ const HomeLatestRecipes = () => {
             <Panel>
                 {!isLoading ? <>
                     {!isError ? <>
-                        {data.length > 0 && <>
+                        {data.length > 0 ? <>
                             {/*Scroll buttons*/}
                             <button className="panel-scroll scroll-left" onClick={() => scroll(-350)}>
                                 <FaAngleLeft/>
@@ -73,8 +75,8 @@ const HomeLatestRecipes = () => {
                                                  time={item.time}
                                                  totalLikes={item.totalLike}/>))}
                             </div>
-                        </>}
-                    </> : <PanelAlert reload={fetchData}/>}
+                        </> : <PanelEmp/>}
+                    </> : <PanelErr reload={fetchData}/>}
                 </> : <PanelLoader/>}
             </Panel>}
         </section>

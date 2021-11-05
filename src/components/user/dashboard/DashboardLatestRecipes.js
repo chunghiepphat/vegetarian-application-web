@@ -6,19 +6,22 @@ import Panel from "../../commons/elements/containers/Panel";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";
 import {UserContext} from "../../../context/UserContext";
+import {PanelErr} from "../../commons/elements/loaders/AlertError";
+import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 
 const DashboardLatestRecipes = () => {
     // Gets current user's info
     let user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const [data, setData] = useState([]);
-
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
     let headers = new Headers();
     headers.append("Authorization", `Bearer ${token.token}`);
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
-
     const fetchData = async () => {
+        setIsLoading(true);
         // Generate request
         let request = {
             method: 'GET',
@@ -26,16 +29,21 @@ const DashboardLatestRecipes = () => {
         };
         const api = `${apiBase}/recipes/get10recipebyuser/${user.id}`;
         const response = await fetch(api, request);
-        const result = await response.json();
-        setData(result.listResult);
+        if (response.ok) {
+            const result = await response.json();
+            setData(result.listResult);
+            setIsLoading(false);
+        } else if (response.status >= 400 && response.status < 600) {
+            setIsError(true);
+            setIsLoading(false);
+        }
     }
-
     useEffect(() => {
         fetchData().catch(error => {
             console.error(error);
+            setIsError(true);
         });
-    }, []);
-
+    }, [user]);
     // Handles slider scrolling on button click
     const ref = useRef(null);
     const scroll = (scrollOffset) => {
@@ -48,10 +56,12 @@ const DashboardLatestRecipes = () => {
                 <h1>Your recent posts</h1>
                 <Link to="/history/recipes"><FaAngleRight/>View all</Link>
             </header>
-            {data ?
-                <Panel>
-                    {data.length > 0 ?
-                        <>{/*Scroll buttons*/}
+            {data &&
+            <Panel>
+                {!isLoading ? <>
+                    {!isError ? <>
+                        {data.length > 0 ? <>
+                            {/*Scroll buttons*/}
                             <button className="panel-scroll scroll-left" onClick={() => scroll(-350)}>
                                 <FaAngleLeft/>
                             </button>
@@ -72,19 +82,12 @@ const DashboardLatestRecipes = () => {
                                                  lastName={item.last_name}
                                                  time={item.time}
                                                  totalLikes={item.totalLike}
-                                                 status={item.status}/>
-                                ))}
+                                                 status={item.status}/>))}
                             </div>
-                        </>
-                        :
-                        <PanelLoader/>
-                    }
-                </Panel>
-                :
-                <div className="section-content">
-                    <em>Seems empty here...</em>
-                </div>
-            }
+                        </> : <PanelEmp message="It seems you haven't posted anything yet."/>}
+                    </> : <PanelErr reload={fetchData}/>}
+                </> : <PanelLoader/>}
+            </Panel>}
         </section>
     )
 }

@@ -4,49 +4,45 @@ import jwtDecode from "jwt-decode";
 import {apiBase} from "../../../helpers/Helpers";
 
 const Login = () => {
-    const api = `${apiBase}/user/signin`;
     const history = useHistory();
+    const [message, setMessage] = useState();
     const [isLoading, setIsLoading] = useState(false);
-
     // Initializes parameters
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-
+    // Generates request headers
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
     // Handles login requests
     const signIn = async (event) => {
         event.preventDefault();
         setIsLoading(true);
-        // Generates request headers
-        let headers = new Headers();
-        headers.append("Content-Type", "application/json");
-        headers.append("Accept", "application/json");
-
         // Generates request body
         let body = JSON.stringify({
             "email": email,
             "password": password
         });
-
         // Generates request
         let request = {
             method: 'POST',
             headers: headers,
             body: body,
         };
-
         // Executes fetch
+        const api = `${apiBase}/user/signin`;
         await fetch(api, request)
             // Checks response, gets access token if green, throws error if not
             .then(response => {
                 if (response.ok) {
                     alert("Authentication successful.");
                     return response.json();
-                } else if (response.status === 401) {
+                } else if (response.status >= 400 && response.status < 600) {
+                    const error = response.json();
+                    setMessage(error.message);
                     setIsLoading(false);
-                    alert("Invalid credentials, please check your email and/or password.");
-                } else {
-                    setIsLoading(false);
-                    alert("Unable to complete request. There was an unexpected error.")
+                    if (message !== undefined) alert(message);
+                    else alert("An unexpected error has occurred. Status code: " + response.status);
                 }
             })
             // Saves result if response is green
