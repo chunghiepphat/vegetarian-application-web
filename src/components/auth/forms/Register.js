@@ -45,32 +45,6 @@ const Register = (props) => {
             if (message !== undefined) alert(message);
             else alert("An unexpected error has occurred. Status code: " + response.status);
         }
-        // // Checks response
-        // .then(response => {
-        //     if (response.ok) {
-        //         alert("Account created successfully, logging you in...");
-        //         return response.json();
-        //     } else if (response.status === 401) {
-        //         setIsLoading(false);
-        //         alert("An account with that email already exists, please try another.");
-        //     } else {
-        //         setIsLoading(false);
-        //         alert("Unable to complete request, there was an unexpected error.")
-        //     }
-        // })
-        // // Saves access token if response is green
-        // .then(result => {
-        //     if (result) {
-        //         localStorage.setItem("accessToken", JSON.stringify(result));
-        //         localStorage.setItem("userInfo", JSON.stringify(jwtDecode(JSON.stringify(result))));
-        //         history.goBack();
-        //     }
-        // })
-        // // Throws other errors
-        // .catch(error => {
-        //     setIsLoading(false);
-        //     alert("There was an unexpected error. Error message: " + error);
-        // });
     }
 
     // Renders the form

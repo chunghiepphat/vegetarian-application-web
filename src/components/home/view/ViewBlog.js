@@ -8,28 +8,16 @@ import {SectionLoader} from "../../commons/elements/loaders/Loader";
 import BlogToolbar from "./blog/BlogToolbar";
 import EditBlog from "../../user/edit/EditBlog";
 import {UserContext} from "../../../context/UserContext";
+import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";
+import {SectionErr} from "../../commons/elements/loaders/AlertError";
 
-const ViewBlog = () => {
+const ViewBlog = ({data, isLoading, isError, fetchData}) => {
     let {id} = useParams();
     const location = useLocation();
     const user = useContext(UserContext);
-    const [data, setData] = useState();
-    const [isError, setIsError] = useState(false);
-    const fetchData = async () => {
-        const api = `${apiBase}/blogs/getblogby/${id}?userID=${user.id}`;
-        const response = await fetch(api);
-        if (response.ok) {
-            const result = await response.json();
-            setData(result);
-        } else if (response.status >= 400 && response.status < 600) {
-            setIsError(true);
-        }
-    }
-    // Executes fetch once on page load
+    const api = `${apiBase}/blogs/getblogby/${id}?userID=${user.id}`;
     useEffect(() => {
-        fetchData().catch(error => {
-            console.error(error);
-        });
+        fetchData(api)
     }, [id, location]);
 
     return (
@@ -41,24 +29,27 @@ const ViewBlog = () => {
                     <EditBlog id={id} data={data}/>
                 </Route>}
                 {/*View mode*/}
-                {!isError &&
                 <Route exact path={`/view/blog/:id/`}>
-                    {data ?
-                        <div className="section-content">
-                            <article>
-                                {data.blog_thumbnail &&
-                                <picture className="article-thumbnail">
-                                    <source srcSet={data.blog_thumbnail}/>
-                                    <img src="" alt=""/>
-                                </picture>}
-                                <BlogHeader data={data}/>
-                                <BlogToolbar id={id} data={data} reload={fetchData}/>
-                                <BlogContent data={data}/>
-                                <BlogComments data={data}/>
-                            </article>
-                        </div>
-                        : <SectionLoader/>}
-                </Route>}
+                    {!isLoading ? <>
+                        {!isError ? <>
+                            {data ? <>
+                                <div className="section-content">
+                                    <article>
+                                        {data.blog_thumbnail &&
+                                        <picture className="article-thumbnail">
+                                            <source srcSet={data.blog_thumbnail}/>
+                                            <img src="" alt=""/>
+                                        </picture>}
+                                        <BlogHeader data={data}/>
+                                        <BlogToolbar id={id} data={data} reload={fetchData}/>
+                                        <BlogContent data={data}/>
+                                        <BlogComments data={data}/>
+                                    </article>
+                                </div>
+                            </> : <SectionEmp/>}
+                        </> : <SectionErr reload={fetchData}/>}
+                    </> : <SectionLoader/>}
+                </Route>
                 <Redirect to="/not-found"/>
             </Switch>
         </section>

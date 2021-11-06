@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
-import VideoHeader from "./video/VideoHeader";
+import VideoHeader from "./video/VideoDetails";
 import VideoPlayer from "./video/VideoPlayer";
 import {useParams} from "react-router-dom";
 import {apiBase} from "../../../helpers/Helpers";

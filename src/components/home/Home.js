@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Home.css";
 import HomeBanner from "./home/HomeBanner";
 import HomeLatestRecipes from "./home/HomeLatestRecipes";
@@ -7,7 +7,6 @@ import HomeLatestBlogs from "./home/HomeLatestBlogs";
 import HomeLatestVideos from "./home/HomeLatestVideos";
 
 const Home = () => {
-
     return (
         <div className="page-container">
             <HomeBanner/>

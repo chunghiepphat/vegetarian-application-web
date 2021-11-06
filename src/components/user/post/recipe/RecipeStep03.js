@@ -8,7 +8,6 @@ import InputGroup from "../../../commons/elements/form/InputGroup";
 
 const RecipeStep03 = (props) => {
     const history = useHistory();
-
     const handleAddField = (e) => {
         e.preventDefault();
         const ingredient = {
@@ -21,7 +20,6 @@ const RecipeStep03 = (props) => {
         e.preventDefault();
         props.setIngredients((prev) => prev.filter((item) => item !== prev[index]));
     }
-
     const handleClear = (e) => {
         e.preventDefault();
         props.setIngredients([]);

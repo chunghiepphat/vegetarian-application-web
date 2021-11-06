@@ -4,7 +4,7 @@ import {UserContext} from "../../../../context/UserContext";
 import {apiBase} from "../../../../helpers/Helpers";
 import {useHistory, useLocation} from "react-router-dom";
 
-const RecipeToolbar = ({id, data, reload}) => {
+const RecipeToolbar = ({id, data, reload, mainApi}) => {
     const location = useLocation();
     const history = useHistory();
     const user = useContext(UserContext);
@@ -47,7 +47,7 @@ const RecipeToolbar = ({id, data, reload}) => {
         const api = `${apiBase}/recipes/like`;
         const response = await fetch(api, request);
         if (response.ok) {
-            reload();
+            reload(mainApi);
         } else if (response.status === 401) {
             alert("You are not authorized to complete the request.")
         } else {
@@ -66,7 +66,7 @@ const RecipeToolbar = ({id, data, reload}) => {
         const api = `${apiBase}/recipes/edit/private/${id}`;
         const response = await fetch(api, request);
         if (response.ok) {
-            reload();
+            reload(mainApi);
         } else if (response.status === 401) {
             alert("You are not authorized to do that.")
         } else {

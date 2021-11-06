@@ -41,11 +41,10 @@ const HomeLatestBlogs = () => {
                 <Link to="/browse/blogs"><FaAngleRight/>See more</Link>
             </header>
             <div className="section-content">
-                {data &&
                 <Panel filler="card-wide">
                     {!isLoading ? <>
                         {!isError ? <>
-                            {data.length > 0 ? <>
+                            {data && data.length > 0 ? <>
                                 {data.map((item, index) => (
                                     <ArticleCard className={`${index < 4 ? "card-wide" : "card-medium"}`}
                                                  key={item.blog_id}
@@ -62,7 +61,7 @@ const HomeLatestBlogs = () => {
                             </> : <PanelEmp/>}
                         </> : <PanelErr reload={fetchData}/>}
                     </> : <PanelLoader/>}
-                </Panel>}
+                </Panel>
             </div>
         </section>
     )

@@ -11,6 +11,10 @@
     font-weight: 600;
 }
 
+.alert-wrapper em {
+    font-size: 18px;
+}
+
 .alert-wrapper button {
     max-width: 320px;
 }

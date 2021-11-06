@@ -1,14 +1,13 @@
 import React from "react";
-import moment from "moment";
 import Avatar from "../../../commons/elements/Avatar";
-import {Link} from "react-router-dom";
+import moment from "moment";
 import {FaAngleRight} from "react-icons/fa";
+import {Link} from "react-router-dom";
 
-const BlogHeader = ({data}) => {
+const VideoDetails = ({data}) => {
     return (
         <section className="article-title">
-            <h1>{data.blog_title}</h1>
-            <p className="article-subtitle">{data.blog_subtitle}</p>
+            <h1>{data.video_title}</h1>
             <div className="article-info">
                 <div className="article-author">
                     <Avatar className="author-avatar" data={data}/>
@@ -27,8 +26,9 @@ const BlogHeader = ({data}) => {
                     </span>}
                 </div>
             </div>
+            <p className="article-description">{data.video_description}</p>
         </section>
     )
 }
 
-export default BlogHeader;
+export default VideoDetails;

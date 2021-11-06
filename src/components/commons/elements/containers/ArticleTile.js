@@ -19,7 +19,7 @@ const ArticleTile = ({className, id, type, title, thumbnail, firstName, lastName
     ]
 
     return (
-        <div className={`tile ${className}`}>
+        <div className={`article-tile ${className}`}>
             <Link className="tile-url" to={`/view/${type}/${id}`}/>
             <picture className="tile-thumbnail">
                 <source srcSet={thumbnail}/>

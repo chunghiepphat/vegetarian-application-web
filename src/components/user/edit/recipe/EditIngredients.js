@@ -15,7 +15,6 @@ const EditIngredients = (props) => {
         e.preventDefault();
         props.setIngredients((prev) => prev.filter((item) => item !== prev[index]));
     }
-
     const handleUndo = (e) => {
         e.preventDefault();
         props.setIngredients([].concat(props.data.ingredients));

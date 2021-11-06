@@ -25,9 +25,16 @@ article section {
     margin: 0 0 10px 0;
 }
 
-.article-title p {
+.article-subtitle {
     margin: 10px 0 0 0;
     font-style: italic;
+}
+
+.article-description {
+    margin: 0 0 0 16px;
+    padding: 20px 0 0 30px;
+    border-left: 1px solid lightgray;
+    font-style: normal;
 }
 
 .article-info {
@@ -35,7 +42,7 @@ article section {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .article-author {
@@ -267,6 +274,7 @@ article .form-container {
     border: none;
 }
 
+/*User profile page*/
 .banner-user .banner {
     display: flex;
     flex-direction: row;
@@ -346,4 +354,82 @@ article .form-container {
     rgba(254, 254, 254, 1) 50%,
     rgba(254, 254, 254, 1) 100%);
     backdrop-filter: blur(6px);
+}
+
+/*Radial progress bars*/
+.circular {
+    height: 100px;
+    width: 100px;
+    position: relative;
+    transform: scale(2);
+}
+
+.circular .inner {
+    position: absolute;
+    z-index: 6;
+    top: 50%;
+    left: 50%;
+    height: 80px;
+    width: 80px;
+    margin: -40px 0 0 -40px;
+    background: #dde6f0;
+    border-radius: 100%;
+
+}
+
+.circular .number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    font-size: 18px;
+    font-weight: 500;
+    color: #4158d0;
+}
+
+.circular .bar {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    -webkit-border-radius: 100%;
+    clip: rect(0px, 100px, 100px, 50px);
+}
+
+.circle .bar .progress {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    -webkit-border-radius: 100%;
+    clip: rect(0px, 50px, 100px, 0px);
+    background: #4158d0;
+}
+
+.circle .left .progress {
+    z-index: 1;
+    animation: left 4s linear both;
+}
+
+@keyframes left {
+    100% {
+        transform: rotate(180deg);
+    }
+}
+
+.circle .right {
+    transform: rotate(180deg);
+    z-index: 3;
+
+}
+
+.circle .right .progress {
+    animation: right 4s linear both;
+    animation-delay: 4s;
+}
+
+@keyframes right {
+    100% {
+        transform: rotate(180deg);
+    }
 }

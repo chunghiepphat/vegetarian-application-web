@@ -11,7 +11,6 @@ import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 
 const HomeLatestRecipes = () => {
     const location = useLocation();
-    const user = useContext(UserContext);
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -28,6 +27,11 @@ const HomeLatestRecipes = () => {
             setIsLoading(false);
         }
     }
+    // Handles slider scrolling on button click
+    const ref = useRef(null);
+    const scroll = (scrollOffset) => {
+        ref.current.scrollLeft += scrollOffset;
+    };
     // Executes fetch once on page load
     useEffect(() => {
         fetchData().catch(error => {
@@ -35,11 +39,6 @@ const HomeLatestRecipes = () => {
             setIsError(true);
         });
     }, [location]);
-    // Handles slider scrolling on button click
-    const ref = useRef(null);
-    const scroll = (scrollOffset) => {
-        ref.current.scrollLeft += scrollOffset;
-    };
 
     return (
         <section>
@@ -47,11 +46,10 @@ const HomeLatestRecipes = () => {
                 <h1>Our community's latest recipes</h1>
                 <Link to="/browse/recipes"><FaAngleRight/>See more</Link>
             </header>
-            {data &&
             <Panel>
                 {!isLoading ? <>
                     {!isError ? <>
-                        {data.length > 0 ? <>
+                        {data && data.length > 0 ? <>
                             {/*Scroll buttons*/}
                             <button className="panel-scroll scroll-left" onClick={() => scroll(-350)}>
                                 <FaAngleLeft/>
@@ -78,7 +76,7 @@ const HomeLatestRecipes = () => {
                         </> : <PanelEmp/>}
                     </> : <PanelErr reload={fetchData}/>}
                 </> : <PanelLoader/>}
-            </Panel>}
+            </Panel>
         </section>
     )
 }

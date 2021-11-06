@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link, useHistory, useLocation, withRouter} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import {apiBase} from "../../../helpers/Helpers";
 

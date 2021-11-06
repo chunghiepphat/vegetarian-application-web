@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {apiBase} from "../../../helpers/Helpers";
-import {Link, useHistory, useLocation} from "react-router-dom";
+import {useHistory} from "react-router-dom";
+import jwtDecode from "jwt-decode";
 
 const Verification = (props) => {
-    const location = useLocation();
     const history = useHistory();
     const [message, setMessage] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -24,16 +24,32 @@ const Verification = (props) => {
         };
         // Executes fetch
         const api = `${apiBase}/user/verify?code=${code}`;
-        const response = await fetch(api, request)
-        if (response.ok) {
-            history.push("/home");
-        } else if (response.status >= 400 && response.status < 600) {
-            const error = await response.json();
-            setMessage(error.message);
-            setIsLoading(false);
-            if (message !== undefined) alert(message);
-            else alert("An unexpected error has occurred. Status code: " + response.status);
-        }
+        await fetch(api, request)
+            .then(response => {
+                if (response.ok) {
+                    alert("Authentication successful.");
+                    return response.json();
+                } else if (response.status >= 400 && response.status < 600) {
+                    const error = response.json();
+                    setMessage(error.message);
+                    setIsLoading(false);
+                    if (message !== undefined) alert(message);
+                    else alert("An unexpected error has occurred. Status code: " + response.status);
+                }
+            })
+            // Saves result if response is green
+            .then(result => {
+                if (result) {
+                    localStorage.setItem("accessToken", JSON.stringify(result));
+                    localStorage.setItem("userInfo", JSON.stringify(jwtDecode(JSON.stringify(result))));
+                    history.push("/home");
+                }
+            })
+            // Throws other errors
+            .catch(error => {
+                setIsLoading(false);
+                alert("There was an unexpected error. Error message: " + error);
+            });
     }
 
     // Renders the form

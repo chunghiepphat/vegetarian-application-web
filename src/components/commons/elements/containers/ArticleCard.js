@@ -3,30 +3,26 @@ import "./ArticleCard.css";
 import {Link} from "react-router-dom";
 import placeholderThumbnail from "../../../../assets/card-thumbnail-default.png";
 import moment from "moment";
-import {FaRegHeart} from "react-icons/all";
+import {FaHeart, FaRegHeart} from "react-icons/all";
 import {UserContext} from "../../../../context/UserContext";
 
 const ArticleCard = ({
                          className, id, type, hideThumbnail,
                          title, subtitle, thumbnail,
                          userId, firstName, lastName, time,
-                         totalLikes, status, recommendationCriteria
+                         totalLikes, status, recommendationCriteria, isFavorite
                      }) => {
-
     const user = useContext(UserContext);
-
     const statusText = [
         "Waiting for review.",
         "Approved and published.",
         "Rejected by admin."
     ]
-
     const statusColor = [
         "text-neutral",
         "text-positive",
         "text-negative"
     ]
-
     const recommendationText = [
         "Includes your preferred ingredients.", // 1 - preferences
         "Based on your favorite recipes.",      // 2 - tendency
@@ -61,7 +57,9 @@ const ArticleCard = ({
                 {time &&
                 <p className="card-timestamp">{moment(time).format("lll")}</p>}
                 {totalLikes !== undefined &&
-                <div className="card-likes"><FaRegHeart/>{totalLikes}</div>}
+                <div className="card-likes">
+                    {isFavorite ? <FaHeart/> : <FaRegHeart/>}
+                    {totalLikes}</div>}
                 {recommendationCriteria &&
                 <p className="card-criteria">
                     {recommendationText[recommendationCriteria - 1]}

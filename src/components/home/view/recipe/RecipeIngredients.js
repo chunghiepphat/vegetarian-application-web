@@ -16,7 +16,7 @@ const RecipeIngredients = ({data}) => {
                         <ul>
                             {data.ingredients.map(ingredient => (
                                 <li>
-                                    <FaLeaf/> {ingredient.ingredient_name} - {ingredient.amount_in_mg} (mg)
+                                    <FaLeaf/> {ingredient.ingredient_name} - {ingredient.amount_in_mg} (grams)
                                 </li>
                             ))}
                         </ul>

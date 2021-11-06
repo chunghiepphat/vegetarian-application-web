@@ -21,7 +21,6 @@ import Favorites from "./components/user/Favorites";
 import Menu from "./components/user/Menu";
 import Health from "./components/user/Health";
 import Console from "./components/admin/Console";
-import {B} from "react-select/dist/index-4bd03571.esm";
 import Drafts from "./components/user/Drafts";
 import Auth from "./components/auth/Auth";
 

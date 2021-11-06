@@ -19,7 +19,7 @@ const HomeLatestVideos = () => {
         const response = await fetch(api);
         if (response.ok) {
             const result = await response.json();
-            setData(result.listVideo);
+            setData(result.listResult);
             setIsLoading(false);
         } else if (response.status >= 400 && response.status < 600) {
             setIsError(true);
@@ -40,14 +40,13 @@ const HomeLatestVideos = () => {
                 <Link to="/browse/videos"><FaAngleRight/>See more</Link>
             </header>
             <div className="section-content">
-                {data &&
                 <Panel filler="card-wide">
                     {!isLoading ? <>
                         {!isError ? <>
-                            {data.length > 0 ? <>
+                            {data && data.length > 0 ? <>
                                 {data.map((item, index) => (
-                                    <VideoTile key={item.video_id}
-                                               id={item.video_id}
+                                    <VideoTile key={item.id}
+                                               id={item.id}
                                                type="blog"
                                                title={item.video_title}
                                                link={item.video_link}
@@ -59,7 +58,7 @@ const HomeLatestVideos = () => {
                             </> : <PanelEmp/>}
                         </> : <PanelErr reload={fetchData}/>}
                     </> : <PanelLoader/>}
-                </Panel>}
+                </Panel>
             </div>
         </section>
     )

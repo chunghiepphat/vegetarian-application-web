@@ -1,39 +1,34 @@
 import React, {useEffect, useState} from "react";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
-import VideoHeader from "./video/VideoHeader";
+import VideoDetails from "./video/VideoDetails";
 import VideoPlayer from "./video/VideoPlayer";
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {apiBase} from "../../../helpers/Helpers";
+import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";
+import {SectionErr} from "../../commons/elements/loaders/AlertError";
 
-const ViewVideo = () => {
+const ViewVideo = ({data, isLoading, isError, fetchData}) => {
     let {id} = useParams();
+    const location = useLocation();
     const api = `${apiBase}/video/getvideoby/${id}`;
-    const [data, setData] = useState();
-
-    // Executes fetch once on page load
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(api);
-            const result = await response.json();
-            setData(result);
-        }
-        fetchData().catch(error => {
-            console.error(error);
-        });
-    }, []);
+        fetchData(api)
+    }, [id, location]);
 
     return (
         <section>
-            {data ?
-                <div className="section-content">
-                    <article>
-                        <VideoHeader data={data}/>
-                        <VideoPlayer data={data}/>
-                    </article>
-                </div>
-                :
-                <SectionLoader/>
-            }
+            {!isLoading ? <>
+                {!isError ? <>
+                    {data ? <>
+                        <div className="section-content">
+                            <article>
+                                <VideoPlayer data={data}/>
+                                <VideoDetails data={data}/>
+                            </article>
+                        </div>
+                    </> : <SectionEmp/>}
+                </> : <SectionErr reload={fetchData}/>}
+            </> : <SectionLoader/>}
         </section>
     )
 }
