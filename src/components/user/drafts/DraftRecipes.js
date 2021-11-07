@@ -1,43 +1,39 @@
 import React, {useEffect} from "react";
-import {apiBase} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleCard from "../../commons/elements/containers/ArticleCard";
-import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
+import {PanelLoader} from "../../commons/elements/loaders/Loader";
 
-const BrowseBlogs = ({user, location, data, isLoading, isError, fetchData}) => {
-    const api = `${apiBase}/blogs/getall?page=1&limit=100${user ? `&userID=${user.id}` : ``}`;
-    // Executes fetch once on page load
+const DraftRecipes = ({user, location, data, isLoading, isError, fetchData}) => {
     useEffect(() => {
-        fetchData(api);
+        fetchData();
     }, [location, user]);
 
     return (
         <section>
             <div className="section-content">
-                <h1>Blogs</h1>
-                <p>Stories, thoughts, discussions and more.</p>
+                <h1>Recipes</h1>
+                <p>Your saved drafts & private recipes.</p>
                 <Panel filler="card-full">
                     {!isLoading ? <>
                         {!isError ? <>
                             {data && data.length > 0 ? <>
                                 {data.map(item => (
                                     <ArticleCard className="card-full"
-                                                 key={item.blog_id}
-                                                 id={item.blog_id}
-                                                 type="blog"
-                                                 title={item.blog_title}
-                                                 thumbnail={item.blog_thumbnail}
-                                                 subtitle={item.blog_subtitle}
+                                                 key={item.recipe_id}
+                                                 id={item.recipe_id}
+                                                 type="recipe"
+                                                 title={item.recipe_title}
+                                                 thumbnail={item.recipe_thumbnail}
                                                  userId={item.user_id}
                                                  firstName={item.first_name}
                                                  lastName={item.last_name}
                                                  time={item.time_created}
                                                  isFavorite={item.is_like}
                                                  totalLikes={item.totalLike}/>))}
-                            </> : <PanelEmp/>}
-                        </> : <PanelErr reload={fetchData} api={api}/>}
+                            </> : <PanelEmp message="It seems you haven't saved any drafts yet."/>}
+                        </> : <PanelErr reload={fetchData}/>}
                     </> : <PanelLoader/>}
                 </Panel>
             </div>
@@ -45,4 +41,4 @@ const BrowseBlogs = ({user, location, data, isLoading, isError, fetchData}) => {
     )
 }
 
-export default BrowseBlogs;
+export default DraftRecipes;

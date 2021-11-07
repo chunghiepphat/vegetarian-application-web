@@ -73,19 +73,17 @@ const RecipeComments = ({data}) => {
                     pathname: "/login",
                     state: {background: location}
                 }}>Sign in to comment! <FaAngleRight/></Link>}
-            {!isError ?
-                <>
-                    {comments && comments.length > 0 ?
-                        comments.map(item => (
-                            <Comment userId={item.user_id}
-                                     commentId={item.id}
-                                     content={item.content}
-                                     time={item.time}
-                                     articleType="recipe"
-                                     reload={fetchComments}/>))
-                        : <em>Be the first to comment on this recipe!</em>}
-                </>
-                : <em>We couldn't load the comments.</em>}
+            {!isError ? <>
+                {comments && comments.length > 0 ? <>
+                    {comments.map(item => (
+                        <Comment userId={item.user_id}
+                                 commentId={item.id}
+                                 content={item.content}
+                                 time={item.time}
+                                 articleType="recipe"
+                                 reload={fetchComments}/>))}
+                </> : <em>Be the first to comment on this recipe!</em>}
+            </> : <em>We couldn't load the comments.</em>}
         </section>
     )
 }

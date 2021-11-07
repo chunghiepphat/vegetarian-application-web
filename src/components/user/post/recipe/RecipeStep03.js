@@ -1,10 +1,9 @@
 import React, {useEffect} from "react";
 import {Link, useHistory} from "react-router-dom";
-import {FaAngleLeft} from "react-icons/fa";
-import {ImCross} from "react-icons/all";
 import Form from "../../../commons/elements/form/Form";
 import InputGroup from "../../../commons/elements/form/InputGroup";
-
+import {FaAngleLeft} from "react-icons/fa";
+import {ImCross} from "react-icons/all";
 
 const RecipeStep03 = (props) => {
     const history = useHistory();
@@ -38,7 +37,6 @@ const RecipeStep03 = (props) => {
             });
         });
     }
-
     const nextStep = () => {
         history.push("/post/recipe/step-4");
     }
@@ -47,50 +45,49 @@ const RecipeStep03 = (props) => {
     }, [props.ingredients])
 
     return (
-        <>
-            <section>
-                <header className="section-header">
-                    <Link to="/post/recipe/step-2"><FaAngleLeft/>Previous step</Link>
-                    <h1>Step 3 - Add your ingredients</h1>
-                    <p>Add some ingredients and their estimated amounts. Concise and precise ingredient names help us
-                        estimate the nutritional values for your recipe better.</p>
-                </header>
-                <div className="section-content">
-                    <Form onSubmit={nextStep}>
-                        <h1>Name an ingredient and its amount (in grams)</h1>
-                        {props.ingredients.length > 0 ?
-                            <div className="form-dynamic">
-                                {props.ingredients.map((item, index) => (
-                                    <InputGroup key={index}>
-                                        <input name="ingredient_name" type="text"
-                                               value={item.ingredient_name}
-                                               onChange={(e) => handleChange(e, index)}
-                                               placeholder="e.g: lettuce, tomato, basil,..." required/>
-                                        <input name="amount_in_mg" type="number"
-                                               value={item.amount_in_mg} min={1}
-                                               onChange={(e) => handleChange(e, index)}/>
-                                        <button className="button-remove" onClick={(e) => handleRemoveField(e, index)}>
-                                            <ImCross/>
-                                        </button>
-                                    </InputGroup>
-                                ))}
-                            </div>
-                            :
-                            <em>Add some ingredients to your recipe...</em>
-                        }
-                        <div className="input-group">
-                            <button onClick={handleAddField}>Add ingredient</button>
-                            <button className="button-cancel" onClick={handleClear}>Clear</button>
+        <section>
+            <header className="section-header">
+                <Link to="/post/recipe/step-2"><FaAngleLeft/>Previous step</Link>
+                <h1>Step 3 - Add your ingredients</h1>
+                <p>Add some ingredients and their estimated amounts. Concise and precise ingredient names help us
+                    estimate the nutritional values for your recipe better.</p>
+            </header>
+            <div className="section-content">
+                <Form onSubmit={nextStep}>
+                    <h1>Name an ingredient and its amount (in grams)</h1>
+                    {props.ingredients.length > 0 ?
+                        <div className="form-dynamic">
+                            {props.ingredients.map((item, index) => (
+                                <InputGroup key={index}>
+                                    <input name="ingredient_name" type="text"
+                                           value={item.ingredient_name}
+                                           onChange={(e) => handleChange(e, index)}
+                                           placeholder="e.g: lettuce, tomato, basil,..." required/>
+                                    <input name="amount_in_mg" type="number"
+                                           value={item.amount_in_mg} min={1}
+                                           onChange={(e) => handleChange(e, index)}/>
+                                    <button className="button-remove" onClick={(e) => handleRemoveField(e, index)}>
+                                        <ImCross/>
+                                    </button>
+                                </InputGroup>
+                            ))}
                         </div>
-                        {props.ingredients.length > 0 ?
-                            <button type="submit" className="button-submit">Next step</button>
-                            :
-                            <button disabled>Next step</button>
-                        }
-                    </Form>
-                </div>
-            </section>
-        </>
+                        : <em>Add some ingredients to your recipe...</em>}
+                    <div className="sticky-bottom">
+                        <InputGroup>
+                            <button className="button-cancel" onClick={handleAddField}>Add ingredient</button>
+                            {props.ingredients.length > 0 ? <>
+                                <button className="button-cancel" onClick={handleClear}>Clear</button>
+                                <button type="submit" className="button-submit"> Next step</button>
+                            </> : <>
+                                <button disabled>Clear</button>
+                                <button disabled>Next step</button>
+                            </>}
+                        </InputGroup>
+                    </div>
+                </Form>
+            </div>
+        </section>
     )
 }
 

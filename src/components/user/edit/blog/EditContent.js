@@ -1,8 +1,8 @@
 import React from "react";
 import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 
 const EditSubtitle = (props) => {
-
     // Quill JS toolbar config
     const modules = {
         toolbar: [
@@ -13,7 +13,6 @@ const EditSubtitle = (props) => {
             ['clean']
         ],
     }
-
     const handleQuill = (value) => {
         props.setContent(value);
     }

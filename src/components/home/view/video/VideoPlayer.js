@@ -5,8 +5,8 @@ const VideoPlayer = ({data}) => {
     return (
         <section className="article-content">
             <ReactPlayer url={data.video_link} controls={true}
+                         muted={false} playing={true}
                          width={"100%"} height={"100%"}/>
-            {/*<iframe src={data.video_link} width="100%" height="300"/>*/}
         </section>
     )
 }

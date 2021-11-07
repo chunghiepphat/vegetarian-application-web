@@ -1,13 +1,15 @@
 import React, {useContext, useState} from "react";
-import {AiFillEye, AiOutlineEyeInvisible, FaHeart, FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
+import {useHistory, useLocation} from "react-router-dom";
 import {UserContext} from "../../../../context/UserContext";
 import {apiBase} from "../../../../helpers/Helpers";
-import {useHistory} from "react-router-dom";
+import {AiFillEye, AiOutlineEyeInvisible, FaHeart, FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
 
-const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
+const VideoToolbar = ({id, data, reload, mainApi}) => {
+    const location = useLocation();
     const history = useHistory();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
+    const [isFavorite, setIsFavorite] = useState(false);
     // Article status message to display based on array index
     const statusText = [
         "Waiting for review.",
@@ -31,7 +33,7 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
         // Generates request body
         let body = JSON.stringify({
             "user_id": user.id,
-            "recipe_id": data.recipe_id,
+            "video_id": data.id,
         });
         // Generates request
         let request = {
@@ -40,7 +42,7 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/recipes/like`;
+        const api = `${apiBase}/video/like`;
         const response = await fetch(api, request);
         try {
             if (response.ok) {
@@ -48,7 +50,7 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
             } else if (response.status === 401) {
                 alert("You are not authorized to complete the request.")
             } else {
-                alert("Error: " + response.status);
+                alert("An unexpected error has occurred. Status code: " + response.status);
             }
         } catch (error) {
             alert("A network error has occurred. " + error);
@@ -63,17 +65,15 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
             headers: headers,
         };
         // Executes fetch
-        const api = `${apiBase}/recipes/edit/private/${id}`;
+        const api = `${apiBase}/video/edit/private/${id}`;
         const response = await fetch(api, request);
         try {
             if (response.ok) {
-                if (data.is_private) alert("Your post will now be visible to others when approved by an admin.")
-                else alert("Your post is now private and saved as draft.")
                 reload(mainApi);
             } else if (response.status === 401) {
                 alert("You are not authorized to do that.")
             } else {
-                alert("Unexpected error with code: " + response.status);
+                alert("An unexpected error has occurred. Status code: " + response.status);
             }
         } catch (error) {
             alert("A network error has occurred. " + error);
@@ -81,12 +81,12 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
     }
     // Handles edit article - sends user to edit form
     const editArticle = () => {
-        history.push(`/view/recipe/${id}/edit`)
+        history.push(`/view/video/${id}/edit`)
     }
     // Handle delete article - sends user to previous page upon completion
     const deleteArticle = async (e) => {
         e.preventDefault();
-        const isConfirmed = window.confirm("Are you sure you wish to delete this recipe? This is irreversible.");
+        const isConfirmed = window.confirm("Are you sure you wish to delete this video? This is irreversible.");
         if (isConfirmed) {
             // Generates request
             let request = {
@@ -94,49 +94,48 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
                 headers: headers,
             };
             // Executes fetch
-            const api = `${apiBase}/recipes/delete/${data.recipe_id}`;
+            const api = `${apiBase}/video/delete/${data.id}`;
             const response = await fetch(api, request);
             try {
                 if (response.ok) {
-                    alert("Your recipe has been deleted.");
+                    alert("Your video has been deleted.");
                     history.goBack();
                 } else if (response.status === 401) {
                     alert("You are not authorized to complete the request.")
                 } else {
-                    alert("Error: " + response.status);
+                    alert("An unexpected error has occurred. Status code: " + response.status);
                 }
             } catch (error) {
                 alert("A network error has occurred. " + error);
             }
+
         }
     }
 
     return (
         <section className="article-toolbar">
-            {data && user && user.id === data.user_id &&
+            {user && data && user.id === data.user_id &&
             <div className="article-status">
-                {data.is_private ? <p>***PRIVATE DRAFT***</p>
-                    : <p className={statusColor[data.status - 1]}>{statusText[data.status - 1]}</p>}
+                <p className={statusColor[data.status - 1]}>{statusText[data.status - 1]}</p>
             </div>}
-            {data && user && user.role !== "admin" ?
+            {user && user.role !== "admin" ?
                 <div className="article-controls">
                     {/*If user is logged in, show toolbar*/}
+                    {data &&
                     <button title="Add to favorites" onClick={favoriteArticle}
                             className={`article-button button-labeled ${data.is_like && "button-active"}`}>
                         {data.is_like ?
                             <FaHeart/> : <FaRegHeart/>} {data.totalLike}
-                    </button>
+                    </button>}
                     {/*If user is the author of the article, allow modify*/}
-                    {user.id === data.user_id && <>
+                    {data && user.id === data.user_id && <>
+                        {data &&
                         <button title="Article visibility" className="article-button button-labeled"
                                 onClick={publishArticle}>
                             {data.is_private ?
                                 <><AiOutlineEyeInvisible/> Private</>
                                 : <><AiFillEye/> Public</>}
-                        </button>
-                        <button title="Edit article" className="article-button" onClick={editArticle}>
-                            <RiEditLine/>
-                        </button>
+                        </button>}
                         <button title="Delete article" className="article-button" onClick={deleteArticle}>
                             <RiDeleteBin4Line/>
                         </button>
@@ -144,7 +143,7 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
                 </div>
                 : <div className="article-controls">
                     {/*If not logged in, the favorite button directs to login form*/}
-                    <button className={`article-button button-labeled ${data.is_like && "button-active"}`}
+                    <button className={`article-button button-labeled ${isFavorite && "button-active"}`}
                             onClick={() => history.push({
                                 pathname: "/login",
                                 state: {background: location}
@@ -156,4 +155,4 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
     )
 }
 
-export default RecipeToolbar;
+export default VideoToolbar;

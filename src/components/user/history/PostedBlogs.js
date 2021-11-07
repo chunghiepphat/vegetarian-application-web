@@ -1,9 +1,8 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {apiBase} from "../../../helpers/Helpers";
-import ArticleCard from "../../commons/elements/containers/ArticleCard";
-import {PanelLoader, SectionLoader} from "../../commons/elements/loaders/Loader";
-import {UserContext} from "../../../context/UserContext";
 import Panel from "../../commons/elements/containers/Panel";
+import ArticleCard from "../../commons/elements/containers/ArticleCard";
+import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 
@@ -18,7 +17,7 @@ const PostedBlogs = ({user, location, data, isLoading, isError, fetchData}) => {
         <section>
             <div className="section-content">
                 <h1>Blogs</h1>
-                <i>Your public blogs and stories.</i>
+                <i>Your published blogs and stories.</i>
                 <Panel filler="card-full">
                     {!isLoading ? <>
                         {!isError ? <>
@@ -34,6 +33,7 @@ const PostedBlogs = ({user, location, data, isLoading, isError, fetchData}) => {
                                                  userId={item.user_id}
                                                  firstName={item.first_name}
                                                  lastName={item.last_name}
+                                                 time={item.time_created}
                                                  isFavorite={item.is_like}
                                                  totalLikes={item.totalLike}
                                                  status={item.status}/>))}

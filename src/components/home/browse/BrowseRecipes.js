@@ -17,8 +17,8 @@ const BrowseRecipes = ({user, location, data, isLoading, isError, fetchData}) =>
         <section>
             <div className="section-content">
                 <h1>Recipes</h1>
-                <i>Vegetarian doesn't have to mean salads. Explore new and absolutely delicious recipes from
-                    our community.</i>
+                <p>Vegetarian doesn't have to mean salads. Explore new and absolutely delicious recipes from
+                    our community.</p>
                 <Panel filler="card-narrow">
                     {!isLoading ? <>
                         {!isError ? <>

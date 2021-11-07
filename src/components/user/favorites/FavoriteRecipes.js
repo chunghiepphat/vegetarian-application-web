@@ -8,7 +8,7 @@ const FavoriteRecipes = ({data}) => {
         <section>
             <div className="section-content">
                 <h1>Recipes</h1>
-                <i>Recipes you added to favorites will be shown here.</i>
+                <p>Recipes you added to favorites will be shown here.</p>
                 <Panel>
                     {/*Iterates over the result JSON and renders a matching amount of card items*/}
                     {data.length > 0 ?

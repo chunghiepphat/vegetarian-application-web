@@ -1,25 +1,29 @@
-import React, {useContext, useRef, useState} from "react";
-import {useHistory} from "react-router-dom";
-import ReactQuill from "react-quill";
-import {UserContext} from "../../../context/UserContext";
-import {apiBase} from "../../../helpers/Helpers";
-import {clientId} from "../../../helpers/Imgur";
+import React, {useEffect, useRef, useState} from "react";
 import {cloudName, uploadPreset} from "../../../helpers/Cloudinary";
+import {apiBase} from "../../../helpers/Helpers";
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
+import InputGroup from "../../commons/elements/form/InputGroup";
 
-const PostBlog = () => {
-    const user = useContext(UserContext);
-    const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `${apiBase}/blogs/add`;
-    const history = useHistory();
-
+const PostBlog = ({user, token, history}) => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState("");
+    // Parameters
     const inputRef = useRef();
-    const [file, setFile] = useState();
-
     const [title, setTitle] = useState();
     const [subtitle, setSubtitle] = useState();
-    const [thumbnail, setThumbnail] = useState("");
     const [content, setContent] = useState("");
-
+    const [thumbnailUrl, setThumbnailUrl] = useState("");
+    const [thumbnailFile, setThumbnailFile] = useState("");
+    const [isPrivate, setIsPrivate] = useState(false);
+    // Handles image selection
+    const [image, setImage] = useState(null)
+    const handleChange = (event) => {
+        if (event.target.files && event.target.files[0]) {
+            setThumbnailFile(event.target.files[0]);
+            setImage(URL.createObjectURL(event.target.files[0]));
+        }
+    }
     // Quill JS toolbar config
     const modules = {
         toolbar: [
@@ -30,67 +34,101 @@ const PostBlog = () => {
             ['clean']
         ],
     }
-
     const handleQuill = (value) => {
         setContent(value);
-        console.log(content);
     }
-
-    const uploadFile = (e) => {
+    // Clears selected image
+    const handleClear = (e) => {
         e.preventDefault();
+        setImage();
+    }
+    // Handles form submission, image upload and getting image URL
+    const submitPost = async (e) => {
+        e.preventDefault();
+        setIsPrivate(e.nativeEvent.submitter.name);
+        setIsLoading(true);
+        setUploadProgress("Processing image(s)...")
+        // Generates form data
         const formData = new FormData();
-        formData.append("file", file);
+        formData.append("file", thumbnailFile);
         formData.append("upload_preset", uploadPreset);
-
+        // Generates request
         const request = {
             method: 'POST',
             body: formData,
             redirect: 'follow'
         };
-
-        fetch(`https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`, request)
-            .then(response => response.json())
-            .then(result => setThumbnail(result.secure_url))
-            .catch(error => console.log('error', error));
+        // Handles uploading images
+        const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`, request)
+        try {
+            // Handles recipe submission upon successful upload
+            if (response.ok) {
+                // Gets uploaded image URL
+                const result = await response.json();
+                setThumbnailUrl(result.secure_url);
+            } else if (response.status >= 400 && response.status < 600) {
+                alert("We couldn't reach our hosting services. Status code: " + response.status);
+                setIsLoading(false);
+                setUploadProgress();
+            }
+        } catch (error) {
+            alert("There was an unexpected error. " + error);
+            setIsLoading(false);
+            setUploadProgress();
+        }
     }
-
-    const submitPost = async (e) => {
-        e.preventDefault();
-
+    // Handles fetch for post submission upon image upload completion
+    const uploadPost = async () => {
+        setIsLoading(true);
+        setUploadProgress("Uploading your blog...")
         // Generates request headers
         let headers = new Headers();
-        headers.append("Authorization", `Bearer ${token.token}`);
+        if (token) headers.append("Authorization", `Bearer ${token.token}`);
         headers.append("Content-Type", "application/json");
         headers.append("Accept", "application/json");
-
         // Generates request body
         let body = JSON.stringify({
             "user_id": user.id,
             "blog_title": title,
             "blog_subtitle": subtitle,
-            "blog_thumbnail": thumbnail,
+            "blog_thumbnail": thumbnailUrl,
             "blog_content": content,
+            "is_private": isPrivate,
         });
-
         // Generates request
         let request = {
             method: 'POST',
             headers: headers,
             body: body,
         };
-
         // Executes fetch
+        const api = `${apiBase}/blogs/add`;
         const response = await fetch(api, request);
-        if (response.ok) {
-            alert("Blog posted successfully!");
-            history.push("/home");
-
-        } else if (response.status === 401) {
-            alert("You are not authorized to do that.")
-        } else {
-            alert("Unexpected error with code: " + response.status);
+        try {
+            if (response.ok) {
+                alert("Blog posted successfully!");
+                history.push("/home");
+            } else if (response.status === 401) {
+                alert("You are not authorized to do that.")
+                setIsLoading(false);
+                setUploadProgress();
+            } else {
+                alert("An unexpected error has occurred. Status code: " + response.status);
+                setIsLoading(false);
+                setUploadProgress();
+            }
+        } catch (error) {
+            alert("A network error has occurred.");
+            setIsLoading(false);
+            setUploadProgress();
         }
     }
+    // Initiates post upload when image URL is ready
+    useEffect(() => {
+        if (thumbnailUrl) {
+            uploadPost();
+        }
+    }, [thumbnailUrl]);
 
     return (
         <section>
@@ -99,25 +137,23 @@ const PostBlog = () => {
                 <em>Please keep content relevant to our site, which is about vegetarian food, recipes and
                     lifestyle.</em>
             </header>
-            {/*Image upload form*/}
-            <div className="section-content">
-
-                <form className="form-container" onSubmit={uploadFile}>
-                    <h1>Thumbnail (optional)</h1>
-                    {thumbnail &&
-                    <picture className="preview-thumbnail">
-                        <source srcSet={thumbnail}/>
-                        <img src="" alt=""/>
-                    </picture>}
-                    <input aria-label="Recipe thumbnail" type="file"
-                           onChange={() => (setFile(inputRef.current.files[0]))}
-                           ref={inputRef}/>
-                    <button type="submit">Upload</button>
-                </form>
-            </div>
-            {/*Text input form*/}
             <div className="section-content">
                 <form className="form-container" onSubmit={submitPost}>
+                    <label htmlFor={"file-selector"}>
+                        {image ?
+                            <picture className="preview-thumbnail">
+                                <source srcSet={image}/>
+                                <img src="" alt=""/>
+                            </picture>
+                            : <div className="upload-thumbnail">
+                                <h1>Upload a thumbnail for your blog post</h1>
+                                <p>Click to pick an image...</p>
+                            </div>}
+                    </label>
+                    <input id="file-selector" style={{display: "none"}}
+                           aria-label="Recipe thumbnail" type="file"
+                           onChange={handleChange}
+                           ref={inputRef}/>
                     <input aria-label="Blog title" type="text" value={title}
                            onChange={e => setTitle(e.target.value)}
                            placeholder="Title" required/>
@@ -129,7 +165,23 @@ const PostBlog = () => {
                                 modules={modules}
                                 placeholder="What's your story?">
                     </ReactQuill>
-                    <button type="submit" className="button-submit">Finish</button>
+                    <div className="sticky-bottom">
+                        <InputGroup>
+                            {isLoading ? <>
+                                <button disabled>{uploadProgress}</button>
+                            </> : <>
+                                {image ? <>
+                                    <button className="button-cancel" onClick={handleClear}>Clear thumbnail</button>
+                                    <button type="submit" className="button-submit" name="true">Save draft</button>
+                                    <button type="submit" className="button-submit" name="false">Publish</button>
+                                </> : <>
+                                    <button disabled>Clear thumbnail</button>
+                                    <button disabled>Save draft</button>
+                                    <button disabled>Publish</button>
+                                </>}
+                            </>}
+                        </InputGroup>
+                    </div>
                 </form>
             </div>
         </section>

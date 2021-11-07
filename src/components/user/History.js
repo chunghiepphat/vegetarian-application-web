@@ -1,12 +1,11 @@
 import React, {useContext, useState} from "react";
-import Navbar from "../commons/elements/bars/Navbar";
 import {NavLink, Redirect, Route, Switch, useLocation} from "react-router-dom";
-import PostedBlogs from "./history/PostedBlogs";
+import {UserContext} from "../../context/UserContext";
+import DashboardSidebar from "./DashboardSidebar";
+import Navbar from "../commons/elements/bars/Navbar";
 import PostedRecipes from "./history/PostedRecipes";
 import PostedVideos from "./history/PostedVideos";
-import DashboardSidebar from "./DashboardSidebar";
-import {UserContext} from "../../context/UserContext";
-import {apiBase} from "../../helpers/Helpers";
+import PostedBlogs from "./history/PostedBlogs";
 
 const History = () => {
     const location = useLocation();
@@ -31,8 +30,8 @@ const History = () => {
             method: 'GET',
             headers: headers,
         };
-        const response = await fetch(api, request);
         try {
+            const response = await fetch(api, request);
             if (response.ok) {
                 const result = await response.json();
                 setData(result.listResult);

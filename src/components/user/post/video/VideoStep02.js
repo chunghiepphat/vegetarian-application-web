@@ -48,24 +48,25 @@ const VideoStep02 = (props) => {
                         </form>
                         :
                         <form className="form-container" onSubmit={uploadFile}>
-                            <h1>Video</h1>
-                            {/*Check whether the form is uploading a video*/}
-                            {uploading ?
-                                <>
-                                    <input aria-label="Video file" type="file"
-                                           onChange={() => (setFile(inputRef.current.files[0]))}
-                                           ref={inputRef} disabled/>
-                                    <button type="submit" disabled>Uploading...</button>
-                                </>
 
-                                :
-                                <>
+                            {/*Check whether the form is uploading a video*/}
+                            {uploading ? <>
+                                <label>Video
                                     <input aria-label="Video file" type="file"
                                            onChange={() => (setFile(inputRef.current.files[0]))}
-                                           ref={inputRef}/>
+                                           ref={inputRef} disabled/></label>
+                                <div className="sticky-bottom">
+                                    <button type="submit" disabled>Uploading...</button>
+                                </div>
+                            </> : <>
+                                <label>Video
+                                    <input aria-label="Video file" type="file"
+                                           onChange={() => (setFile(inputRef.current.files[0]))}
+                                           ref={inputRef}/></label>
+                                <div className="sticky-bottom">
                                     <button type="submit" className="button-submit">Upload</button>
-                                </>
-                            }
+                                </div>
+                            </>}
                         </form>}
                 </div>
             </section>

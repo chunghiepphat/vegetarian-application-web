@@ -56,7 +56,6 @@ const PostVideo = () => {
     }
 
     return (
-        <>
             <Switch>
                 {/*Step 1*/}
                 <Route exact path="/post/video/">
@@ -74,8 +73,6 @@ const PostVideo = () => {
                 {/*Not found*/}
                 <Route><Redirect to="/not-found"/></Route>
             </Switch>
-        </>
-
     )
 }
 

@@ -8,7 +8,7 @@ const FavoriteBlogs = ({data}) => {
         <section>
             <div className="section-content">
                 <h1>Blogs</h1>
-                <i>Stories you added to favorites will be shown here.</i>
+                <p>Stories you added to favorites will be shown here.</p>
                 <Panel>
                     {data.length > 0 ?
                         data.map(blog => (

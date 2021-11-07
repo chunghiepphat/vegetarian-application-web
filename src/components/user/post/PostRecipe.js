@@ -1,51 +1,83 @@
-import React, {useContext, useState} from "react";
-import 'react-quill/dist/quill.snow.css';
-import {Redirect, Route, Switch, useHistory} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Redirect, Route, Switch} from "react-router-dom";
+import {cloudName, uploadPreset} from "../../../helpers/Cloudinary";
+import {apiBase} from "../../../helpers/Helpers";
 import RecipeStep01 from "./recipe/RecipeStep01";
 import RecipeStep02 from "./recipe/RecipeStep02";
 import RecipeStep03 from "./recipe/RecipeStep03";
 import RecipeStep04 from "./recipe/RecipeStep04";
-import {UserContext} from "../../../context/UserContext";
-import {apiBase} from "../../../helpers/Helpers";
 
-const PostRecipe = () => {
-    const user = useContext(UserContext);
-    const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `${apiBase}/recipes/add`;
-    const history = useHistory();
 
+const PostRecipe = ({user, token, history}) => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState("");
     // Step 1 parameters
     const [title, setTitle] = useState();
-    const [category, setCategory] = useState("1");
-    const [thumbnail, setThumbnail] = useState("");
-    const [difficulty, setDifficulty] = useState("1");
-    const [portionSize, setPortionSize] = useState("1");
-    const [portionType, setPortionType] = useState("1");
-    const [prepTime, setPrepTime] = useState("0");
-    const [bakingTime, setBakingTime] = useState("0");
-    const [restingTime, setRestingTime] = useState("0");
+    const [category, setCategory] = useState(1);
+    const [difficulty, setDifficulty] = useState(1);
+    const [portionSize, setPortionSize] = useState(1);
+    const [portionType, setPortionType] = useState(1);
+    const [prepTime, setPrepTime] = useState(0);
+    const [bakingTime, setBakingTime] = useState(0);
+    const [restingTime, setRestingTime] = useState(0);
     // Step 2 parameters
-    const [ingredients, setIngredients] = useState([]);
+    const [thumbnailUrl, setThumbnailUrl] = useState("");
+    const [thumbnailFile, setThumbnailFile] = useState("");
     // Step 3 parameters
+    const [ingredients, setIngredients] = useState([]);
+    // Step 4 parameters
     const [steps, setSteps] = useState([]);
-
-    console.log(title, category, thumbnail, difficulty, portionSize, portionType, prepTime, bakingTime, restingTime, ingredients, steps)
-
+    const [isPrivate, setIsPrivate] = useState(false);
+    // Handles form submission, image upload and getting image URL
     const submitPost = async (e) => {
         e.preventDefault();
-
+        setIsPrivate(e.nativeEvent.submitter.name);
+        setIsLoading(true);
+        setUploadProgress("Processing image(s)...")
+        // Generates form data
+        const formData = new FormData();
+        formData.append("file", thumbnailFile);
+        formData.append("upload_preset", uploadPreset);
+        // Generates request
+        const request = {
+            method: 'POST',
+            body: formData,
+            redirect: 'follow'
+        };
+        // Handles uploading images
+        const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`, request)
+        try {
+            // Handles recipe submission upon successful upload
+            if (response.ok) {
+                // Gets uploaded image URL
+                const result = await response.json();
+                setThumbnailUrl(result.secure_url);
+            } else if (response.status >= 400 && response.status < 600) {
+                alert("We couldn't reach our hosting services. Status code: " + response.status);
+                setIsLoading(false);
+                setUploadProgress();
+            }
+        } catch (error) {
+            alert("There was an unexpected error. " + error);
+            setIsLoading(false);
+            setUploadProgress();
+        }
+    }
+    // Handles fetch for post submission upon image upload completion
+    const uploadPost = async () => {
+        setIsLoading(true);
+        setUploadProgress("Uploading your recipe...")
         // Generates request headers
         let headers = new Headers();
-        headers.append("Authorization", `Bearer ${token.token}`);
+        if (token) headers.append("Authorization", `Bearer ${token.token}`);
         headers.append("Content-Type", "application/json");
         headers.append("Accept", "application/json");
-
         // Generates request body
         let body = JSON.stringify({
             "user_id": user.id,
             "recipe_title": title,
             "recipe_categories_id": category,
-            "recipe_thumbnail": thumbnail,
+            "recipe_thumbnail": thumbnailUrl,
             "recipe_difficulty": difficulty,
             "portion_size": portionSize,
             "portion_type": portionType,
@@ -54,8 +86,8 @@ const PostRecipe = () => {
             "resting_time_minutes": restingTime,
             "ingredients": ingredients,
             "steps": steps,
+            "is_private": isPrivate,
         });
-
         // Generates request
         let request = {
             method: 'POST',
@@ -63,48 +95,54 @@ const PostRecipe = () => {
             body: body,
         };
         // Executes fetch
+        const api = `${apiBase}/recipes/add`;
         const response = await fetch(api, request);
-        if (response.ok) {
-            alert("Recipe posted successfully!");
-            history.push("/home");
-        } else if (response.status === 401) {
-            alert("You are not authorized to do that.")
-        } else {
-            alert("Unexpected error with code: " + response.status);
+        try {
+            if (response.ok) {
+                alert("Recipe posted successfully!");
+                history.push("/home");
+            } else if (response.status === 401) {
+                alert("You are not authorized to do that.")
+                setIsLoading(false);
+                setUploadProgress();
+            } else {
+                alert("An unexpected error has occurred. Status code: " + response.status);
+                setIsLoading(false);
+                setUploadProgress();
+            }
+        } catch (error) {
+            alert("A network error has occurred.");
+            setIsLoading(false);
+            setUploadProgress();
         }
     }
+    // Initiates post upload when image URL is ready
+    useEffect(() => {
+        if (thumbnailUrl) {
+            uploadPost();
+        }
+    }, [thumbnailUrl]);
 
     return (
         <Switch>
-            {/*Step 1*/}
-            <Route exact path="/post/recipe/">
-                <Redirect to="/post/recipe/step-1"/>
-            </Route>
-            <Route path="/post/recipe/step-1">
-                <RecipeStep01 title={title} setTitle={setTitle}
+            <Route exact path="/post/recipe/"><Redirect to="/post/recipe/step-1"/></Route>
+            <Route exact path="/post/recipe/step-1">
+                <RecipeStep01 history={history} title={title} setTitle={setTitle}
                               category={category} setCategory={setCategory}
-
                               difficulty={difficulty} setDifficulty={setDifficulty}
                               portionSize={portionSize} setPortionSize={setPortionSize}
                               portionType={portionType} setPortionType={setPortionType}
                               prepTime={prepTime} setPrepTime={setPrepTime}
                               bakingTime={bakingTime} setBakingTime={setBakingTime}
-                              restingTime={restingTime} setRestingTime={setRestingTime}/>
-            </Route>
-            {/*Step 2*/}
-            <Route path="/post/recipe/step-2">
-                <RecipeStep02 thumbnail={thumbnail} setThumbnail={setThumbnail}/>
-            </Route>
-            {/*Step 3*/}
-            <Route path="/post/recipe/step-3">
-                <RecipeStep03 ingredients={ingredients} setIngredients={setIngredients}/>
-            </Route>
-            {/*Step 4*/}
-            <Route path="/post/recipe/step-4">
+                              restingTime={restingTime} setRestingTime={setRestingTime}/> </Route>
+            <Route exact path="/post/recipe/step-2">
+                <RecipeStep02 thumbnailFile={thumbnailFile} setThumbnailFile={setThumbnailFile}/> </Route>
+            <Route exact path="/post/recipe/step-3">
+                <RecipeStep03 ingredients={ingredients} setIngredients={setIngredients}/> </Route>
+            <Route exact path="/post/recipe/step-4">
                 <RecipeStep04 steps={steps} setSteps={setSteps}
-                              submitPost={submitPost}/>
-            </Route>
-            {/*404*/}
+                              isLoading={isLoading} uploadProgress={uploadProgress}
+                              submitPost={submitPost}/> </Route>
             <Route><Redirect to="/not-found"/></Route>
         </Switch>
     )

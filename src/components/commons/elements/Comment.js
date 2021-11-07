@@ -1,20 +1,15 @@
 import React, {useContext, useEffect, useState} from "react";
 import "./Comment.css";
-import placeholderAvatar from "../../../assets/user-image-default.png";
 import {apiBase} from "../../../helpers/Helpers";
-import Avatar from "./Avatar";
 import {UserContext} from "../../../context/UserContext";
-import {RiDeleteBin4Line, RiEditLine} from "react-icons/all";
-import {useHistory} from "react-router-dom";
+import Avatar from "./Avatar";
 import moment from "moment";
 
 const Comment = ({userId, commentId, content, time, articleType, reload}) => {
-    const history = useHistory();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const [author, setAuthor] = useState();
     const apiDelete = `${apiBase}/user/deleteComment/${commentId}/${articleType}`;
-
     const deleteComment = async (e) => {
         e.preventDefault();
         // Generates request headers
@@ -22,18 +17,16 @@ const Comment = ({userId, commentId, content, time, articleType, reload}) => {
         headers.append("Authorization", `Bearer ${token.token}`);
         headers.append("Content-Type", "application/json");
         headers.append("Accept", "application/json");
-
+        // Generates request body
         let body = JSON.stringify({
             "user_id": userId,
         });
-
         // Generates request
         let request = {
             method: 'DELETE',
             headers: headers,
             body: body
         };
-
         // Executes fetch
         const response = await fetch(apiDelete, request);
         if (response.ok) {
@@ -45,7 +38,6 @@ const Comment = ({userId, commentId, content, time, articleType, reload}) => {
             alert("Error: " + response.status);
         }
     }
-
     useEffect(() => {
         const api = `${apiBase}/user/${userId}`
         const fetchData = async () => {
@@ -57,7 +49,7 @@ const Comment = ({userId, commentId, content, time, articleType, reload}) => {
             console.error(error);
         });
     }, [userId]);
-    console.log(author)
+
     return (
         <div className="comment">
             <div className="comment-info">
@@ -87,7 +79,6 @@ const Comment = ({userId, commentId, content, time, articleType, reload}) => {
             <div className="comment-content">
                 {content}
             </div>
-
         </div>
     )
 }

@@ -40,18 +40,15 @@ const Browse = () => {
                         <Route exact path="/browse/recipes">
                             <BrowseRecipes data={data} user={user} location={location}
                                            isLoading={isLoading} isError={isError}
-                                           fetchData={fetchData}/>
-                        </Route>
+                                           fetchData={fetchData}/> </Route>
                         <Route exact path="/browse/videos">
                             <BrowseVideos data={data} user={user} location={location}
                                           isLoading={isLoading} isError={isError}
-                                          fetchData={fetchData}/>
-                        </Route>
+                                          fetchData={fetchData}/> </Route>
                         <Route exact path="/browse/blogs">
                             <BrowseBlogs data={data} user={user} location={location}
                                          isLoading={isLoading} isError={isError}
-                                         fetchData={fetchData}/>
-                        </Route>
+                                         fetchData={fetchData}/> </Route>
                         <Route><Redirect to="/not-found"/></Route>
                     </Switch>
                 </main>

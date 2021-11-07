@@ -1,23 +1,20 @@
 import React, {useEffect} from "react";
-import {apiBase} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
 import VideoTile from "../../commons/elements/containers/VideoTile";
-import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
+import {PanelLoader} from "../../commons/elements/loaders/Loader";
 
-const PostedVideos = ({user, location, data, isLoading, isError, fetchData}) => {
-    const api = `${apiBase}/video/getallbyuserID/${user.id}?page=1&limit=100`;
-    // Executes fetch once on page load
+const DraftVideos = ({user, location, data, isLoading, isError, fetchData}) => {
     useEffect(() => {
-        fetchData(api);
+        fetchData();
     }, [location, user]);
 
     return (
         <section>
             <div className="section-content">
-                <h1>Recipes</h1>
-                <p>Your published recipes are shown here.</p>
+                <h1>Videos</h1>
+                <p>Your saved drafts & private videos.</p>
                 <Panel filler="card-medium">
                     {!isLoading ? <>
                         {!isError ? <>
@@ -34,8 +31,8 @@ const PostedVideos = ({user, location, data, isLoading, isError, fetchData}) => 
                                                time={item.time_created}
                                                isFavorite={item.is_like}
                                                totalLikes={item.totalLike}/>))}
-                            </> : <PanelEmp message="It seems you haven't posted anything yet."/>}
-                        </> : <PanelErr reload={fetchData} api={api}/>}
+                            </> : <PanelEmp message="It seems you haven't saved any drafts yet."/>}
+                        </> : <PanelErr reload={fetchData}/>}
                     </> : <PanelLoader/>}
                 </Panel>
             </div>
@@ -43,4 +40,4 @@ const PostedVideos = ({user, location, data, isLoading, isError, fetchData}) => 
     )
 }
 
-export default PostedVideos;
+export default DraftVideos;

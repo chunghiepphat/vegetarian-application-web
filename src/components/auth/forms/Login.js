@@ -3,7 +3,7 @@ import {Link, useHistory} from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import {apiBase} from "../../../helpers/Helpers";
 
-const Login = () => {
+const Login = ({background}) => {
     const history = useHistory();
     const [message, setMessage] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -35,8 +35,10 @@ const Login = () => {
             // Checks response, gets access token if green, throws error if not
             .then(response => {
                 if (response.ok) {
-                    alert("Authentication successful.");
                     return response.json();
+                } else if (response.status === 401) {
+                    setIsLoading(false);
+                    alert("Invalid credentials.\nPlease check your email and password and try again.")
                 } else if (response.status >= 400 && response.status < 600) {
                     const error = response.json();
                     setMessage(error.message);
@@ -48,9 +50,15 @@ const Login = () => {
             // Saves result if response is green
             .then(result => {
                 if (result) {
-                    localStorage.setItem("accessToken", JSON.stringify(result));
-                    localStorage.setItem("userInfo", JSON.stringify(jwtDecode(JSON.stringify(result))));
-                    history.goBack();
+                    if (!result.message) {
+                        localStorage.setItem("accessToken", JSON.stringify(result));
+                        localStorage.setItem("userInfo", JSON.stringify(jwtDecode(JSON.stringify(result))));
+                        alert("Authentication successful.");
+                        history.push(background);
+                    } else {
+                        alert("This account is not yet activated.\nPlease check your email for the verification code.");
+                        history.push("/auth/verify");
+                    }
                 }
             })
             // Throws other errors

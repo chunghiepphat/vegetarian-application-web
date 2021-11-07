@@ -79,7 +79,7 @@ const DashboardLatestRecipes = ({user, location, token}) => {
                                                  userId={item.user_id}
                                                  firstName={item.first_name}
                                                  lastName={item.last_name}
-                                                 time={item.time}
+                                                 time={item.time_created}
                                                  isFavorite={item.is_like}
                                                  totalLikes={item.totalLike}
                                                  status={item.status}/>))}

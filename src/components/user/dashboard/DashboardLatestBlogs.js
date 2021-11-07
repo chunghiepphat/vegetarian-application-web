@@ -66,7 +66,7 @@ const DashboardLatestBlogs = ({user, location, token}) => {
                                                  userId={item.user_id}
                                                  firstName={item.first_name}
                                                  lastName={item.last_name}
-                                                 time={item.time}
+                                                 time={item.time_created}
                                                  totalLikes={item.totalLike}
                                                  isFavorite={item.is_like}
                                                  status={item.status}/>))}

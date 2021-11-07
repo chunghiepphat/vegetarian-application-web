@@ -100,8 +100,9 @@ svg {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #fefefe;
+    min-height: 1020px;
     padding: 0;
+    background: #fefefe;
 }
 
 /*Grid layout*/
@@ -221,6 +222,10 @@ article {
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     box-shadow: 0 0 4px #d0d0d0;
+}
+
+form .sticky-bottom {
+    margin-top: 60px;
 }
 
 /***Hover tooltips***/

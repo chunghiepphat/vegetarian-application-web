@@ -82,7 +82,7 @@ const EditRecipe = ({id, data}) => {
                 {/*Recipe title*/}
                 <Link to={`/view/recipe/${id}`}><FaAngleLeft/>Go back</Link>
                 <RecipeHeader data={data}/>
-                <Form id="updateForm" onSubmit={updatePost}>
+                <Form id="updateForm" onSubmit={updatePost} style={{minHeight: "720px"}}>
                     <EditEstimations data={data}
                                      difficulty={difficulty} setDifficulty={setDifficulty}
                                      portionSize={portionSize} setPortionSize={setPortionSize}
@@ -95,7 +95,6 @@ const EditRecipe = ({id, data}) => {
                     <EditSteps data={data}
                                steps={steps} setSteps={setSteps}/>
                 </Form>
-
             </article>
             <div className="sticky-bottom">
                 <InputGroup>

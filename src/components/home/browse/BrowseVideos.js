@@ -17,7 +17,7 @@ const BrowseVideos = ({user, location, data, isLoading, isError, fetchData}) => 
         <section>
             <div className="section-content">
                 <h1>Videos</h1>
-                <i>Follow along and try for yourself with these how-to videos.</i>
+                <p>Follow along and try for yourself with these how-to videos.</p>
                 <Panel filler="card-medium">
                     {!isLoading ? <>
                         {!isError ? <>

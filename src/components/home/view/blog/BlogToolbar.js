@@ -4,12 +4,10 @@ import {UserContext} from "../../../../context/UserContext";
 import {apiBase} from "../../../../helpers/Helpers";
 import {useHistory, useLocation} from "react-router-dom";
 
-const BlogToolbar = ({id, data, reload}) => {
-    const location = useLocation();
+const BlogToolbar = ({id, location, data, reload, mainApi}) => {
     const history = useHistory();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const [isFavorite, setIsFavorite] = useState(false);
     // Article status message to display based on array index
     const statusText = [
         "Waiting for review.",
@@ -24,9 +22,7 @@ const BlogToolbar = ({id, data, reload}) => {
     ];
     // Generates request headers
     let headers = new Headers();
-    if (token !== null) {
-        headers.append("Authorization", `Bearer ${token.token}`);
-    }
+    if (token) headers.append("Authorization", `Bearer ${token.token}`);
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
     // Handles like-unlike function
@@ -46,12 +42,16 @@ const BlogToolbar = ({id, data, reload}) => {
         // Executes fetch
         const api = `${apiBase}/blogs/like`;
         const response = await fetch(api, request);
-        if (response.ok) {
-            reload();
-        } else if (response.status === 401) {
-            alert("You are not authorized to complete the request.")
-        } else {
-            alert("Error: " + response.status);
+        try {
+            if (response.ok) {
+                reload(mainApi);
+            } else if (response.status === 401) {
+                alert("You are not authorized to complete the request.")
+            } else {
+                alert("Error: " + response.status);
+            }
+        } catch (error) {
+            alert("A network error has occurred. " + error);
         }
     }
     // Handle public/private visibility switch
@@ -65,12 +65,18 @@ const BlogToolbar = ({id, data, reload}) => {
         // Executes fetch
         const api = `${apiBase}/blogs/edit/private/${id}`;
         const response = await fetch(api, request);
-        if (response.ok) {
-            reload();
-        } else if (response.status === 401) {
-            alert("You are not authorized to do that.")
-        } else {
-            alert("Unexpected error with code: " + response.status);
+        try {
+            if (response.ok) {
+                if (data.is_private) alert("Your post will now be visible to others when approved by an admin.")
+                else alert("Your post is now private and saved as draft.")
+                reload(mainApi);
+            } else if (response.status === 401) {
+                alert("You are not authorized to do that.")
+            } else {
+                alert("Unexpected error with code: " + response.status);
+            }
+        } catch (error) {
+            alert("A network error has occurred. " + error);
         }
     }
     // Handles edit article - sends user to edit form
@@ -80,7 +86,7 @@ const BlogToolbar = ({id, data, reload}) => {
     // Handle delete article - sends user to previous page upon completion
     const deleteArticle = async (e) => {
         e.preventDefault();
-        const isConfirmed = window.confirm("Are you sure you wish to delete this blog post? This is irreversible!");
+        const isConfirmed = window.confirm("Are you sure you wish to delete this blog post? This is irreversible.");
         if (isConfirmed) {
             // Generates request
             let request = {
@@ -90,13 +96,17 @@ const BlogToolbar = ({id, data, reload}) => {
             // Executes fetch
             const api = `${apiBase}/blogs/delete/${data.blog_id}`;
             const response = await fetch(api, request);
-            if (response.ok) {
-                alert("Your blog post has been deleted.");
-                history.goBack();
-            } else if (response.status === 401) {
-                alert("You are not authorized to complete the request.")
-            } else {
-                alert("Error: " + response.status);
+            try {
+                if (response.ok) {
+                    alert("Your blog post has been deleted.");
+                    history.goBack();
+                } else if (response.status === 401) {
+                    alert("You are not authorized to complete the request.")
+                } else {
+                    alert("Error: " + response.status);
+                }
+            } catch (error) {
+                alert("A network error has occurred. " + error);
             }
         }
     }
@@ -105,7 +115,8 @@ const BlogToolbar = ({id, data, reload}) => {
         <section className="article-toolbar">
             {user && data && user.id === data.user_id &&
             <div className="article-status">
-                <p className={statusColor[data.status - 1]}>{statusText[data.status - 1]}</p>
+                {data.is_private ? <p>***PRIVATE DRAFT***</p> :
+                    <p className={statusColor[data.status - 1]}>{statusText[data.status - 1]}</p>}
             </div>}
             {user && user.role !== "admin" ?
                 <div className="article-controls">
@@ -135,7 +146,7 @@ const BlogToolbar = ({id, data, reload}) => {
                 </div>
                 : <div className="article-controls">
                     {/*If not logged in, the favorite button directs to login form*/}
-                    <button className={`article-button button-labeled ${isFavorite && "button-active"}`}
+                    <button className={`article-button button-labeled ${data.is_like && "button-active"}`}
                             onClick={() => history.push({
                                 pathname: "/login",
                                 state: {background: location}

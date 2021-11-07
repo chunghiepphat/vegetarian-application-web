@@ -71,12 +71,13 @@ export default function App() {
                     <Route exact path="/"><Redirect to="/home"/></Route>
                     <Route exact path="/index"><Redirect to="/home"/></Route>
                     {!isAdmin && <Route path="/console"><Redirect to="/home"/></Route>}
-                    {!isAdmin && <Route path="/home"><Home/></Route>}
+                    {!isAdmin && <Route exact path="/home"><Home/></Route>}
                     {!isAdmin && <Route path="/view"><View/></Route>}
                     {!isAdmin && <Route path="/search"><Search/></Route>}
                     {!isAdmin && <Route path="/browse"><Browse/></Route>}
                     {/*Auth module*/}
-                    {!user && <Route path="/auth"><Auth/></Route>}
+                    {!user ? <Route path="/auth"><Auth/></Route>
+                        : <Route path="/auth"><Redirect to="/home"/></Route>}
                     {/*User module*/}
                     {user && !isAdmin && <Route path="/profile"><Dashboard/></Route>}
                     {user && !isAdmin && <Route path="/update"><Profile/></Route>}
@@ -94,7 +95,7 @@ export default function App() {
                     {!isAdmin && <Route path="/not-found"><NotFound/></Route>}
                     {!isAdmin && <Redirect to="/not-found"/>}
                 </Switch>
-                {background && <Route path="/" children={<AuthModal/>}/>}
+                {background && !user && <Route path="/" children={<AuthModal background={background}/>}/>}
                 {!isAdmin
                 && location.pathname !== "/auth/register"
                 && location.pathname !== "/auth/verify"

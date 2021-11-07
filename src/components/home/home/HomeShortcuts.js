@@ -14,19 +14,15 @@ const HomeShortcuts = () => {
                 <div className="section-content">
                     <InputGroup style={{marginBottom: "10px"}}>
                         <Link className="button-link button-submit" to="/post/recipe">
-                            Share a recipe
-                        </Link>
+                            Share a recipe </Link>
                         <Link className="button-link button-submit" to="/post/blog">
-                            Share a story
-                        </Link>
+                            Share a story </Link>
                     </InputGroup>
                     <InputGroup>
                         <Link className="button-link" to="/menu">
-                            Create your menu for this week
-                        </Link>
+                            Create your menu for this week </Link>
                         <Link className="button-link" to="/health">
-                            Manage your health profile & preferences
-                        </Link>
+                            Manage your health profile & preferences </Link>
                     </InputGroup>
                 </div>
                 :

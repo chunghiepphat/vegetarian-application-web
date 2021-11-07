@@ -1,12 +1,11 @@
 import React, {useEffect} from "react";
-import {FaAngleLeft} from "react-icons/fa";
 import {Link} from "react-router-dom";
 import Form from "../../../commons/elements/form/Form";
-import {ImCross} from "react-icons/all";
 import InputGroup from "../../../commons/elements/form/InputGroup";
+import {FaAngleLeft} from "react-icons/fa";
+import {ImCross} from "react-icons/all";
 
 const RecipeStep04 = (props) => {
-
     const handleAddField = (e) => {
         e.preventDefault();
         const step = {
@@ -38,22 +37,21 @@ const RecipeStep04 = (props) => {
             });
         });
     }
-
     useEffect(() => {
         console.log(props.ingredients)
     }, [props.ingredients])
 
     return (
-        <>
-            <section>
-                <header className="section-header">
-                    <Link to="/post/recipe/step-3"><FaAngleLeft/>Previous step</Link>
-                    <h1>Step 4 - Add your step-by-step instructions</h1>
-                    <em>Almost there! Share with us the secrets to this recipe and you're done!</em>
-                </header>
-                <div className="section-content">
-                    <Form onSubmit={props.submitPost}>
-                        {props.steps.length > 0 ?
+        <section>
+            <header className="section-header">
+                <Link to="/post/recipe/step-3"><FaAngleLeft/>Previous step</Link>
+                <h1>Step 4 - Add your step-by-step instructions</h1>
+                <em>Almost there! Share with us the secrets to this recipe and you're done!</em>
+            </header>
+            <div className="section-content">
+                <Form onSubmit={props.submitPost}>
+                    {props.steps.length > 0 ?
+                        <fieldset disabled={!!props.isLoading}>
                             <ul className="form-dynamic">
                                 {props.steps.map((item, index) => (
                                     <div key={index}>
@@ -63,29 +61,36 @@ const RecipeStep04 = (props) => {
                                                   value={item.step_content}
                                                   onChange={(e) => handleChange(e, index)}
                                                   placeholder="What to do?" required/>
-                                            <button className="button-remove"
+                                            <button className="button-remove" disabled={!!props.isLoading}
                                                     onClick={(e) => handleRemoveField(e, index)}>
                                                 <ImCross/>
                                             </button>
                                         </InputGroup>
-                                    </div>
-                                ))}
+                                    </div>))}
                             </ul>
-                            :
-                            <em>Add some ingredients to your recipe...</em>}
-                        <div className="input-group">
-                            <button onClick={handleAddField}>Add a step</button>
-                            <button className="button-cancel" onClick={handleClear}>Clear</button>
-                        </div>
-                        {props.steps.length > 0 ?
-                            <button type="submit" className="button-submit">Finish</button>
-                            :
-                            <button disabled>Finish</button>
-                        }
-                    </Form>
-                </div>
-            </section>
-        </>
+                        </fieldset>
+                        : <em>Add some ingredients to your recipe...</em>}
+                    <div className="sticky-bottom">
+                        <InputGroup>
+                            {props.isLoading ? <>
+                                <button disabled>{props.uploadProgress}</button>
+                            </> : <>
+                                <button className="button-cancel" onClick={handleAddField}>Add a step</button>
+                                {props.steps.length > 0 ? <>
+                                    <button className="button-cancel" onClick={handleClear}>Clear</button>
+                                    <button type="submit" className="button-submit" name="true">Save draft</button>
+                                    <button type="submit" className="button-submit" name="false">Publish</button>
+                                </> : <>
+                                    <button disabled>Clear</button>
+                                    <button disabled>Save draft</button>
+                                    <button disabled>Publish</button>
+                                </>}
+                            </>}
+                        </InputGroup>
+                    </div>
+                </Form>
+            </div>
+        </section>
     )
 }
 

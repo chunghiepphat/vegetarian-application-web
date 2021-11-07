@@ -106,10 +106,7 @@ const HomeBanner = ({user, location}) => {
                                 pathname: "/login",
                                 state: {background: location}
                             }}> Sign in </Link>
-                            <Link className="banner-shortcut" to={{
-                                pathname: "/register",
-                                state: {background: location}
-                            }}> Create an account </Link>
+                            <Link className="banner-shortcut" to="/auth/register"> Create an account </Link>
                         </div>
                     </>}
                 </section>
