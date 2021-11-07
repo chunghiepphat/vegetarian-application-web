@@ -10,7 +10,7 @@ const ArticleCard = ({
                          className, id, type, hideThumbnail,
                          title, subtitle, thumbnail,
                          userId, firstName, lastName, time,
-                         totalLikes, status, recommendationCriteria, isFavorite
+                         totalLikes, isFavorite, status, recommendationCriteria
                      }) => {
     const user = useContext(UserContext);
     const statusText = [
@@ -58,7 +58,7 @@ const ArticleCard = ({
                 <p className="card-timestamp">{moment(time).format("lll")}</p>}
                 {totalLikes !== undefined &&
                 <div className="card-likes">
-                    {isFavorite ? <FaHeart/> : <FaRegHeart/>}
+                    {isFavorite ? <FaHeart style={{fill: "#f33334"}}/> : <FaRegHeart/>}
                     {totalLikes}</div>}
                 {recommendationCriteria &&
                 <p className="card-criteria">

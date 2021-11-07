@@ -1,49 +1,49 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
-import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
 import {apiBase} from "../../../helpers/Helpers";
+import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
 import Panel from "../../commons/elements/containers/Panel";
-import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";
-import {UserContext} from "../../../context/UserContext";
+import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 
-const DashboardLatestRecipes = () => {
-    // Gets current user's info
-    let user = useContext(UserContext);
-    const token = JSON.parse(localStorage.getItem("accessToken"));
+const DashboardLatestRecipes = ({user, location, token}) => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     let headers = new Headers();
-    headers.append("Authorization", `Bearer ${token.token}`);
+    if (token) headers.append("Authorization", `Bearer ${token.token}`);
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
     const fetchData = async () => {
         setIsLoading(true);
-        // Generate request
+        // Generates request
         let request = {
             method: 'GET',
             headers: headers,
         };
+        // Executes fetch
         const api = `${apiBase}/recipes/get10recipebyuser/${user.id}`;
         const response = await fetch(api, request);
-        if (response.ok) {
-            const result = await response.json();
-            setData(result.listResult);
-            setIsLoading(false);
-        } else if (response.status >= 400 && response.status < 600) {
-            setIsError(true);
-            setIsLoading(false);
-        }
-    }
-    useEffect(() => {
-        fetchData().catch(error => {
+        try {
+            if (response.ok) {
+                const result = await response.json();
+                setData(result.listResult);
+                setIsLoading(false);
+            } else if (response.status >= 400 && response.status < 600) {
+                setIsError(true);
+                setIsLoading(false);
+            }
+        } catch (error) {
             console.error(error);
             setIsError(true);
-        });
-    }, [user]);
+        }
+    }
+    // Executes fetch once on page load
+    useEffect(() => {
+        fetchData();
+    }, [location, user]);
     // Handles slider scrolling on button click
     const ref = useRef(null);
     const scroll = (scrollOffset) => {
@@ -56,11 +56,10 @@ const DashboardLatestRecipes = () => {
                 <h1>Your recent posts</h1>
                 <Link to="/history/recipes"><FaAngleRight/>View all</Link>
             </header>
-            {data &&
             <Panel>
                 {!isLoading ? <>
                     {!isError ? <>
-                        {data.length > 0 ? <>
+                        {data && data.length > 0 ? <>
                             {/*Scroll buttons*/}
                             <button className="panel-scroll scroll-left" onClick={() => scroll(-350)}>
                                 <FaAngleLeft/>
@@ -81,13 +80,14 @@ const DashboardLatestRecipes = () => {
                                                  firstName={item.first_name}
                                                  lastName={item.last_name}
                                                  time={item.time}
+                                                 isFavorite={item.is_like}
                                                  totalLikes={item.totalLike}
                                                  status={item.status}/>))}
                             </div>
                         </> : <PanelEmp message="It seems you haven't posted anything yet."/>}
                     </> : <PanelErr reload={fetchData}/>}
                 </> : <PanelLoader/>}
-            </Panel>}
+            </Panel>
         </section>
     )
 }

@@ -1,20 +1,17 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {apiBase} from "../../../helpers/Helpers";
-import ArticleCard from "../../commons/elements/containers/ArticleCard";
-import {PanelLoader, SectionLoader} from "../../commons/elements/loaders/Loader";
 import Panel from "../../commons/elements/containers/Panel";
-import {useLocation} from "react-router-dom";
+import VideoTile from "../../commons/elements/containers/VideoTile";
+import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
-import VideoTile from "../../commons/elements/containers/VideoTile";
 
-const BrowseVideos = ({data, isLoading, isError, fetchData}) => {
-    const location = useLocation();
-    const api = `${apiBase}/video/getall?page=1&limit=100`;
+const BrowseVideos = ({user, location, data, isLoading, isError, fetchData}) => {
+    const api = `${apiBase}/video/getall?page=1&limit=100${user ? `&userID=${user.id}` : ``}`;
     // Executes fetch once on page load
     useEffect(() => {
-        fetchData(api)
-    }, [location]);
+        fetchData(api);
+    }, [location, user]);
 
     return (
         <section>
@@ -35,9 +32,10 @@ const BrowseVideos = ({data, isLoading, isError, fetchData}) => {
                                                firstName={item.first_name}
                                                lastName={item.last_name}
                                                time={item.time_created}
+                                               isFavorite={item.is_like}
                                                totalLikes={item.totalLike}/>))}
                             </> : <PanelEmp/>}
-                        </> : <PanelErr reload={fetchData}/>}
+                        </> : <PanelErr reload={fetchData} api={api}/>}
                     </> : <PanelLoader/>}
                 </Panel>
             </div>

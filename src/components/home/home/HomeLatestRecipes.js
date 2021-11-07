@@ -1,44 +1,44 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
-import {Link, useLocation} from "react-router-dom";
-import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
+import React, {useEffect, useRef, useState} from "react";
+import {Link} from "react-router-dom";
 import {apiBase} from "../../../helpers/Helpers";
+import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
-import {UserContext} from "../../../context/UserContext";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 
-const HomeLatestRecipes = () => {
-    const location = useLocation();
+const HomeLatestRecipes = ({user, location}) => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const fetchData = async () => {
         setIsLoading(true);
-        const api = `${apiBase}/recipes/get10recipes`;
+        const api = `${apiBase}/recipes/get10recipes${user ? `?userID=${user.id}` : ``}`;
         const response = await fetch(api);
-        if (response.ok) {
-            const result = await response.json();
-            setData(result.listResult);
-            setIsLoading(false);
-        } else if (response.status >= 400 && response.status < 600) {
+        try {
+            if (response.ok) {
+                const result = await response.json();
+                setData(result.listResult);
+                setIsLoading(false);
+            } else if (response.status >= 400 && response.status < 600) {
+                setIsError(true);
+                setIsLoading(false);
+            }
+        } catch (error) {
+            console.error(error);
             setIsError(true);
-            setIsLoading(false);
         }
     }
+    // Executes fetch once on page load
+    useEffect(() => {
+        fetchData();
+    }, [location, user]);
     // Handles slider scrolling on button click
     const ref = useRef(null);
     const scroll = (scrollOffset) => {
         ref.current.scrollLeft += scrollOffset;
     };
-    // Executes fetch once on page load
-    useEffect(() => {
-        fetchData().catch(error => {
-            console.error(error);
-            setIsError(true);
-        });
-    }, [location]);
 
     return (
         <section>
@@ -70,7 +70,8 @@ const HomeLatestRecipes = () => {
                                                  userId={item.user_id}
                                                  firstName={item.first_name}
                                                  lastName={item.last_name}
-                                                 time={item.time}
+                                                 time={item.time_created}
+                                                 isFavorite={item.is_like}
                                                  totalLikes={item.totalLike}/>))}
                             </div>
                         </> : <PanelEmp/>}

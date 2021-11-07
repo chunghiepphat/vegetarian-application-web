@@ -5,7 +5,7 @@ import {Redirect, Route, Switch, useLocation} from "react-router-dom";
 import Home from "./components/home/Home";
 import About from "./components/commons/About";
 import Footer from "./components/commons/elements/site/Footer";
-import Modal from "./components/auth/AuthModal";
+import AuthModal from "./components/auth/AuthModal";
 import Dashboard from "./components/user/Dashboard";
 import NotFound from "./components/commons/NotFound";
 import Browse from "./components/home/Browse";
@@ -15,7 +15,6 @@ import Search from "./components/home/Search";
 import History from "./components/user/History";
 import Profile from "./components/user/Profile";
 import {apiBase} from "./helpers/Helpers";
-import jwtDecode from "jwt-decode";
 import {UserContext} from "./context/UserContext";
 import Favorites from "./components/user/Favorites";
 import Menu from "./components/user/Menu";
@@ -27,36 +26,39 @@ import Auth from "./components/auth/Auth";
 export default function App() {
     let location = useLocation();
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    const [user, setUser] = useState();
+    const [user, setUser] = useState(userInfo);
     const [isAdmin, setIsAdmin] = useState(false);
-
+    // Refresh authenticated user's data and save it to local storage
     const fetchData = async () => {
         const api = `${apiBase}/user/${userInfo.id}`
         const response = await fetch(api);
-        const result = await response.json();
-        setUser(result);
-        if (result.role === "admin") {
-            setIsAdmin(true);
-        } else {
-            setIsAdmin(false);
+        if (response.ok) {
+            const result = await response.json();
+            localStorage.setItem("userInfo", JSON.stringify(result));
+            // Check the user's role
+            if (result.role === "admin") {
+                setIsAdmin(true);
+            } else {
+                setIsAdmin(false);
+            }
         }
     }
-
     useEffect(() => {
+        // If there is an active user (userInfo in local storage)
         if (userInfo !== null) {
-            // Decode access token and add user info to UserContext
-            // const decodedToken = jwtDecode(userInfo);
+            // Fetch the user's data
             fetchData().catch(error => {
                 console.error(error);
             });
+            setUser(userInfo);
         } else {
-            // Clear UserContext if no access token is found
+            // Clear UserContext and reset roles if no access token is found
             setUser();
             setIsAdmin(false);
         }
+        // Reset scroll upon page change
         window.scrollTo(0, 0)
     }, [location]);
-
     const background = location.state && location.state.background;
 
     return (
@@ -92,7 +94,7 @@ export default function App() {
                     {!isAdmin && <Route path="/not-found"><NotFound/></Route>}
                     {!isAdmin && <Redirect to="/not-found"/>}
                 </Switch>
-                {background && <Route path="/" children={<Modal/>}/>}
+                {background && <Route path="/" children={<AuthModal/>}/>}
                 {!isAdmin
                 && location.pathname !== "/auth/register"
                 && location.pathname !== "/auth/verify"

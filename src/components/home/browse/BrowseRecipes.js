@@ -1,41 +1,17 @@
-import React, {useState, useContext, useEffect} from "react";
-import ArticleCard from "../../commons/elements/containers/ArticleCard";
-import {PanelLoader} from "../../commons/elements/loaders/Loader";
+import React, {useEffect} from "react";
 import {apiBase} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
-import {useLocation} from "react-router-dom";
+import ArticleCard from "../../commons/elements/containers/ArticleCard";
+import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
-import {UserContext} from "../../../context/UserContext";
 
-const BrowseRecipes = () => {
-    const location = useLocation();
-    const user = useContext(UserContext);
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
-    const fetchData = async () => {
-        setIsLoading(true);
-        const api = `${apiBase}/recipes/getall?page=1&limit=300${userInfo ? `&userID=${userInfo.id}` : ``}`;
-        const response = await fetch(api).catch(error => {
-            console.error(error);
-            setIsError(true);
-        });
-        if (response.ok) {
-            const result = await response.json();
-            setData(result.listResult);
-            setIsLoading(false);
-        } else if (response.status >= 400 && response.status < 600) {
-            setIsError(true);
-            setIsLoading(false);
-        }
-    }
-
+const BrowseRecipes = ({user, location, data, isLoading, isError, fetchData}) => {
+    const api = `${apiBase}/recipes/getall?page=1&limit=300${user ? `&userID=${user.id}` : ``}`;
     // Executes fetch once on page load
     useEffect(() => {
-        fetchData()
-    }, [location]);
+        fetchData(api);
+    }, [location, user]);
 
     return (
         <section>
@@ -61,7 +37,7 @@ const BrowseRecipes = () => {
                                                  isFavorite={item.is_like}
                                                  totalLikes={item.totalLike}/>))}
                             </> : <PanelEmp/>}
-                        </> : <PanelErr reload={fetchData}/>}
+                        </> : <PanelErr reload={fetchData} api={api}/>}
                     </> : <PanelLoader/>}
                 </Panel>
             </div>

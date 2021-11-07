@@ -54,6 +54,7 @@ const HomeLatestVideos = () => {
                                                firstName={item.first_name}
                                                lastName={item.last_name}
                                                time={item.time_created}
+                                               isFavorite={item.is_like}
                                                totalLikes={item.totalLike}/>))}
                             </> : <PanelEmp/>}
                         </> : <PanelErr reload={fetchData}/>}

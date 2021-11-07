@@ -1,38 +1,39 @@
 import React, {useEffect, useState} from "react";
-import {Link, useLocation} from "react-router-dom";
-import {FaAngleRight} from "react-icons/fa";
-import ArticleCard from "../../commons/elements/containers/ArticleCard";
+import {Link} from "react-router-dom";
 import {apiBase} from "../../../helpers/Helpers";
+import {FaAngleRight} from "react-icons/fa";
 import Panel from "../../commons/elements/containers/Panel";
+import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 
-const HomeLatestBlogs = () => {
-    const location = useLocation();
+const HomeLatestBlogs = ({user, location}) => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const fetchData = async () => {
         setIsLoading(true);
-        const api = `${apiBase}/blogs/get10blogs`;
+        const api = `${apiBase}/blogs/get10blogs${user ? `?userID=${user.id}` : ``}`;
         const response = await fetch(api);
-        if (response.ok) {
-            const result = await response.json();
-            setData(result.listResult);
-            setIsLoading(false);
-        } else if (response.status >= 400 && response.status < 600) {
+        try {
+            if (response.ok) {
+                const result = await response.json();
+                setData(result.listResult);
+                setIsLoading(false);
+            } else if (response.status >= 400 && response.status < 600) {
+                setIsError(true);
+                setIsLoading(false);
+            }
+        } catch (error) {
+            console.error(error);
             setIsError(true);
-            setIsLoading(false);
         }
     }
     // Executes fetch once on page load
     useEffect(() => {
-        fetchData().catch(error => {
-            console.error(error);
-            setIsError(true);
-        });
-    }, [location]);
+        fetchData();
+    }, [location, user]);
 
     return (
         <section>
@@ -57,6 +58,7 @@ const HomeLatestBlogs = () => {
                                                  firstName={item.first_name}
                                                  lastName={item.last_name}
                                                  time={item.time_created}
+                                                 isFavorite={item.is_like}
                                                  totalLikes={item.totalLike}/>))}
                             </> : <PanelEmp/>}
                         </> : <PanelErr reload={fetchData}/>}
