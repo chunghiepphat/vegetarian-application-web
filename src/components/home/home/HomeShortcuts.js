@@ -1,11 +1,8 @@
-import React, {useContext} from "react";
+import React from "react";
+import {Link} from "react-router-dom";
 import InputGroup from "../../commons/elements/form/InputGroup";
-import {Link, useLocation} from "react-router-dom";
-import {UserContext} from "../../../context/UserContext";
 
-const HomeShortcuts = () => {
-    const user = useContext(UserContext);
-    const location = useLocation();
+const HomeShortcuts = ({user, location}) => {
 
     return (
         <section>

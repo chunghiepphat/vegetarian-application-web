@@ -45,6 +45,18 @@ const ArticleCard = ({
                 <p className={`card-status ${statusColor[status - 1]}`}>
                     {statusText[status - 1]}
                 </p>}
+                <div className="card-glance">
+                    {totalLikes !== undefined &&
+                    <div className="card-likes">
+                        {isFavorite ? <FaHeart style={{fill: "#f33334"}}/> : <FaRegHeart/>}
+                        {totalLikes}</div>}
+                    {time &&
+                    <p className="card-timestamp">{moment(time).format("lll")}</p>}
+                </div>
+                {recommendationCriteria &&
+                <p className="card-criteria">
+                    {recommendationText[recommendationCriteria - 1]}
+                </p>}
                 <h1 className="card-title">{title}</h1>
                 {subtitle &&
                 <p className="card-subtitle">{subtitle.substring(0, 150)}{subtitle.length > 150 && <>...</>}</p>}
@@ -54,18 +66,7 @@ const ArticleCard = ({
                         {firstName} {lastName}
                     </Link>
                 </p>
-                {time &&
-                <p className="card-timestamp">{moment(time).format("lll")}</p>}
-                {totalLikes !== undefined &&
-                <div className="card-likes">
-                    {isFavorite ? <FaHeart style={{fill: "#f33334"}}/> : <FaRegHeart/>}
-                    {totalLikes}</div>}
-                {recommendationCriteria &&
-                <p className="card-criteria">
-                    {recommendationText[recommendationCriteria - 1]}
-                </p>}
             </div>
-
         </div>
     )
 }

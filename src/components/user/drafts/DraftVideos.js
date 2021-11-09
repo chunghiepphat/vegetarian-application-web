@@ -29,8 +29,7 @@ const DraftVideos = ({user, location, data, isLoading, isError, fetchData}) => {
                                                firstName={item.first_name}
                                                lastName={item.last_name}
                                                time={item.time_created}
-                                               isFavorite={item.is_like}
-                                               totalLikes={item.totalLike}/>))}
+                                               isFavorite={item.is_like}/>))}
                             </> : <PanelEmp message="It seems you haven't saved any drafts yet."/>}
                         </> : <PanelErr reload={fetchData}/>}
                     </> : <PanelLoader/>}

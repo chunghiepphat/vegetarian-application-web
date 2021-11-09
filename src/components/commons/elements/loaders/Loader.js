@@ -1,33 +1,33 @@
 import React from "react";
 import "./Loader.css";
 
-export const PanelLoader = () => {
+export const PanelLoader = ({style}) => {
     return (
-        <div className="loader-wrapper panel-loader">
+        <div className="loader-wrapper panel-loader" style={style}>
             <div className="loader">Loading...</div>
         </div>
     )
 }
 
-export const SectionLoader = () => {
+export const SectionLoader = ({style}) => {
     return (
-        <div className="loader-wrapper section-loader">
+        <div className="loader-wrapper section-loader" style={style}>
             <div className="loader">Loading...</div>
         </div>
     )
 }
 
-export const ArticleLoader = () => {
+export const ArticleLoader = ({style}) => {
     return (
-        <div className="loader-wrapper article-loader">
+        <div className="loader-wrapper article-loader" style={style}>
             <div className="loader">Loading...</div>
         </div>
     )
 }
 
-export const ButtonLoader = () => {
+export const ButtonLoader = ({style}) => {
     return (
-        <div className="loader-wrapper button-loader">
+        <div className="loader-wrapper button-loader" style={style}>
             <div className="loader">Loading...</div>
         </div>
     )

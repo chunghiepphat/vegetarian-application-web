@@ -1,31 +1,38 @@
-import React from "react";
-import ArticleCard from "../../commons/elements/containers/ArticleCard";
-import {SectionLoader} from "../../commons/elements/loaders/Loader";
+import React, {useEffect} from "react";
 import Panel from "../../commons/elements/containers/Panel";
+import ArticleCard from "../../commons/elements/containers/ArticleCard";
+import {PanelLoader} from "../../commons/elements/loaders/Loader";
+import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
+import {PanelErr} from "../../commons/elements/loaders/AlertError";
 
-const FavoriteRecipes = ({data}) => {
+const FavoriteRecipes = ({user, location, data, isLoading, isError, fetchData}) => {
+    useEffect(() => {
+        fetchData();
+    }, [location, user]);
+
     return (
         <section>
             <div className="section-content">
                 <h1>Recipes</h1>
                 <p>Recipes you added to favorites will be shown here.</p>
-                <Panel>
-                    {/*Iterates over the result JSON and renders a matching amount of card items*/}
-                    {data.length > 0 ?
-                        data.map(recipe => (
-                            <ArticleCard className="card-narrow"
-                                         key={recipe.recipe_id}
-                                         id={recipe.recipe_id}
-                                         type="recipe"
-                                         title={recipe.recipe_title}
-                                         thumbnail={recipe.recipe_thumbnail}
-                                         firstName={recipe.first_name}
-                                         lastName={recipe.last_name}
-                                         totalLike={recipe.totalLike}/>
-                        ))
-                        :
-                        <SectionLoader/>
-                    }
+                <Panel filler="card-narrow">
+                    {!isLoading ? <>
+                        {!isError ? <>
+                            {data && data.length > 0 ? <>
+                                {data.map(item => (
+                                    <ArticleCard className="card-narrow"
+                                                 key={item.recipe_id}
+                                                 id={item.recipe_id}
+                                                 type="recipe"
+                                                 title={item.recipe_title}
+                                                 thumbnail={item.recipe_thumbnail}
+                                                 userId={item.user_id}
+                                                 firstName={item.first_name}
+                                                 lastName={item.last_name}
+                                                 time={item.time_created}/>))}
+                            </> : <PanelEmp/>}
+                        </> : <PanelErr reload={fetchData}/>}
+                    </> : <PanelLoader/>}
                 </Panel>
             </div>
         </section>

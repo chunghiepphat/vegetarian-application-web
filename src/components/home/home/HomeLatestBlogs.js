@@ -13,10 +13,11 @@ const HomeLatestBlogs = ({user, location}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const fetchData = async () => {
+        setIsError(false);
         setIsLoading(true);
-        const api = `${apiBase}/blogs/get10blogs${user ? `?userID=${user.id}` : ``}`;
-        const response = await fetch(api);
         try {
+            const api = `${apiBase}/blogs/get10blogs${user ? `?userID=${user.id}` : ``}`;
+            const response = await fetch(api);
             if (response.ok) {
                 const result = await response.json();
                 setData(result.listResult);
@@ -28,12 +29,13 @@ const HomeLatestBlogs = ({user, location}) => {
         } catch (error) {
             console.error(error);
             setIsError(true);
+            setIsLoading(false);
         }
     }
     // Executes fetch once on page load
     useEffect(() => {
         fetchData();
-    }, [location, user]);
+    }, [user]);
 
     return (
         <section>

@@ -1,10 +1,10 @@
 import React from "react";
 
-const VideoList = () => {
+const ListVideos = () => {
     return (
         <div>Videos go here.</div>
     )
 
 }
 
-export default VideoList;
+export default ListVideos;

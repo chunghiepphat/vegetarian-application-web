@@ -30,9 +30,7 @@ const DraftBlogs = ({user, location, data, isLoading, isError, fetchData}) => {
                                                  userId={item.user_id}
                                                  firstName={item.first_name}
                                                  lastName={item.last_name}
-                                                 time={item.time_created}
-                                                 isFavorite={item.is_like}
-                                                 totalLikes={item.totalLike}/>))}
+                                                 time={item.time_created}/>))}
                             </> : <PanelEmp message="It seems you haven't saved any drafts yet."/>}
                         </> : <PanelErr reload={fetchData}/>}
                     </> : <PanelLoader/>}

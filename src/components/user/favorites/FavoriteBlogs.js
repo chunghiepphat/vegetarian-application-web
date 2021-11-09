@@ -1,31 +1,39 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ArticleCard from "../../commons/elements/containers/ArticleCard";
-import {SectionLoader} from "../../commons/elements/loaders/Loader";
+import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import Panel from "../../commons/elements/containers/Panel";
+import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
+import {PanelErr} from "../../commons/elements/loaders/AlertError";
 
-const FavoriteBlogs = ({data}) => {
+const FavoriteBlogs = ({user, location, data, isLoading, isError, fetchData}) => {
+    useEffect(() => {
+        fetchData();
+    }, [location, user]);
+
     return (
         <section>
             <div className="section-content">
                 <h1>Blogs</h1>
                 <p>Stories you added to favorites will be shown here.</p>
-                <Panel>
-                    {data.length > 0 ?
-                        data.map(blog => (
-                            <ArticleCard className="card-medium"
-                                         key={blog.blog_id}
-                                         id={blog.blog_id}
-                                         type="blog"
-                                         title={blog.blog_title}
-                                         thumbnail={blog.blog_thumbnail}
-                                         subtitle={blog.blog_subtitle}
-                                         firstName={blog.first_name}
-                                         lastName={blog.last_name}
-                                         totalLike={blog.totalLike}/>
-                        ))
-                        :
-                        <SectionLoader/>
-                    }
+                <Panel filler="card-full">
+                    {!isLoading ? <>
+                        {!isError ? <>
+                            {data && data.length > 0 ? <>
+                                {data.map(item => (
+                                    <ArticleCard className="card-full"
+                                                 key={item.blog_id}
+                                                 id={item.blog_id}
+                                                 type="blog"
+                                                 title={item.blog_title}
+                                                 thumbnail={item.blog_thumbnail}
+                                                 subtitle={item.blog_subtitle}
+                                                 userId={item.user_id}
+                                                 firstName={item.first_name}
+                                                 lastName={item.last_name}
+                                                 time={item.time_created}/>))}
+                            </> : <PanelEmp/>}
+                        </> : <PanelErr reload={fetchData}/>}
+                    </> : <PanelLoader/>}
                 </Panel>
             </div>
         </section>

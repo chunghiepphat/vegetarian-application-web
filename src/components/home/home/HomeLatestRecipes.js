@@ -13,10 +13,11 @@ const HomeLatestRecipes = ({user, location}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const fetchData = async () => {
+        setIsError(false);
         setIsLoading(true);
-        const api = `${apiBase}/recipes/get10recipes${user ? `?userID=${user.id}` : ``}`;
-        const response = await fetch(api);
         try {
+            const api = `${apiBase}/recipes/get10recipes${user ? `?userID=${user.id}` : ``}`;
+            const response = await fetch(api);
             if (response.ok) {
                 const result = await response.json();
                 setData(result.listResult);
@@ -28,6 +29,7 @@ const HomeLatestRecipes = ({user, location}) => {
         } catch (error) {
             console.error(error);
             setIsError(true);
+            setIsLoading(false);
         }
     }
     // Executes fetch once on page load

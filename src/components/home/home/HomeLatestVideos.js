@@ -1,37 +1,41 @@
 import React, {useEffect, useState} from "react";
-import {Link, useLocation} from "react-router-dom";
-import {FaAngleRight} from "react-icons/fa";
+import {Link} from "react-router-dom";
 import {apiBase} from "../../../helpers/Helpers";
 import Panel from "../../commons/elements/containers/Panel";
+import VideoTile from "../../commons/elements/containers/VideoTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
-import VideoTile from "../../commons/elements/containers/VideoTile";
+import {FaAngleRight} from "react-icons/fa";
 
-const HomeLatestVideos = () => {
-    const location = useLocation();
+const HomeLatestVideos = ({user, location}) => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const fetchData = async () => {
+        setIsError(false);
         setIsLoading(true);
-        const api = `${apiBase}/video/get4videos`;
-        const response = await fetch(api);
-        if (response.ok) {
-            const result = await response.json();
-            setData(result.listResult);
-            setIsLoading(false);
-        } else if (response.status >= 400 && response.status < 600) {
+        try {
+            const api = `${apiBase}/video/get4videos${user ? `?userID=${user.id}` : ``}`;
+            const response = await fetch(api);
+            if (response.ok) {
+                const result = await response.json();
+                setData(result.listResult);
+                setIsLoading(false);
+            } else if (response.status >= 400 && response.status < 600) {
+                setIsError(true);
+                setIsLoading(false);
+            }
+        } catch (error) {
+            console.error(error);
             setIsError(true);
             setIsLoading(false);
         }
     }
     // Executes fetch once on page load
     useEffect(() => {
-        fetchData().catch(error => {
-            console.error(error);
-        });
-    }, [location]);
+        fetchData();
+    }, [location, user]);
 
     return (
         <section>

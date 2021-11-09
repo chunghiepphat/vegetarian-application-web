@@ -41,43 +41,33 @@ const Header = () => {
                 {/*Right-side nav with authentication and profile links*/}
                 <section className="header-section">
                     <Navbar>
-                        {token ?
-                            // If yes, shows user info and logout
-                            <>
-                                {/*Profile image*/}
-                                <NavLink to="/profile">
-                                    {user ?
-                                        <>
-                                            <picture className="profile-image">
-                                                <source srcSet={user.profile_image}/>
-                                                <img src={placeholderAvatar} alt=""/>
-                                            </picture>
-                                            {user.first_name}
-                                        </>
-                                        :
-                                        <>Your Profile</>
-                                    }
-                                </NavLink>
-                                {/*Logout link*/}
-                                <Link to={"/home"} onClick={() => {
-                                    localStorage.removeItem("accessToken");
-                                    localStorage.removeItem("userInfo");
-                                    alert("You are now logged out.");
-                                    history.push("/home");
-                                }}>Sign out</Link>
-                            </>
-                            :
-                            // If not, shows login and register
-                            <>
-                                <NavLink to={{
-                                    pathname: "/login",
-                                    state: {background: location}
-                                }}>Sign in</NavLink>
-                                <NavLink to={{
-                                    pathname: "/auth/register",
-                                }}>Sign up</NavLink>
-                            </>
-                        }
+                        {token ? <>
+                            {/*Profile image*/}
+                            <NavLink to="/profile">
+                                {user ? <>
+                                    <picture className="profile-image">
+                                        <source srcSet={user.profile_image}/>
+                                        <img src={placeholderAvatar} alt=""/>
+                                    </picture>
+                                    {user.first_name}
+                                </> : <>Your Profile</>}
+                            </NavLink>
+                            {/*Logout link*/}
+                            <Link to={"/home"} onClick={() => {
+                                localStorage.removeItem("accessToken");
+                                localStorage.removeItem("userInfo");
+                                alert("You are now logged out.");
+                                history.push("/home");
+                            }}>Sign out</Link>
+                        </> : <>
+                            <NavLink to={{
+                                pathname: "/login",
+                                state: {background: location}
+                            }}>Sign in</NavLink>
+                            <NavLink to={{
+                                pathname: "/auth/register",
+                            }}>Sign up</NavLink>
+                        </>}
                     </Navbar>
                 </section>
             </div>

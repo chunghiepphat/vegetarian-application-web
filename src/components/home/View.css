@@ -158,6 +158,11 @@ article section {
     width: 20px;
     height: 20px;
     fill: #656665;
+    animation: fade-in 0.5s;
+}
+
+.article-button:active svg {
+    animation: pop 0.5s;
 }
 
 .button-labeled {
@@ -168,8 +173,9 @@ article section {
     margin-right: 10px;
 }
 
-.button-active svg {
+.button-favorite svg {
     fill: #f33334;
+    animation: fade-in 0.5s;
 }
 
 .article-button:hover {
@@ -358,4 +364,34 @@ article .form-container {
     rgba(254, 254, 254, 1) 50%,
     rgba(254, 254, 254, 1) 100%);
     backdrop-filter: blur(6px);
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

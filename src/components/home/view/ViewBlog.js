@@ -9,7 +9,7 @@ import EditBlog from "../../user/edit/EditBlog";
 import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {SectionErr} from "../../commons/elements/loaders/AlertError";
 
-const ViewBlog = ({user, location, data, isLoading, isError, fetchData}) => {
+const ViewBlog = ({user, location, data, isError, fetchData}) => {
     let {id} = useParams();
     const api = `${apiBase}/blogs/getblogby/${id}${user ? `?userID=${user.id}` : ``}`;
     useEffect(() => {
@@ -41,7 +41,7 @@ const ViewBlog = ({user, location, data, isLoading, isError, fetchData}) => {
                                     <BlogComments data={data}/>
                                 </article>
                             </div>
-                        </> : <SectionEmp/>}
+                        </> : <SectionEmp message="Loading the article..."/>}
                     </> : <SectionErr reload={fetchData} api={api}/>}
                 </Route>
                 <Redirect to="/not-found"/>

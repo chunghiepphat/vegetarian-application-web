@@ -3,12 +3,11 @@ import {useParams} from "react-router-dom";
 import {apiBase} from "../../../helpers/Helpers";
 import VideoPlayer from "./video/VideoPlayer";
 import VideoDetails from "./video/VideoDetails";
-import {SectionLoader} from "../../commons/elements/loaders/Loader";
 import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {SectionErr} from "../../commons/elements/loaders/AlertError";
 import VideoToolbar from "./video/VideoToolbar";
 
-const ViewVideo = ({user, location, data, isLoading, isError, fetchData}) => {
+const ViewVideo = ({user, location, data, isError, fetchData}) => {
     let {id} = useParams();
     const api = `${apiBase}/video/getvideoby/${id}${user ? `?userID=${user.id}` : ``}`;
     useEffect(() => {
@@ -17,19 +16,17 @@ const ViewVideo = ({user, location, data, isLoading, isError, fetchData}) => {
 
     return (
         <section>
-            {!isLoading ? <>
-                {!isError ? <>
-                    {data ? <>
-                        <div className="section-content">
-                            <article className="video-article">
-                                <VideoPlayer data={data}/>
-                                <VideoToolbar data={data} reload={fetchData} mainApi={api}/>
-                                <VideoDetails data={data}/>
-                            </article>
-                        </div>
-                    </> : <SectionEmp/>}
-                </> : <SectionErr reload={fetchData}/>}
-            </> : <SectionLoader/>}
+            {!isError ? <>
+                {data ? <>
+                    <div className="section-content">
+                        <article className="video-article">
+                            <VideoPlayer data={data}/>
+                            <VideoToolbar data={data} reload={fetchData} mainApi={api}/>
+                            <VideoDetails data={data}/>
+                        </article>
+                    </div>
+                </> : <SectionEmp message="Loading the article..."/>}
+            </> : <SectionErr reload={fetchData}/>}
         </section>
     )
 }

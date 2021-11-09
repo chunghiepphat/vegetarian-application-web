@@ -28,6 +28,7 @@
     font-weight: normal;
     text-decoration: none;
     border: 2px none rgba(71, 76, 89, 0.8);
+    transition: 0.3s ease-in-out;
 }
 
 .navbar a svg {

@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import Navbar from "../commons/elements/bars/Navbar";
-import {Link, NavLink, Redirect, Route, Switch} from "react-router-dom";
+import {Link, NavLink, Redirect, Route, Switch, useLocation} from "react-router-dom";
 import DashboardSidebar from "./DashboardSidebar";
 import FavoriteRecipes from "./favorites/FavoriteRecipes";
 import FavoriteBlogs from "./favorites/FavoriteBlogs";
@@ -8,36 +8,46 @@ import {UserContext} from "../../context/UserContext";
 import {apiBase} from "../../helpers/Helpers";
 
 const Favorites = () => {
-    const urlRecipes = "/favorites/recipes";
-    const urlBlogs = "/favorites/blogs";
-
+    const location = useLocation();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `${apiBase}/user/${user.id}/liked`;
     const [recipes, setRecipes] = useState([]);
     const [blogs, setBlogs] = useState([]);
-
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
+    // Component URLS
+    const urlRecipes = "/favorites/recipes";
+    const urlBlogs = "/favorites/blogs";
     // Generates request headers
     let headers = new Headers();
-    headers.append("Authorization", `Bearer ${token.token}`);
+    if (token) headers.append("Authorization", `Bearer ${token.token}`);
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
-
-    // Executes fetch once on page load
-    useEffect(() => {
-        const fetchData = async () => {
-            // Generates request
-            let request = {
-                method: 'GET',
-                headers: headers,
-            };
+    // Generates request
+    let request = {
+        method: 'GET',
+        headers: headers,
+    };
+    const fetchData = async () => {
+        setIsLoading(true);
+        const api = `${apiBase}/user/${user.id}/liked`;
+        try {
             const response = await fetch(api, request);
-            const result = await response.json();
-            setRecipes(result.listRecipe);
-            setBlogs(result.listBlog);
+            if (response.ok) {
+                const result = await response.json();
+                setRecipes(result.listRecipe);
+                setBlogs(result.listBlog);
+                setIsLoading(false);
+            } else if (response.status >= 400 && response.status < 600) {
+                setIsError(true);
+                setIsLoading(false);
+            }
+        } catch (error) {
+            console.error(error);
+            setIsError(true);
+            setIsLoading(false);
         }
-        fetchData();
-    }, []);
+    }
 
     return (
         <div className="page-container">
@@ -51,8 +61,14 @@ const Favorites = () => {
                     </section>
                     <Switch>
                         <Route exact path="/favorites"><Redirect to={urlRecipes}/></Route>
-                        <Route exact path={urlRecipes}><FavoriteRecipes data={recipes}/></Route>
-                        <Route exact path={urlBlogs}><FavoriteBlogs data={blogs}/></Route>
+                        <Route exact path={urlRecipes}>
+                            <FavoriteRecipes data={recipes} user={user} location={location}
+                                             isLoading={isLoading} isError={isError}
+                                             fetchData={fetchData}/> </Route>
+                        <Route exact path={urlBlogs}>
+                            <FavoriteBlogs data={blogs} user={user} location={location}
+                                           isLoading={isLoading} isError={isError}
+                                           fetchData={fetchData}/> </Route>
                         <Route><Redirect to="/not-found"/></Route>
                     </Switch>
                 </main>

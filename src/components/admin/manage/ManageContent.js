@@ -1,11 +1,44 @@
-import React from "react";
+import React, {useState} from "react";
 import Navbar from "../../commons/elements/bars/Navbar";
-import {NavLink, Redirect, Route, Switch} from "react-router-dom";
-import RecipeList from "./content/RecipeList";
-import VideoList from "./content/VideoList";
-import BlogList from "./content/BlogList";
+import {NavLink, Redirect, Route, Switch, useLocation} from "react-router-dom";
+import ListRecipes from "./content/ListRecipes";
+import ListVideos from "./content/ListVideos";
+import ListBlogs from "./content/ListBlogs";
 
 const ManageContent = () => {
+    const location = useLocation();
+    const token = JSON.parse(localStorage.getItem("accessToken"));
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
+    let headers = new Headers();
+    if (token) headers.append("Authorization", `Bearer ${token.token}`);
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
+    const fetchData = async (api) => {
+        setIsLoading(true);
+        // Generate request
+        let request = {
+            method: 'GET',
+            headers: headers,
+        };
+        try {
+            const response = await fetch(request, api)
+            if (response.ok) {
+                const result = await response.json();
+                setData(result.listResult);
+                setIsLoading(false);
+            } else if (response.status >= 400 && response.status < 600) {
+                setIsError(true);
+                setIsLoading(false);
+            }
+        } catch (error) {
+            console.error(error);
+            setIsError(true);
+            setIsLoading(false);
+        }
+    }
+
     return (
         <section>
             <header className="console-header">
@@ -18,9 +51,18 @@ const ManageContent = () => {
             </header>
             <div className="console-content">
                 <Switch>
-                    <Route path={`/console/manage-content/recipes`}><RecipeList/></Route>
-                    <Route path={`/console/manage-content/videos`}><VideoList/></Route>
-                    <Route path={`/console/manage-content/blogs`}><BlogList/></Route>
+                    <Route path={`/console/manage-content/recipes`}>
+                        <ListRecipes data={data} location={location}
+                                     isLoading={isLoading} isError={isError}
+                                     fetchData={fetchData}/> </Route>
+                    <Route path={`/console/manage-content/videos`}>
+                        <ListVideos data={data} location={location}
+                                    isLoading={isLoading} isError={isError}
+                                    fetchData={fetchData}/> </Route>
+                    <Route path={`/console/manage-content/blogs`}>
+                        <ListBlogs data={data} location={location}
+                                   isLoading={isLoading} isError={isError}
+                                   fetchData={fetchData}/> </Route>
                     <Route><Redirect to={`/console/manage-content/recipes`}/></Route>
                 </Switch>
             </div>

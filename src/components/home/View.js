@@ -50,7 +50,8 @@ const View = () => {
                             <ViewBlog user={user} location={location} data={data}
                                       isLoading={isLoading} isError={isError}
                                       fetchData={fetchData}/> </Route>
-                        <Route path="/view/user/:id"><ViewUser/></Route>
+                        <Route path="/view/user/:id">
+                            <ViewUser user={user}/> </Route>
                         <Route><Redirect to="/not-found"/></Route>
                     </Switch>
                 </main>

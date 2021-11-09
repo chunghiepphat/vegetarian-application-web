@@ -122,7 +122,7 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
                 <div className="article-controls">
                     {/*If user is logged in, show toolbar*/}
                     <button title="Add to favorites" onClick={favoriteArticle}
-                            className={`article-button button-labeled ${data.is_like && "button-active"}`}>
+                            className={`article-button button-labeled ${data.is_like && "button-favorite"}`}>
                         {data.is_like ?
                             <FaHeart/> : <FaRegHeart/>} {data.totalLike}
                     </button>
@@ -144,7 +144,7 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
                 </div>
                 : <div className="article-controls">
                     {/*If not logged in, the favorite button directs to login form*/}
-                    <button className={`article-button button-labeled ${data.is_like && "button-active"}`}
+                    <button className={`article-button button-labeled ${data.is_like && "button-favorite"}`}
                             onClick={() => history.push({
                                 pathname: "/login",
                                 state: {background: location}

@@ -1,23 +1,23 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
-import {Link, useLocation} from "react-router-dom";
+import React, {useEffect, useRef, useState} from "react";
+import {Link} from "react-router-dom";
 import {apiBase} from "../../../helpers/Helpers";
-import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import bannerBackground from "assets/profile-banner-default.png";
-import {UserContext} from "../../../context/UserContext";
-import {FaAngleRight} from "react-icons/fa";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";
+import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
+import {FaAngleRight} from "react-icons/fa";
 
 const HomeBanner = ({user, location}) => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const fetchData = async () => {
+        setIsError(false);
         setIsLoading(true);
-        const api = `${apiBase}/recipes/get5bestrecipes${user ? `?userID=${user.id}` : ``}`;
-        const response = await fetch(api);
         try {
+            const api = `${apiBase}/recipes/get5bestrecipes${user ? `?userID=${user.id}` : ``}`;
+            const response = await fetch(api);
             if (response.ok) {
                 const result = await response.json();
                 setData(result.listResult);
@@ -33,10 +33,8 @@ const HomeBanner = ({user, location}) => {
     }
     // Executes fetch once on page load
     useEffect(() => {
-        fetchData().catch(error => {
-            console.error(error);
-        });
-    }, [location, user]);
+        fetchData();
+    }, [user]);
     // Handle banner scroll button
     const scrollRef = useRef(null);
     const executeScroll = () => scrollRef.current.scrollIntoView({behavior: 'smooth'});
@@ -68,9 +66,9 @@ const HomeBanner = ({user, location}) => {
                                                 time={item.time_created}
                                                 isFavorite={item.is_like}
                                                 totalLikes={item.totalLike}/>))}
-                                    </> : <PanelEmp/>}
-                                </> : <PanelErr reload={fetchData}/>}
-                            </> : <PanelLoader/>}
+                                    </> : <PanelEmp style={{gridArea: "1 / 1 / 3 / 5"}}/>}
+                                </> : <PanelErr style={{gridArea: "1 / 1 / 3 / 5"}} reload={fetchData}/>}
+                            </> : <PanelLoader style={{gridArea: "1 / 1 / 3 / 5"}}/>}
                         </div>
                     </div>
                 </section>

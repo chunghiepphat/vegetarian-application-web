@@ -49,7 +49,7 @@ const ViewRecipe = ({user, location, data, isError, fetchData}) => {
                                     <RecipeComments data={data}/>
                                 </article>
                             </div>
-                        </> : <SectionEmp/>}
+                        </> : <SectionEmp message="Loading the article..."/>}
                     </> : <SectionErr reload={fetchData} api={api}/>}
                 </Route>
                 <Redirect to="/not-found"/>
