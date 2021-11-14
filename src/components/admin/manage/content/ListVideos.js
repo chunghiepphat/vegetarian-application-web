@@ -6,7 +6,7 @@ import Panel from "../../../commons/elements/containers/Panel";
 import {apiBase} from "../../../../helpers/Variables";
 import VideoTile from "../../../commons/elements/containers/VideoTile";
 
-const VideoList = ({user, location, isLoading, isError, fetchData}) => {
+const ListVideos = ({user, location, isLoading, isError, fetchData}) => {
     const api = `${apiBase}/video/admin/getall?page=1&limit=300`;
     const [data, setData] = useState([]);
     // Executes fetch once on page load
@@ -40,4 +40,4 @@ const VideoList = ({user, location, isLoading, isError, fetchData}) => {
 
 }
 
-export default VideoList;
+export default ListVideos;

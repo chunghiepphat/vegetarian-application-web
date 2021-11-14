@@ -21,6 +21,7 @@ const ViewUser = () => {
     const [isPostsLoading, setIsPostsLoading] = useState(false);
     const [isPostsError, setIsPostsError] = useState(false);
     const fetchProfile = async () => {
+        setIsProfileError(false);
         const api = `${apiBase}/user/${id}`
         try {
             const response = await fetch(api);
@@ -36,6 +37,7 @@ const ViewUser = () => {
     }
     const fetchPosts = async (api) => {
         setIsPostsLoading(true);
+        setIsPostsError(false);
         try {
             const response = await fetch(api);
             if (response.ok) {

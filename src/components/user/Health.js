@@ -31,9 +31,9 @@ const Health = () => {
                         <Route path={urlDetails}>
                             <UpdateHealth user={user} token={token} location={location}/> </Route>
                         <Route path={urlAllergies}>
-                            <UpdateAllergies/> </Route>
+                            <UpdateAllergies user={user} token={token} location={location}/> </Route>
                         <Route path={urlPreferences}>
-                            <UpdatePreferences/> </Route>
+                            <UpdatePreferences user={user} token={token} location={location}/> </Route>
                     </Switch>
                 </main>
                 <DashboardSidebar/>

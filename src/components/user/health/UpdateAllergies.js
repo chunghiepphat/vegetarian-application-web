@@ -1,23 +1,18 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
+import {apiBase} from "../../../helpers/Variables";
 import Form from "../../commons/elements/form/Form";
+import InputArray from "../../commons/elements/form/InputArray";
 import InputGroup from "../../commons/elements/form/InputGroup";
 import {ImCross} from "react-icons/all";
-import InputArray from "../../commons/elements/form/InputArray";
-import {apiBase} from "../../../helpers/Variables";
-import {UserContext} from "../../../context/UserContext";
 
-const UpdateAllergies = () => {
-    const user = useContext(UserContext);
-    const token = JSON.parse(localStorage.getItem("accessToken"));
+const UpdateAllergies = ({user, token, location}) => {
     const [ingredients, setIngredients] = useState([]);
-
     const fetchData = async () => {
         const api = `${apiBase}/user/getallergies/${user.id}`;
         const response = await fetch(api);
         const result = await response.json();
         setIngredients(result.listIngredient);
     }
-
     const handleAddField = (e) => {
         e.preventDefault();
         const ingredient = {
@@ -29,12 +24,10 @@ const UpdateAllergies = () => {
         e.preventDefault();
         setIngredients((prev) => prev.filter((item) => item !== prev[index]));
     }
-
     const handleClear = (e) => {
         e.preventDefault();
         setIngredients([]);
     }
-
     const handleChange = (e, index) => {
         e.preventDefault();
         e.persist();
@@ -49,27 +42,23 @@ const UpdateAllergies = () => {
             });
         });
     }
-
     // Generates request headers
     let headers = new Headers();
     headers.append("Authorization", `Bearer ${token.token}`);
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
-
     const updateAllergies = async (e) => {
         e.preventDefault();
         // Generates request body
         let body = JSON.stringify({
             "listIngredient": ingredients,
         });
-
         // Generates request
         let request = {
             method: 'PUT',
             headers: headers,
             body: body,
         };
-
         // Executes fetch
         const api = `${apiBase}/user/allergies/${user.id}`;
         const response = await fetch(api, request);
@@ -82,8 +71,7 @@ const UpdateAllergies = () => {
             alert("Error: " + response.status);
         }
     }
-
-    useEffect(fetchData, []);
+    useEffect(fetchData, [location, user]);
 
     console.log(ingredients)
     return (

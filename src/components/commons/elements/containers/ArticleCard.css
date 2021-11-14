@@ -80,6 +80,7 @@
 
 .card-likes svg {
     width: 20px;
+    margin-right: 4px;
 }
 
 .card-status {

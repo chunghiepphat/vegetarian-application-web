@@ -11,7 +11,7 @@ const UserBlogs = ({user, location, data, isLoading, isError, fetchData, userId}
     // Executes fetch once on page load
     useEffect(() => {
         fetchData(api);
-    }, [location, user]);
+    }, [location, user, userId]);
 
     return (
         <section>

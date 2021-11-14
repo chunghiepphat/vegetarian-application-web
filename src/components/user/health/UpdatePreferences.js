@@ -1,16 +1,12 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
+import {apiBase} from "../../../helpers/Variables";
 import Form from "../../commons/elements/form/Form";
 import InputArray from "../../commons/elements/form/InputArray";
 import InputGroup from "../../commons/elements/form/InputGroup";
 import {ImCross} from "react-icons/all";
-import {apiBase} from "../../../helpers/Variables";
-import {UserContext} from "../../../context/UserContext";
 
-const UpdatePreferences = () => {
-    const user = useContext(UserContext);
-    const token = JSON.parse(localStorage.getItem("accessToken"));
+const UpdatePreferences = ({user, token, location}) => {
     const [ingredients, setIngredients] = useState([]);
-
     const fetchData = async () => {
         const api = `${apiBase}/user/getpreferences/${user.id}`;
         const response = await fetch(api);
@@ -51,7 +47,6 @@ const UpdatePreferences = () => {
     headers.append("Authorization", `Bearer ${token.token}`);
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
-
     const updatePreferences = async (e) => {
         e.preventDefault();
         // Generates request body
@@ -76,7 +71,7 @@ const UpdatePreferences = () => {
             alert("Error: " + response.status);
         }
     }
-    useEffect(fetchData, []);
+    useEffect(fetchData, [location, user]);
 
     return (
         <section>

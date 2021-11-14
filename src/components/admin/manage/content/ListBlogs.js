@@ -6,7 +6,7 @@ import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../../commons/elements/loaders/AlertError";
 import {PanelLoader} from "../../../commons/elements/loaders/Loader";
 
-const BlogList = ({user, location, isLoading, isError, fetchData}) => {
+const ListBlogs = ({user, location, isLoading, isError, fetchData}) => {
     const api = `${apiBase}/blogs/admin/getall?page=1&limit=300`;
     const [data, setData] = useState([]);
     // Executes fetch once on page load
@@ -41,4 +41,4 @@ const BlogList = ({user, location, isLoading, isError, fetchData}) => {
 
 }
 
-export default BlogList;
+export default ListBlogs;

@@ -15,9 +15,9 @@ const ConsoleHome = () => {
                                   number={18} text={"New blogs"} action={"Review"}/>
                 </Panel>
                 <Panel filler="overview-card">
-                    <OverviewCard url={"/console/manage-content/blogs"}
+                    <OverviewCard url={"/console/manage-categories"}
                                   text={"Categories"} action={"Manage"}/>
-                    <OverviewCard url={"/console/manage-members/"}
+                    <OverviewCard url={"/console/manage-members"}
                                   text={"Members"} action={"Manage"}/>
                 </Panel>
             </div>

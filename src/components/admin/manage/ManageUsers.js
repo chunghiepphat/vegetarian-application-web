@@ -1,5 +1,5 @@
 import React from "react";
-import UserList from "./users/UserList";
+import ListUsers from "./users/ListUsers";
 
 const ManageUsers = () => {
     return (
@@ -15,7 +15,7 @@ const ManageUsers = () => {
                     <div className="card-cell-4">Role</div>
                     <div className="card-cell-5">Account status</div>
                 </div>
-                <UserList/>
+                <ListUsers/>
             </div>
         </section>
     )

@@ -1,9 +1,9 @@
 import React from "react";
 
-const UserVideos = () => {
+const MemberVideos = () => {
     return (
         <></>
     )
 }
 
-export default UserVideos;
+export default MemberVideos;

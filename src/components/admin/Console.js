@@ -9,6 +9,7 @@ import ReviewRecipe from "./review/ReviewRecipe";
 import ReviewVideo from "./review/ReviewVideo";
 import ReviewBlog from "./review/ReviewBlog";
 import ReviewUser from "./review/ReviewUser";
+import ManageCategories from "./manage/ManageCategories";
 
 const Console = () => {
     return (
@@ -18,11 +19,12 @@ const Console = () => {
                 <Switch>
                     <Route exact path="/console"><ConsoleHome/></Route>
                     <Route path="/console/manage-content"><ManageContent/></Route>
+                    <Route path="/console/manage-categories"><ManageCategories/></Route>
                     <Route path="/console/manage-members"><ManageUsers/></Route>
-                    <Route path="/console/recipe/:id" component={ReviewRecipe}/>
-                    <Route path="/console/video/:id" component={ReviewVideo}/>
-                    <Route path="/console/blog/:id" component={ReviewBlog}/>
-                    <Route path="/console/user/:id" component={ReviewUser}/>
+                    <Route path="/console/recipe/:id"><ReviewRecipe/></Route>
+                    <Route path="/console/video/:id"><ReviewVideo/></Route>
+                    <Route path="/console/blog/:id"><ReviewBlog/></Route>
+                    <Route path="/console/user/:id"><ReviewUser/></Route>
                     <Route><Redirect to="/console"/></Route>
                 </Switch>
             </main>

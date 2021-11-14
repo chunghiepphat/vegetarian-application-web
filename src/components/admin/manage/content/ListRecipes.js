@@ -6,7 +6,7 @@ import {PanelLoader} from "../../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../../commons/elements/loaders/AlertError";
 
-const RecipeList = ({user, location, isLoading, isError, fetchData}) => {
+const ListRecipes = ({user, location, isLoading, isError, fetchData}) => {
     const api = `${apiBase}/recipes/admin/getall?page=1&limit=300`;
     const [data, setData] = useState([]);
     // Executes fetch once on page load
@@ -39,4 +39,4 @@ const RecipeList = ({user, location, isLoading, isError, fetchData}) => {
     )
 }
 
-export default RecipeList;
+export default ListRecipes;

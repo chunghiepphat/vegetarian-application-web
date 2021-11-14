@@ -1,17 +1,16 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useState} from "react";
 import {UserContext} from "../../../context/UserContext";
 import Navbar from "../../commons/elements/bars/Navbar";
 import {NavLink, Redirect, Route, Switch, useLocation} from "react-router-dom";
-import RecipeList from "./content/RecipeList";
-import VideoList from "./content/VideoList";
-import BlogList from "./content/BlogList";
+import ListRecipes from "./content/ListRecipes";
+import ListVideos from "./content/ListVideos";
+import ListBlogs from "./content/ListBlogs";
 
 
 const ManageContent = () => {
     const location = useLocation();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    // const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
 
@@ -57,17 +56,17 @@ const ManageContent = () => {
             <div className="console-content">
                 <Switch>
                     <Route path={`/console/manage-content/recipes`}>
-                        <RecipeList user={user} location={location}
+                        <ListRecipes user={user} location={location}
+                                     isLoading={isLoading} isError={isError}
+                                     fetchData={fetchData}/> </Route>
+                    <Route path={`/console/manage-content/videos`}>
+                        <ListVideos user={user} location={location}
                                     isLoading={isLoading} isError={isError}
                                     fetchData={fetchData}/> </Route>
-                    <Route path={`/console/manage-content/videos`}>
-                        <VideoList user={user} location={location}
+                    <Route path={`/console/manage-content/blogs`}>
+                        <ListBlogs user={user} location={location}
                                    isLoading={isLoading} isError={isError}
                                    fetchData={fetchData}/> </Route>
-                    <Route path={`/console/manage-content/blogs`}>
-                        <BlogList user={user} location={location}
-                                  isLoading={isLoading} isError={isError}
-                                  fetchData={fetchData}/> </Route>
                     <Route><Redirect to={`/console/manage-content/recipes`}/></Route>
                 </Switch>
             </div>

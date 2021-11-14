@@ -5,7 +5,7 @@ import {SectionLoader} from "../../../commons/elements/loaders/Loader";
 import UserCard from "../../elements/UserCard";
 import Avatar from "../../../commons/elements/Avatar";
 
-const UserList = () => {
+const ListUsers = () => {
     const [data, setData] = useState([]);
     const token = JSON.parse(localStorage.getItem("accessToken"));
 
@@ -59,4 +59,4 @@ const UserList = () => {
     )
 }
 
-export default UserList;
+export default ListUsers;
