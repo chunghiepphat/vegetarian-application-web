@@ -10,6 +10,7 @@
     overflow: hidden;
     animation: fade-in 0.3s;
     -webkit-animation: fade-in 0.3s;
+    z-index: 0;
 }
 
 .article-tile,

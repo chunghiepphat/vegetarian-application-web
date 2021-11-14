@@ -90,14 +90,14 @@
     padding: 20px 40px;
 }
 
-.console-toolbar p {
+.console-toolbar > p {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 10px;
 }
 
-.console-toolbar button {
-    max-width: 240px;
+.console-toolbar > button {
+    max-width: 100%;
 }
 
 .user-header {
@@ -115,12 +115,13 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    height: 100%;
     padding: 10px 0;
 }
 
 .user-image {
-    width: 60px;
-    height: 60px;
+    width: 36px;
+    height: 36px;
     margin-right: 10px;
 }
 

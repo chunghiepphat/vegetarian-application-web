@@ -1,14 +1,18 @@
 import React, {useContext, useEffect, useState} from "react";
 import {apiBase} from "../../../helpers/Variables";
-import {NavLink, Redirect, Route, Switch, useLocation, useParams} from "react-router-dom";
+import {Link, NavLink, Redirect, Route, Switch, useLocation, useParams} from "react-router-dom";
 import Navbar from "../../commons/elements/bars/Navbar";
-import MemberRecipes from "./user/MemberRecipes";
-import MemberVideos from "./user/MemberVideos";
-import MemberBlogs from "./user/MemberBlogs";
+import AccountRecipes from "./account/AccountRecipes";
+import AccountVideos from "./account/AccountVideos";
+import AccountBlogs from "./account/AccountBlogs";
 import Avatar from "../../commons/elements/Avatar";
 import {UserContext} from "../../../context/UserContext";
+import {FaAngleLeft} from "react-icons/fa";
+import {FaCheck, FaTimes} from "react-icons/all";
+import Panel from "../../commons/elements/containers/Panel";
+import OverviewCard from "../elements/OverviewCard";
 
-const ReviewUser = () => {
+const ReviewAccount = () => {
     let {id} = useParams();
     const location = useLocation();
     const user = useContext(UserContext);
@@ -100,19 +104,9 @@ const ReviewUser = () => {
                 <div className="user-header">
                     <Avatar className="user-image" userImage={profile.profile_image}/>
                     <div className="user-info">
-                        <h1>{profile.first_name} {profile.last_name}</h1>
-                        <em>{profile.about_me}</em>
+                        <h1>{profile.first_name} {profile.last_name} - {profile.email}</h1>
                     </div>
                 </div>}
-                {profile && profile.is_active ?
-                    <button className="button-light" style={{width: "300px"}} onClick={e => deactivateUser(e)}>
-                        Deactivate this account
-                    </button>
-                    :
-                    <button className="button-dark" style={{width: "300px"}} onClick={e => deactivateUser(e)}>
-                        Re-activate this account
-                    </button>
-                }
                 <Navbar>
                     <NavLink to={urlProfile}>Profile</NavLink>
                     <NavLink to={urlRecipes}>Recipes</NavLink>
@@ -120,25 +114,44 @@ const ReviewUser = () => {
                     <NavLink to={urlBlogs}>Blogs</NavLink>
                 </Navbar>
             </header>
-            <div className="console-content">
+            <div className="console-toolbar">
+                <Link to="/console/manage-content/recipes"><FaAngleLeft/> Go back</Link>
+                <h1>Overview</h1>
+                {profile && profile.is_active && <p className="text-positive">Active account</p>}
+                {profile && !profile.is_active && <p className="text-negative">Account disabled</p>}
+                <Panel>
+                    <OverviewCard number={2} text="Flags in the past 3 days"/>
+                    <OverviewCard number="1%" text="Flagged rate"/>
+                </Panel>
+                {profile && profile.is_active ? <>
+                    <button className="button-light" style={{width: "300px"}} onClick={e => deactivateUser(e)}>
+                        Deactivate this account
+                    </button>
+                </> : <>
+                    <button className="button-dark" style={{width: "300px"}} onClick={e => deactivateUser(e)}>
+                        Re-activate this account
+                    </button>
+                </>}
+            </div>
+            <div className="console-article">
                 <Switch>
                     <Route exact path={`/console/user/${id}`}><Redirect to={urlRecipes}/></Route>
                     {!isProfileError && <Route exact path={urlRecipes}>
-                        <MemberRecipes user={user} userId={id} location={location}
+                        <AccountRecipes user={user} userId={id} location={location}
+                                        isLoading={isPostsLoading} isError={isPostsError}
+                                        data={posts} fetchData={fetchPosts}/> </Route>}
+                    {!isProfileError && <Route path={urlVideos}>
+                        <AccountVideos user={user} userId={id} location={location}
                                        isLoading={isPostsLoading} isError={isPostsError}
                                        data={posts} fetchData={fetchPosts}/> </Route>}
-                    {!isProfileError && <Route path={urlVideos}>
-                        <MemberVideos user={user} userId={id} location={location}
+                    {!isProfileError && <Route path={urlBlogs}>
+                        <AccountBlogs user={user} userId={id} location={location}
                                       isLoading={isPostsLoading} isError={isPostsError}
                                       data={posts} fetchData={fetchPosts}/> </Route>}
-                    {!isProfileError && <Route path={urlBlogs}>
-                        <MemberBlogs user={user} userId={id} location={location}
-                                     isLoading={isPostsLoading} isError={isPostsError}
-                                     data={posts} fetchData={fetchPosts}/> </Route>}
                 </Switch>
             </div>
         </section>
     )
 }
 
-export default ReviewUser;
+export default ReviewAccount;

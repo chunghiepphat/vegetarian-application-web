@@ -6,7 +6,7 @@ import {PanelLoader} from "../../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../../commons/elements/loaders/AlertError";
 
-const MemberBlogs = ({user, location, data, isLoading, isError, fetchData, userId}) => {
+const AccountBlogs = ({user, location, data, isLoading, isError, fetchData, userId}) => {
     const api = `${apiBase}/blogs/admin/getallbyuser/${userId}?page=1&limit=100`;
     // Executes fetch once on page load
     useEffect(() => {
@@ -44,4 +44,4 @@ const MemberBlogs = ({user, location, data, isLoading, isError, fetchData, userI
     )
 }
 
-export default MemberBlogs;
+export default AccountBlogs;

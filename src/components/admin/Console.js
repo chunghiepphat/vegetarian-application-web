@@ -8,7 +8,7 @@ import ManageUsers from "./manage/ManageUsers";
 import ReviewRecipe from "./review/ReviewRecipe";
 import ReviewVideo from "./review/ReviewVideo";
 import ReviewBlog from "./review/ReviewBlog";
-import ReviewUser from "./review/ReviewUser";
+import ReviewAccount from "./review/ReviewAccount";
 import ManageCategories from "./manage/ManageCategories";
 
 const Console = () => {
@@ -24,7 +24,7 @@ const Console = () => {
                     <Route path="/console/recipe/:id"><ReviewRecipe/></Route>
                     <Route path="/console/video/:id"><ReviewVideo/></Route>
                     <Route path="/console/blog/:id"><ReviewBlog/></Route>
-                    <Route path="/console/user/:id"><ReviewUser/></Route>
+                    <Route path="/console/user/:id"><ReviewAccount/></Route>
                     <Route><Redirect to="/console"/></Route>
                 </Switch>
             </main>

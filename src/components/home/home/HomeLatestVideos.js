@@ -44,7 +44,7 @@ const HomeLatestVideos = ({user, location}) => {
                 <Link to="/browse/videos"><FaAngleRight/>See more</Link>
             </header>
             <div className="section-content">
-                <Panel filler="card-wide">
+                <Panel filler="tile-video">
                     {!isLoading ? <>
                         {!isError ? <>
                             {data && data.length > 0 ? <>
