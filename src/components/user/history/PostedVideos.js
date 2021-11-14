@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import Panel from "../../commons/elements/containers/Panel";
 import VideoTile from "../../commons/elements/containers/VideoTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
@@ -16,9 +16,9 @@ const PostedVideos = ({user, location, data, isLoading, isError, fetchData}) => 
     return (
         <section>
             <div className="section-content">
-                <h1>Recipes</h1>
-                <p>Your published recipes are shown here.</p>
-                <Panel filler="card-medium">
+                <h1>Videos</h1>
+                <p>Your published videos tutorials.</p>
+                <Panel filler="tile-video">
                     {!isLoading ? <>
                         {!isError ? <>
                             {data && data.length > 0 ? <>

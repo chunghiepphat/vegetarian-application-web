@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {apiBase} from "../../../../helpers/Helpers";
+import {apiBase} from "../../../../helpers/Variables";
 import {UserContext} from "../../../../context/UserContext";
 import {Link, useLocation} from "react-router-dom";
 import Comment from "../../../commons/elements/Comment";

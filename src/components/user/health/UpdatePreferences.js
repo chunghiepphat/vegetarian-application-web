@@ -3,7 +3,7 @@ import Form from "../../commons/elements/form/Form";
 import InputArray from "../../commons/elements/form/InputArray";
 import InputGroup from "../../commons/elements/form/InputGroup";
 import {ImCross} from "react-icons/all";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import {UserContext} from "../../../context/UserContext";
 
 const UpdatePreferences = () => {
@@ -17,7 +17,6 @@ const UpdatePreferences = () => {
         const result = await response.json();
         setIngredients(result.listIngredient);
     }
-
     const handleAddField = (e) => {
         e.preventDefault();
         const ingredient = {
@@ -29,7 +28,6 @@ const UpdatePreferences = () => {
         e.preventDefault();
         setIngredients((prev) => prev.filter((item) => item !== prev[index]));
     }
-
     const handleClear = (e) => {
         e.preventDefault();
         setIngredients([]);
@@ -48,7 +46,6 @@ const UpdatePreferences = () => {
             });
         });
     }
-
     // Generates request headers
     let headers = new Headers();
     headers.append("Authorization", `Bearer ${token.token}`);
@@ -61,14 +58,12 @@ const UpdatePreferences = () => {
         let body = JSON.stringify({
             "listIngredient": ingredients,
         });
-
         // Generates request
         let request = {
             method: 'PUT',
             headers: headers,
             body: body,
         };
-
         // Executes fetch
         const api = `${apiBase}/user/preferences/${user.id}`;
         const response = await fetch(api, request);
@@ -81,7 +76,6 @@ const UpdatePreferences = () => {
             alert("Error: " + response.status);
         }
     }
-
     useEffect(fetchData, []);
 
     return (
@@ -117,16 +111,15 @@ const UpdatePreferences = () => {
                         <em>What's your favorite? Tofu? Cherry tomatoes? Share with us!</em>
                     }
                     {/*Control buttons*/}
-                    <div className="input-group">
-                        <button onClick={handleAddField}>Add ingredient</button>
-                        <button className="button-cancel" onClick={handleClear}>Clear</button>
+                    <div className="sticky-bottom">
+                        <div className="input-group">
+                            <button className="button-light" onClick={handleAddField}>Add ingredient</button>
+                            <button className="button-light" onClick={handleClear}>Clear</button>
+                            {ingredients.length > 0 ?
+                                <button type="submit" className="button-dark">Save</button>
+                                : <button disabled>Save</button>}
+                        </div>
                     </div>
-                    {ingredients.length > 0 ?
-                        // Submit button
-                        <button type="submit" className="button-submit">Save</button>
-                        :
-                        <button disabled>Save</button>
-                    }
                 </Form>
             </div>
         </section>

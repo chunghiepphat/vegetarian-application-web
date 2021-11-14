@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import CountrySelect from "../../commons/elements/CountrySelect";
 import {UserContext} from "../../../context/UserContext";
 import Form from "../../commons/elements/form/Form";
@@ -122,7 +122,7 @@ const UpdateProfile = () => {
                         <textarea value={aboutMe} onChange={e => setAboutMe(e.target.value)}
                                   placeholder="Write a short something about you..."/>
                     </label>
-                    <button type="submit" className="button-submit">Update</button>
+                    <button type="submit" className="button-dark">Update</button>
                 </Form>
             </div>
         </section>

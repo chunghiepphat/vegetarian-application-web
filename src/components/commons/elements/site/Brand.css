@@ -1,6 +1,10 @@
-.site-brand {
+.brand {
     width: 200px;
     margin-right: 20px;
     padding: 0;
     overflow: hidden;
+}
+
+.brand-link:hover {
+    filter: brightness(1.1);
 }

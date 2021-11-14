@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
 import {useHistory, useLocation} from "react-router-dom";
 import {UserContext} from "../../../../context/UserContext";
-import {apiBase} from "../../../../helpers/Helpers";
+import {apiBase} from "../../../../helpers/Variables";
 import {AiFillEye, AiOutlineEyeInvisible, FaHeart, FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
 
 const VideoToolbar = ({id, data, reload, mainApi}) => {
@@ -123,27 +123,28 @@ const VideoToolbar = ({id, data, reload, mainApi}) => {
                     {/*If user is logged in, show toolbar*/}
                     {data &&
                     <button title="Add to favorites" onClick={favoriteArticle}
-                            className={`article-button button-labeled ${data.is_like && "button-favorite"}`}>
+                            className={`article-button article-button-with-text ${data.is_like && "button-favorite"}`}>
                         {data.is_like ?
                             <FaHeart/> : <FaRegHeart/>} {data.totalLike}
                     </button>}
                     {/*If user is the author of the article, allow modify*/}
                     {data && user.id === data.user_id && <>
                         {data &&
-                        <button title="Article visibility" className="article-button button-labeled"
+                        <button title="Article visibility" className="article-button article-button-with-text"
                                 onClick={publishArticle}>
                             {data.is_private ?
                                 <><AiOutlineEyeInvisible/> Private</>
                                 : <><AiFillEye/> Public</>}
                         </button>}
-                        <button title="Delete article" className="article-button" onClick={deleteArticle}>
+                        <button title="Delete article" className="article-button article-button-no-text"
+                                onClick={deleteArticle}>
                             <RiDeleteBin4Line/>
                         </button>
                     </>}
                 </div>
                 : <div className="article-controls">
                     {/*If not logged in, the favorite button directs to login form*/}
-                    <button className={`article-button button-labeled ${isFavorite && "button-favorite"}`}
+                    <button className={`article-button article-button-with-text ${isFavorite && "button-favorite"}`}
                             onClick={() => history.push({
                                 pathname: "/login",
                                 state: {background: location}

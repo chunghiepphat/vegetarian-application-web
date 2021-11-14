@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import "./SearchBar.css";
 import {FaSistrix} from "react-icons/all";
 import {useHistory} from "react-router-dom";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 
 const SearchBar = (props) => {
     const [query, setQuery] = useState();

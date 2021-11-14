@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {useParams} from "react-router-dom";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import VideoPlayer from "./video/VideoPlayer";
 import VideoDetails from "./video/VideoDetails";
 import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";

@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import {UserContext} from "../../../context/UserContext";
 import Form from "../../commons/elements/form/Form";
 
@@ -72,7 +72,7 @@ const UpdatePassword = () => {
                                onChange={e => setConfirmPassword(e.target.value)}
                                placeholder="Confirm password" required/>
                     </label>
-                    <button type="submit" className="button-submit">Update</button>
+                    <button type="submit" className="button-dark">Update</button>
                 </Form>
             </div>
         </section>

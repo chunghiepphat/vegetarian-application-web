@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import BlogHeader from "../../home/view/blog/BlogHeader";
 import EditSubtitle from "./blog/EditSubtitle";
 import EditContent from "./blog/EditContent";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import {Link, useHistory} from "react-router-dom";
 import Form from "../../commons/elements/form/Form";
 import {FaAngleLeft} from "react-icons/fa";
@@ -73,8 +73,8 @@ const EditBlog = ({id, data}) => {
             </article>
             <div className="sticky-bottom">
                 <InputGroup>
-                    <button className="button-cancel" onClick={cancelUpdate}>Cancel</button>
-                    <button type="submit" form="updateForm" className="button-submit">Finish</button>
+                    <button className="button-light" onClick={cancelUpdate}>Cancel</button>
+                    <button type="submit" form="updateForm" className="button-dark">Finish</button>
                 </InputGroup>
             </div>
         </div>

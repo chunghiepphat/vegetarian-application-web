@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
@@ -17,7 +17,7 @@ const PostedBlogs = ({user, location, data, isLoading, isError, fetchData}) => {
         <section>
             <div className="section-content">
                 <h1>Blogs</h1>
-                <i>Your published blogs and stories.</i>
+                <p>Your published blogs and stories.</p>
                 <Panel filler="card-full">
                     {!isLoading ? <>
                         {!isError ? <>

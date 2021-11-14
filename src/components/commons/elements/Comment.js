@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import "./Comment.css";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import {UserContext} from "../../../context/UserContext";
 import Avatar from "./Avatar";
 import moment from "moment";

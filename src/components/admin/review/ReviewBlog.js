@@ -1,25 +1,75 @@
 import React, {useEffect, useState} from "react";
-import {Route, Switch, useLocation, useParams} from "react-router-dom";
-import {apiBase} from "../../../helpers/Helpers";
-import BlogContent from "./blog/BlogContent";
-import BlogComments from "./blog/BlogComments";
-import BlogHeader from "./blog/BlogHeader";
+import {Link, Route, Switch, useLocation, useParams} from "react-router-dom";
+import {apiBase} from "../../../helpers/Variables";
+import BlogHeader from "../../home/view/blog/BlogHeader";
+import BlogToolbar from "../../home/view/blog/BlogToolbar";
+import BlogContent from "../../home/view/blog/BlogContent";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
-import BlogToolbar from "./blog/BlogToolbar";
-import EditBlog from "../../user/edit/EditBlog";
+import {FaCheck, FaTimes} from "react-icons/all";
+import {FaAngleLeft} from "react-icons/fa";
+import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";
+import {SectionErr} from "../../commons/elements/loaders/AlertError";
 
 const ViewRecipe = () => {
     let {id} = useParams();
     const location = useLocation();
+    const token = JSON.parse(localStorage.getItem("accessToken"));
     const [data, setData] = useState();
-
+    const [isError, setIsError] = useState(false);
+    const statusText = [
+        "Waiting for review.",
+        "Approved & published.",
+        "Rejected & hidden."
+    ]
+    const statusColor = [
+        "text-neutral",
+        "text-positive",
+        "text-negative"
+    ]
+    // Generates request headers
+    let headers = new Headers();
+    if (token) headers.append("Authorization", `Bearer ${token.token}`);
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
     const fetchData = async () => {
+        setIsError(false);
         const api = `${apiBase}/blogs/getblogby/${id}`;
-        const response = await fetch(api);
-        const result = await response.json();
-        setData(result);
+        try {
+            const response = await fetch(api)
+            if (response.ok) {
+                const result = await response.json();
+                setData(result);
+            } else if (response.status >= 400 && response.status < 600) {
+                setIsError(true);
+            }
+        } catch (error) {
+            console.error(error);
+            setIsError(true);
+        }
     }
-
+    const approveArticle = async (e, status) => {
+        e.preventDefault();
+        // Generates request body
+        let body = JSON.stringify({
+            "status": status,
+        });
+        // Generates request
+        let request = {
+            method: 'PUT',
+            headers: headers,
+            body: body,
+        };
+        // Executes fetch
+        const api = `${apiBase}/blogs/approve/${id}`;
+        const response = await fetch(api, request);
+        if (response.ok) {
+            await fetchData();
+        } else if (response.status === 401) {
+            alert("You are not authorized to do that.")
+        } else {
+            alert("Unexpected error with code: " + response.status);
+        }
+    }
     // Executes fetch once on page load
     useEffect(() => {
         fetchData().catch(error => {
@@ -29,12 +79,22 @@ const ViewRecipe = () => {
 
     return (
         <section>
-            <Switch>
-                <Route path={`/view/blog/:id/edit`}>
-                    <EditBlog id={id} data={data}/>
-                </Route>
-                <Route>
-                    {data ?
+            <div className="console-toolbar">
+                <Link to="/console/manage-content/recipes"><FaAngleLeft/> Go back</Link>
+                {data && <h1>Blog {id}</h1>}
+                {data && <p className={statusColor[data.status - 1]}>{statusText[data.status - 1]}</p>}
+                {data && <>
+                    {data.status !== 2 ?
+                        <button className="button-dark" onClick={e => approveArticle(e, 2)}>Approve</button>
+                        : <button disabled><FaCheck/> Approved</button>}
+                    {data.status !== 3 ?
+                        <button className="button-light" onClick={e => approveArticle(e, 3)}>Reject</button>
+                        : <button disabled><FaTimes/> Rejected</button>}
+                </>}
+            </div>
+            <div className="console-article">
+                {!isError ? <>
+                    {data ? <>
                         <div className="section-content">
                             <article>
                                 {data.blog_thumbnail &&
@@ -43,18 +103,13 @@ const ViewRecipe = () => {
                                     <img src="" alt=""/>
                                 </picture>}
                                 <BlogHeader data={data}/>
-                                <BlogToolbar id={id} data={data} reload={fetchData}/>
                                 <BlogContent data={data}/>
-                                <BlogComments data={data}/>
                             </article>
                         </div>
-                        :
-                        <SectionLoader/>
-                    }
-                </Route>
-            </Switch>
+                    </> : <SectionEmp message="Loading the article..."/>}
+                </> : <SectionErr reload={fetchData}/>}
+            </div>
         </section>
-
     )
 }
 

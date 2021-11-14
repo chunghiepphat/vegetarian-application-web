@@ -14,6 +14,7 @@ const Browse = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const fetchData = async (api) => {
+        setIsError(false);
         setIsLoading(true);
         try {
             const response = await fetch(api)

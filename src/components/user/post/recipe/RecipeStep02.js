@@ -48,8 +48,8 @@ const RecipeStep02 = (props) => {
                     <div className="sticky-bottom">
                         {image ?
                             <InputGroup>
-                                <button className="button-cancel" onClick={clearInput}>Clear</button>
-                                <button type="submit" className="button-submit">
+                                <button className="button-light" onClick={clearInput}>Clear</button>
+                                <button type="submit" className="button-dark">
                                     Next step
                                 </button>
                             </InputGroup>

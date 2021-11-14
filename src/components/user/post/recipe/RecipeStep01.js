@@ -88,8 +88,8 @@ const RecipeStep01 = (props) => {
                                    onChange={e => props.setRestingTime(e.target.value)}/> </InputGroup> </label>
                     <div className="sticky-bottom">
                         <InputGroup>
-                            <button className="button-cancel" onClick={clearInput}>Clear</button>
-                            <button type="submit" className="button-submit">
+                            <button className="button-light" onClick={clearInput}>Clear</button>
+                            <button type="submit" className="button-dark">
                                 Next step
                             </button>
                         </InputGroup>

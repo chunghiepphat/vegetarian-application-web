@@ -5,7 +5,7 @@ import DashboardSidebar from "./DashboardSidebar";
 import FavoriteRecipes from "./favorites/FavoriteRecipes";
 import FavoriteBlogs from "./favorites/FavoriteBlogs";
 import {UserContext} from "../../context/UserContext";
-import {apiBase} from "../../helpers/Helpers";
+import {apiBase} from "../../helpers/Variables";
 
 const Favorites = () => {
     const location = useLocation();

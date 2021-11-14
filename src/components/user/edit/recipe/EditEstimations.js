@@ -77,7 +77,7 @@ const EditEstimations = (props) => {
                            onChange={e => props.setRestingTime(e.target.value)}/>
                 </InputGroup>
             </label>
-            <button className="button-cancel" onClick={handleUndo}>Clear changes</button>
+            <button className="button-light" onClick={handleUndo}>Clear changes</button>
         </section>
     )
 }

@@ -1,8 +1,8 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext} from "react";
 import {AiFillEye, AiOutlineEyeInvisible, FaHeart, FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
 import {UserContext} from "../../../../context/UserContext";
-import {apiBase} from "../../../../helpers/Helpers";
-import {useHistory, useLocation} from "react-router-dom";
+import {apiBase} from "../../../../helpers/Variables";
+import {useHistory} from "react-router-dom";
 
 const BlogToolbar = ({id, location, data, reload, mainApi}) => {
     const history = useHistory();
@@ -123,30 +123,30 @@ const BlogToolbar = ({id, location, data, reload, mainApi}) => {
                     {/*If user is logged in, show toolbar*/}
                     {data &&
                     <button title="Add to favorites" onClick={favoriteArticle}
-                            className={`article-button button-labeled ${data.is_like && "button-favorite"}`}>
+                            className={`article-button article-button-with-text ${data.is_like && "button-favorite"}`}>
                         {data.is_like ?
                             <FaHeart/> : <FaRegHeart/>} {data.totalLike}
                     </button>}
                     {/*If user is the author of the article, allow modify*/}
                     {data && user.id === data.user_id && <>
                         {data &&
-                        <button title="Article visibility" className="article-button button-labeled"
+                        <button title="Article visibility" className="article-button article-button-with-text"
                                 onClick={publishArticle}>
                             {data.is_private ?
                                 <><AiOutlineEyeInvisible/> Private</>
                                 : <><AiFillEye/> Public</>}
                         </button>}
-                        <button className="article-button" onClick={editArticle}>
+                        <button className="article-button article-button-no-text" onClick={editArticle}>
                             <RiEditLine/>
                         </button>
-                        <button className="article-button" onClick={deleteArticle}>
+                        <button className="article-button article-button-no-text" onClick={deleteArticle}>
                             <RiDeleteBin4Line/>
                         </button>
                     </>}
                 </div>
                 : <div className="article-controls">
                     {/*If not logged in, the favorite button directs to login form*/}
-                    <button className={`article-button button-labeled ${data.is_like && "button-favorite"}`}
+                    <button className={`article-button article-button-with-text ${data.is_like && "button-favorite"}`}
                             onClick={() => history.push({
                                 pathname: "/login",
                                 state: {background: location}

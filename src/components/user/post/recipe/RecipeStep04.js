@@ -75,11 +75,11 @@ const RecipeStep04 = (props) => {
                             {props.isLoading ? <>
                                 <button disabled>{props.uploadProgress}</button>
                             </> : <>
-                                <button className="button-cancel" onClick={handleAddField}>Add a step</button>
+                                <button className="button-light" onClick={handleAddField}>Add a step</button>
                                 {props.steps.length > 0 ? <>
-                                    <button className="button-cancel" onClick={handleClear}>Clear</button>
-                                    <button type="submit" className="button-submit" name="true">Save draft</button>
-                                    <button type="submit" className="button-submit" name="false">Publish</button>
+                                    <button className="button-light" onClick={handleClear}>Clear</button>
+                                    <button type="submit" className="button-dark" name="true">Save draft</button>
+                                    <button type="submit" className="button-dark" name="false">Publish</button>
                                 </> : <>
                                     <button disabled>Clear</button>
                                     <button disabled>Save draft</button>

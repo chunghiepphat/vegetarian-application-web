@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";

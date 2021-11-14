@@ -2,7 +2,7 @@ import React from "react";
 import "./Auth.css";
 import Login from "./forms/Login";
 import {createPortal} from "react-dom";
-import {Route, useHistory, withRouter} from "react-router-dom";
+import {Link, Route, useHistory, withRouter} from "react-router-dom";
 
 const AuthModal = ({background}) => {
     const history = useHistory();
@@ -16,8 +16,11 @@ const AuthModal = ({background}) => {
             <div className="modal-container">
                 <Route path="/login"><Login background={background.pathname}/></Route>
                 <div className="auth-section">
-                    <button className="button-cancel" onClick={closeModal}>Close</button>
+                    <button className="button-light" onClick={closeModal}>Close</button>
                 </div>
+                <p>Forgot your password? <Link to={{
+                    pathname: "/auth/account-recover",
+                }}>Click here.</Link></p>
             </div>
         </div>,
         document.getElementById("modal-root")

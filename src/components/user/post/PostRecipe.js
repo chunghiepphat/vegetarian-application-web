@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Redirect, Route, Switch} from "react-router-dom";
 import {cloudName, uploadPreset} from "../../../helpers/Cloudinary";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import RecipeStep01 from "./recipe/RecipeStep01";
 import RecipeStep02 from "./recipe/RecipeStep02";
 import RecipeStep03 from "./recipe/RecipeStep03";

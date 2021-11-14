@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {apiBase} from "../../../../helpers/Helpers";
+import {apiBase} from "../../../../helpers/Variables";
 import Panel from "../../../commons/elements/containers/Panel";
 import {SectionLoader} from "../../../commons/elements/loaders/Loader";
-import UserCard from "../../../commons/elements/containers/UserCard";
+import UserCard from "../../elements/UserCard";
 import Avatar from "../../../commons/elements/Avatar";
 
 const UserList = () => {
@@ -10,9 +10,7 @@ const UserList = () => {
     const token = JSON.parse(localStorage.getItem("accessToken"));
 
     let headers = new Headers();
-    if (token) {
-        headers.append("Authorization", `Bearer ${token.token}`);
-    }
+    if (token) headers.append("Authorization", `Bearer ${token.token}`);
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
 

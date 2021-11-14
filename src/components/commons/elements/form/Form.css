@@ -7,6 +7,10 @@ button, input, select, textarea {
 
 /*Buttons*/
 button, .button-link {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     height: 40px;
     color: #eeeeee;
     font-weight: 600;
@@ -16,6 +20,14 @@ button, .button-link {
     box-shadow: 0 2px 4px #d0d0d0;
     cursor: pointer;
 }
+
+button svg, .button-link svg {
+    margin-right: 6px;
+}
+
+/*button svg:last-child, .button-link svg:last-child {*/
+/*    margin-right: 0;*/
+/*}*/
 
 button:hover, .button-link:hover {
     filter: brightness(1.1);
@@ -37,12 +49,12 @@ button:disabled:hover, .button-link:disabled:hover {
     align-items: center;
 }
 
-.button-submit {
+.button-dark {
     color: #eeeeee;
     background: #717744;
 }
 
-.button-cancel {
+.button-light {
     color: #656665;
     background: #e6d3a3;
 }

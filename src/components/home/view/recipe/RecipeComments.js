@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {UserContext} from "../../../../context/UserContext";
-import {apiBase} from "../../../../helpers/Helpers";
+import {apiBase} from "../../../../helpers/Variables";
 import {Link, useLocation} from "react-router-dom";
 import Comment from "../../../commons/elements/Comment";
 import {FaAngleRight} from "react-icons/fa";

@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 import {UserContext} from "../../../context/UserContext";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import {apiKey} from "../../../helpers/Cloudinary";
 import VideoStep01 from "./video/VideoStep01";
 import VideoStep02 from "./video/VideoStep02";

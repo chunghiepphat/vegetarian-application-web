@@ -1,13 +1,9 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Form from "../../commons/elements/form/Form";
 import InputGroup from "../../commons/elements/form/InputGroup";
-import {UserContext} from "../../../context/UserContext";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 
-const UpdateHealth = () => {
-    const user = useContext(UserContext);
-    const token = JSON.parse(localStorage.getItem("accessToken"));
-
+const UpdateHealth = ({user, token, location}) => {
     // Health index
     const [height, setHeight] = useState(user.height);
     const [weight, setWeight] = useState(user.weight);
@@ -21,7 +17,6 @@ const UpdateHealth = () => {
         "High intensity -  hobbyist athlete and/or daily workouts",
         "Extreme intensity - professional athlete"
     ]
-
     // User profile
     const [gender, setGender] = useState(user.gender);
     const [birthdate, setBirthdate] = useState(user.birth_date);
@@ -31,13 +26,11 @@ const UpdateHealth = () => {
     let currentYear = new Date().getFullYear();
     const today = currentYear + "-" + currentMonth + "-" + currentDate;
     const genders = ["Male", "Female"];
-
     // Generates request headers
     let headers = new Headers();
     headers.append("Authorization", `Bearer ${token.token}`);
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
-
     const updateHealth = async () => {
         // Generates request body
         let body = JSON.stringify({
@@ -45,14 +38,12 @@ const UpdateHealth = () => {
             "weight": weight,
             "workout_routine": routine,
         });
-
         // Generates request
         let request = {
             method: 'PUT',
             headers: headers,
             body: body,
         };
-
         // Executes fetch
         const api = `${apiBase}/user/update/bodyindex/${user.id}`;
         const response = await fetch(api, request);
@@ -64,7 +55,6 @@ const UpdateHealth = () => {
             alert("Error: " + response.status);
         }
     }
-
     const updateProfile = async () => {
         // Generates request body
         let body = JSON.stringify({
@@ -78,14 +68,12 @@ const UpdateHealth = () => {
             "birth_date": birthdate,
             "gender": gender,
         });
-
         // Generates request
         let request = {
             method: 'PUT',
             headers: headers,
             body: body,
         };
-
         // Executes fetch
         const api = `${apiBase}/user/update/details/${user.id}`;
         const response = await fetch(api, request);
@@ -101,12 +89,11 @@ const UpdateHealth = () => {
         updateHealth();
         updateProfile();
     }
-
     const calculateBmi = () => {
         let result = (weight / Math.pow((height / 100), 2)).toFixed(2);
         setBmi(result);
         // Set BMI category
-        if (height == 0 || weight == 0) {
+        if (height === 0 || weight === 0) {
             setBodyType();
             setVerdict("We will automatically calculate your BMI with your height and weight.");
         } else if (result < 16) {
@@ -135,7 +122,6 @@ const UpdateHealth = () => {
             setVerdict("You are morbidly obese. Please check in with a doctor.")
         }
     }
-
     useEffect(calculateBmi, [height, weight])
 
     return (
@@ -147,10 +133,8 @@ const UpdateHealth = () => {
             </header>
             <div className="section-content">
                 <div className="bmi-result">
-                    {bmi &&
-                    <>
-                        {bodyType && <h1>Your BMI is {bmi}  <>- {bodyType}</>
-                        </h1>}
+                    {bmi && <>
+                        {bodyType && <h1> Your BMI is {bmi} - {bodyType}</h1>}
                         {verdict && <p>{verdict}</p>}
                     </>}
                 </div>
@@ -173,8 +157,7 @@ const UpdateHealth = () => {
                         <label>Gender
                             <select value={gender} onChange={e => setGender(e.target.value)}>
                                 {genders.map((gender) => (
-                                    <option>{gender}</option>
-                                ))}
+                                    <option>{gender}</option>))}
                             </select>
                         </label>
                         <label>Date of birth
@@ -187,13 +170,12 @@ const UpdateHealth = () => {
                     <label>Workout routine
                         <select value={routine} onChange={e => setRoutine(e.target.value)}>
                             {routines.map((option, index) => (
-                                <option value={index + 1}>{option}</option>
-                            ))}
+                                <option value={index + 1}>{option}</option>))}
                         </select>
                     </label>
-                    <InputGroup>
-                        <button type="submit" className="button-submit">Save</button>
-                    </InputGroup>
+                    <div className="sticky-bottom">
+                        <button type="submit" className="button-dark">Save</button>
+                    </div>
                 </Form>
             </div>
         </section>

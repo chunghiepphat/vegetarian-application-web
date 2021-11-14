@@ -6,7 +6,7 @@ import PostedRecipes from "./history/PostedRecipes";
 import PostedVideos from "./history/PostedVideos";
 import PostedBlogs from "./history/PostedBlogs";
 import {UserContext} from "../../context/UserContext";
-import {apiBase} from "../../helpers/Helpers";
+import {apiBase} from "../../helpers/Variables";
 import DraftRecipes from "./drafts/DraftRecipes";
 import DraftVideos from "./drafts/DraftVideos";
 import DraftBlogs from "./drafts/DraftBlogs";

@@ -8,18 +8,17 @@ const ConsoleSidebar = () => {
     return (
         <Sidebar>
             <section className="sidebar-widget">
-                <h1>Community</h1>
+                <h1>Overview</h1>
+                <Navbar>
+                    <Link to="/console/"><FaAngleRight/>Dashboard</Link>
+                </Navbar>
+            </section>
+            <section className="sidebar-widget">
+                <h1>Manage</h1>
                 <Navbar>
                     <NavLink to="/console/manage-content"><FaAngleRight/>Moderate content</NavLink>
                     <NavLink to="/console/manage-categories"><FaAngleRight/>Manage categories</NavLink>
                     <NavLink to="/console/manage-members"><FaAngleRight/>Manage members</NavLink>
-
-                </Navbar>
-            </section>
-            <section className="sidebar-widget">
-                <h1>Site</h1>
-                <Navbar>
-                    <NavLink to="/console/monitor-traffic"><FaAngleRight/>Monitor traffic</NavLink>
                 </Navbar>
             </section>
         </Sidebar>

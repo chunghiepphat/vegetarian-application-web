@@ -28,7 +28,7 @@ const VideoStep01 = (props) => {
                                onChange={e => props.setDescription(e.target.value)}
                                placeholder="Your video description"/></label>
                     <div className="sticky-bottom">
-                        <button type="submit" className="button-submit">Proceed</button>
+                        <button type="submit" className="button-dark">Proceed</button>
                     </div>
                 </form>
             </div>

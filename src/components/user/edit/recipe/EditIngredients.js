@@ -60,7 +60,7 @@ const EditIngredients = (props) => {
             }
             <div className="input-group">
                 <button onClick={handleAddField}>Add ingredient</button>
-                <button className="button-cancel" onClick={handleUndo}>Clear changes</button>
+                <button className="button-light" onClick={handleUndo}>Clear changes</button>
             </div>
         </section>
     )

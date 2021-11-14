@@ -10,9 +10,9 @@ const HomeShortcuts = ({user, location}) => {
                 // If user is logged in
                 <div className="section-content">
                     <InputGroup style={{marginBottom: "10px"}}>
-                        <Link className="button-link button-submit" to="/post/recipe">
+                        <Link className="button-link button-dark" to="/post/recipe">
                             Share a recipe </Link>
-                        <Link className="button-link button-submit" to="/post/blog">
+                        <Link className="button-link button-dark" to="/post/blog">
                             Share a story </Link>
                     </InputGroup>
                     <InputGroup>

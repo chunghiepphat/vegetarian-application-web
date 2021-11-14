@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Link, useHistory, useLocation} from "react-router-dom";
 import jwtDecode from "jwt-decode";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 
 const Register = (props) => {
     const location = useLocation();
@@ -37,7 +37,7 @@ const Register = (props) => {
         const api = `${apiBase}/user/signup`;
         const response = await fetch(api, request)
         if (response.ok) {
-            history.push("/auth/verify");
+            history.push("/auth/account-verify");
         } else if (response.status >= 400 && response.status < 600) {
             const error = await response.json();
             setMessage(error.message);
@@ -68,7 +68,7 @@ const Register = (props) => {
                        required/>
                 <input type="password" placeholder="Confirm password (placeholder)"/>
                 {!isLoading ?
-                    <button type="submit" className="button-submit">Create new account</button>
+                    <button type="submit" className="button-dark">Create new account</button>
                     :
                     <button disabled>Creating your account...</button>
                 }

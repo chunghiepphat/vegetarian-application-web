@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import EditIngredients from "./recipe/EditIngredients";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import {Link, useHistory} from "react-router-dom";
 import EditEstimations from "./recipe/EditEstimations";
 import RecipeHeader from "../../home/view/recipe/RecipeHeader";
@@ -12,16 +12,13 @@ import InputGroup from "../../commons/elements/form/InputGroup";
 const EditRecipe = ({id, data}) => {
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const history = useHistory();
-
     const [difficulty, setDifficulty] = useState(data.recipe_difficulty);
     const [portionSize, setPortionSize] = useState(data.portion_size);
     const [portionType, setPortionType] = useState(data.portion_type);
     const [prepTime, setPrepTime] = useState(data.prep_time_minutes);
     const [bakingTime, setBakingTime] = useState(data.baking_time_minutes);
     const [restingTime, setRestingTime] = useState(data.resting_time_minutes);
-
     const [ingredients, setIngredients] = useState([].concat(data.ingredients));
-
     const [steps, setSteps] = useState([].concat(data.steps));
 
     const updatePost = async (e) => {
@@ -98,8 +95,8 @@ const EditRecipe = ({id, data}) => {
             </article>
             <div className="sticky-bottom">
                 <InputGroup>
-                    <button className="button-cancel" onClick={cancelUpdate}>Cancel</button>
-                    <button type="submit" form="updateForm" className="button-submit">Finish</button>
+                    <button className="button-light" onClick={cancelUpdate}>Cancel</button>
+                    <button type="submit" form="updateForm" className="button-dark">Finish</button>
                 </InputGroup>
             </div>
         </div>

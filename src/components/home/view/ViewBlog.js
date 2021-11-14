@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {Redirect, Route, Switch, useParams} from "react-router-dom";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import BlogHeader from "./blog/BlogHeader";
 import BlogToolbar from "./blog/BlogToolbar";
 import BlogContent from "./blog/BlogContent";

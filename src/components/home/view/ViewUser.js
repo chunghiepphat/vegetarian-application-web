@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import {NavLink, Redirect, Route, Switch, useLocation, useParams} from "react-router-dom";
 import UserBanner from "./user/UserBanner";
 import Navbar from "../../commons/elements/bars/Navbar";

@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {cloudName, uploadPreset} from "../../../helpers/Cloudinary";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import InputGroup from "../../commons/elements/form/InputGroup";
@@ -171,9 +171,9 @@ const PostBlog = ({user, token, history}) => {
                                 <button disabled>{uploadProgress}</button>
                             </> : <>
                                 {image ? <>
-                                    <button className="button-cancel" onClick={handleClear}>Clear thumbnail</button>
-                                    <button type="submit" className="button-submit" name="true">Save draft</button>
-                                    <button type="submit" className="button-submit" name="false">Publish</button>
+                                    <button className="button-light" onClick={handleClear}>Clear thumbnail</button>
+                                    <button type="submit" className="button-dark" name="true">Save draft</button>
+                                    <button type="submit" className="button-dark" name="false">Publish</button>
                                 </> : <>
                                     <button disabled>Clear thumbnail</button>
                                     <button disabled>Save draft</button>

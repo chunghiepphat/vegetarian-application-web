@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "./Home.css";
 import SearchSidebar from "./SearchSidebar";
-import {apiBase} from "../../helpers/Helpers";
+import {apiBase} from "../../helpers/Variables";
 import {NavLink, Route, Switch, useLocation} from "react-router-dom";
 import Navbar from "../commons/elements/bars/Navbar";
 import ResultRecipes from "./search/result/ResultRecipes";

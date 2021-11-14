@@ -1,8 +1,8 @@
 import React, {useContext} from "react";
 import "./UserCard.css";
 import {Link} from "react-router-dom";
-import {UserContext} from "../../../../context/UserContext";
-import Avatar from "../Avatar";
+import {UserContext} from "../../../context/UserContext";
+import Avatar from "../../commons/elements/Avatar";
 
 const UserCard = ({
                       className, id,
@@ -21,7 +21,7 @@ const UserCard = ({
             </div>
             <div className="card-cell-2">
                 <div>
-                    <h1 className="card-title">ID {id} - {firstName} {lastName}</h1>
+                    <h1 className="card-user">ID {id} - {firstName} {lastName}</h1>
                     <p className="card-email">{email}</p>
                 </div>
             </div>
@@ -34,9 +34,7 @@ const UserCard = ({
             <div className="card-cell-5">
                 {isActive ?
                     <p className={`card-status text-positive`}>Account is active.</p>
-                    :
-                    <p className={`card-status text-negative`}>Account is deactivated. </p>
-                }
+                    : <p className={`card-status text-negative`}>Account is deactivated. </p>}
             </div>
         </div>
     )

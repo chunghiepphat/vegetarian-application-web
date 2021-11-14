@@ -1,30 +1,26 @@
 import React, {useEffect, useState} from "react";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import {NavLink, Redirect, Route, Switch, useParams} from "react-router-dom";
 import Navbar from "../../commons/elements/bars/Navbar";
 import UserRecipes from "./user/UserRecipes";
 import UserVideos from "./user/UserVideos";
 import UserBlogs from "./user/UserBlogs";
 import Avatar from "../../commons/elements/Avatar";
-import InputGroup from "../../commons/elements/form/InputGroup";
 
 const ReviewUser = () => {
     let {id} = useParams();
+    const [isError, setIsError] = useState(false);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const urlProfile = `/console/user/${id}/profile`;
     const urlRecipe = `/console/user/${id}/recipes`;
     const urlVideo = `/console/user/${id}/videos`;
     const urlBlog = `/console/user/${id}/blogs`;
     const [data, setData] = useState();
-
     // Generates request headers
     let headers = new Headers();
-    if (token) {
-        headers.append("Authorization", `Bearer ${token.token}`);
-    }
+    if (token) headers.append("Authorization", `Bearer ${token.token}`);
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
-
     const deactivateUser = async (e) => {
         e.preventDefault();
         // Generates request body
@@ -48,17 +44,23 @@ const ReviewUser = () => {
             alert("Unexpected error with code: " + response.status);
         }
     }
-
     const fetchData = async () => {
         const api = `${apiBase}/user/${id}/getbyadmin`
-        const response = await fetch(api);
-        const result = await response.json();
-        setData(result);
+        try {
+            const response = await fetch(api)
+            if (response.ok) {
+                const result = await response.json();
+                setData(result);
+            } else if (response.status >= 400 && response.status < 600) {
+                setIsError(true);
+            }
+        } catch (error) {
+            console.error(error);
+            setIsError(true);
+        }
     }
     useEffect(() => {
-        fetchData().catch(error => {
-            console.error(error);
-        });
+        fetchData();
     }, [id])
 
     return (
@@ -73,11 +75,11 @@ const ReviewUser = () => {
                     </div>
                 </div>}
                 {data && data.is_active ?
-                    <button className="button-cancel" style={{width: "300px"}} onClick={e => deactivateUser(e)}>
+                    <button className="button-light" style={{width: "300px"}} onClick={e => deactivateUser(e)}>
                         Deactivate this account
                     </button>
                     :
-                    <button className="button-submit" style={{width: "300px"}} onClick={e => deactivateUser(e)}>
+                    <button className="button-dark" style={{width: "300px"}} onClick={e => deactivateUser(e)}>
                         Re-activate this account
                     </button>
                 }

@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {NavLink, useLocation, withRouter} from "react-router-dom";
-import {apiBase} from "../../helpers/Helpers";
+import {apiBase} from "../../helpers/Variables";
 import {UserContext} from "../../context/UserContext";
 import Sidebar from "../commons/elements/Sidebar";
 import Navbar from "../commons/elements/bars/Navbar";
@@ -9,7 +9,6 @@ import ArticleCard from "../commons/elements/containers/ArticleCard";
 import {PanelLoader} from "../commons/elements/loaders/Loader";
 import {PanelEmp} from "../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../commons/elements/loaders/AlertError";
-
 import {FaAngleRight} from "react-icons/fa";
 
 const HomeSidebar = () => {
@@ -24,6 +23,7 @@ const HomeSidebar = () => {
     const [isRecError, setIsRecError] = useState(false);
     const fetchRecommendations = async () => {
         if (user !== null && token !== null) {
+            setIsRecError(false);
             setIsRecLoading(true);
             // Generates request headers
             let headers = new Headers();
@@ -53,6 +53,7 @@ const HomeSidebar = () => {
         }
     }
     const fetchBlogs = async () => {
+        setIsBlogsError(false);
         setIsBlogsLoading(true);
         const api = `${apiBase}/blogs/get5bestblog${user ? `?userID=${user.id}` : ``}`;
         try {

@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {Redirect, Route, Switch, useParams} from "react-router-dom";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import RecipeHeader from "./recipe/RecipeHeader";
 import RecipeToolbar from "./recipe/RecipeToolbar";
 import RecipeIngredients from "./recipe/RecipeIngredients";

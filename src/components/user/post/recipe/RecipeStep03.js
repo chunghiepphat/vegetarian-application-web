@@ -75,10 +75,10 @@ const RecipeStep03 = (props) => {
                         : <em>Add some ingredients to your recipe...</em>}
                     <div className="sticky-bottom">
                         <InputGroup>
-                            <button className="button-cancel" onClick={handleAddField}>Add ingredient</button>
+                            <button className="button-light" onClick={handleAddField}>Add ingredient</button>
                             {props.ingredients.length > 0 ? <>
-                                <button className="button-cancel" onClick={handleClear}>Clear</button>
-                                <button type="submit" className="button-submit"> Next step</button>
+                                <button className="button-light" onClick={handleClear}>Clear</button>
+                                <button type="submit" className="button-dark"> Next step</button>
                             </> : <>
                                 <button disabled>Clear</button>
                                 <button disabled>Next step</button>

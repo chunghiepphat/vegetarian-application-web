@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "./Avatar.css";
 import placeholderAvatar from "../../../assets/user-image-default.png";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 
 const Avatar = ({className, data, userImage}) => {
     const [user, setUser] = useState();

@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useLayoutEffect, useRef, useState} from "react";
 import {cloudName, uploadPreset} from "../../../helpers/Cloudinary";
 import {UserContext} from "../../../context/UserContext";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import Form from "../../commons/elements/form/Form";
 
 const UpdateAvatar = () => {
@@ -89,7 +89,7 @@ const UpdateAvatar = () => {
                                onChange={() => (setFile(inputRef.current.files[0]))}
                                ref={inputRef}/>
                     </label>
-                    <button type="submit" className="button-submit">Update</button>
+                    <button type="submit" className="button-dark">Update</button>
                 </Form>
             </div>
         </section>

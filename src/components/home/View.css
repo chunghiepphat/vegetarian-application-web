@@ -165,12 +165,16 @@ article section {
     animation: pop 0.5s;
 }
 
-.button-labeled {
+.article-button-with-text {
     width: auto;
 }
 
-.button-labeled svg {
-    margin-right: 10px;
+.article-button-no-text {
+
+}
+
+.article-button-no-text svg {
+    margin-right: 0;
 }
 
 .button-favorite svg {

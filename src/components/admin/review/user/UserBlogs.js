@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {apiBase} from "../../../../helpers/Helpers";
+import {apiBase} from "../../../../helpers/Variables";
 import ArticleCard from "../../../commons/elements/containers/ArticleCard";
 import {SectionLoader} from "../../../commons/elements/loaders/Loader";
 import Panel from "../../../commons/elements/containers/Panel";

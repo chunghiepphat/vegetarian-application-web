@@ -15,9 +15,10 @@ const View = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const fetchData = async (api) => {
+        setIsError(false);
         setIsLoading(true);
-        const response = await fetch(api)
         try {
+            const response = await fetch(api)
             if (response.ok) {
                 const result = await response.json();
                 setData(result);
@@ -29,6 +30,7 @@ const View = () => {
         } catch (error) {
             console.error(error);
             setIsError(true);
+            setIsLoading(false);
         }
     }
 

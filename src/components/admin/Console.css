@@ -2,14 +2,16 @@
     display: grid;
     grid-template-columns: repeat(14, 1fr);
     width: 100%;
-    height: calc(100vh - 66px);
+    height: calc(100vh - 60px);
+    border: thin solid lightgray;
     overflow: hidden;
 }
 
 .console-container aside {
     grid-column: span 2;
     padding: 0;
-    box-shadow: 1px 0 1px #d0d0d0;
+    background: #fafafa;
+    box-shadow: 1px 0 4px #d0d0d0;
     /*border-right: thin solid lightgray;*/
 }
 
@@ -19,27 +21,28 @@
 
 .console > section {
     display: grid;
-    grid-template-columns: repeat(1, auto);
-    grid-template-rows: 100px calc(100vh - 60px - 100px);
+    grid-template-columns: repeat(9, calc(100% / 9));
+    grid-template-rows: auto calc(100vh - 60px - 60px);
     grid-column-gap: 0;
     grid-row-gap: 0;
     margin: 0;
     padding: 0;
+    /*border: thin solid lightgray;*/
 }
 
 .console-header {
-    grid-area: 1 / 1 / 2 / 2;
+    grid-area: 1 / 1 / 2 / 10;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
+    max-height: 60px;
     padding: 0 60px;
-    border-top: thin solid lightgray;
     border-bottom: thin solid lightgray;
 }
 
-.console-header h1,
-.console-header h1 * {
+.console-header h1, .console-header h1 *,
+.console-toolbar h1, .console-toolbar h1 * {
     padding: 20px 0 10px 0;
     font-size: 20px;
     font-weight: bold;
@@ -60,15 +63,41 @@
 }
 
 .console-content {
-    /*grid-area: 2 / 1 / 3 / 2;*/
+    grid-area: 2 / 1 / 3 / 10;
     display: flex;
     flex-direction: column;
-    /*justify-content: center;*/
-    /*min-height: 600px;*/
-    /*max-height: 3000px;*/
+    height: 100%;
+    padding: 2px 60px;
+    overflow-y: scroll;
+}
+
+.console-article {
+    grid-area: 2 / 1 / 3 / 8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     height: 100%;
     padding: 20px 60px;
     overflow-y: scroll;
+}
+
+.console-toolbar {
+    grid-area: 2 / 8 / 3 / 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding: 20px 40px;
+}
+
+.console-toolbar p {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.console-toolbar button {
+    max-width: 240px;
 }
 
 .user-header {

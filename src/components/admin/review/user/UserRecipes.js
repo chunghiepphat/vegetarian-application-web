@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import ArticleCard from "../../../commons/elements/containers/ArticleCard";
 import {SectionLoader} from "../../../commons/elements/loaders/Loader";
-import {apiBase} from "../../../../helpers/Helpers";
+import {apiBase} from "../../../../helpers/Variables";
 import Panel from "../../../commons/elements/containers/Panel";
 
 const UserRecipes = ({userId}) => {

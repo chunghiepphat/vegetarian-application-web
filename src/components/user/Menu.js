@@ -4,20 +4,18 @@ import DashboardSidebar from "./DashboardSidebar";
 import DisplayMenu from "./menu/DisplayMenu";
 import GenerateMenu from "./menu/GenerateMenu";
 import {UserContext} from "../../context/UserContext";
-import {apiBase} from "../../helpers/Helpers";
+import {apiBase} from "../../helpers/Variables";
 
 const Menu = () => {
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const [data, setData] = useState([]);
     const [isNew, setIsNew] = useState(false);
-
     // Generates request headers
     let headers = new Headers();
     headers.append("Authorization", `Bearer ${token.token}`);
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
-
     const loadMenu = async () => {
         // Request headers with access token
         let headers = new Headers();
@@ -36,7 +34,6 @@ const Menu = () => {
         setData(result.menu);
         setIsNew(false);
     }
-
     const saveMenu = async (e) => {
         e.preventDefault();
         // Generates request body
@@ -61,7 +58,6 @@ const Menu = () => {
             alert("Error: " + response.status);
         }
     }
-
     const generateMenu = async (e) => {
         e.preventDefault();
         // Request headers with access token
@@ -69,13 +65,11 @@ const Menu = () => {
         headers.append("Authorization", `Bearer ${token.token}`);
         headers.append("Content-Type", "application/json");
         headers.append("Accept", "application/json");
-
         // Generate request
         let request = {
             method: 'GET',
             headers: headers,
         };
-
         const api = `${apiBase}/menu/generate?id=${user.id}`
         const response = await fetch(api, request);
         const result = await response.json();
@@ -83,7 +77,6 @@ const Menu = () => {
         setData(result.menu);
         setIsNew(true);
     }
-
     useEffect(() => {
         loadMenu().catch(error => {
             console.error(error);

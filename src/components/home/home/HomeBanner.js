@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import bannerBackground from "assets/profile-banner-default.png";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
@@ -29,12 +29,13 @@ const HomeBanner = ({user, location}) => {
         } catch (error) {
             console.error(error);
             setIsError(true);
+            setIsLoading(false);
         }
     }
     // Executes fetch once on page load
     useEffect(() => {
         fetchData();
-    }, [user]);
+    }, [location, user]);
     // Handle banner scroll button
     const scrollRef = useRef(null);
     const executeScroll = () => scrollRef.current.scrollIntoView({behavior: 'smooth'});

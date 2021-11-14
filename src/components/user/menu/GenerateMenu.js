@@ -7,18 +7,18 @@ const GenerateMenu = (props) => {
         <section className="sticky-bottom">
             <div className="section-content">
                 <InputGroup>
-                    <button className="button-cancel" onClick={props.generate}>
+                    <button className="button-light" onClick={props.generate}>
                         Generate a new menu
                     </button>
                     {props.isNew ?
                         <>
-                            <button className="button-cancel" onClick={props.load}>Load your saved menu</button>
-                            <button className="button-submit" onClick={props.save}>Save this menu</button>
+                            <button className="button-light" onClick={props.load}>Load your saved menu</button>
+                            <button className="button-dark" onClick={props.save}>Save this menu</button>
                         </>
                         :
                         <>
-                            <button className="button-cancel" disabled>Showing your saved menu</button>
-                            <button className="button-submit" disabled>Already saved</button>
+                            <button className="button-light" disabled>Showing your saved menu</button>
+                            <button className="button-dark" disabled>Already saved</button>
                         </>
                     }
                 </InputGroup>

@@ -70,6 +70,28 @@
     margin: 5px 0;
 }
 
+.button-google {
+    color: #040f0f;
+    background: white;
+    font-weight: 500;
+}
+
+.button-facebook {
+    color: #eeeeee;
+    background: #39569c;
+    font-weight: 500;
+}
+
+.button-facebook svg {
+    fill: #eeeeee;
+}
+
+.button-google svg, .button-facebook svg {
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+}
+
 /*Blackens the backdrop*/
 .modal-overlay {
     display: flex;

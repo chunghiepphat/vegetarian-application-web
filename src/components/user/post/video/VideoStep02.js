@@ -64,7 +64,7 @@ const VideoStep02 = (props) => {
                                            onChange={() => (setFile(inputRef.current.files[0]))}
                                            ref={inputRef}/></label>
                                 <div className="sticky-bottom">
-                                    <button type="submit" className="button-submit">Upload</button>
+                                    <button type="submit" className="button-dark">Upload</button>
                                 </div>
                             </>}
                         </form>}

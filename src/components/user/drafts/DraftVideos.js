@@ -15,7 +15,7 @@ const DraftVideos = ({user, location, data, isLoading, isError, fetchData}) => {
             <div className="section-content">
                 <h1>Videos</h1>
                 <p>Your saved drafts & private videos.</p>
-                <Panel filler="card-medium">
+                <Panel filler="tile-video">
                     {!isLoading ? <>
                         {!isError ? <>
                             {data && data.length > 0 ? <>

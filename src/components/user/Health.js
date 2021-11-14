@@ -1,12 +1,16 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import DashboardSidebar from "./DashboardSidebar";
 import UpdateHealth from "./health/UpdateHealth";
 import UpdateAllergies from "./health/UpdateAllergies";
 import UpdatePreferences from "./health/UpdatePreferences";
-import {NavLink, Redirect, Route, Switch} from "react-router-dom";
+import {NavLink, Redirect, Route, Switch, useLocation} from "react-router-dom";
 import Navbar from "../commons/elements/bars/Navbar";
+import {UserContext} from "../../context/UserContext";
 
 const Health = () => {
+    const location = useLocation();
+    const user = useContext(UserContext);
+    const token = JSON.parse(localStorage.getItem("accessToken"));
     const urlDetails = "/health/details";
     const urlAllergies = "/health/allergies";
     const urlPreferences = "/health/preferences";
@@ -24,9 +28,12 @@ const Health = () => {
                     </section>
                     <Switch>
                         <Route exact path="/health"><Redirect to={urlDetails}/></Route>
-                        <Route path={urlDetails}><UpdateHealth/></Route>
-                        <Route path={urlAllergies}><UpdateAllergies/></Route>
-                        <Route path={urlPreferences}><UpdatePreferences/></Route>
+                        <Route path={urlDetails}>
+                            <UpdateHealth user={user} token={token} location={location}/> </Route>
+                        <Route path={urlAllergies}>
+                            <UpdateAllergies/> </Route>
+                        <Route path={urlPreferences}>
+                            <UpdatePreferences/> </Route>
                     </Switch>
                 </main>
                 <DashboardSidebar/>

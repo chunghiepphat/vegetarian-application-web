@@ -3,7 +3,7 @@ import Form from "../../commons/elements/form/Form";
 import InputGroup from "../../commons/elements/form/InputGroup";
 import {ImCross} from "react-icons/all";
 import InputArray from "../../commons/elements/form/InputArray";
-import {apiBase} from "../../../helpers/Helpers";
+import {apiBase} from "../../../helpers/Variables";
 import {UserContext} from "../../../context/UserContext";
 
 const UpdateAllergies = () => {
@@ -117,20 +117,17 @@ const UpdateAllergies = () => {
                                 ))}
                             </InputArray>
                         </div>
-                        :
-                        <em>What are you allergic to?</em>
-                    }
+                        : <em>What are you allergic to?</em>}
                     {/*Control buttons*/}
-                    <div className="input-group">
-                        <button onClick={handleAddField}>Add ingredient</button>
-                        <button className="button-cancel" onClick={handleClear}>Clear</button>
+                    <div className="sticky-bottom">
+                        <div className="input-group">
+                            <button className="button-light" onClick={handleAddField}>Add ingredient</button>
+                            <button className="button-light" onClick={handleClear}>Clear</button>
+                            {ingredients.length > 0 ?
+                                <button type="submit" className="button-dark">Save</button>
+                                : <button disabled>Save</button>}
+                        </div>
                     </div>
-                    {ingredients.length > 0 ?
-                        // Submit button
-                        <button type="submit" className="button-submit">Save</button>
-                        :
-                        <button disabled>Save</button>
-                    }
                 </Form>
             </div>
         </section>
