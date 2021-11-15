@@ -1,9 +1,11 @@
 import React, {useContext, useEffect, useState} from "react";
-import {UserContext} from "../../../../context/UserContext";
-import {apiBase} from "../../../../helpers/Variables";
 import {Link, useLocation} from "react-router-dom";
+import {apiBase} from "../../../../helpers/Variables";
+import {UserContext} from "../../../../context/UserContext";
 import Comment from "../../../commons/elements/Comment";
+import {SectionErr} from "../../../commons/elements/loaders/AlertError";
 import {FaAngleRight} from "react-icons/fa";
+
 
 const RecipeComments = ({data}) => {
     const location = useLocation();
@@ -13,12 +15,17 @@ const RecipeComments = ({data}) => {
     const [comments, setComments] = useState([]);
     const [isError, setIsError] = useState(false);
     const fetchComments = async () => {
+        setIsError(false);
         const api = `${apiBase}/recipes/${data.recipe_id}/comments`;
-        const response = await fetch(api);
-        if (response.ok) {
-            const result = await response.json();
-            setComments(result.listCommentRecipe);
-        } else if (response.status >= 400 && response.status < 600) {
+        try {
+            const response = await fetch(api);
+            if (response.ok) {
+                const result = await response.json();
+                setComments(result.listCommentRecipe);
+            } else if (response.status >= 400 && response.status < 600) {
+                setIsError(true);
+            }
+        } catch (error) {
             setIsError(true);
         }
     }
@@ -26,7 +33,7 @@ const RecipeComments = ({data}) => {
         e.preventDefault();
         // Generates request headers
         let headers = new Headers();
-        headers.append("Authorization", `Bearer ${token.token}`);
+        if (token) headers.append("Authorization", `Bearer ${token.token}`);
         headers.append("Content-Type", "application/json");
         headers.append("Accept", "application/json");
         // Generates request body
@@ -83,7 +90,7 @@ const RecipeComments = ({data}) => {
                                  articleType="recipe"
                                  reload={fetchComments}/>))}
                 </> : <em>Be the first to comment on this recipe!</em>}
-            </> : <em>We couldn't load the comments.</em>}
+            </> : <SectionErr reload={fetchComments}/>}
         </section>
     )
 }

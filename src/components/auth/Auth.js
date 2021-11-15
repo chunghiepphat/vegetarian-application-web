@@ -5,7 +5,7 @@ import Register from "./forms/Register";
 import {Redirect, Route, Switch} from "react-router-dom";
 import AccountVerification from "./forms/AccountVerification";
 import AccountRecovery from "./forms/AccountRecovery";
-import PasswordReset from "./forms/PasswordReset";
+import RecoveryStep2 from "./forms/recovery/RecoveryStep2";
 
 const Auth = () => {
     const [email, setEmail] = useState("");
@@ -26,7 +26,7 @@ const Auth = () => {
                         <Route exact path="/auth/account-recover">
                             <AccountRecovery email={email} setEmail={setEmail}/> </Route>
                         <Route exact path="/auth/reset-password">
-                            <PasswordReset email={email} setEmail={setEmail}/> </Route>
+                            <RecoveryStep2 email={email} setEmail={setEmail}/> </Route>
                         <Redirect to="/not-found"/>
                     </Switch>
                 </main>

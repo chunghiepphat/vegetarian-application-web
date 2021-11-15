@@ -6,6 +6,7 @@ import VideoDetails from "./video/VideoDetails";
 import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {SectionErr} from "../../commons/elements/loaders/AlertError";
 import VideoToolbar from "./video/VideoToolbar";
+import VideoComments from "./video/VideoComments";
 
 const ViewVideo = ({user, location, data, isError, fetchData}) => {
     let {id} = useParams();
@@ -21,8 +22,9 @@ const ViewVideo = ({user, location, data, isError, fetchData}) => {
                     <div className="section-content">
                         <article className="video-article">
                             <VideoPlayer data={data}/>
-                            <VideoToolbar data={data} reload={fetchData} mainApi={api}/>
+                            <VideoToolbar id={id} data={data} reload={fetchData} mainApi={api}/>
                             <VideoDetails data={data}/>
+                            <VideoComments data={data}/>
                         </article>
                     </div>
                 </> : <SectionEmp message="Loading the article..."/>}

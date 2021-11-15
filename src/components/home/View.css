@@ -9,6 +9,9 @@ article section {
 .video-article {
     padding: 0;
 }
+.video-article video {
+    max-height: 720px;
+}
 
 .article-thumbnail {
     border-radius: 20px;
@@ -36,9 +39,10 @@ article section {
 
 .article-description {
     margin: 0 0 0 16px;
-    padding: 20px 0 0 30px;
-    border-left: 1px solid lightgray;
+    padding: 20px 0 30px 30px;
     font-style: normal;
+    border-bottom-left-radius: 10px;
+    box-shadow: -1px 1px 2px #d0d0d0;
 }
 
 .article-info {

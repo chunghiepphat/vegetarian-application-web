@@ -68,12 +68,8 @@ const Comment = ({userId, commentId, content, time, articleType, reload}) => {
                 </div>
                 {user && user.id === userId &&
                 <div className="comment-toolbar">
-                    <button className="comment-button">
-                        Edit
-                    </button>
-                    <button className="comment-button" onClick={deleteComment}>
-                        Delete
-                    </button>
+                    <button className="comment-button">Edit</button>
+                    <button className="comment-button" onClick={deleteComment}>Delete</button>
                 </div>}
             </div>
             <div className="comment-content">

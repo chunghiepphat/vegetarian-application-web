@@ -44,6 +44,7 @@ export default function App() {
         }
     }
     useEffect(() => {
+        // console.log(location)
         // If there is an active user (userInfo in local storage)
         if (userInfo !== null) {
             // Fetch the user's data

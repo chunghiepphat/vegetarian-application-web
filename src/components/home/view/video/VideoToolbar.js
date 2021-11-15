@@ -59,24 +59,39 @@ const VideoToolbar = ({id, data, reload, mainApi}) => {
     // Handle public/private visibility switch
     const publishArticle = async (e) => {
         e.preventDefault();
-        // Generates request
-        let request = {
-            method: 'PUT',
-            headers: headers,
-        };
-        // Executes fetch
-        const api = `${apiBase}/video/edit/private/${id}`;
-        const response = await fetch(api, request);
-        try {
-            if (response.ok) {
-                reload(mainApi);
-            } else if (response.status === 401) {
-                alert("You are not authorized to do that.")
-            } else {
-                alert("An unexpected error has occurred. Status code: " + response.status);
+        let message = "";
+        if (data.is_private && data.status === 1)
+            message = "Submit your article for review?\nIt will be visible to others once approved by a moderator."
+        if (data.is_private && data.status === 2)
+            message = "Republish your article?\nIt will be visible to everyone else."
+        else if (!data.is_private)
+            message = "Set your article to private and save as draft?\nIt will no longer be visible to others.";
+        const isConfirmed = window.confirm(message);
+        if (isConfirmed) {
+            // Generates request
+            let request = {
+                method: 'PUT',
+                headers: headers,
+            };
+            // Executes fetch
+            const api = `${apiBase}/video/edit/private/${id}`;
+            const response = await fetch(api, request);
+            try {
+                if (response.ok) {
+                    if (data.is_private && data.status === 1)
+                        alert("Your post will now be visible to others when approved by an admin.")
+                    else if (data.is_private && data.status === 2)
+                        alert("Your post is now public and visible to others.");
+                    else alert("Your post is now private.")
+                    reload(mainApi);
+                } else if (response.status === 401) {
+                    alert("You are not authorized to do that.")
+                } else {
+                    alert("An unexpected error has occurred. Status code: " + response.status);
+                }
+            } catch (error) {
+                alert("A network error has occurred. " + error);
             }
-        } catch (error) {
-            alert("A network error has occurred. " + error);
         }
     }
     // Handles edit article - sends user to edit form
