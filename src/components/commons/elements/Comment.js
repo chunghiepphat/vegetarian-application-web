@@ -4,6 +4,7 @@ import {apiBase} from "../../../helpers/Variables";
 import {UserContext} from "../../../context/UserContext";
 import Avatar from "./Avatar";
 import moment from "moment";
+import {Link} from "react-router-dom";
 
 const Comment = ({userId, commentId, content, time, articleType, reload}) => {
     const user = useContext(UserContext);
@@ -57,14 +58,14 @@ const Comment = ({userId, commentId, content, time, articleType, reload}) => {
                     {author &&
                     <Avatar className={"comment-avatar"} userImage={author.profile_image}/>}
                     {author &&
-                    <h1 className="comment-user">
+                    <div className="comment-user">
                         {author.first_name} {author.last_name}
-                        {user && user.id === author.id &&
-                        <> (you)</>}
+                        {user && user.id === author.id && <> (you) </>}
                         <span className="comment-timestamp">
                             {moment(time).format("lll")}
                         </span>
-                    </h1>}
+                    </div>}
+                    {author && <Link to={`/view/user/${author.id}`}/>}
                 </div>
                 {user && user.id === userId &&
                 <div className="comment-toolbar">
