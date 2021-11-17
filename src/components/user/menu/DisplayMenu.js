@@ -16,9 +16,7 @@ const DisplayMenu = (props) => {
             <header className="section-header">
                 {props.isNew ?
                     <h1>Your new menu</h1>
-                    :
-                    <h1>Your currently suggested menu for this week</h1>
-                }
+                    : <h1>Your currently suggested menu for this week</h1>}
                 <p>If you like a menu we suggest, save it for later use.</p>
             </header>
             <div className="section-content">

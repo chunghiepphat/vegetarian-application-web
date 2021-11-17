@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import "./SearchBar.css";
 import {FaSistrix} from "react-icons/all";
 import {useHistory} from "react-router-dom";
-import {apiBase} from "../../../helpers/Variables";
 
 const SearchBar = (props) => {
     const [query, setQuery] = useState();
@@ -10,12 +9,32 @@ const SearchBar = (props) => {
 
     const submitQuery = async (e) => {
         e.preventDefault();
-        const api = `${apiBase}/home/find?search=${query}&type=all`;
+        // const api = `${apiBase}/home/find?search=${query}`;
         history.push({
             pathname: "/search/recipes",
-            search: `search=${query}&type=all`,
+            search: `search=${query}`,
             state: {query: query},
+
         })
+        // const fetchData = async (api) => {
+        //     setIsError(false);
+        //     setIsLoading(true);
+        //     try {
+        //         const response = await fetch(api)
+        //         if (response.ok) {
+        //             const result = await response.json();
+        //             setData(result);
+        //             setIsLoading(false);
+        //         } else if (response.status >= 400 && response.status < 600) {
+        //             setIsError(true);
+        //             setIsLoading(false);
+        //         }
+        //     } catch (error) {
+        //         console.error(error);
+        //         setIsError(true);
+        //         setIsLoading(false);
+        //     }
+        // }
     }
 
     return (

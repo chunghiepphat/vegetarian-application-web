@@ -36,7 +36,8 @@ const ViewBlog = ({user, location, data, isError, fetchData}) => {
                                         <img src="" alt=""/>
                                     </picture>}
                                     <BlogHeader data={data}/>
-                                    <BlogToolbar id={id} data={data} reload={fetchData} mainApi={api}/>
+                                    <BlogToolbar id={id} location={location} data={data}
+                                                 reload={fetchData} mainApi={api}/>
                                     <BlogContent data={data}/>
                                     <BlogComments data={data}/>
                                 </article>

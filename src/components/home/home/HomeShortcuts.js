@@ -1,38 +1,41 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import InputGroup from "../../commons/elements/form/InputGroup";
+import {FaAngleRight} from "react-icons/fa";
 
-const HomeShortcuts = ({user, location}) => {
-
+const HomeShortcuts = ({user, location, scrollRef}) => {
     return (
-        <section>
-            {user ?
-                // If user is logged in
+        <section className="banner-section banner-shortcuts">
+            <div ref={scrollRef} style={{position: "absolute", top: "-60px", left: "0"}}/>
+            {user ? <>
+                {/*If user is logged in, show shortcuts*/}
+                <header className="section-header">
+                    <h1>What can we help you with?</h1>
+                </header>
                 <div className="section-content">
-                    <InputGroup style={{marginBottom: "10px"}}>
-                        <Link className="button-link button-dark" to="/post/recipe">
-                            Share a recipe </Link>
-                        <Link className="button-link button-dark" to="/post/blog">
-                            Share a story </Link>
-                    </InputGroup>
-                    <InputGroup>
-                        <Link className="button-link" to="/menu">
-                            Create your menu for this week </Link>
-                        <Link className="button-link" to="/health">
-                            Manage your health profile & preferences </Link>
-                    </InputGroup>
+                    <Link className="banner-shortcut" to="/post/recipe">
+                        Share a recipe <FaAngleRight/> </Link>
+                    <Link className="banner-shortcut" to="/post/video">
+                        Share a video <FaAngleRight/> </Link>
+                    <Link className="banner-shortcut" to="/post/blog">
+                        Share a story <FaAngleRight/> </Link>
+                    <Link className="banner-shortcut" to="/menu">
+                        Let us suggest this week's menu for you <FaAngleRight/> </Link>
+                    <Link className="banner-shortcut" to="/health">
+                        Manage your health profile & food preferences <FaAngleRight/> </Link>
                 </div>
-                :
-                // Otherwise
+            </> : <>
+                {/*Otherwise, show authentication links*/}
+                <header className="section-header">
+                    <h1>Sign in to get access to more features!</h1>
+                </header>
                 <div className="section-content">
-                    <Link className="button-link" to={{
+                    <Link className="banner-shortcut" to={{
                         pathname: "/login",
                         state: {background: location}
-                    }}>
-                        Sign in to get access to more features!
-                    </Link>
+                    }}> Sign in </Link>
+                    <Link className="banner-shortcut" to="/auth/register"> Create an account </Link>
                 </div>
-            }
+            </>}
         </section>
     )
 }

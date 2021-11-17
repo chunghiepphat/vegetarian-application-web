@@ -109,7 +109,6 @@ const AccountVerification = (props) => {
                 </> : <>
                     <button disabled>Sending...</button>
                 </>}
-
             </form>
         </div>
     )

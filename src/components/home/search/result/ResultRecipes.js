@@ -30,8 +30,7 @@ const ResultRecipes = () => {
                                          title={recipe.recipe_title}
                                          thumbnail={recipe.recipe_thumbnail}
                                          first_name={recipe.first_name}
-                                         last_name={recipe.last_name}/>
-                        ))}
+                                         last_name={recipe.last_name}/>))}
                     </div>
                 </div>
                 }

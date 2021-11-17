@@ -9,15 +9,49 @@ import {Link} from "react-router-dom";
 const Comment = ({userId, commentId, content, time, articleType, reload}) => {
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
+    const [contentString, setContentString] = useState(content);
+    const [isEditing, setIsEditing] = useState(false);
     const [author, setAuthor] = useState();
-    const apiDelete = `${apiBase}/user/deleteComment/${commentId}/${articleType}`;
+    // Generates request headers
+    let headers = new Headers();
+    headers.append("Authorization", `Bearer ${token.token}`);
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
+    const enableEdit = (e) => {
+        e.preventDefault();
+        setIsEditing(true);
+    }
+    const handleEdit = async (e) => {
+        e.preventDefault();
+        // Generates request body
+        let body = JSON.stringify({
+            "content": contentString,
+        });
+        // Generates request
+        let request = {
+            method: 'PUT',
+            headers: headers,
+            body: body
+        };
+        // Executes fetch
+        const api = `${apiBase}/user/edit/comment${articleType}/${commentId}`;
+        try {
+            const response = await fetch(api, request);
+            if (response.ok) {
+                setIsEditing(false);
+                reload();
+            } else if (response.status === 401) {
+                alert("You are not authorized to complete the request.")
+            } else {
+                alert("Error: " + response.status);
+            }
+        } catch (error) {
+            alert("Unexpected error: " + error);
+        }
+
+    }
     const deleteComment = async (e) => {
         e.preventDefault();
-        // Generates request headers
-        let headers = new Headers();
-        headers.append("Authorization", `Bearer ${token.token}`);
-        headers.append("Content-Type", "application/json");
-        headers.append("Accept", "application/json");
         // Generates request body
         let body = JSON.stringify({
             "user_id": userId,
@@ -29,14 +63,19 @@ const Comment = ({userId, commentId, content, time, articleType, reload}) => {
             body: body
         };
         // Executes fetch
-        const response = await fetch(apiDelete, request);
-        if (response.ok) {
-            alert("Your comment has been deleted.");
-            reload();
-        } else if (response.status === 401) {
-            alert("You are not authorized to complete the request.")
-        } else {
-            alert("Error: " + response.status);
+        const api = `${apiBase}/user/deleteComment/${commentId}/${articleType}`;
+        try {
+            const response = await fetch(api, request);
+            if (response.ok) {
+                alert("Your comment has been deleted.");
+                reload();
+            } else if (response.status === 401) {
+                alert("You are not authorized to complete the request.")
+            } else {
+                alert("Error: " + response.status);
+            }
+        } catch (error) {
+            alert("Unexpected error: " + error);
         }
     }
     useEffect(() => {
@@ -69,13 +108,19 @@ const Comment = ({userId, commentId, content, time, articleType, reload}) => {
                 </div>
                 {user && user.id === userId &&
                 <div className="comment-toolbar">
-                    <button className="comment-button">Edit</button>
+                    <button className="comment-button" onClick={enableEdit}>Edit</button>
                     <button className="comment-button" onClick={deleteComment}>Delete</button>
                 </div>}
             </div>
-            <div className="comment-content">
-                {content}
-            </div>
+            {isEditing ? <>
+                <form onSubmit={handleEdit}>
+                    <input value={contentString} onChange={e => setContentString(e.target.value)}/>
+                </form>
+            </> : <>
+                <div className="comment-content">
+                    {content}
+                </div>
+            </>}
         </div>
     )
 }

@@ -18,13 +18,13 @@ const Search = () => {
     useEffect(() => {
         const api = `${apiBase}/home/find${location.search}`;
         const fetchData = async () => {
-            const response = await fetch(`${apiBase}/home/find${location.search}`);
+            const response = await fetch(api);
             const result = await response.json();
             setRecipe(result.listRecipe);
             setBlog(result.listBlog);
         }
         fetchData();
-    }, []);
+    }, [location]);
 
     return (
         <div className="page-container">

@@ -99,7 +99,8 @@ export default function App() {
                 {background && !user && <Route path="/" children={<AuthModal background={background}/>}/>}
                 {!isAdmin
                 && location.pathname !== "/auth/register"
-                && location.pathname !== "/auth/verify"
+                && location.pathname !== "/auth/account-verify"
+                && location.pathname !== "/auth/account-recover"
                 && location.pathname !== "/not-found"
                 && <Footer/>}
             </div>

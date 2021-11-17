@@ -2,9 +2,10 @@ import React, {useContext} from "react";
 import "./VideoTile.css";
 import {Link} from "react-router-dom";
 import {UserContext} from "../../../../context/UserContext";
+import placeholderThumbnail from "../../../../assets/card-thumbnail-default.png";
 import {FaPlay} from "react-icons/all";
 
-const VideoTile = ({className, id, title, firstName, lastName, status}) => {
+const VideoTile = ({className, id, title, thumbnail, firstName, lastName, status}) => {
     const user = useContext(UserContext);
     const statusText = [
         "Review pending.",
@@ -21,7 +22,10 @@ const VideoTile = ({className, id, title, firstName, lastName, status}) => {
         <div className={`article-tile tile-video ${className}`}>
             <Link className="tile-url" to={user && user.role === "admin" ?
                 `/console/video/${id}` : `/view/video/${id}`}/>
-            <canvas className="video-thumbnail"/>
+            <picture className="tile-thumbnail">
+                <source srcSet={thumbnail}/>
+                <img src={placeholderThumbnail} alt=""/>
+            </picture>
             <div className="tile-overlay">
                 <div className="tile-details">
                     <h1 className="tile-title">{title}</h1>

@@ -27,7 +27,6 @@ const HomeLatestRecipes = ({user, location}) => {
                 setIsLoading(false);
             }
         } catch (error) {
-            console.error(error);
             setIsError(true);
             setIsLoading(false);
         }

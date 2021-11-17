@@ -1,12 +1,11 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Link} from "react-router-dom";
 import {apiBase} from "../../../helpers/Variables";
 import bannerBackground from "assets/profile-banner-default.png";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
-import {FaAngleRight} from "react-icons/fa";
+import HomeShortcuts from "./HomeShortcuts";
 
 const HomeBanner = ({user, location}) => {
     const [data, setData] = useState([]);
@@ -72,43 +71,14 @@ const HomeBanner = ({user, location}) => {
                             </> : <PanelLoader style={{gridArea: "1 / 1 / 3 / 5"}}/>}
                         </div>
                     </div>
+                    <div className="banner-background" style={{backgroundImage: `url(${bannerBackground})`}}>
+                        <div className="banner-overlay"/>
+                    </div>
                 </section>
                 {/*Arrow button for snap scrolling down*/}
                 <button onClick={executeScroll} className="button-scroll"><span/></button>
                 {/*Quick shortcuts section*/}
-                <section className="banner-section banner-shortcuts">
-                    <div ref={scrollRef} style={{position: "absolute", top: "-60px", left: "0"}}/>
-                    {user ? <>
-                        {/*If user is logged in, show shortcuts*/}
-                        <header className="section-header">
-                            <h1>What can we help you with?</h1>
-                        </header>
-                        <div className="section-content">
-                            <Link className="banner-shortcut" to="/post/recipe">
-                                Share a recipe <FaAngleRight/> </Link>
-                            <Link className="banner-shortcut" to="/post/video">
-                                Share a video <FaAngleRight/> </Link>
-                            <Link className="banner-shortcut" to="/post/blog">
-                                Share a story <FaAngleRight/> </Link>
-                            <Link className="banner-shortcut" to="/menu">
-                                Let us suggest this week's menu for you <FaAngleRight/> </Link>
-                            <Link className="banner-shortcut" to="/health">
-                                Manage your health profile & food preferences <FaAngleRight/> </Link>
-                        </div>
-                    </> : <>
-                        {/*Otherwise, show authentication links*/}
-                        <header className="section-header">
-                            <h1>Sign in to get access to more features!</h1>
-                        </header>
-                        <div className="section-content">
-                            <Link className="banner-shortcut" to={{
-                                pathname: "/login",
-                                state: {background: location}
-                            }}> Sign in </Link>
-                            <Link className="banner-shortcut" to="/auth/register"> Create an account </Link>
-                        </div>
-                    </>}
-                </section>
+                <HomeShortcuts user={user} location={location} scrollRef={scrollRef}/>
             </div>
             {/*Blurred banner background*/}
             <div className="banner-background" style={{backgroundImage: `url(${bannerBackground})`}}>

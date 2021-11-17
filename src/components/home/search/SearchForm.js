@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import ReactQuill from "react-quill";
 
 const SearchForm = () => {
     const [query, setQuery] = useState("");

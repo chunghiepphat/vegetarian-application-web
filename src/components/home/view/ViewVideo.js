@@ -22,7 +22,8 @@ const ViewVideo = ({user, location, data, isError, fetchData}) => {
                     <div className="section-content">
                         <article className="video-article">
                             <VideoPlayer data={data}/>
-                            <VideoToolbar id={id} data={data} reload={fetchData} mainApi={api}/>
+                            <VideoToolbar id={id} location={location} data={data}
+                                          reload={fetchData} mainApi={api}/>
                             <VideoDetails data={data}/>
                             <VideoComments data={data}/>
                         </article>
