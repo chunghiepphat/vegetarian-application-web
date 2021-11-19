@@ -73,39 +73,40 @@ const UpdateAllergies = ({user, token, location}) => {
     }
     useEffect(fetchData, [location, user]);
 
-    console.log(ingredients)
     return (
         <section>
             <header className="section-header">
                 <h1>Food allergies</h1>
-                <p>Manage ingredients you are allergic to here. We will not suggest recipes that EXPLICITLY
-                    include these
-                    ingredients.</p>
+                <p>Manage ingredients you are allergic to. You will not receive recipe suggestions that include
+                    them.</p>
             </header>
             <div className="section-content">
                 <Form onSubmit={updateAllergies}>
-                    {ingredients.length > 0 ?
-                        // Dynamic form container
-                        <div className="form-dynamic">
-                            {/*Ingredient table*/}
-                            <InputArray>
-                                {ingredients.map((item, index) => (
-                                    // Individual ingredient
-                                    <InputGroup key={index}>
-                                        {/*Ingredient name & input field*/}
-                                        <input name="ingredient_name" type="text"
-                                               value={item.ingredient_name}
-                                               onChange={(e) => handleChange(e, index)}
-                                               placeholder="e.g: peppers,..." required/>
-                                        {/*Remove button*/}
-                                        <button className="button-remove" onClick={(e) => handleRemoveField(e, index)}>
-                                            <ImCross/>
-                                        </button>
-                                    </InputGroup>
-                                ))}
-                            </InputArray>
-                        </div>
-                        : <em>What are you allergic to?</em>}
+                    <div style={{minHeight: "400px"}}>
+                        {ingredients.length > 0 ?
+                            // Dynamic form container
+                            <div className="form-dynamic">
+                                {/*Ingredient table*/}
+                                <InputArray>
+                                    {ingredients.map((item, index) => (
+                                        // Individual ingredient
+                                        <InputGroup key={index}>
+                                            {/*Ingredient name & input field*/}
+                                            <input name="ingredient_name" type="text"
+                                                   value={item.ingredient_name}
+                                                   onChange={(e) => handleChange(e, index)}
+                                                   placeholder="e.g: peppers,..." required/>
+                                            {/*Remove button*/}
+                                            <button className="button-remove"
+                                                    onClick={(e) => handleRemoveField(e, index)}>
+                                                <ImCross/>
+                                            </button>
+                                        </InputGroup>
+                                    ))}
+                                </InputArray>
+                            </div>
+                            : <em>What are you allergic to?</em>}
+                    </div>
                     {/*Control buttons*/}
                     <div className="sticky-bottom">
                         <div className="input-group">

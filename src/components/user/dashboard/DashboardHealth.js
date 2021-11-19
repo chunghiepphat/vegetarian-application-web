@@ -5,7 +5,6 @@ import {FaAngleRight} from "react-icons/fa";
 
 const DashboardHealth = () => {
     const user = useContext(UserContext);
-
     const today = new Date;
     const birthdate = new Date(user.birth_date);
     let ageYear = today.getFullYear() - birthdate.getFullYear();
@@ -22,7 +21,6 @@ const DashboardHealth = () => {
         "High intensity -  hobbyist athlete and/or daily workouts",
         "Extreme intensity - professional athlete"
     ]
-
     let routine = null;
     if (user.workout_routine !== null) {
         if (user.workout_routine === 1) {
@@ -69,7 +67,6 @@ const DashboardHealth = () => {
             setVerdict("You are morbidly obese. Please check in with a doctor.")
         }
     }
-
     useEffect(calculateBmi, [user.height, user.weight]);
 
     return (

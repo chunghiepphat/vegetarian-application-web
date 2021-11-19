@@ -22,25 +22,36 @@ import Drafts from "./components/user/Drafts";
 import History from "./components/user/History";
 import Favorites from "./components/user/Favorites";
 import Console from "./components/admin/Console";
+import {PageLoader} from "./components/commons/elements/loaders/Loader";
 
 export default function App() {
     let location = useLocation();
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     const [user, setUser] = useState(userInfo);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     // Refresh authenticated user's data and save it to local storage
     const fetchData = async () => {
+        setIsLoading(true);
         const api = `${apiBase}/user/${userInfo.id}`
-        const response = await fetch(api);
-        if (response.ok) {
-            const result = await response.json();
-            localStorage.setItem("userInfo", JSON.stringify(result));
-            // Check the user's role
-            if (result.role === "admin") {
-                setIsAdmin(true);
-            } else {
-                setIsAdmin(false);
+        try {
+            const response = await fetch(api);
+            if (response.ok) {
+                const result = await response.json();
+                await setUser(result);
+                localStorage.setItem("userInfo", JSON.stringify(result));
+                // Check the user's role
+                if (result.role === "admin") {
+                    setIsAdmin(true);
+                    setIsLoading(false);
+                } else {
+                    setIsAdmin(false);
+                    setIsLoading(false);
+                }
             }
+        } catch (error) {
+            console.error(error);
+            setIsLoading(false);
         }
     }
     useEffect(() => {
@@ -48,10 +59,8 @@ export default function App() {
         // If there is an active user (userInfo in local storage)
         if (userInfo !== null) {
             // Fetch the user's data
-            fetchData().catch(error => {
-                console.error(error);
-            });
-            setUser(userInfo);
+            fetchData();
+            // setUser(userInfo);
         } else {
             // Clear UserContext and reset roles if no access token is found
             setUser();
@@ -65,36 +74,42 @@ export default function App() {
     return (
         <UserContext.Provider value={user}>
             <div className="App">
+
                 <Header/>
+                {/*{!isLoading && <>*/}
                 <Switch location={background || location}>
                     {/*Public module*/}
                     {/*<Route exact path="/"><Redirect to="/home"/></Route>*/}
-                    <Route exact path="/"><Redirect to="/home"/></Route>
-                    <Route exact path="/index"><Redirect to="/home"/></Route>
-                    {!isAdmin && <Route path="/console"><Redirect to="/home"/></Route>}
-                    {!isAdmin && <Route exact path="/home"><Home/></Route>}
-                    {!isAdmin && <Route path="/view"><View/></Route>}
-                    {!isAdmin && <Route path="/search"><Search/></Route>}
-                    {!isAdmin && <Route path="/browse"><Browse/></Route>}
+
                     {/*Auth module*/}
                     {!user ? <Route path="/auth"><Auth/></Route>
                         : <Route path="/auth"><Redirect to="/home"/></Route>}
                     {/*User module*/}
-                    {user && !isAdmin && <Route path="/profile"><Dashboard/></Route>}
-                    {user && !isAdmin && <Route path="/update"><Profile/></Route>}
-                    {user && !isAdmin && <Route path="/health"><Health/></Route>}
-                    {user && !isAdmin && <Route path="/drafts"><Drafts/></Route>}
-                    {user && !isAdmin && <Route path="/history"><History/></Route>}
-                    {user && !isAdmin && <Route path="/favorites"><Favorites/></Route>}
-                    {user && !isAdmin && <Route path="/post"><Post/></Route>}
-                    {user && !isAdmin && <Route path="/menu"><Menu/></Route>}
+                    {user && user.role !== "admin" && <Route path="/profile"><Dashboard/></Route>}
+                    {user && user.role !== "admin" && <Route path="/update"><Profile/></Route>}
+                    {user && user.role !== "admin" && <Route path="/health"><Health/></Route>}
+                    {user && user.role !== "admin" && <Route path="/drafts"><Drafts/></Route>}
+                    {user && user.role !== "admin" && <Route path="/history"><History/></Route>}
+                    {user && user.role !== "admin" && <Route path="/favorites"><Favorites/></Route>}
+                    {user && user.role !== "admin" && <Route path="/post"><Post/></Route>}
+                    {user && user.role !== "admin" && <Route path="/menu"><Menu/></Route>}
                     {/*Admin module*/}
-                    {user && isAdmin && <Route path="/console"><Console/></Route>}
-                    {user && isAdmin && <Route><Redirect to="/console"/></Route>}
+                    {user && user.role === "admin" &&
+                    <Route path="/console"><Console/></Route>}
+                    {user && user.role === "admin" &&
+                    <Route><Redirect to="/console"/></Route>}
                     {/*Miscellaneous*/}
-                    {!isAdmin && <Route path="/about"><About/></Route>}
-                    {!isAdmin && <Route path="/not-found"><NotFound/></Route>}
-                    {!isAdmin && <Redirect to="/not-found"/>}
+                    <Route exact path="/"><Redirect to="/home"/></Route>
+                    <Route exact path="/index"><Redirect to="/home"/></Route>
+                    <Route path="/console"><Redirect to="/home"/></Route>
+                    <Route exact path="/home"><Home/></Route>
+                    <Route path="/view"><View/></Route>
+                    <Route path="/search"><Search/></Route>
+                    <Route path="/browse"><Browse/></Route>
+                    <Route path="/about"><About/></Route>
+                    <Route path="/not-found"><NotFound/></Route>
+                    <Redirect to="/not-found"/>
+
                 </Switch>
                 {background && !user && <Route path="/" children={<AuthModal background={background}/>}/>}
                 {!isAdmin
@@ -103,6 +118,7 @@ export default function App() {
                 && location.pathname !== "/auth/account-recover"
                 && location.pathname !== "/not-found"
                 && <Footer/>}
+                {/*</>}*/}
             </div>
         </UserContext.Provider>
     );

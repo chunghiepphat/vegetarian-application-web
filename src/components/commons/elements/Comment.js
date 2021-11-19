@@ -14,7 +14,7 @@ const Comment = ({userId, commentId, content, time, articleType, reload}) => {
     const [author, setAuthor] = useState();
     // Generates request headers
     let headers = new Headers();
-    headers.append("Authorization", `Bearer ${token.token}`);
+    if (token) headers.append("Authorization", `Bearer ${token.token}`);
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
     const enableEdit = (e) => {

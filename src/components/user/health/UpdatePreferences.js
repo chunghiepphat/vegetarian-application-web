@@ -81,30 +81,31 @@ const UpdatePreferences = ({user, token, location}) => {
             </header>
             <div className="section-content">
                 <Form onSubmit={updatePreferences}>
-                    {ingredients.length > 0 ?
-                        // Dynamic form container
-                        <div className="form-dynamic">
-                            {/*Ingredient table*/}
-                            <InputArray>
-                                {ingredients.map((item, index) => (
-                                    // Individual ingredient
-                                    <InputGroup key={index}>
-                                        {/*Ingredient name & input field*/}
-                                        <input name="ingredient_name" type="text"
-                                               value={item.ingredient_name}
-                                               onChange={(e) => handleChange(e, index)}
-                                               placeholder="e.g: tomato,..." required/>
-                                        {/*Remove button*/}
-                                        <button className="button-remove" onClick={(e) => handleRemoveField(e, index)}>
-                                            <ImCross/>
-                                        </button>
-                                    </InputGroup>
-                                ))}
-                            </InputArray>
-                        </div>
-                        :
-                        <em>What's your favorite? Tofu? Cherry tomatoes? Share with us!</em>
-                    }
+                    <div style={{minHeight: "400px"}}>
+                        {ingredients.length > 0 ?
+                            // Dynamic form container
+                            <div className="form-dynamic">
+                                {/*Ingredient table*/}
+                                <InputArray>
+                                    {ingredients.map((item, index) => (
+                                        // Individual ingredient
+                                        <InputGroup key={index}>
+                                            {/*Ingredient name & input field*/}
+                                            <input name="ingredient_name" type="text"
+                                                   value={item.ingredient_name}
+                                                   onChange={(e) => handleChange(e, index)}
+                                                   placeholder="e.g: tomato,..." required/>
+                                            {/*Remove button*/}
+                                            <button className="button-remove"
+                                                    onClick={(e) => handleRemoveField(e, index)}>
+                                                <ImCross/>
+                                            </button>
+                                        </InputGroup>
+                                    ))}
+                                </InputArray>
+                            </div>
+                            : <em>What's your favorite? Tofu? Cherry tomatoes? Share with us!</em>}
+                    </div>
                     {/*Control buttons*/}
                     <div className="sticky-bottom">
                         <div className="input-group">

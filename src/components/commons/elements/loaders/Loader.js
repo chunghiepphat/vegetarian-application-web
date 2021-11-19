@@ -17,6 +17,14 @@ export const SectionLoader = ({style}) => {
     )
 }
 
+export const PageLoader = ({style}) => {
+    return (
+        <div className="loader-wrapper page-loader" style={style}>
+            <div className="loader">Loading...</div>
+        </div>
+    )
+}
+
 export const ArticleLoader = ({style}) => {
     return (
         <div className="loader-wrapper article-loader" style={style}>

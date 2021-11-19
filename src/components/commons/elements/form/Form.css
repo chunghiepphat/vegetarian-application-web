@@ -59,6 +59,15 @@ button:disabled:hover, .button-link:disabled:hover {
     background: #e6d3a3;
 }
 
+.button-remove {
+
+}
+
+.button-remove svg {
+    width: 14px;
+    height: 14px;
+}
+
 /*Text fields and dropdowns*/
 input, select, textarea {
     padding: 0 20px;
