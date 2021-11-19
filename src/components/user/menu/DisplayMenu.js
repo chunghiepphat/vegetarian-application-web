@@ -65,7 +65,12 @@ const DisplayMenu = (props) => {
                                         </div>))}
                                 </Panel>
                             </details>))}
-                    </div> : <SectionEmp message="It seems you don't have a saved menu yet."/>}
+                    </div> : <>
+                        {props.isMenuNew ? <SectionEmp
+                                message="Apologies, it seems we couldn't find enough recipes suitable for you... Please check again later."/>
+                            : <SectionEmp message="It seems you don't have a saved menu yet."/>}
+                    </>
+                }
             </div>
         </section>
     )

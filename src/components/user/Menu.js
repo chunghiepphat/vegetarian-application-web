@@ -109,7 +109,6 @@ const Menu = () => {
             const response = await fetch(api, request);
             if (response.ok) {
                 const result = await response.json();
-                console.log(result.menu);
                 setData(result.menu);
                 setIsMenuLoaded(true);
                 setIsMenuNew(true);

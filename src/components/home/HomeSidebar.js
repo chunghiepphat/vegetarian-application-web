@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {NavLink, useLocation, withRouter} from "react-router-dom";
+import {NavLink, withRouter} from "react-router-dom";
 import {apiBase} from "../../helpers/Variables";
 import {UserContext} from "../../context/UserContext";
 import Sidebar from "../commons/elements/Sidebar";
@@ -12,7 +12,6 @@ import {PanelErr} from "../commons/elements/loaders/AlertError";
 import {FaAngleRight} from "react-icons/fa";
 
 const HomeSidebar = () => {
-    const location = useLocation();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const [blogs, setBlogs] = useState([]);
@@ -75,7 +74,7 @@ const HomeSidebar = () => {
     useEffect(() => {
         fetchBlogs();
         fetchRecommendations();
-    }, [location, user]);
+    }, [user]);
 
     return (
         <Sidebar>

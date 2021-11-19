@@ -5,7 +5,7 @@ import Form from "../../commons/elements/form/Form";
 import InputGroup from "../../commons/elements/form/InputGroup";
 import {FaAngleRight} from "react-icons/fa";
 
-const UpdateHealth = ({user, token}) => {
+const UpdateHealth = ({user, token, reload}) => {
     // Health index
     const [height, setHeight] = useState(user.height);
     const [weight, setWeight] = useState(user.weight);
@@ -52,6 +52,7 @@ const UpdateHealth = ({user, token}) => {
         try {
             const response = await fetch(api, request);
             if (response.ok) {
+                reload();
                 alert("Health profile updated.");
                 // window.location.reload();
             } else if (response.status === 401) {
@@ -149,10 +150,6 @@ const UpdateHealth = ({user, token}) => {
                     {bmi && <>
                         {bodyType && <h1> Your BMI is {bmi} - {bodyType}</h1>}
                         {verdict && <p>{verdict}</p>}
-                        {user.birth_date && user.gender
-                        && user.height > 0 && user.weight > 0
-                        && user.workout_routine > 0 &&
-                        <Link to="/menu">Let us suggest your weekly menu <FaAngleRight/></Link>}
                     </>}
                 </div>
                 <Form onSubmit={handleSubmit}>
@@ -174,6 +171,7 @@ const UpdateHealth = ({user, token}) => {
                         <InputGroup>
                             <label>Gender
                                 <select value={gender} onChange={e => setGender(e.target.value)}>
+                                    {gender === null && <option selected disabled>Your gender...</option>}
                                     {genders.map((gender) => (
                                         <option>{gender}</option>))}
                                 </select>
@@ -192,6 +190,11 @@ const UpdateHealth = ({user, token}) => {
                             </select>
                         </label>
                     </div>
+                    {user.birth_date && user.gender
+                    && user.height > 0 && user.weight > 0
+                    && user.workout_routine > 0 &&
+                    <Link to="/menu" className="button-link button-light" style={{alignSelf: "center", width: "400px"}}>
+                        Let us suggest your weekly menu <FaAngleRight/></Link>}
                     <div className="sticky-bottom">
                         <button type="submit" className="button-dark">Save</button>
                     </div>

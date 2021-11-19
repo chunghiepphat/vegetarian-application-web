@@ -7,10 +7,10 @@ import RecipeStep02 from "./recipe/RecipeStep02";
 import RecipeStep03 from "./recipe/RecipeStep03";
 import RecipeStep04 from "./recipe/RecipeStep04";
 
-
 const PostRecipe = ({user, token, history}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [uploadProgress, setUploadProgress] = useState("");
+    const [categoryList, setCategoryList] = useState([]);
     // Step 1 parameters
     const [title, setTitle] = useState();
     const [category, setCategory] = useState(1);
@@ -28,6 +28,21 @@ const PostRecipe = ({user, token, history}) => {
     // Step 4 parameters
     const [steps, setSteps] = useState([]);
     const [isPrivate, setIsPrivate] = useState(false);
+    // Fetch category list from server
+    const fetchCategories = async () => {
+        const api = `${apiBase}/recipes/categories`
+        try {
+            const response = await fetch(api);
+            if (response.ok) {
+                const result = await response.json();
+                await setCategoryList(result.listResult);
+                console.log(categoryList)
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    useEffect(fetchCategories, [user]);
     // Handles form submission, image upload and getting image URL
     const submitPost = async (e) => {
         e.preventDefault();
@@ -128,6 +143,7 @@ const PostRecipe = ({user, token, history}) => {
             <Route exact path="/post/recipe/"><Redirect to="/post/recipe/step-1"/></Route>
             <Route exact path="/post/recipe/step-1">
                 <RecipeStep01 history={history} title={title} setTitle={setTitle}
+                              categoryList={categoryList}
                               category={category} setCategory={setCategory}
                               difficulty={difficulty} setDifficulty={setDifficulty}
                               portionSize={portionSize} setPortionSize={setPortionSize}

@@ -1,10 +1,8 @@
-import React, {useState, useContext, useEffect} from "react";
-import {UserContext} from "../../../context/UserContext";
+import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import {FaAngleRight} from "react-icons/fa";
 
-const DashboardHealth = () => {
-    const user = useContext(UserContext);
+const DashboardHealth = ({user}) => {
     const today = new Date;
     const birthdate = new Date(user.birth_date);
     let ageYear = today.getFullYear() - birthdate.getFullYear();

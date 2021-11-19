@@ -6,12 +6,12 @@ import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 
-const PostedBlogs = ({user, location, data, isLoading, isError, fetchData}) => {
+const PostedBlogs = ({user, data, isLoading, isError, fetchData}) => {
     const api = `${apiBase}/blogs/getallbyuserID/${user.id}?page=1&limit=100`;
     // Executes fetch once on page load
     useEffect(() => {
         fetchData(api);
-    }, [location]);
+    }, [user]);
 
     return (
         <section>

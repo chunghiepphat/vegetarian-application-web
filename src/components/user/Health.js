@@ -7,7 +7,7 @@ import {NavLink, Redirect, Route, Switch, useLocation} from "react-router-dom";
 import Navbar from "../commons/elements/bars/Navbar";
 import {UserContext} from "../../context/UserContext";
 
-const Health = () => {
+const Health = ({reload}) => {
     const location = useLocation();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -29,11 +29,11 @@ const Health = () => {
                     <Switch>
                         <Route exact path="/health"><Redirect to={urlDetails}/></Route>
                         <Route path={urlDetails}>
-                            <UpdateHealth user={user} token={token} location={location}/> </Route>
+                            <UpdateHealth user={user} token={token} location={location} reload={reload}/> </Route>
                         <Route path={urlAllergies}>
-                            <UpdateAllergies user={user} token={token} location={location}/> </Route>
+                            <UpdateAllergies user={user} token={token} location={location} reload={reload}/> </Route>
                         <Route path={urlPreferences}>
-                            <UpdatePreferences user={user} token={token} location={location}/> </Route>
+                            <UpdatePreferences user={user} token={token} location={location} reload={reload}/> </Route>
                     </Switch>
                 </main>
                 <DashboardSidebar/>

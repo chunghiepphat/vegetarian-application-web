@@ -1,12 +1,11 @@
 import React, {useContext, useEffect, useState} from "react";
 import "./Header.css";
-import SearchBar from "../SearchBar";
-import Navbar from "../bars/Navbar";
-import {Link, NavLink, useHistory, useLocation, withRouter} from "react-router-dom";
+import {NavLink, useLocation, withRouter} from "react-router-dom";
 import {UserContext} from "../../../../context/UserContext";
 import placeholderAvatar from "assets/user-image-default.png";
 import Brand from "./Brand";
-import {useGoogleLogout} from "react-google-login";
+import SearchBar from "../SearchBar";
+import Navbar from "../bars/Navbar";
 import Logout from "../../../auth/Logout";
 
 const Header = () => {
@@ -14,7 +13,6 @@ const Header = () => {
     let token = JSON.parse(localStorage.getItem("accessToken"));
     const user = useContext(UserContext);
     const location = useLocation();
-    const history = useHistory();
     // Checks scroll offset to resize header with conditional CSS class
     const [show, setShow] = useState(false);
     useEffect(() => {

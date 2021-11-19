@@ -7,6 +7,7 @@ import DashboardBanner from "./dashboard/DashboardBanner";
 import DashboardHealth from "./dashboard/DashboardHealth";
 import {UserContext} from "../../context/UserContext";
 import {useLocation} from "react-router-dom";
+import DashboardRecommendations from "./dashboard/DashboardRecommendations";
 
 const Dashboard = () => {
     const location = useLocation();
@@ -19,6 +20,7 @@ const Dashboard = () => {
             <div className="grid-container">
                 <main>
                     <DashboardHealth user={user} token={token} location={location}/>
+                    <DashboardRecommendations user={user} location={location}/>
                     <DashboardLatestRecipes user={user} token={token} location={location}/>
                     <DashboardLatestBlogs user={user} token={token} location={location}/>
                 </main>

@@ -37,8 +37,9 @@ const RecipeStep01 = (props) => {
                     <label>Recipe type
                         <select aria-label="Recipe type" value={props.category}
                                 onChange={e => props.setCategory(e.target.value)}>
-                            <option value="1">Main course</option>
-                            <option value="2">Dessert</option>
+                            {props.categoryList && props.categoryList.map(item => (
+                                <option value={item.category_id}>{item.category_name}</option>
+                            ))}}
                         </select>
                     </label>
                     <label>Recipe difficulty</label>
@@ -46,19 +47,19 @@ const RecipeStep01 = (props) => {
                         <label className="radio-button">
                             <input type="radio" name="difficulty" value="1" defaultChecked
                                    onChange={e => props.setDifficulty(e.target.value)}/>
-                            <span className="radio-label">1</span> </label>
+                            <span className="radio-label">Beginner</span> </label>
                         <label className="radio-button">
                             <input type="radio" name="difficulty" value="2"
                                    onChange={e => props.setDifficulty(e.target.value)}/>
-                            <span className="radio-label">2</span> </label>
+                            <span className="radio-label">Novice</span> </label>
                         <label className="radio-button">
                             <input type="radio" name="difficulty" value="3"
                                    onChange={e => props.setDifficulty(e.target.value)}/>
-                            <span className="radio-label">3</span> </label>
+                            <span className="radio-label">Cook</span> </label>
                         <label className="radio-button">
                             <input type="radio" name="difficulty" value="4"
                                    onChange={e => props.setDifficulty(e.target.value)}/>
-                            <span className="radio-label">4</span> </label>
+                            <span className="radio-label">Chef</span> </label>
                         <label className="radio-button">
                             <input type="radio" name="difficulty" value="5"
                                    onChange={e => props.setDifficulty(e.target.value)}/>

@@ -167,7 +167,7 @@ article section {
 }
 
 .article-button:active svg {
-    animation: pop 0.5s;
+    animation: pop 0.3s;
 }
 
 .article-button-with-text {
@@ -376,14 +376,11 @@ article .form-container {
 }
 
 @keyframes pop {
-    0% {
+    from {
         transform: scale(1);
     }
-    50% {
-        transform: scale(2);
-    }
-    100% {
-        transform: scale(1);
+    to {
+        transform: scale(1.8);
     }
 }
 

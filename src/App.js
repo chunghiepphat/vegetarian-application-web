@@ -22,17 +22,15 @@ import Drafts from "./components/user/Drafts";
 import History from "./components/user/History";
 import Favorites from "./components/user/Favorites";
 import Console from "./components/admin/Console";
-import {PageLoader} from "./components/commons/elements/loaders/Loader";
 
 export default function App() {
     let location = useLocation();
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    let userInfo = JSON.parse(localStorage.getItem("userInfo"));
     const [user, setUser] = useState(userInfo);
     const [isAdmin, setIsAdmin] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
     // Refresh authenticated user's data and save it to local storage
     const fetchData = async () => {
-        setIsLoading(true);
+        console.log(user)
         const api = `${apiBase}/user/${userInfo.id}`
         try {
             const response = await fetch(api);
@@ -40,33 +38,15 @@ export default function App() {
                 const result = await response.json();
                 await setUser(result);
                 localStorage.setItem("userInfo", JSON.stringify(result));
-                // Check the user's role
-                if (result.role === "admin") {
-                    setIsAdmin(true);
-                    setIsLoading(false);
-                } else {
-                    setIsAdmin(false);
-                    setIsLoading(false);
-                }
             }
         } catch (error) {
             console.error(error);
-            setIsLoading(false);
         }
     }
     useEffect(() => {
-        // console.log(location)
-        // If there is an active user (userInfo in local storage)
         if (userInfo !== null) {
-            // Fetch the user's data
             fetchData();
-            // setUser(userInfo);
-        } else {
-            // Clear UserContext and reset roles if no access token is found
-            setUser();
-            setIsAdmin(false);
-        }
-        // Reset scroll upon page change
+        } else setUser(undefined);
         window.scrollTo(0, 0)
     }, [location]);
     const background = location.state && location.state.background;
@@ -74,7 +54,6 @@ export default function App() {
     return (
         <UserContext.Provider value={user}>
             <div className="App">
-
                 <Header/>
                 {/*{!isLoading && <>*/}
                 <Switch location={background || location}>
@@ -86,8 +65,8 @@ export default function App() {
                         : <Route path="/auth"><Redirect to="/home"/></Route>}
                     {/*User module*/}
                     {user && user.role !== "admin" && <Route path="/profile"><Dashboard/></Route>}
-                    {user && user.role !== "admin" && <Route path="/update"><Profile/></Route>}
-                    {user && user.role !== "admin" && <Route path="/health"><Health/></Route>}
+                    {user && user.role !== "admin" && <Route path="/update"><Profile reload={fetchData}/></Route>}
+                    {user && user.role !== "admin" && <Route path="/health"><Health reload={fetchData}/></Route>}
                     {user && user.role !== "admin" && <Route path="/drafts"><Drafts/></Route>}
                     {user && user.role !== "admin" && <Route path="/history"><History/></Route>}
                     {user && user.role !== "admin" && <Route path="/favorites"><Favorites/></Route>}
@@ -109,10 +88,9 @@ export default function App() {
                     <Route path="/about"><About/></Route>
                     <Route path="/not-found"><NotFound/></Route>
                     <Redirect to="/not-found"/>
-
                 </Switch>
                 {background && !user && <Route path="/" children={<AuthModal background={background}/>}/>}
-                {!isAdmin
+                {location.pathname !== "/console"
                 && location.pathname !== "/auth/register"
                 && location.pathname !== "/auth/account-verify"
                 && location.pathname !== "/auth/account-recover"

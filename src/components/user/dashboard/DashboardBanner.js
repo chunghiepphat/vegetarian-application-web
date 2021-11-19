@@ -3,11 +3,9 @@ import placeholderAvatar from "assets/user-image-default.png";
 import {UserContext} from "../../../context/UserContext";
 import {FaAngleRight, FaEnvelope, FaFacebook, FaHome, FaInstagram, FaPhoneAlt} from "react-icons/fa";
 import {Link} from "react-router-dom";
-import {AiOutlineEdit} from "react-icons/all";
+import {MdEdit} from "react-icons/all";
 
-const DashboardBanner = () => {
-    const user = useContext(UserContext);
-
+const DashboardBanner = ({user}) => {
     return (
         <div className="banner-container banner-dashboard">
             <div className="banner">
@@ -18,7 +16,7 @@ const DashboardBanner = () => {
                             <img src={placeholderAvatar} alt="avatar"/>
                         </picture>
                         <div className="avatar-overlay">
-                            <AiOutlineEdit/>
+                            <MdEdit/>
                         </div>
                     </Link>
                     <div className="profile-info">

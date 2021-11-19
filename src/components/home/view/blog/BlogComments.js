@@ -49,23 +49,24 @@ const BlogComments = ({data}) => {
         };
         // Executes fetch
         const api = `${apiBase}/user/commentblog`;
-        const response = await fetch(api, request);
-        if (response.ok) {
-            await fetchComments();
-            setComment("");
-        } else if (response.status === 401) {
-            alert("You are not authorized to do that.")
-        } else {
-            alert("Unexpected error with code: " + response.status);
+        try {
+            const response = await fetch(api, request);
+            if (response.ok) {
+                await fetchComments();
+                setComment("");
+            } else if (response.status === 401) {
+                alert("You are not authorized to do that.")
+            } else {
+                alert("Unexpected error with code: " + response.status);
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
-
     // Executes fetch once on page load
     useEffect(() => {
-        fetchComments().catch(error => {
-            console.error(error);
-        });
-    }, []);
+        fetchComments();
+    }, [data]);
 
     return (
         <section className="article-comments">

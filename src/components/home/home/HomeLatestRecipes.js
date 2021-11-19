@@ -8,7 +8,7 @@ import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 
-const HomeLatestRecipes = ({user, location}) => {
+const HomeLatestRecipes = ({user}) => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -34,7 +34,7 @@ const HomeLatestRecipes = ({user, location}) => {
     // Executes fetch once on page load
     useEffect(() => {
         fetchData();
-    }, [location, user]);
+    }, [user]);
     // Handles slider scrolling on button click
     const ref = useRef(null);
     const scroll = (scrollOffset) => {

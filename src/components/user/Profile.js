@@ -1,13 +1,12 @@
-import React, {useState} from "react";
-import {Link, NavLink, Redirect, Route, Switch, useHistory} from "react-router-dom";
+import React from "react";
+import {NavLink, Redirect, Route, Switch} from "react-router-dom";
 import Navbar from "../commons/elements/bars/Navbar";
 import UpdateAvatar from "./profile/UpdateAvatar";
 import UpdateProfile from "./profile/UpdateProfile";
 import UpdatePassword from "./profile/UpdatePassword";
 import DashboardSidebar from "./DashboardSidebar";
 
-const Profile = () => {
-    let user = JSON.parse(localStorage.getItem("userInfo"));
+const Profile = ({reload}) => {
     const urlAvatar = "/update/avatar";
     const urlProfile = "/update/profile";
     const urlPassword = "/update/password";
@@ -24,9 +23,9 @@ const Profile = () => {
                     </section>
                     <Switch>
                         <Route exact path="/update"><Redirect to={urlProfile}/></Route>
-                        <Route path={urlAvatar}><UpdateAvatar/></Route>
-                        <Route path={urlProfile}><UpdateProfile/></Route>
-                        <Route path={urlPassword}><UpdatePassword/></Route>
+                        <Route path={urlAvatar}><UpdateAvatar reload={reload}/></Route>
+                        <Route path={urlProfile}><UpdateProfile reload={reload}/></Route>
+                        <Route path={urlPassword}><UpdatePassword reload={reload}/></Route>
                     </Switch>
                 </main>
                 <DashboardSidebar/>

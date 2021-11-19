@@ -8,7 +8,7 @@ import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 
-const HomeLatestBlogs = ({user, location}) => {
+const HomeLatestBlogs = ({user}) => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -35,7 +35,7 @@ const HomeLatestBlogs = ({user, location}) => {
     // Executes fetch once on page load
     useEffect(() => {
         fetchData();
-    }, [user, location]);
+    }, [user]);
 
     return (
         <section>

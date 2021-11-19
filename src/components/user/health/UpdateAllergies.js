@@ -71,7 +71,7 @@ const UpdateAllergies = ({user, token, location}) => {
             alert("Error: " + response.status);
         }
     }
-    useEffect(fetchData, [location, user]);
+    useEffect(fetchData, [location]);
 
     return (
         <section>
