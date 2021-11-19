@@ -5,10 +5,10 @@ import Panel from "../../commons/elements/containers/Panel";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 
-const FavoriteBlogs = ({user, location, data, isLoading, isError, fetchData}) => {
+const FavoriteBlogs = ({location, data, isLoading, isError, fetchData}) => {
     useEffect(() => {
         fetchData();
-    }, [location, user]);
+    }, [location]);
 
     return (
         <section>

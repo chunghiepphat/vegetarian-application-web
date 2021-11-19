@@ -34,7 +34,7 @@ const HomeBanner = ({user, location}) => {
     // Executes fetch once on page load
     useEffect(() => {
         fetchData();
-    }, [location, user]);
+    }, [user]);
     // Handle banner scroll button
     const scrollRef = useRef(null);
     const executeScroll = () => scrollRef.current.scrollIntoView({behavior: 'smooth'});

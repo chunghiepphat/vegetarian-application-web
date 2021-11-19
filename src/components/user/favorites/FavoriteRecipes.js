@@ -5,10 +5,10 @@ import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 
-const FavoriteRecipes = ({user, location, data, isLoading, isError, fetchData}) => {
+const FavoriteRecipes = ({location, data, isLoading, isError, fetchData}) => {
     useEffect(() => {
         fetchData();
-    }, [location, user]);
+    }, [location]);
 
     return (
         <section>

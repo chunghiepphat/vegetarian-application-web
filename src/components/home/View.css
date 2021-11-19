@@ -9,8 +9,9 @@ article section {
 .video-article {
     padding: 0;
 }
-.video-article video {
-    max-height: 720px;
+
+.article-content video {
+    max-height: 480px;
 }
 
 .article-thumbnail {

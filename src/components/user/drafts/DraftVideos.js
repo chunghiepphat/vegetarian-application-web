@@ -5,10 +5,10 @@ import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 
-const DraftVideos = ({user, location, data, isLoading, isError, fetchData}) => {
+const DraftVideos = ({location, data, isLoading, isError, fetchData}) => {
     useEffect(() => {
         fetchData();
-    }, [location, user]);
+    }, [location]);
 
     return (
         <section>

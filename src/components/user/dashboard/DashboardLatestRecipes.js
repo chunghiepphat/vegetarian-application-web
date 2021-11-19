@@ -43,7 +43,7 @@ const DashboardLatestRecipes = ({user, location, token}) => {
     // Executes fetch once on page load
     useEffect(() => {
         fetchData();
-    }, [location, user]);
+    }, [location]);
     // Handles slider scrolling on button click
     const ref = useRef(null);
     const scroll = (scrollOffset) => {

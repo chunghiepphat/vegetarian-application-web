@@ -11,7 +11,7 @@ const PostedVideos = ({user, location, data, isLoading, isError, fetchData}) => 
     // Executes fetch once on page load
     useEffect(() => {
         fetchData(api);
-    }, [location, user]);
+    }, [location]);
 
     return (
         <section>

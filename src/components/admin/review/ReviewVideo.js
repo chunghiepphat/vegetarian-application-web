@@ -93,7 +93,7 @@ const ReviewVideo = () => {
                 {!isError ? <>
                     {data ? <>
                         <div className="section-content">
-                            <article>
+                            <article className="video-article">
                                 <VideoPlayer data={data}/>
                                 <VideoDetails data={data}/>
                             </article>

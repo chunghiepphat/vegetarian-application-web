@@ -26,6 +26,7 @@ const ListVideos = ({user, location, isLoading, isError, fetchData}) => {
                                        title={item.video_title}
                                        link={item.video_link}
                                        userId={item.user_id}
+                                       thumbnail={item.video_thumbnail}
                                        firstName={item.first_name}
                                        lastName={item.last_name}
                                        time={item.time_created}

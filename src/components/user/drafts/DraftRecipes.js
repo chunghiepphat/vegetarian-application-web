@@ -5,10 +5,10 @@ import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 
-const DraftRecipes = ({user, location, data, isLoading, isError, fetchData}) => {
+const DraftRecipes = ({location, data, isLoading, isError, fetchData}) => {
     useEffect(() => {
         fetchData();
-    }, [location, user]);
+    }, [location]);
 
     return (
         <section>

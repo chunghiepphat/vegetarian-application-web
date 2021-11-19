@@ -43,7 +43,7 @@ const DashboardLatestBlogs = ({user, location, token}) => {
     // Executes fetch once on page load
     useEffect(() => {
         fetchData();
-    }, [location, user]);
+    }, [location]);
 
     return (
         <section>
