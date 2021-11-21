@@ -34,9 +34,7 @@ const RecipeIngredients = ({data}) => {
                     {data.portion_type == 2 && <> {strings.pieces}</>}</p>
                 <ul>
                     {data.ingredients.map(ingredient => (
-                        <li>
-                            <FaLeaf/> {ingredient.ingredient_name} - {ingredient.amount_in_mg} {strings.grams}
-                        </li>))}
+                        <li><FaLeaf/> {ingredient.ingredient_name} - {ingredient.amount_in_mg} {strings.grams}</li>))}
                 </ul>
             </> : <em>{strings.noIngredientMessage}</em>}
         </section>

@@ -1,20 +1,45 @@
 import React, {useEffect, useState} from "react";
+import LocalizedStrings from "react-localization";
 import {useHistory} from "react-router-dom";
 import {apiUrl} from "../../../helpers/Variables";
 import jwtDecode from "jwt-decode";
 
 const AccountVerification = (props) => {
     const history = useHistory();
-    const [isLoading, setIsLoading] = useState(false);
-    const [isResending, setIsResending] = useState(false);
-    const [counter, setCounter] = useState(0);
-    // Initializes parameters
-    const [code, setCode] = useState("");
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            header: "Verify your email",
+            instructionPart1: "We have sent a code to",
+            instructionPart2: "Please check your email and enter the code below.",
+            placeholderCode: "Verification code",
+            buttonVerify: "Verify account",
+            loadingMessage: "Verifying your account...",
+            buttonResend: "Resend code",
+            resendingMessage: "Resending...",
+            resendingFinished: "Sent. You can try again in",
+            seconds: "second(s)",
+        },
+        vi: {
+            header: "Xác nhận email của bạn",
+            instructionPart1: "Mã xác nhận đã được gửi tới",
+            instructionPart2: "Vui lòng kiểm tra và nhập mã vào đây.",
+            placeholderCode: "Mã xác nhận",
+            buttonVerify: "Xác nhận",
+            loadingMessage: "Đang kiểm tra...",
+            buttonResend: "Gửi lại mã",
+            resendingMessage: "Đang gửi lại...",
+            resendingFinished: "Đã gửi. Bạn có thể thử lại trong",
+            seconds: "giây",
+        }
+    });
     // Generates request headers
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
     // Resends code
+    const [isResending, setIsResending] = useState(false);
+    const [counter, setCounter] = useState(0);
     const resendCode = async (e) => {
         e.preventDefault();
         setIsResending(true)
@@ -52,6 +77,8 @@ const AccountVerification = (props) => {
         return () => clearInterval(intervalId);
     }, [counter]);
     // Handles account verification
+    const [code, setCode] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const verifyAccount = async (e) => {
         e.preventDefault();
         setIsLoading(true);
@@ -93,22 +120,21 @@ const AccountVerification = (props) => {
     // Renders the form
     return (
         <div className="auth-section">
-            <h1>Email verification</h1>
-            <p>We have sent a verification code to {props.email}, please check your email.</p>
+            <h1>{strings.header}</h1>
+            <p>{strings.instructionPart1} {props.email}.</p>
+            <p style={{marginBottom: "40px"}}>{strings.instructionPart2}</p>
             <form className="auth-form" onSubmit={verifyAccount}>
-                <input type="text" placeholder="Verification code"
+                <input type="text" placeholder={strings.placeholderCode}
                        onChange={e => setCode(e.target.value)} required/>
                 {!isLoading ?
-                    <button type="submit" className="button-dark">Verify account</button>
-                    : <button disabled>Verifying your account...</button>}
+                    <button type="submit" className="button-dark">{strings.buttonVerify}</button>
+                    : <button disabled>{strings.loadingMessage}</button>}
                 {!isResending ? <>
                     {!counter ?
-                        <button type="button" className="button-light" onClick={e => resendCode(e)}>Resend code</button>
-                        : <button disabled>Sent. You can try again in {counter} seconds.</button>
-                    }
-                </> : <>
-                    <button disabled>Sending...</button>
-                </>}
+                        <button type="button" className="button-light"
+                                onClick={e => resendCode(e)}>{strings.buttonResend}</button>
+                        : <button disabled>{strings.resendingFinished} {counter} {strings.seconds}.</button>}
+                </> : <button disabled>{strings.resendingMessage}</button>}
             </form>
         </div>
     )

@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
+import LocalizedStrings from "react-localization";
 import {NavLink, withRouter} from "react-router-dom";
 import {apiUrl} from "../../helpers/Variables";
 import {UserContext} from "../../context/UserContext";
@@ -12,18 +13,41 @@ import {PanelErr} from "../commons/elements/loaders/AlertError";
 import {FaAngleRight} from "react-icons/fa";
 
 const HomeSidebar = () => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            headerExplore: "Explore",
+            urlRecipes: "Recipes",
+            urlVideos: "Videos",
+            urlBlogs: "Blogs",
+            headerSearch: "Search",
+            urlSearch: "Advanced search",
+            headerRecommendations: "Try these recipes",
+            headerBlogs: "Popular stories",
+
+        },
+        vi: {
+            headerExplore: "Khám phá",
+            urlRecipes: "Công thức nấu ăn",
+            urlVideos: "Video hướng dẫn",
+            urlBlogs: "Bài viết chia sẻ",
+            headerSearch: "Tìm kiếm",
+            urlSearch: "Tìm kiếm nâng cao",
+            headerRecommendations: "Có lẽ bạn sẽ thích",
+            headerBlogs: "Bài viết phổ biến",
+        }
+    });
+    // Handles fetching recommended recipes if user is logged in
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const [blogs, setBlogs] = useState([]);
-    const [isBlogsLoading, setIsBlogsLoading] = useState(false);
-    const [isBlogsError, setIsBlogsError] = useState(false);
     const [recommendations, setRecommendations] = useState([]);
-    const [isRecLoading, setIsRecLoading] = useState(false);
-    const [isRecError, setIsRecError] = useState(false);
+    const [isLoadingRecommendations, setIsLoadingRecommendations] = useState(false);
+    const [isErrorRecommendations, setIsErrorRecommendations] = useState(false);
     const fetchRecommendations = async () => {
+        // Checks authentication
         if (user !== null && token !== null) {
-            setIsRecError(false);
-            setIsRecLoading(true);
+            setIsErrorRecommendations(false);
+            setIsLoadingRecommendations(true);
             // Generates request headers
             let headers = new Headers();
             if (token) headers.append("Authorization", `Bearer ${token.token}`);
@@ -34,70 +58,75 @@ const HomeSidebar = () => {
                 method: 'GET',
                 headers: headers,
             };
+            // Executes fetch
+            const api = `${apiUrl}/recipes/suggestion/${user.id}`;
             try {
-                const api = `${apiUrl}/recipes/suggestion/${user.id}`;
                 const response = await fetch(api, request);
                 if (response.ok) {
                     const result = await response.json();
                     setRecommendations(result);
-                    setIsRecLoading(false);
+                    setIsLoadingRecommendations(false);
                 } else if (response.status >= 400 && response.status < 600) {
-                    setIsRecError(true);
-                    setIsRecLoading(false);
+                    setIsErrorRecommendations(true);
+                    setIsLoadingRecommendations(false);
                 }
             } catch (error) {
-                console.error(error);
-                setIsRecError(true);
+                setIsErrorRecommendations(true);
             }
         }
     }
+    useEffect(() => {
+        if (user !== null && token !== null) fetchRecommendations();
+    }, [user]);
+    // Handles fetching popular blogs
+    const [blogs, setBlogs] = useState([]);
+    const [isLoadingBlogs, setIsLoadingBlogs] = useState(false);
+    const [isErrorBlogs, setIsErrorBlogs] = useState(false);
     const fetchBlogs = async () => {
-        setIsBlogsError(false);
-        setIsBlogsLoading(true);
+        setIsErrorBlogs(false);
+        setIsLoadingBlogs(true);
         const api = `${apiUrl}/blogs/get5bestblog${user ? `?userID=${user.id}` : ``}`;
         try {
             const response = await fetch(api);
             if (response.ok) {
                 const result = await response.json();
                 setBlogs(result.listResult);
-                setIsBlogsLoading(false);
+                setIsLoadingBlogs(false);
             } else if (response.status >= 400 && response.status < 600) {
-                setIsBlogsError(true);
-                setIsBlogsLoading(false);
+                setIsErrorBlogs(true);
+                setIsLoadingBlogs(false);
             }
         } catch (error) {
             console.error(error);
-            setIsBlogsError(true);
+            setIsErrorBlogs(true);
         }
     }
-    // Executes fetch once on page load
     useEffect(() => {
         fetchBlogs();
-        fetchRecommendations();
     }, [user]);
 
     return (
         <Sidebar>
             <section className="sidebar-widget">
-                <h1>Explore</h1>
+                <h1>{strings.headerExplore}</h1>
                 <Navbar>
-                    <NavLink to="/browse/recipes"><FaAngleRight/>Recipes</NavLink>
-                    <NavLink to="/browse/videos"><FaAngleRight/>Videos</NavLink>
-                    <NavLink to="/browse/blogs"><FaAngleRight/>Blogs</NavLink>
+                    <NavLink to="/browse/recipes"><FaAngleRight/>{strings.urlRecipes}</NavLink>
+                    <NavLink to="/browse/videos"><FaAngleRight/>{strings.urlVideos}</NavLink>
+                    <NavLink to="/browse/blogs"><FaAngleRight/>{strings.urlBlogs}</NavLink>
                 </Navbar>
             </section>
             <section className="sidebar-widget">
-                <h1>Search</h1>
+                <h1>{strings.headerSearch}</h1>
                 <Navbar>
-                    <NavLink to="/search"><FaAngleRight/>Advanced search</NavLink>
+                    <NavLink to="/search"><FaAngleRight/>{strings.urlSearch}</NavLink>
                 </Navbar>
             </section>
             {user &&
             <section className="sidebar-widget">
-                <h1>Try these recipes</h1>
+                <h1>{strings.headerRecommendations}</h1>
                 <Panel>
-                    {!isRecLoading ? <>
-                        {!isRecError ? <>
+                    {!isLoadingRecommendations ? <>
+                        {!isErrorRecommendations ? <>
                             {recommendations && recommendations.length ? <>
                                 {recommendations.map(item => (
                                     <ArticleCard className="card-compact"
@@ -116,10 +145,10 @@ const HomeSidebar = () => {
                 </Panel>
             </section>}
             <section className="sidebar-widget">
-                <h1>Popular stories</h1>
+                <h1>{strings.headerBlogs}</h1>
                 <Panel>
-                    {!isBlogsLoading ? <>
-                        {!isBlogsError ? <>
+                    {!isLoadingBlogs ? <>
+                        {!isErrorBlogs ? <>
                             {blogs && blogs.length ? <>
                                 {blogs.map(item => (
                                     <ArticleCard className="card-small"

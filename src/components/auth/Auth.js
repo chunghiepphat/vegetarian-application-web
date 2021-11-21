@@ -9,9 +9,6 @@ import RecoveryStep2 from "./forms/recovery/RecoveryStep2";
 
 const Auth = () => {
     const [email, setEmail] = useState("");
-    useEffect(() => {
-        console.log(email);
-    }, [email])
 
     return (
         <div className="page-container page-full">

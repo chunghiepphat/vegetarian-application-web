@@ -1,13 +1,28 @@
 import React, {useState} from "react";
+import LocalizedStrings from "react-localization";
 import {apiUrl} from "../../../../helpers/Variables";
 import jwtDecode from "jwt-decode";
 
 const LoginEmail = ({history, background}) => {
-    // const [message, setMessage] = useState();
-    const [isLoading, setIsLoading] = useState(false);
-    // Initializes parameters
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            placeholderEmail: "Enter email",
+            placeholderPassword: "Enter password",
+            buttonSignIn: "Sign in",
+            loadingMessage: "Logging you in..."
+        },
+        vi: {
+            placeholderEmail: "Nhập email",
+            placeholderPassword: "Nhập mật khẩu",
+            buttonSignIn: "Đăng nhập",
+            loadingMessage: "Đang đăng nhập..."
+        }
+    });
+    // Input states
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     // Generates request headers
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
@@ -51,7 +66,6 @@ const LoginEmail = ({history, background}) => {
                     if (!result.message) {
                         localStorage.setItem("accessToken", JSON.stringify(result));
                         localStorage.setItem("userInfo", JSON.stringify(jwtDecode(JSON.stringify(result))));
-                        alert("Authentication successful.");
                         history.push(background);
                     } else {
                         alert("This account is not yet activated.\nPlease check your email for the verification code.");
@@ -68,15 +82,13 @@ const LoginEmail = ({history, background}) => {
 
     return (
         <form className="auth-form" onSubmit={signIn}>
-            <input type="email" name="email" placeholder="Enter email"
-                   onChange={e => setEmail(e.target.value)}
-                   required/>
-            <input type="password" name="password" placeholder="Enter password"
+            <input type="email" name="email" placeholder={strings.placeholderEmail}
+                   onChange={e => setEmail(e.target.value)} required/>
+            <input type="password" name="password" placeholder={strings.placeholderPassword}
                    onChange={e => setPassword(e.target.value)} required/>
-
             {!isLoading ?
-                <button type="submit" className="button-dark">Sign in</button>
-                : <button disabled>Logging you in...</button>}
+                <button type="submit" className="button-dark">{strings.buttonSignIn}</button>
+                : <button disabled>{strings.loadingMessage}</button>}
         </form>
     )
 }

@@ -1,13 +1,31 @@
 import React, {useState} from "react";
 import {apiUrl} from "../../../../helpers/Variables";
+import LocalizedStrings from "react-localization";
 
-const RecoveryStep1 = ({history, email, setEmail, setStep}) => {
-    const [isLoading, setIsLoading] = useState(false);
+const RecoveryStep1 = ({email, setEmail, setStep}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            header: "Recover your account",
+            instruction: "Enter your email below.",
+            placeholderEmail: "Your account email",
+            buttonProceed: "Proceed",
+            loadingMessage: "Processing...",
+        },
+        vi: {
+            header: "Phục hồi tài khoản",
+            instruction: "Nhập email liên kết với tài khoản của bạn.",
+            placeholderEmail: "Nhập email",
+            buttonProceed: "Tiếp tục",
+            loadingMessage: "Đang xử lý...",
+        }
+    });
     // Generates request headers
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
     // Handles registration requests
+    const [isLoading, setIsLoading] = useState(false);
     const requestRecovery = async (e) => {
         e.preventDefault();
         setIsLoading(true);
@@ -19,30 +37,32 @@ const RecoveryStep1 = ({history, email, setEmail, setStep}) => {
         // Executes fetch
         const api = `${apiUrl}/user/forgot?email=${email}`;
         const response = await fetch(api, request)
-        if (response.ok) {
-            setStep(2);
-            setIsLoading(false)
-        } else if (response.status >= 400 && response.status < 600) {
-            const error = response.json();
-            let message = error.message;
-            if (message !== undefined) alert(message);
-            else alert("An unexpected error has occurred. Status code: " + response.status);
+        try {
+            if (response.ok) {
+                setStep(2);
+                setIsLoading(false)
+            } else if (response.status >= 400 && response.status < 600) {
+                const error = response.json();
+                let message = error.message;
+                if (message !== undefined) alert(message);
+                else alert("There was an error. Status code: " + response.status);
+                setIsLoading(false);
+            }
+        } catch (error) {
+            alert("An unexpected error has occurred: " + error);
             setIsLoading(false);
         }
     }
 
     return (
         <div>
-            <h1>Recover your account</h1>
-            <p>Enter your email below.</p>
+            <h1>{strings.header}</h1>
+            <p style={{marginBottom: "40px"}}>{strings.instruction}</p>
             <form className="auth-form" onSubmit={requestRecovery}>
-                <input type="text" placeholder="Your account email"
+                <input type="text" aria-label="email" placeholder={strings.placeholderEmail}
                        onChange={e => setEmail(e.target.value)} required/>
-                {!isLoading ? <>
-                    <button type="submit" className="button-dark">Proceed</button>
-                </> : <>
-                    <button disabled>Processing...</button>
-                </>}
+                {!isLoading ? <button type="submit" className="button-dark">{strings.buttonProceed}</button>
+                    : <button disabled>{strings.loadingMessage}</button>}
             </form>
         </div>
     )

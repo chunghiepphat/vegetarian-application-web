@@ -1,9 +1,22 @@
 import React from "react";
+import LocalizedStrings from "react-localization";
 
 const RecipeSteps = (props) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            header: "Step-by-step instructions",
+            noInstructionsMessage: "It seems there aren't any instructions for this recipe...",
+        },
+        vi: {
+            header: "Hướng dẫn từng bước",
+            noInstructionsMessage: "Có vẻ như công thức này lại không có chỉ dẫn...",
+        }
+    });
+
     return (
         <section className="article-instructions">
-            <h2>Step-by-step instructions</h2>
+            <h2>{strings.header}</h2>
             {props.steps && props.steps.length > 0 ?
                 props.steps.map(step => (
                     <div className="article-step">
@@ -13,7 +26,7 @@ const RecipeSteps = (props) => {
                         </div>
                         <p className="step-content">{step.step_content}</p>
                     </div>))
-                : <em>It seems there aren't any instructions for this recipe...</em>}
+                : <em>{strings.noInstructionsMessage}</em>}
         </section>
     )
 }

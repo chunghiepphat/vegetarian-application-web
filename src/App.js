@@ -64,6 +64,7 @@ export default function App() {
         window.scrollTo(0, 0)
     }, [location]);
     // Handles modal background states
+    console.log(location)
     const background = location.state && location.state.background;
 
     return (
@@ -72,9 +73,6 @@ export default function App() {
                 <Header/>
                 {/*{!isLoading && <>*/}
                 <Switch location={background || location}>
-                    {/*Public module*/}
-                    {/*<Route exact path="/"><Redirect to="/home"/></Route>*/}
-
                     {/*Auth module*/}
                     {!user ? <Route path="/auth"><Auth/></Route>
                         : <Route path="/auth"><Redirect to="/home"/></Route>}
@@ -92,7 +90,7 @@ export default function App() {
                     <Route path="/console"><Console/></Route>}
                     {user && user.role === "admin" &&
                     <Route><Redirect to="/console"/></Route>}
-                    {/*Miscellaneous*/}
+                    {/*Public module*/}
                     <Route exact path="/"><Redirect to="/home"/></Route>
                     <Route exact path="/index"><Redirect to="/home"/></Route>
                     <Route path="/console"><Redirect to="/home"/></Route>
@@ -111,7 +109,6 @@ export default function App() {
                 && location.pathname !== "/auth/account-recover"
                 && location.pathname !== "/not-found"
                 && <Footer/>}
-                {/*</>}*/}
             </div>
         </UserContext.Provider>
     );

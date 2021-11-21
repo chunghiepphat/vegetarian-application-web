@@ -4,10 +4,20 @@ import {clientId} from "../../../../helpers/Google";
 import {GoogleLogin} from "react-google-login";
 import {FcGoogle} from "react-icons/all";
 import jwtDecode from "jwt-decode";
+import LocalizedStrings from "react-localization";
 
 const LoginGoogle = ({history, background}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            buttonGoogle: "Continue with Google",
+        },
+        vi: {
+            buttonGoogle: "Đăng nhập bằng Google",
+        }
+    });
+    // Handles login
     const onSuccess = async (res) => {
-        console.log('Login success. Current user: ', res.profileObj);
         if (res) {
             let headers = new Headers();
             headers.append("Content-Type", "application/json");
@@ -32,7 +42,6 @@ const LoginGoogle = ({history, background}) => {
                 const result = await response.json();
                 localStorage.setItem("accessToken", JSON.stringify(result));
                 localStorage.setItem("userInfo", JSON.stringify(jwtDecode(JSON.stringify(result))));
-                alert("Authentication successful.");
                 history.push(background);
             } else if (response.status >= 400 && response.status < 600) {
                 const error = response.json();
@@ -51,7 +60,7 @@ const LoginGoogle = ({history, background}) => {
             clientId={clientId}
             render={renderProps => (
                 <button className="button-google" onClick={renderProps.onClick}>
-                    <FcGoogle/> Sign in with Google</button>)}
+                    <FcGoogle/> {strings.buttonGoogle}</button>)}
             onSuccess={onSuccess}
             onFailure={onFailure}
             cookiePolicy={'single_host_origin'}
