@@ -1,43 +1,35 @@
 import React, {useEffect, useRef, useState} from "react";
-import {apiBase} from "../../../helpers/Variables";
+import LocalizedStrings from "react-localization";
+import {apiUrl} from "../../../helpers/Variables";
 import bannerBackground from "assets/profile-banner-default.png";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
-import HomeShortcuts from "./HomeShortcuts";
+import HomeBannerShortcuts from "./HomeBannerShortcuts";
 
-const HomeBanner = ({user, location}) => {
+const HomeBanner = ({user, fetchData}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            header: "Popular recipes",
+        },
+        vi: {
+            header: "Các công thức nấu ăn phổ biến",
+        }
+    });
+    // Handles scroll button
+    const scrollRef = useRef(null);
+    const executeScroll = () => scrollRef.current.scrollIntoView({behavior: 'smooth'});
+    // Data states & API endpoint
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
-    const fetchData = async () => {
-        setIsError(false);
-        setIsLoading(true);
-        try {
-            const api = `${apiBase}/recipes/get5bestrecipes${user ? `?userID=${user.id}` : ``}`;
-            const response = await fetch(api);
-            if (response.ok) {
-                const result = await response.json();
-                setData(result.listResult);
-                setIsLoading(false);
-            } else if (response.status >= 400 && response.status < 600) {
-                setIsError(true);
-                setIsLoading(false);
-            }
-        } catch (error) {
-            console.error(error);
-            setIsError(true);
-            setIsLoading(false);
-        }
-    }
-    // Executes fetch once on page load
+    const api = `${apiUrl}/recipes/get5bestrecipes${user ? `?userID=${user.id}` : ``}`;
+    // Fetches data on page load
     useEffect(() => {
-        fetchData();
+        fetchData(api, setData, setIsLoading, setIsError);
     }, [user]);
-    // Handle banner scroll button
-    const scrollRef = useRef(null);
-    const executeScroll = () => scrollRef.current.scrollIntoView({behavior: 'smooth'});
 
     return (
         <div className="banner-container banner-home">
@@ -45,7 +37,7 @@ const HomeBanner = ({user, location}) => {
             <div className="banner">
                 <section className="banner-section banner-showcase">
                     <header className="section-header">
-                        <h1>Popular recipes</h1>
+                        <h1>{strings.header}</h1>
                     </header>
                     <div className="section-content">
                         <div className="banner-panel">
@@ -78,7 +70,7 @@ const HomeBanner = ({user, location}) => {
                 {/*Arrow button for snap scrolling down*/}
                 <button onClick={executeScroll} className="button-scroll"><span/></button>
                 {/*Quick shortcuts section*/}
-                <HomeShortcuts user={user} location={location} scrollRef={scrollRef}/>
+                <HomeBannerShortcuts user={user} scrollRef={scrollRef}/>
             </div>
             {/*Blurred banner background*/}
             <div className="banner-background" style={{backgroundImage: `url(${bannerBackground})`}}>

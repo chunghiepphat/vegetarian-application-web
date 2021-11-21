@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";
@@ -24,7 +24,7 @@ const DashboardLatestRecipes = ({user, location, token}) => {
             headers: headers,
         };
         // Executes fetch
-        const api = `${apiBase}/recipes/get10recipebyuser/${user.id}`;
+        const api = `${apiUrl}/recipes/get10recipebyuser/${user.id}`;
         const response = await fetch(api, request);
         try {
             if (response.ok) {

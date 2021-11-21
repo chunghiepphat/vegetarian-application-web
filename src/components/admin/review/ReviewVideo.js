@@ -3,7 +3,7 @@ import {SectionLoader} from "../../commons/elements/loaders/Loader";
 import VideoDetails from "../../home/view/video/VideoDetails";
 import VideoPlayer from "../../home/view/video/VideoPlayer";
 import {Link, useLocation, useParams} from "react-router-dom";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {SectionErr} from "../../commons/elements/loaders/AlertError";
 import {FaAngleLeft} from "react-icons/fa";
@@ -32,7 +32,7 @@ const ReviewVideo = () => {
     headers.append("Accept", "application/json");
     const fetchData = async () => {
         setIsError(false);
-        const api = `${apiBase}/video/getvideoby/${id}`;
+        const api = `${apiUrl}/video/getvideoby/${id}`;
         try {
             const response = await fetch(api)
             if (response.ok) {
@@ -59,7 +59,7 @@ const ReviewVideo = () => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/video/approve/${id}`;
+        const api = `${apiUrl}/video/approve/${id}`;
         const response = await fetch(api, request);
         if (response.ok) {
             await fetchData();

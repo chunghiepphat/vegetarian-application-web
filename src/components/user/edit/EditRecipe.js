@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import EditIngredients from "./recipe/EditIngredients";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import {Link, useHistory} from "react-router-dom";
 import EditEstimations from "./recipe/EditEstimations";
 import RecipeHeader from "../../home/view/recipe/RecipeHeader";
@@ -51,7 +51,7 @@ const EditRecipe = ({id, data}) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/recipes/edit/${id}`;
+        const api = `${apiUrl}/recipes/edit/${id}`;
         const response = await fetch(api, request);
         if (response.ok) {
             alert("Recipe updated successfully!");

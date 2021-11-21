@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {NavLink, withRouter} from "react-router-dom";
-import {apiBase} from "../../helpers/Variables";
+import {apiUrl} from "../../helpers/Variables";
 import {UserContext} from "../../context/UserContext";
 import Sidebar from "../commons/elements/Sidebar";
 import Navbar from "../commons/elements/bars/Navbar";
@@ -35,7 +35,7 @@ const HomeSidebar = () => {
                 headers: headers,
             };
             try {
-                const api = `${apiBase}/recipes/suggestion/${user.id}`;
+                const api = `${apiUrl}/recipes/suggestion/${user.id}`;
                 const response = await fetch(api, request);
                 if (response.ok) {
                     const result = await response.json();
@@ -54,7 +54,7 @@ const HomeSidebar = () => {
     const fetchBlogs = async () => {
         setIsBlogsError(false);
         setIsBlogsLoading(true);
-        const api = `${apiBase}/blogs/get5bestblog${user ? `?userID=${user.id}` : ``}`;
+        const api = `${apiUrl}/blogs/get5bestblog${user ? `?userID=${user.id}` : ``}`;
         try {
             const response = await fetch(api);
             if (response.ok) {

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {apiBase} from "../../../../helpers/Variables";
+import {apiUrl} from "../../../../helpers/Variables";
 import Panel from "../../../commons/elements/containers/Panel";
 import {SectionLoader} from "../../../commons/elements/loaders/Loader";
 import UserCard from "../../elements/UserCard";
@@ -20,7 +20,7 @@ const ListUsers = () => {
             method: 'GET',
             headers: headers,
         };
-        const api = `${apiBase}/user/viewall?page=1&limit=200`;
+        const api = `${apiUrl}/user/viewall?page=1&limit=200`;
         const response = await fetch(api, request);
         const result = await response.json();
         setData(result.listUser);

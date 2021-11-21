@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import Form from "../../commons/elements/form/Form";
 import InputGroup from "../../commons/elements/form/InputGroup";
 import {FaAngleRight} from "react-icons/fa";
@@ -48,7 +48,7 @@ const UpdateHealth = ({user, token, reload}) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/user/update/bodyindex/${user.id}`;
+        const api = `${apiUrl}/user/update/bodyindex/${user.id}`;
         try {
             const response = await fetch(api, request);
             if (response.ok) {
@@ -84,7 +84,7 @@ const UpdateHealth = ({user, token, reload}) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/user/update/details/${user.id}`;
+        const api = `${apiUrl}/user/update/details/${user.id}`;
         try {
             const response = await fetch(api, request);
             if (response.ok) {

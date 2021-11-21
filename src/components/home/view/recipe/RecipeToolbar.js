@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {AiFillEye, AiOutlineEyeInvisible, FaHeart, FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
 import {UserContext} from "../../../../context/UserContext";
-import {apiBase} from "../../../../helpers/Variables";
+import {apiUrl} from "../../../../helpers/Variables";
 import {useHistory} from "react-router-dom";
 
 const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
@@ -40,7 +40,7 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/recipes/like`;
+        const api = `${apiUrl}/recipes/like`;
         const response = await fetch(api, request);
         try {
             if (response.ok) {
@@ -72,7 +72,7 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
                 headers: headers,
             };
             // Executes fetch
-            const api = `${apiBase}/recipes/edit/private/${id}`;
+            const api = `${apiUrl}/recipes/edit/private/${id}`;
             const response = await fetch(api, request);
             try {
                 if (response.ok) {
@@ -107,7 +107,7 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
                 headers: headers,
             };
             // Executes fetch
-            const api = `${apiBase}/recipes/delete/${data.recipe_id}`;
+            const api = `${apiUrl}/recipes/delete/${data.recipe_id}`;
             const response = await fetch(api, request);
             try {
                 if (response.ok) {

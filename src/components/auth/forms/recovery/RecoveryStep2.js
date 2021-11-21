@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {apiBase} from "../../../../helpers/Variables";
+import {apiUrl} from "../../../../helpers/Variables";
 
 const RecoveryStep2 = ({email, setStep}) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +19,7 @@ const RecoveryStep2 = ({email, setStep}) => {
             method: 'PUT',
             headers: headers,
         };
-        const api = `${apiBase}/user/sendagain/reset?email=${email}`
+        const api = `${apiUrl}/user/sendagain/reset?email=${email}`
         try {
             const response = await fetch(api, request);
             if (response.ok) {
@@ -57,7 +57,7 @@ const RecoveryStep2 = ({email, setStep}) => {
             headers: headers,
         };
         // Executes fetch
-        const api = `${apiBase}/user/verify/resetpassword?code=${code}`;
+        const api = `${apiUrl}/user/verify/resetpassword?code=${code}`;
         const response = await fetch(api, request)
         if (response.ok) {
             setStep(3);

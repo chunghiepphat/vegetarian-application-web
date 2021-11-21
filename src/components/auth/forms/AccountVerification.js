@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import jwtDecode from "jwt-decode";
 
 const AccountVerification = (props) => {
@@ -23,7 +23,7 @@ const AccountVerification = (props) => {
             method: 'PUT',
             headers: headers,
         };
-        const api = `${apiBase}/user/sendagain/active?email=${props.email}`
+        const api = `${apiUrl}/user/sendagain/active?email=${props.email}`
         try {
             const response = await fetch(api, request);
             if (response.ok) {
@@ -61,7 +61,7 @@ const AccountVerification = (props) => {
             headers: headers,
         };
         // Executes fetch
-        const api = `${apiBase}/user/verify?code=${code}`;
+        const api = `${apiUrl}/user/verify?code=${code}`;
         await fetch(api, request)
             .then(response => {
                 if (response.ok) {

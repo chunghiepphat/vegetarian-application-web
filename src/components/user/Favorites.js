@@ -5,7 +5,7 @@ import DashboardSidebar from "./DashboardSidebar";
 import FavoriteRecipes from "./favorites/FavoriteRecipes";
 import FavoriteBlogs from "./favorites/FavoriteBlogs";
 import {UserContext} from "../../context/UserContext";
-import {apiBase} from "../../helpers/Variables";
+import {apiUrl} from "../../helpers/Variables";
 
 const Favorites = () => {
     const location = useLocation();
@@ -30,7 +30,7 @@ const Favorites = () => {
     };
     const fetchData = async () => {
         setIsLoading(true);
-        const api = `${apiBase}/user/${user.id}/liked`;
+        const api = `${apiUrl}/user/${user.id}/liked`;
         try {
             const response = await fetch(api, request);
             if (response.ok) {

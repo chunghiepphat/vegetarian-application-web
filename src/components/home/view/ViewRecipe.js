@@ -1,6 +1,6 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Redirect, Route, Switch, useParams} from "react-router-dom";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import RecipeHeader from "./recipe/RecipeHeader";
 import RecipeToolbar from "./recipe/RecipeToolbar";
 import RecipeIngredients from "./recipe/RecipeIngredients";
@@ -11,14 +11,27 @@ import RecipeComments from "./recipe/RecipeComments";
 import EditRecipe from "../../user/edit/EditRecipe";
 import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {SectionErr} from "../../commons/elements/loaders/AlertError";
+import LocalizedStrings from "react-localization";
 
-const ViewRecipe = ({user, location, data, isError, fetchData}) => {
+const ViewRecipe = ({user, location, fetchData}) => {
     let {id} = useParams();
-    const api = `${apiBase}/recipes/getrecipeby/${id}${user ? `?userID=${user.id}` : ``}`;
-    // Executes fetch once on page load
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            loadingMessage: "Loading the article...",
+        },
+        vi: {
+            loadingMessage: "Đang tải bài viết...",
+        }
+    });
+    // Data states & API endpoint
+    const [data, setData] = useState();
+    const [isError, setIsError] = useState(false);
+    const api = `${apiUrl}/recipes/getrecipeby/${id}${user ? `?userID=${user.id}` : ``}`;
+    // Fetches data on page load
     useEffect(() => {
-        fetchData(api)
-    }, [id, location]);
+        fetchData(api, setData, setIsError);
+    }, [id]);
 
     return (
         <section>
@@ -49,7 +62,7 @@ const ViewRecipe = ({user, location, data, isError, fetchData}) => {
                                     <RecipeComments data={data}/>
                                 </article>
                             </div>
-                        </> : <SectionEmp message="Loading the article..."/>}
+                        </> : <SectionEmp message={strings.loadingMessage}/>}
                     </> : <SectionErr reload={fetchData} api={api}/>}
                 </Route>
                 <Redirect to="/not-found"/>

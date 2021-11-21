@@ -1,6 +1,6 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import VideoPlayer from "./video/VideoPlayer";
 import VideoDetails from "./video/VideoDetails";
 import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";
@@ -8,12 +8,16 @@ import {SectionErr} from "../../commons/elements/loaders/AlertError";
 import VideoToolbar from "./video/VideoToolbar";
 import VideoComments from "./video/VideoComments";
 
-const ViewVideo = ({user, location, data, isError, fetchData}) => {
+const ViewVideo = ({user, location, fetchData}) => {
     let {id} = useParams();
-    const api = `${apiBase}/video/getvideoby/${id}${user ? `?userID=${user.id}` : ``}`;
+    // Data states & API endpoint
+    const [data, setData] = useState();
+    const [isError, setIsError] = useState();
+    const api = `${apiUrl}/video/getvideoby/${id}${user ? `?userID=${user.id}` : ``}`;
+    // Fetches data on page load
     useEffect(() => {
-        fetchData(api)
-    }, [id, location]);
+        fetchData(api, setData, setIsError);
+    }, [id]);
 
     return (
         <section>

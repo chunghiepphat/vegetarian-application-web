@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "./Home.css";
 import SearchSidebar from "./SearchSidebar";
-import {apiBase} from "../../helpers/Variables";
+import {apiUrl} from "../../helpers/Variables";
 import {NavLink, Route, Switch, useLocation} from "react-router-dom";
 import Navbar from "../commons/elements/bars/Navbar";
 import ResultRecipes from "./search/result/ResultRecipes";
@@ -16,7 +16,7 @@ const Search = () => {
     console.log(location.search)
     // Executes fetch once on page load
     useEffect(() => {
-        const api = `${apiBase}/home/find${location.search}`;
+        const api = `${apiUrl}/home/find${location.search}`;
         const fetchData = async () => {
             const response = await fetch(api);
             const result = await response.json();

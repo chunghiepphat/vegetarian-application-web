@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
-import {apiBase} from "../../../../helpers/Variables";
+import {apiUrl} from "../../../../helpers/Variables";
 import {UserContext} from "../../../../context/UserContext";
 import Comment from "../../../commons/elements/Comment";
 import {SectionErr} from "../../../commons/elements/loaders/AlertError";
@@ -16,7 +16,7 @@ const RecipeComments = ({data}) => {
     const [isError, setIsError] = useState(false);
     const fetchComments = async () => {
         setIsError(false);
-        const api = `${apiBase}/recipes/${data.recipe_id}/comments`;
+        const api = `${apiUrl}/recipes/${data.recipe_id}/comments`;
         try {
             const response = await fetch(api);
             if (response.ok) {
@@ -49,7 +49,7 @@ const RecipeComments = ({data}) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/user/commentrecipe`;
+        const api = `${apiUrl}/user/commentrecipe`;
         try {
             const response = await fetch(api, request);
             if (response.ok) {

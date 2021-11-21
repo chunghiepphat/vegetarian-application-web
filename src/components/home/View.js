@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import "./View.css";
 import HomeSidebar from "./HomeSidebar";
 import {Redirect, Route, Switch, useLocation} from "react-router-dom";
@@ -11,26 +11,20 @@ import {UserContext} from "../../context/UserContext";
 const View = () => {
     const location = useLocation();
     const user = useContext(UserContext);
-    const [data, setData] = useState();
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
-    const fetchData = async (api) => {
+    // Fetches article with parameters and states passed from child components
+    const fetchData = async (api, setData, setIsError) => {
         setIsError(false);
-        setIsLoading(true);
         try {
             const response = await fetch(api)
             if (response.ok) {
                 const result = await response.json();
                 setData(result);
-                setIsLoading(false);
             } else if (response.status >= 400 && response.status < 600) {
                 setIsError(true);
-                setIsLoading(false);
             }
         } catch (error) {
             console.error(error);
             setIsError(true);
-            setIsLoading(false);
         }
     }
 
@@ -41,16 +35,13 @@ const View = () => {
                 <main>
                     <Switch>
                         <Route path="/view/recipe/:id">
-                            <ViewRecipe user={user} location={location} data={data}
-                                        isLoading={isLoading} isError={isError}
+                            <ViewRecipe user={user} location={location}
                                         fetchData={fetchData}/> </Route>
                         <Route path="/view/video/:id">
-                            <ViewVideo user={user} location={location} data={data}
-                                       isLoading={isLoading} isError={isError}
+                            <ViewVideo user={user} location={location}
                                        fetchData={fetchData}/> </Route>
                         <Route path="/view/blog/:id">
-                            <ViewBlog user={user} location={location} data={data}
-                                      isLoading={isLoading} isError={isError}
+                            <ViewBlog user={user} location={location}
                                       fetchData={fetchData}/> </Route>
                         <Route path="/view/user/:id">
                             <ViewUser user={user}/> </Route>

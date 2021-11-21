@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Link, useHistory, useLocation} from "react-router-dom";
 import jwtDecode from "jwt-decode";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 
 const Register = (props) => {
     const location = useLocation();
@@ -34,7 +34,7 @@ const Register = (props) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/user/signup`;
+        const api = `${apiUrl}/user/signup`;
         const response = await fetch(api, request)
         if (response.ok) {
             history.push("/auth/account-verify");

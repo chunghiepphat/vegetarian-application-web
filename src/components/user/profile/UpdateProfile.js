@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import {UserContext} from "../../../context/UserContext";
 import Form from "../../commons/elements/form/Form";
 import InputGroup from "../../commons/elements/form/InputGroup";
@@ -10,7 +10,7 @@ const UpdateProfile = ({reload}) => {
     // Authentication and API stuff
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `${apiBase}/user/update/details/${user.id}`;
+    const api = `${apiUrl}/user/update/details/${user.id}`;
     // Initializes parameters
     const [firstName, setFirstName] = useState(user.first_name);
     const [lastName, setLastName] = useState(user.last_name);

@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import {UserContext} from "../../../context/UserContext";
 import AddCategories from "./categories/AddCategories";
 import ListCategories from "./categories/ListCategories";
@@ -15,7 +15,7 @@ const ManageCategories = () => {
     const fetchData = async () => {
         setIsError(false);
         setIsLoading(true);
-        const api = `${apiBase}/recipes/categories`;
+        const api = `${apiUrl}/recipes/categories`;
         try {
             const response = await fetch(api);
             if (response.ok) {

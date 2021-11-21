@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import OverviewCard from "./elements/OverviewCard";
 import Panel from "../commons/elements/containers/Panel";
-import {apiBase} from "../../helpers/Variables";
+import {apiUrl} from "../../helpers/Variables";
 import {UserContext} from "../../context/UserContext";
 import {useLocation} from "react-router-dom";
 
@@ -32,7 +32,7 @@ const ConsoleHome = () => {
             headers: headers,
         };
         try {
-            const api = `${apiBase}/list/noapprove`;
+            const api = `${apiUrl}/list/noapprove`;
             const response = await fetch(api);
             if (response.ok) {
                 const result = await response.json();

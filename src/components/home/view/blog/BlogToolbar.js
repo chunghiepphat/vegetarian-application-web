@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {AiFillEye, AiOutlineEyeInvisible, FaHeart, FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
 import {UserContext} from "../../../../context/UserContext";
-import {apiBase} from "../../../../helpers/Variables";
+import {apiUrl} from "../../../../helpers/Variables";
 import {useHistory} from "react-router-dom";
 
 const BlogToolbar = ({id, location, data, reload, mainApi}) => {
@@ -40,7 +40,7 @@ const BlogToolbar = ({id, location, data, reload, mainApi}) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/blogs/like`;
+        const api = `${apiUrl}/blogs/like`;
         const response = await fetch(api, request);
         try {
             if (response.ok) {
@@ -72,7 +72,7 @@ const BlogToolbar = ({id, location, data, reload, mainApi}) => {
                 headers: headers,
             };
             // Executes fetch
-            const api = `${apiBase}/blogs/edit/private/${id}`;
+            const api = `${apiUrl}/blogs/edit/private/${id}`;
             const response = await fetch(api, request);
             try {
                 if (response.ok) {
@@ -107,7 +107,7 @@ const BlogToolbar = ({id, location, data, reload, mainApi}) => {
                 headers: headers,
             };
             // Executes fetch
-            const api = `${apiBase}/blogs/delete/${data.blog_id}`;
+            const api = `${apiUrl}/blogs/delete/${data.blog_id}`;
             const response = await fetch(api, request);
             try {
                 if (response.ok) {

@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import {Link, NavLink, Redirect, Route, Switch, useLocation, useParams} from "react-router-dom";
 import Navbar from "../../commons/elements/bars/Navbar";
 import AccountRecipes from "./account/AccountRecipes";
@@ -32,7 +32,7 @@ const ReviewAccount = () => {
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
     const fetchProfile = async () => {
-        const api = `${apiBase}/user/${id}/getbyadmin`
+        const api = `${apiUrl}/user/${id}/getbyadmin`
         try {
             const response = await fetch(api)
             if (response.ok) {
@@ -59,7 +59,7 @@ const ReviewAccount = () => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/user/changestatus/${id}`;
+        const api = `${apiUrl}/user/changestatus/${id}`;
         const response = await fetch(api, request);
         if (response.ok) {
             await fetchProfile();

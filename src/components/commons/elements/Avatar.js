@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import "./Avatar.css";
 import placeholderAvatar from "../../../assets/user-image-default.png";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 
 const Avatar = ({className, data, userImage}) => {
     const [user, setUser] = useState();
 
     useEffect(() => {
         if (data !== undefined) {
-            const api = `${apiBase}/user/${data.user_id}`
+            const api = `${apiUrl}/user/${data.user_id}`
             const fetchData = async () => {
                 const response = await fetch(api);
                 const result = await response.json();

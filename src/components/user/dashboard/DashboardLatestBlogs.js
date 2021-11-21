@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import {FaAngleRight} from "react-icons/fa";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleCard from "../../commons/elements/containers/ArticleCard";
@@ -24,7 +24,7 @@ const DashboardLatestBlogs = ({user, location, token}) => {
             headers: headers,
         };
         // Execute fetch
-        const api = `${apiBase}/blogs/get10blogbyuser/${user.id}`;
+        const api = `${apiUrl}/blogs/get10blogbyuser/${user.id}`;
         const response = await fetch(api, request);
         try {
             if (response.ok) {

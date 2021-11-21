@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
-import {apiBase} from "../../../../helpers/Variables";
+import {apiUrl} from "../../../../helpers/Variables";
 import {UserContext} from "../../../../context/UserContext";
 import Comment from "../../../commons/elements/Comment";
 import {SectionErr} from "../../../commons/elements/loaders/AlertError";
@@ -15,7 +15,7 @@ const BlogComments = ({data}) => {
     const [isError, setIsError] = useState(false);
     const fetchComments = async () => {
         setIsError(false);
-        const api = `${apiBase}/blogs/${data.blog_id}/comments`;
+        const api = `${apiUrl}/blogs/${data.blog_id}/comments`;
         try {
             const response = await fetch(api);
             if (response.ok) {
@@ -48,7 +48,7 @@ const BlogComments = ({data}) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/user/commentblog`;
+        const api = `${apiUrl}/user/commentblog`;
         try {
             const response = await fetch(api, request);
             if (response.ok) {

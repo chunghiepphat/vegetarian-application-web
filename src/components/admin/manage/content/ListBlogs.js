@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {apiBase} from "../../../../helpers/Variables";
+import {apiUrl} from "../../../../helpers/Variables";
 import Panel from "../../../commons/elements/containers/Panel";
 import ArticleCard from "../../../commons/elements/containers/ArticleCard";
 import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
@@ -7,7 +7,7 @@ import {PanelErr} from "../../../commons/elements/loaders/AlertError";
 import {PanelLoader} from "../../../commons/elements/loaders/Loader";
 
 const ListBlogs = ({user, location, isLoading, isError, fetchData}) => {
-    const api = `${apiBase}/blogs/admin/getall?page=1&limit=300`;
+    const api = `${apiUrl}/blogs/admin/getall?page=1&limit=300`;
     const [data, setData] = useState([]);
     // Executes fetch once on page load
     useEffect(() => {

@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
-import {apiBase} from "../../../../helpers/Variables";
+import {apiUrl} from "../../../../helpers/Variables";
 import {UserContext} from "../../../../context/UserContext";
 import Comment from "../../../commons/elements/Comment";
 import {SectionErr} from "../../../commons/elements/loaders/AlertError";
@@ -15,7 +15,7 @@ const VideoComments = ({data}) => {
     const [isError, setIsError] = useState(false);
     const fetchComments = async () => {
         setIsError(false);
-        const api = `${apiBase}/video/${data.id}/comments`;
+        const api = `${apiUrl}/video/${data.id}/comments`;
         try {
             const response = await fetch(api);
             if (response.ok) {
@@ -49,7 +49,7 @@ const VideoComments = ({data}) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/user/commentvideo`;
+        const api = `${apiUrl}/user/commentvideo`;
         try {
             const response = await fetch(api, request);
             if (response.ok) {

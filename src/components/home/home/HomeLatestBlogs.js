@@ -1,47 +1,41 @@
 import React, {useEffect, useState} from "react";
+import LocalizedStrings from "react-localization";
 import {Link} from "react-router-dom";
-import {apiBase} from "../../../helpers/Variables";
-import {FaAngleRight} from "react-icons/fa";
+import {apiUrl} from "../../../helpers/Variables";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
+import {FaAngleRight} from "react-icons/fa";
 
-const HomeLatestBlogs = ({user}) => {
+const HomeLatestBlogs = ({user, fetchData}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            header: "Newest stories around",
+            seeMore: "See more",
+        },
+        vi: {
+            header: "Những bài viết mới nhất",
+            seeMore: "Xem thêm",
+        }
+    });
+    // Data states & API endpoint
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
-    const fetchData = async () => {
-        setIsError(false);
-        setIsLoading(true);
-        try {
-            const api = `${apiBase}/blogs/get10blogs${user ? `?userID=${user.id}` : ``}`;
-            const response = await fetch(api);
-            if (response.ok) {
-                const result = await response.json();
-                setData(result.listResult);
-                setIsLoading(false);
-            } else if (response.status >= 400 && response.status < 600) {
-                setIsError(true);
-                setIsLoading(false);
-            }
-        } catch (error) {
-            console.error(error);
-            setIsError(true);
-            setIsLoading(false);
-        }
-    }
-    // Executes fetch once on page load
+    const api = `${apiUrl}/blogs/get10blogs${user ? `?userID=${user.id}` : ``}`;
+    // Fetches data on page load
     useEffect(() => {
-        fetchData();
+        fetchData(api, setData, setIsLoading, setIsError);
     }, [user]);
 
     return (
         <section>
             <header className="section-header linked-header">
-                <h1>Newest stories around</h1>
-                <Link to="/browse/blogs"><FaAngleRight/>See more</Link>
+                <h1>{strings.header}</h1>
+                <Link to="/browse/blogs"><FaAngleRight/>{strings.seeMore}</Link>
             </header>
             <div className="section-content">
                 <Panel filler="card-wide">
@@ -63,7 +57,7 @@ const HomeLatestBlogs = ({user}) => {
                                                  isFavorite={item.is_like}
                                                  totalLikes={item.totalLike}/>))}
                             </> : <PanelEmp/>}
-                        </> : <PanelErr reload={fetchData}/>}
+                        </> : <PanelErr reload={() => fetchData(api, setData, setIsLoading, setIsError)}/>}
                     </> : <PanelLoader/>}
                 </Panel>
             </div>

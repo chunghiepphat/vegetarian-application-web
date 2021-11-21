@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import Form from "../../commons/elements/form/Form";
 import InputArray from "../../commons/elements/form/InputArray";
 import InputGroup from "../../commons/elements/form/InputGroup";
@@ -8,7 +8,7 @@ import {ImCross} from "react-icons/all";
 const UpdatePreferences = ({user, token, location}) => {
     const [ingredients, setIngredients] = useState([]);
     const fetchData = async () => {
-        const api = `${apiBase}/user/getpreferences/${user.id}`;
+        const api = `${apiUrl}/user/getpreferences/${user.id}`;
         const response = await fetch(api);
         const result = await response.json();
         setIngredients(result.listIngredient);
@@ -60,7 +60,7 @@ const UpdatePreferences = ({user, token, location}) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/user/preferences/${user.id}`;
+        const api = `${apiUrl}/user/preferences/${user.id}`;
         const response = await fetch(api, request);
         if (response.ok) {
             alert("Food preferences updated.");

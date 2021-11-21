@@ -6,7 +6,7 @@ import PostedRecipes from "./history/PostedRecipes";
 import PostedVideos from "./history/PostedVideos";
 import PostedBlogs from "./history/PostedBlogs";
 import {UserContext} from "../../context/UserContext";
-import {apiBase} from "../../helpers/Variables";
+import {apiUrl} from "../../helpers/Variables";
 import DraftRecipes from "./drafts/DraftRecipes";
 import DraftVideos from "./drafts/DraftVideos";
 import DraftBlogs from "./drafts/DraftBlogs";
@@ -36,7 +36,7 @@ const Drafts = () => {
             method: 'GET',
             headers: headers,
         };
-        const api = `${apiBase}/user/draft/${user.id}`;
+        const api = `${apiUrl}/user/draft/${user.id}`;
         try {
             const response = await fetch(api, request);
             if (response.ok) {

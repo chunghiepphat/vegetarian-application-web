@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
 import {useHistory, useLocation} from "react-router-dom";
 import {UserContext} from "../../../../context/UserContext";
-import {apiBase} from "../../../../helpers/Variables";
+import {apiUrl} from "../../../../helpers/Variables";
 import {AiFillEye, AiOutlineEyeInvisible, FaHeart, FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
 
 const VideoToolbar = ({id, data, reload, mainApi}) => {
@@ -42,7 +42,7 @@ const VideoToolbar = ({id, data, reload, mainApi}) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/video/like`;
+        const api = `${apiUrl}/video/like`;
         const response = await fetch(api, request);
         try {
             if (response.ok) {
@@ -74,7 +74,7 @@ const VideoToolbar = ({id, data, reload, mainApi}) => {
                 headers: headers,
             };
             // Executes fetch
-            const api = `${apiBase}/video/edit/private/${id}`;
+            const api = `${apiUrl}/video/edit/private/${id}`;
             const response = await fetch(api, request);
             try {
                 if (response.ok) {
@@ -109,7 +109,7 @@ const VideoToolbar = ({id, data, reload, mainApi}) => {
                 headers: headers,
             };
             // Executes fetch
-            const api = `${apiBase}/video/delete/${data.id}`;
+            const api = `${apiUrl}/video/delete/${data.id}`;
             const response = await fetch(api, request);
             try {
                 if (response.ok) {

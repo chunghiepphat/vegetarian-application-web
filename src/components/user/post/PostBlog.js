@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {cloudName, uploadPreset} from "../../../helpers/Cloudinary";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import InputGroup from "../../commons/elements/form/InputGroup";
@@ -102,7 +102,7 @@ const PostBlog = ({user, token, history}) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/blogs/add`;
+        const api = `${apiUrl}/blogs/add`;
         const response = await fetch(api, request);
         try {
             if (response.ok) {

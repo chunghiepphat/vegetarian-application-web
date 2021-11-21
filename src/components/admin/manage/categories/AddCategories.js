@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {FaCheck, GrAdd, ImCross,} from "react-icons/all";
-import {apiBase} from "../../../../helpers/Variables";
+import {apiUrl} from "../../../../helpers/Variables";
 
 const AddCategories = ({token, reload}) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -28,7 +28,7 @@ const AddCategories = ({token, reload}) => {
             headers: headers,
             body: body,
         };
-        const api = `${apiBase}/recipes/create/category`;
+        const api = `${apiUrl}/recipes/create/category`;
         try {
             const response = await fetch(api, request)
             if (response.ok) {

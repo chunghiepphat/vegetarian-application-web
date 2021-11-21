@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import BlogHeader from "../../home/view/blog/BlogHeader";
 import EditSubtitle from "./blog/EditSubtitle";
 import EditContent from "./blog/EditContent";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import {Link, useHistory} from "react-router-dom";
 import Form from "../../commons/elements/form/Form";
 import {FaAngleLeft} from "react-icons/fa";
@@ -38,7 +38,7 @@ const EditBlog = ({id, data}) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/blogs/edit/${id}`;
+        const api = `${apiUrl}/blogs/edit/${id}`;
         const response = await fetch(api, request);
         if (response.ok) {
             alert("Blog updated successfully!");

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {apiBase} from "../../../../helpers/Variables";
+import {apiUrl} from "../../../../helpers/Variables";
 import Panel from "../../../commons/elements/containers/Panel";
 import CategoryCard from "../../elements/CategoryCard";
 import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
@@ -26,7 +26,7 @@ const ListCategories = ({user, token, location, data, fetchData, isLoading, isEr
                 headers: headers,
                 body: body,
             };
-            const api = `${apiBase}/recipes/edit/category/${categoryId}`;
+            const api = `${apiUrl}/recipes/edit/category/${categoryId}`;
             try {
                 const response = await fetch(api, request)
                 if (response.ok) {
@@ -49,7 +49,7 @@ const ListCategories = ({user, token, location, data, fetchData, isLoading, isEr
                 method: 'DELETE',
                 headers: headers,
             };
-            const api = `${apiBase}/recipes/delete/category/${categoryId}`;
+            const api = `${apiUrl}/recipes/delete/category/${categoryId}`;
             try {
                 const response = await fetch(api, request)
                 if (response.ok) {

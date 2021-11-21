@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 import {UserContext} from "../../../context/UserContext";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import {apiKey} from "../../../helpers/Cloudinary";
 import VideoStep01 from "./video/VideoStep01";
 import VideoStep02 from "./video/VideoStep02";
@@ -10,7 +10,7 @@ import {SectionLoader} from "../../commons/elements/loaders/Loader";
 const PostVideo = () => {
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `${apiBase}/video/upload`;
+    const api = `${apiUrl}/video/upload`;
     const history = useHistory();
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();

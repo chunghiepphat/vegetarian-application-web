@@ -1,6 +1,6 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Redirect, Route, Switch, useParams} from "react-router-dom";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import BlogHeader from "./blog/BlogHeader";
 import BlogToolbar from "./blog/BlogToolbar";
 import BlogContent from "./blog/BlogContent";
@@ -9,12 +9,16 @@ import EditBlog from "../../user/edit/EditBlog";
 import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {SectionErr} from "../../commons/elements/loaders/AlertError";
 
-const ViewBlog = ({user, location, data, isError, fetchData}) => {
+const ViewBlog = ({user, location, fetchData}) => {
     let {id} = useParams();
-    const api = `${apiBase}/blogs/getblogby/${id}${user ? `?userID=${user.id}` : ``}`;
+    // Data states & API endpoint
+    const [data, setData] = useState();
+    const [isError, setIsError] = useState(false);
+    const api = `${apiUrl}/blogs/getblogby/${id}${user ? `?userID=${user.id}` : ``}`;
+    // Fetches data on page load
     useEffect(() => {
-        fetchData(api)
-    }, [id, location]);
+        fetchData(api, setData, setIsError);
+    }, [id]);
 
     return (
         <section>

@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useLayoutEffect, useRef, useState} from "react";
 import {cloudName, uploadPreset} from "../../../helpers/Cloudinary";
 import {UserContext} from "../../../context/UserContext";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import Form from "../../commons/elements/form/Form";
 import InputGroup from "../../commons/elements/form/InputGroup";
 
@@ -9,7 +9,7 @@ const UpdateAvatar = ({reload}) => {
     // Authentication and API stuff
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `${apiBase}/user/update/profile/${user.id}`;
+    const api = `${apiUrl}/user/update/profile/${user.id}`;
     const inputRef = useRef();
     const [file, setFile] = useState();
     const [image, setImage] = useState(user.profile_image);

@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import {UserContext} from "../../../context/UserContext";
 import Form from "../../commons/elements/form/Form";
 
@@ -8,7 +8,7 @@ const UpdatePassword = () => {
     // Authentication and API stuff
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const api = `${apiBase}/user/update/password/${user.id}`;
+    const api = `${apiUrl}/user/update/password/${user.id}`;
     // Initializes parameters
     const [oldPassword, setOldPassword] = useState();
     const [newPassword, setNewPassword] = useState();

@@ -1,37 +1,46 @@
 import React, {useEffect, useState} from "react";
 import './App.css';
 import {Redirect, Route, Switch, useLocation} from "react-router-dom";
-import {apiBase} from "./helpers/Variables";
+import moment from "moment";
+import 'moment/locale/vi';
 import {UserContext} from "./context/UserContext";
-import Auth from "./components/auth/Auth";
-import AuthModal from "./components/auth/AuthModal";
+import {apiUrl} from "./helpers/Variables";
+// Global site components
 import Header from "components/commons/elements/site/Header";
 import Footer from "./components/commons/elements/site/Footer";
+// Authentication components
+import Auth from "./components/auth/Auth";
+import AuthModal from "./components/auth/AuthModal";
+// Public components
 import Home from "./components/home/Home";
-import View from "./components/home/View";
+import About from "./components/commons/About";
 import Browse from "./components/home/Browse";
 import Search from "./components/home/Search";
-import About from "./components/commons/About";
+import View from "./components/home/View";
 import NotFound from "./components/commons/NotFound";
+// User-exclusive components
 import Dashboard from "./components/user/Dashboard";
-import Post from "./components/user/Post";
-import Menu from "./components/user/Menu";
 import Profile from "./components/user/Profile";
 import Health from "./components/user/Health";
+import Menu from "./components/user/Menu";
+import Post from "./components/user/Post";
 import Drafts from "./components/user/Drafts";
 import History from "./components/user/History";
 import Favorites from "./components/user/Favorites";
+// Admin-exclusive components
 import Console from "./components/admin/Console";
 
 export default function App() {
     let location = useLocation();
+    // Sets datetime locales
+    let locale = window.navigator.language;
+    moment.locale(locale);
+    // Authenticated user data
     let userInfo = JSON.parse(localStorage.getItem("userInfo"));
     const [user, setUser] = useState(userInfo);
-    const [isAdmin, setIsAdmin] = useState(false);
-    // Refresh authenticated user's data and save it to local storage
+    // Refreshes authenticated user's data and save it to local storage
     const fetchData = async () => {
-        console.log(user)
-        const api = `${apiBase}/user/${userInfo.id}`
+        const api = `${apiUrl}/user/${userInfo.id}`
         try {
             const response = await fetch(api);
             if (response.ok) {
@@ -40,15 +49,21 @@ export default function App() {
                 localStorage.setItem("userInfo", JSON.stringify(result));
             }
         } catch (error) {
-            console.error(error);
+
         }
     }
     useEffect(() => {
+        // 1. If userInfo exists in local storage, that means user is authenticated
+        // 2. Executes fetch to get user info, then updates UserContext
         if (userInfo !== null) {
             fetchData();
-        } else setUser(undefined);
+        }
+        // Otherwise, clears UserContext
+        else setUser(undefined);
+        // Resets scroll back to top on page change
         window.scrollTo(0, 0)
     }, [location]);
+    // Handles modal background states
     const background = location.state && location.state.background;
 
     return (

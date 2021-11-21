@@ -1,5 +1,5 @@
 import React from "react";
-import {apiBase} from "../../../../helpers/Variables";
+import {apiUrl} from "../../../../helpers/Variables";
 import {clientId} from "../../../../helpers/Google";
 import {GoogleLogin} from "react-google-login";
 import {FcGoogle} from "react-icons/all";
@@ -26,7 +26,7 @@ const LoginGoogle = ({history, background}) => {
                 body: body,
             };
             // Executes fetch
-            const api = `${apiBase}/user/signin/google`;
+            const api = `${apiUrl}/user/signin/google`;
             const response = await fetch(api, request)
             if (response.ok) {
                 const result = await response.json();

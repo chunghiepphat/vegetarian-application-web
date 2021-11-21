@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import "./Menu.css";
 import {Link, useLocation} from "react-router-dom";
-import {apiBase} from "../../helpers/Variables";
+import {apiUrl} from "../../helpers/Variables";
 import {UserContext} from "../../context/UserContext";
 import DashboardSidebar from "./DashboardSidebar";
 import DisplayMenu from "./menu/DisplayMenu";
@@ -47,7 +47,7 @@ const Menu = () => {
             method: 'GET',
             headers: headers,
         };
-        const api = `${apiBase}/menu/details/${user.id}`
+        const api = `${apiUrl}/menu/details/${user.id}`
         try {
             const response = await fetch(api, request);
             if (response.ok) {
@@ -76,7 +76,7 @@ const Menu = () => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/menu/add/${user.id}`;
+        const api = `${apiUrl}/menu/add/${user.id}`;
         try {
             const response = await fetch(api, request);
             if (response.ok) {
@@ -104,7 +104,7 @@ const Menu = () => {
             method: 'GET',
             headers: headers,
         };
-        const api = `${apiBase}/menu/generate?id=${user.id}`
+        const api = `${apiUrl}/menu/generate?id=${user.id}`
         try {
             const response = await fetch(api, request);
             if (response.ok) {

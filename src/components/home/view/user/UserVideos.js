@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {apiBase} from "../../../../helpers/Variables";
+import {apiUrl} from "../../../../helpers/Variables";
 import Panel from "../../../commons/elements/containers/Panel";
 import VideoTile from "../../../commons/elements/containers/VideoTile";
 import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
@@ -7,7 +7,7 @@ import {PanelErr} from "../../../commons/elements/loaders/AlertError";
 import {PanelLoader} from "../../../commons/elements/loaders/Loader";
 
 const UserVideos = ({user, location, data, isLoading, isError, fetchData, userId}) => {
-    const api = `${apiBase}/video/getallbyuserIDdifferent/${userId}?page=1&limit=100${user ? `&userID=${user.id}` : ``}`;
+    const api = `${apiUrl}/video/getallbyuserIDdifferent/${userId}?page=1&limit=100${user ? `&userID=${user.id}` : ``}`;
     // Executes fetch once on page load
     useEffect(() => {
         fetchData(api)

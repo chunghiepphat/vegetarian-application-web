@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Redirect, Route, Switch} from "react-router-dom";
 import {cloudName, uploadPreset} from "../../../helpers/Cloudinary";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import RecipeStep01 from "./recipe/RecipeStep01";
 import RecipeStep02 from "./recipe/RecipeStep02";
 import RecipeStep03 from "./recipe/RecipeStep03";
@@ -30,7 +30,7 @@ const PostRecipe = ({user, token, history}) => {
     const [isPrivate, setIsPrivate] = useState(false);
     // Fetch category list from server
     const fetchCategories = async () => {
-        const api = `${apiBase}/recipes/categories`
+        const api = `${apiUrl}/recipes/categories`
         try {
             const response = await fetch(api);
             if (response.ok) {
@@ -110,7 +110,7 @@ const PostRecipe = ({user, token, history}) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/recipes/add`;
+        const api = `${apiUrl}/recipes/add`;
         const response = await fetch(api, request);
         try {
             if (response.ok) {

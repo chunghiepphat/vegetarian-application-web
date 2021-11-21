@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import "./Comment.css";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import {UserContext} from "../../../context/UserContext";
 import Avatar from "./Avatar";
 import moment from "moment";
@@ -34,7 +34,7 @@ const Comment = ({userId, commentId, content, time, articleType, reload}) => {
             body: body
         };
         // Executes fetch
-        const api = `${apiBase}/user/edit/comment${articleType}/${commentId}`;
+        const api = `${apiUrl}/user/edit/comment${articleType}/${commentId}`;
         try {
             const response = await fetch(api, request);
             if (response.ok) {
@@ -63,7 +63,7 @@ const Comment = ({userId, commentId, content, time, articleType, reload}) => {
             body: body
         };
         // Executes fetch
-        const api = `${apiBase}/user/deleteComment/${commentId}/${articleType}`;
+        const api = `${apiUrl}/user/deleteComment/${commentId}/${articleType}`;
         try {
             const response = await fetch(api, request);
             if (response.ok) {
@@ -79,7 +79,7 @@ const Comment = ({userId, commentId, content, time, articleType, reload}) => {
         }
     }
     useEffect(() => {
-        const api = `${apiBase}/user/${userId}`
+        const api = `${apiUrl}/user/${userId}`
         const fetchData = async () => {
             const response = await fetch(api);
             const result = await response.json();

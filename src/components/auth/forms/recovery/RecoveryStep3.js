@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {apiBase} from "../../../../helpers/Variables";
+import {apiUrl} from "../../../../helpers/Variables";
 
 const RecoveryStep3 = ({history, email, setStep}) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +25,7 @@ const RecoveryStep3 = ({history, email, setStep}) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/user/resetPassword`;
+        const api = `${apiUrl}/user/resetPassword`;
         const response = await fetch(api, request)
         if (response.ok) {
             setStep(1);

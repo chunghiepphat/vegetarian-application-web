@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Link, useLocation, useParams} from "react-router-dom";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import RecipeHeader from "../../home/view/recipe/RecipeHeader";
 import RecipeIngredients from "../../home/view/recipe/RecipeIngredients";
 import RecipeEstimations from "../../home/view/recipe/RecipeEstimations";
@@ -34,7 +34,7 @@ const ReviewRecipe = () => {
     headers.append("Accept", "application/json");
     const fetchData = async () => {
         setIsError(false);
-        const api = `${apiBase}/recipes/getrecipeby/${id}`;
+        const api = `${apiUrl}/recipes/getrecipeby/${id}`;
         try {
             const response = await fetch(api)
             if (response.ok) {
@@ -61,7 +61,7 @@ const ReviewRecipe = () => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/recipes/approve/${id}`;
+        const api = `${apiUrl}/recipes/approve/${id}`;
         const response = await fetch(api, request);
         if (response.ok) {
             await fetchData();

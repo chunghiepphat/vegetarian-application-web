@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import {UserContext} from "../../../context/UserContext";
 
 const DashboardRecommendations = () => {
@@ -16,7 +16,7 @@ const DashboardRecommendations = () => {
     const [carb, setCarb] = useState();
     const [calories, setCalories] = useState();
     const fetchData = async () => {
-        const api = `${apiBase}/user/calculate/nutrition?height=${user.height}&weight=${user.weight}&age=${ageYear}&gender=${user.gender}&type_workout=${user.workout_routine}`;
+        const api = `${apiUrl}/user/calculate/nutrition?height=${user.height}&weight=${user.weight}&age=${ageYear}&gender=${user.gender}&type_workout=${user.workout_routine}`;
         try {
             const response = await fetch(api);
             if (response.ok) {

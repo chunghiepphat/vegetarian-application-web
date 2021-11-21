@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Link, Route, Switch, useLocation, useParams} from "react-router-dom";
-import {apiBase} from "../../../helpers/Variables";
+import {apiUrl} from "../../../helpers/Variables";
 import BlogHeader from "../../home/view/blog/BlogHeader";
 import BlogToolbar from "../../home/view/blog/BlogToolbar";
 import BlogContent from "../../home/view/blog/BlogContent";
@@ -33,7 +33,7 @@ const ViewRecipe = () => {
     headers.append("Accept", "application/json");
     const fetchData = async () => {
         setIsError(false);
-        const api = `${apiBase}/blogs/getblogby/${id}`;
+        const api = `${apiUrl}/blogs/getblogby/${id}`;
         try {
             const response = await fetch(api)
             if (response.ok) {
@@ -60,7 +60,7 @@ const ViewRecipe = () => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/blogs/approve/${id}`;
+        const api = `${apiUrl}/blogs/approve/${id}`;
         const response = await fetch(api, request);
         if (response.ok) {
             await fetchData();

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {apiBase} from "../../../../helpers/Variables";
+import {apiUrl} from "../../../../helpers/Variables";
 import jwtDecode from "jwt-decode";
 
 const LoginEmail = ({history, background}) => {
@@ -28,7 +28,7 @@ const LoginEmail = ({history, background}) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiBase}/user/signin`;
+        const api = `${apiUrl}/user/signin`;
         await fetch(api, request)
             // Checks response, gets access token if green, throws error if not
             .then(response => {
