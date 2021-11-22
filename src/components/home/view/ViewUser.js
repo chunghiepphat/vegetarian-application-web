@@ -49,7 +49,6 @@ const ViewUser = () => {
                 setIsPostsLoading(false);
             }
         } catch (error) {
-            console.error(error);
             setIsPostsError(true);
             setIsPostsLoading(false);
         }

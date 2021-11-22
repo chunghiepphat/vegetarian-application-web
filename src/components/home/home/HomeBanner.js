@@ -59,7 +59,8 @@ const HomeBanner = ({user, fetchData}) => {
                                                 isFavorite={item.is_like}
                                                 totalLikes={item.totalLike}/>))}
                                     </> : <PanelEmp style={{gridArea: "1 / 1 / 3 / 5"}}/>}
-                                </> : <PanelErr style={{gridArea: "1 / 1 / 3 / 5"}} reload={fetchData}/>}
+                                </> : <PanelErr style={{gridArea: "1 / 1 / 3 / 5"}}
+                                                reload={() => fetchData(api, setData, setIsLoading, setIsError)}/>}
                             </> : <PanelLoader style={{gridArea: "1 / 1 / 3 / 5"}}/>}
                         </div>
                     </div>

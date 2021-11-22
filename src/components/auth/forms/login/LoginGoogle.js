@@ -64,7 +64,7 @@ const LoginGoogle = ({history, background}) => {
             onSuccess={onSuccess}
             onFailure={onFailure}
             cookiePolicy={'single_host_origin'}
-            isSignedIn={true}/>
+            isSignedIn={false}/>
     )
 }
 

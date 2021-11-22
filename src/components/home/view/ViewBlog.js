@@ -47,7 +47,7 @@ const ViewBlog = ({user, location, fetchData}) => {
                                 </article>
                             </div>
                         </> : <SectionEmp message="Loading the article..."/>}
-                    </> : <SectionErr reload={fetchData} api={api}/>}
+                    </> : <SectionErr reload={() => fetchData(api, setData, setIsError)}/>}
                 </Route>
                 <Redirect to="/not-found"/>
             </Switch>

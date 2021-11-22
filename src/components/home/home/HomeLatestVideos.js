@@ -45,7 +45,6 @@ const HomeLatestVideos = ({user, fetchData}) => {
                                 {data.map(item => (
                                     <VideoTile key={item.id}
                                                id={item.id}
-                                               type="blog"
                                                title={item.video_title}
                                                link={item.video_link}
                                                userId={item.user_id}

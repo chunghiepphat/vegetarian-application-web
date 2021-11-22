@@ -33,7 +33,7 @@ const ViewVideo = ({user, location, fetchData}) => {
                         </article>
                     </div>
                 </> : <SectionEmp message="Loading the article..."/>}
-            </> : <SectionErr reload={fetchData}/>}
+            </> : <SectionErr reload={() => fetchData(api, setData, setIsError)}/>}
         </section>
     )
 }

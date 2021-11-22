@@ -25,7 +25,6 @@ const BrowseVideos = ({user, location, data, isLoading, isError, fetchData}) => 
                                 {data.map(item => (
                                     <VideoTile key={item.id}
                                                id={item.id}
-                                               type="blog"
                                                title={item.video_title}
                                                link={item.video_link}
                                                userId={item.user_id}
@@ -36,7 +35,7 @@ const BrowseVideos = ({user, location, data, isLoading, isError, fetchData}) => 
                                                isFavorite={item.is_like}
                                                totalLikes={item.totalLike}/>))}
                             </> : <PanelEmp/>}
-                        </> : <PanelErr reload={fetchData} api={api}/>}
+                        </> : <PanelErr reload={() => fetchData(api)}/>}
                     </> : <PanelLoader/>}
                 </Panel>
             </div>

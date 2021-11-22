@@ -54,7 +54,7 @@ const ViewRecipe = ({user, location, fetchData}) => {
                                     </picture>}
                                     <RecipeHeader data={data}/>
                                     <RecipeToolbar id={id} location={location} data={data}
-                                                   reload={fetchData} mainApi={api}/>
+                                                   reload={() => fetchData(api, setData, setIsError)} mainApi={api}/>
                                     <RecipeIngredients data={data}/>
                                     <RecipeEstimations data={data}/>
                                     <RecipeNutrients portion={data.portion_size} nutrients={data.nutrition}/>
@@ -63,7 +63,7 @@ const ViewRecipe = ({user, location, fetchData}) => {
                                 </article>
                             </div>
                         </> : <SectionEmp message={strings.loadingMessage}/>}
-                    </> : <SectionErr reload={fetchData} api={api}/>}
+                    </> : <SectionErr reload={() => fetchData(api, setData, setIsError)}/>}
                 </Route>
                 <Redirect to="/not-found"/>
             </Switch>

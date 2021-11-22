@@ -1,41 +1,42 @@
 import React from "react";
+import LocalizedStrings from "react-localization";
+import Panel from "../../../commons/elements/containers/Panel";
 import ArticleCard from "../../../commons/elements/containers/ArticleCard";
-import Navbar from "../../../commons/elements/bars/Navbar";
-import {useLocation} from "react-router-dom";
+import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
 
-const ResultRecipes = () => {
-    const location = useLocation()
-    const data = location.state.data;
+const ResultRecipes = ({data}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            messageEmpty: "There were no recipes matching your criteria.",
+        },
+        vi: {
+            messageEmpty: "Không có công thức nào khớp với tìm kiếm của bạn.",
+        }
+    });
+
     return (
-        <>
-            <section className="page-toolbar">
-                <Navbar>
-                    <div>Type of dish</div>
-                    <div>Preparation time</div>
-                    <div>Ingredients</div>
-                    <div>Cuisine</div>
-                    <div>Sort by:</div>
-                </Navbar>
-            </section>
-            <section>
-                {data &&
-                <div className="section-content">
-                    <h1>Recipes</h1>
-                    <div className="panel">
-                        {data.map(recipe => (
+        <section>
+            <div className="section-content">
+                <Panel filler="card-narrow">
+                    {data && data.length > 0 ? <>
+                        {data.map(item => (
                             <ArticleCard className="card-narrow"
-                                         key={recipe.recipe_id}
-                                         id={recipe.recipe_id}
+                                         key={item.recipe_id}
+                                         id={item.recipe_id}
                                          type="recipe"
-                                         title={recipe.recipe_title}
-                                         thumbnail={recipe.recipe_thumbnail}
-                                         first_name={recipe.first_name}
-                                         last_name={recipe.last_name}/>))}
-                    </div>
-                </div>
-                }
-            </section>
-        </>
+                                         title={item.recipe_title}
+                                         thumbnail={item.recipe_thumbnail}
+                                         userId={item.user_id}
+                                         firstName={item.first_name}
+                                         lastName={item.last_name}
+                                         time={item.time_created}
+                                         isFavorite={item.is_like}
+                                         totalLikes={item.totalLike}/>))}
+                    </> : <PanelEmp message={strings.messageEmpty}/>}
+                </Panel>
+            </div>
+        </section>
     )
 }
 

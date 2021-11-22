@@ -60,7 +60,7 @@ const LoginFacebook = ({history, background}) => {
     return (
         <FacebookLogin
             appId={appId}
-            autoLoad={true}
+            autoLoad={false}
             callback={responseFacebook}
             fields="first_name,last_name,email,picture"
             render={renderProps => (

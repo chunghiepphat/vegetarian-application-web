@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from "react";
+// Stylesheets
 import './App.css';
+// Dependencies
 import {Redirect, Route, Switch, useLocation} from "react-router-dom";
 import moment from "moment";
 import 'moment/locale/vi';
+// Variables
 import {UserContext} from "./context/UserContext";
 import {apiUrl} from "./helpers/Variables";
 // Global site components
@@ -64,7 +67,6 @@ export default function App() {
         window.scrollTo(0, 0)
     }, [location]);
     // Handles modal background states
-    console.log(location)
     const background = location.state && location.state.background;
 
     return (

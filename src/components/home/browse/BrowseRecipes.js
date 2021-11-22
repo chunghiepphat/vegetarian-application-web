@@ -37,7 +37,7 @@ const BrowseRecipes = ({user, location, data, isLoading, isError, fetchData}) =>
                                                  isFavorite={item.is_like}
                                                  totalLikes={item.totalLike}/>))}
                             </> : <PanelEmp/>}
-                        </> : <PanelErr reload={fetchData} api={api}/>}
+                        </> : <PanelErr reload={() => fetchData(api)}/>}
                     </> : <PanelLoader/>}
                 </Panel>
             </div>
