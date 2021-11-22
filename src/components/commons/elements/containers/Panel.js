@@ -3,7 +3,7 @@ import "./Panel.css";
 
 const Panel = (props) => {
     return (
-        <div className="panel">
+        <div className="panel" style={props.style}>
             {props.children}
             {props.filler && <>
                 <div className={`flex-filler ${props.filler}`}/>

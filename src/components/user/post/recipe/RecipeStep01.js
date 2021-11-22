@@ -38,8 +38,7 @@ const RecipeStep01 = (props) => {
                         <select aria-label="Recipe type" value={props.category}
                                 onChange={e => props.setCategory(e.target.value)}>
                             {props.categoryList && props.categoryList.map(item => (
-                                <option value={item.category_id}>{item.category_name}</option>
-                            ))}}
+                                <option value={item.category_id}>{item.category_name}</option>))}}
                         </select>
                     </label>
                     <label>Recipe difficulty</label>

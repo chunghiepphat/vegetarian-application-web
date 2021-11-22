@@ -47,6 +47,7 @@
 .panel-scroll svg {
     width: 24px;
     height: 24px;
+    fill: #656665;
 }
 
 .panel-scroll:hover svg {

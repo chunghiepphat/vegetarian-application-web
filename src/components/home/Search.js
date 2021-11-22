@@ -1,36 +1,53 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import "./Home.css";
-import {NavLink, useLocation} from "react-router-dom";
-import SearchSidebar from "./SearchSidebar";
-import Navbar from "../commons/elements/bars/Navbar";
+import "./Search.css";
+import {useLocation} from "react-router-dom";
 import {apiUrl} from "../../helpers/Variables";
-import {PanelLoader} from "../commons/elements/loaders/Loader";
-import {PanelEmp} from "../commons/elements/loaders/AlertEmpty";
-import SearchResult from "./search/SearchResult";
+import {UserContext} from "../../context/UserContext";
+import {SectionLoader} from "../commons/elements/loaders/Loader";
+import {SectionEmp} from "../commons/elements/loaders/AlertEmpty";
+import ResultTabs from "./search/ResultTabs";
+import ResultList from "./search/ResultList";
+import SearchFilters from "./search/SearchFilters";
 import LocalizedStrings from "react-localization";
 
 const Search = () => {
     const location = useLocation();
+    const user = useContext(UserContext);
     // Localizations
     let strings = new LocalizedStrings({
         en: {
-            urlRecipes: "Recipes",
-            urlVideos: "Videos",
-            urlBlogs: "Blogs",
+            messageEmpty: "There were no results matching your criteria.",
+            messageInvalid: "It seems your search query was invalid.",
         },
         vi: {
-            urlRecipes: "Công thức",
-            urlVideos: "Video hướng dẫn",
-            urlBlogs: "Bài viết",
+            messageEmpty: "Không có kết quả nào phù hợp với tìm kiếm của bạn.",
+            messageInvalid: "Có vẻ như từ khóa tìm kiếm của bạn không hợp lệ.",
         }
     });
+    // Fetches category list from server
+    const [categoryList, setCategoryList] = useState([]);
+    const fetchCategories = async () => {
+        const api = `${apiUrl}/recipes/categories`
+        try {
+            const response = await fetch(api);
+            if (response.ok) {
+                const result = await response.json();
+                await setCategoryList(result.listResult);
+            }
+        } catch (error) {
+
+        }
+    }
+    useEffect(() => {
+        fetchCategories();
+    }, [user]);
     // Handles fetching results
-    const query = location.search;
-    const [data, setData] = useState([])
+    const [data, setData] = useState()
     const [isLoading, setIsLoading] = useState(true);
     const fetchData = async () => {
         setIsLoading(true);
-        const api = `${apiUrl}/home/find${query}`;
+        const api = `${apiUrl}/home/find${location.search}`;
         try {
             const response = await fetch(api)
             if (response.ok) {
@@ -39,54 +56,28 @@ const Search = () => {
                 setIsLoading(false);
             } else setIsLoading(false);
         } catch (error) {
+            setData(undefined);
             setIsLoading(false)
         }
     }
     useEffect(() => {
-        fetchData();    // fetches results again everytime the query changes
-    }, [query])
+        fetchData(); // fetches results again everytime the query changes
+    }, [location.search])
 
     return (
         <div className="page-container">
+            <SearchFilters categoryList={categoryList} fetchData={fetchData}/>
             <div className="grid-container">
-                {/*Main content*/}
-                <main>
-                    <section className="page-toolbar">
-                        <Navbar>
-                            <div>Type of dish</div>
-                            <div>Preparation time</div>
-                            <div>Ingredients</div>
-                            <div>Cuisine</div>
-                            <div>Sort by:</div>
-                        </Navbar>
-                    </section>
+                <main style={{gridColumn: "span 4"}}>
                     {!isLoading ? <>
                         {data ? <>
-                            <section className="page-navbar">
-                                <Navbar>
-                                    {data.listRecipe.length > 0 &&
-                                    <NavLink to={{
-                                        pathname: "/search/recipes",
-                                        search: location.search,
-                                    }}>{strings.urlRecipes} ({data.listRecipe.length})</NavLink>}
-                                    {data.listVideo.length > 0 &&
-                                    <NavLink to={{
-                                        pathname: "/search/videos",
-                                        search: location.search,
-                                    }}>{strings.urlVideos} ({data.listVideo.length})</NavLink>}
-                                    {data.listBlog.length > 0 &&
-                                    <NavLink to={{
-                                        pathname: "/search/blogs",
-                                        search: location.search,
-                                    }}>{strings.urlBlogs} ({data.listBlog.length})</NavLink>}
-                                </Navbar>
-                            </section>
-                            <SearchResult data={data}/>
-                        </> : <PanelEmp/>}
-                    </> : <PanelLoader/>}
+                            {data.listRecipe.length > 0 || data.listVideo.length > 0 || data.listBlog.length > 0 ? <>
+                                <ResultTabs data={data}/>
+                                <ResultList data={data}/>
+                            </> : <SectionEmp message={strings.messageEmpty}/>}
+                        </> : <SectionEmp message={strings.messageInvalid}/>}
+                    </> : <SectionLoader/>}
                 </main>
-                {/*Right sidebar*/}
-                <SearchSidebar/>
             </div>
         </div>
 

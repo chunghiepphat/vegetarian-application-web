@@ -91,6 +91,10 @@ input, select, textarea {
     border-radius: 8px;
 }
 
+input[type="range"] {
+    padding: 0;
+}
+
 input, select {
     height: 38px;
 }

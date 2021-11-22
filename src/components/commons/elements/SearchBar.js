@@ -21,7 +21,7 @@ const SearchBar = (props) => {
                 <FaSistrix/>
                 <input aria-label="search" type="text"
                        value={query} onChange={e => setQuery(e.target.value)}
-                       placeholder={props.placeholder}/>
+                       placeholder={props.placeholder} required/>
             </label>
         </form>
     )

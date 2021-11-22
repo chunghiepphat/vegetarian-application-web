@@ -18,7 +18,7 @@ const ResultRecipes = ({data}) => {
     return (
         <section>
             <div className="section-content">
-                <Panel filler="card-narrow">
+                <Panel filler="card-narrow" style={{justifyContent: "space-evenly"}}>
                     {data && data.length > 0 ? <>
                         {data.map(item => (
                             <ArticleCard className="card-narrow"

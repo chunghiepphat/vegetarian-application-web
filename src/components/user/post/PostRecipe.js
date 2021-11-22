@@ -8,10 +8,7 @@ import RecipeStep03 from "./recipe/RecipeStep03";
 import RecipeStep04 from "./recipe/RecipeStep04";
 
 const PostRecipe = ({user, token, history}) => {
-    const [isLoading, setIsLoading] = useState(false);
-    const [uploadProgress, setUploadProgress] = useState("");
-    const [categoryList, setCategoryList] = useState([]);
-    // Step 1 parameters
+    // Step 1 data states
     const [title, setTitle] = useState();
     const [category, setCategory] = useState(1);
     const [difficulty, setDifficulty] = useState(1);
@@ -20,15 +17,16 @@ const PostRecipe = ({user, token, history}) => {
     const [prepTime, setPrepTime] = useState(0);
     const [bakingTime, setBakingTime] = useState(0);
     const [restingTime, setRestingTime] = useState(0);
-    // Step 2 parameters
+    // Step 2 data states
     const [thumbnailUrl, setThumbnailUrl] = useState("");
     const [thumbnailFile, setThumbnailFile] = useState("");
-    // Step 3 parameters
+    // Step 3 data states
     const [ingredients, setIngredients] = useState([]);
-    // Step 4 parameters
+    // Step 4 data states
     const [steps, setSteps] = useState([]);
     const [isPrivate, setIsPrivate] = useState(false);
-    // Fetch category list from server
+    // Fetches category list from server
+    const [categoryList, setCategoryList] = useState([]);
     const fetchCategories = async () => {
         const api = `${apiUrl}/recipes/categories`
         try {
@@ -44,6 +42,8 @@ const PostRecipe = ({user, token, history}) => {
     }
     useEffect(fetchCategories, [user]);
     // Handles form submission, image upload and getting image URL
+    const [isLoading, setIsLoading] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState("");
     const submitPost = async (e) => {
         e.preventDefault();
         setIsPrivate(e.nativeEvent.submitter.name);
