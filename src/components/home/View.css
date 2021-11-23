@@ -137,6 +137,7 @@ article section {
 }
 
 .article-status p {
+    font-size: 20px;
     font-weight: 600;
 }
 
@@ -166,8 +167,8 @@ article section {
     animation: fade-in 0.5s;
 }
 
-.article-button:active svg {
-    animation: pop 0.3s;
+.article-button:hover {
+    background: #e6d3a3;
 }
 
 .article-button-with-text {
@@ -187,9 +188,10 @@ article section {
     animation: fade-in 0.5s;
 }
 
-.article-button:hover {
-    background: #e6d3a3;
+.button-favorite:active svg {
+    animation: pop 0.3s;
 }
+
 
 .article-raw h1 {
     margin: 0 0 6px 0;

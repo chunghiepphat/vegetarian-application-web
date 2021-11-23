@@ -72,6 +72,7 @@ const HomeSidebar = () => {
                 }
             } catch (error) {
                 setIsErrorRecommendations(true);
+                setIsLoadingRecommendations(false);
             }
         }
     }
@@ -97,8 +98,8 @@ const HomeSidebar = () => {
                 setIsLoadingBlogs(false);
             }
         } catch (error) {
-            console.error(error);
             setIsErrorBlogs(true);
+            setIsLoadingBlogs(false);
         }
     }
     useEffect(() => {

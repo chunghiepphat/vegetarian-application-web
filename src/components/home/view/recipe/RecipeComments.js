@@ -1,11 +1,12 @@
 import React, {useContext, useEffect, useState} from "react";
 import LocalizedStrings from "react-localization";
 import {Link, useLocation} from "react-router-dom";
-import {UserContext} from "../../../../context/UserContext";
 import {apiUrl} from "../../../../helpers/Variables";
+import {UserContext} from "../../../../context/UserContext";
 import Comment from "../../../commons/elements/Comment";
 import {SectionErr} from "../../../commons/elements/loaders/AlertError";
 import {FaAngleRight} from "react-icons/fa";
+import {SectionEmp} from "../../../commons/elements/loaders/AlertEmpty";
 
 
 const RecipeComments = ({data}) => {
@@ -21,7 +22,7 @@ const RecipeComments = ({data}) => {
         vi: {
             header: "Bình luận",
             inputPlaceholder: "Bạn nghĩ sao về công thức này?",
-            noCommentsMessage: "Hãy là người đầu tiên bình luận ở đây!",
+            noCommentsMessage: "Hãy là người đầu tiên bình luận về công thức này!",
             signIn: "Hãy đăng nhập để bình luận!",
         }
     });
@@ -108,7 +109,7 @@ const RecipeComments = ({data}) => {
                                  time={item.time}
                                  articleType="recipe"
                                  reload={fetchComments}/>))}
-                </> : <em>{strings.noCommentsMessage}</em>}
+                </> : <SectionEmp message={strings.noCommentsMessage}/>}
             </> : <SectionErr reload={fetchComments}/>}
         </section>
     )

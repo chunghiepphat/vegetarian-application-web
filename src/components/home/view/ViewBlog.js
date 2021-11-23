@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import LocalizedStrings from "react-localization";
 import {Redirect, Route, Switch, useParams} from "react-router-dom";
 import {apiUrl} from "../../../helpers/Variables";
 import BlogHeader from "./blog/BlogHeader";
@@ -11,6 +12,15 @@ import {SectionErr} from "../../commons/elements/loaders/AlertError";
 
 const ViewBlog = ({user, location, fetchData}) => {
     let {id} = useParams();
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            messageLoading: "Loading the article...",
+        },
+        vi: {
+            messageLoading: "Đang tải bài viết...",
+        }
+    });
     // Data states & API endpoint
     const [data, setData] = useState();
     const [isError, setIsError] = useState(false);
@@ -46,7 +56,7 @@ const ViewBlog = ({user, location, fetchData}) => {
                                     <BlogComments data={data}/>
                                 </article>
                             </div>
-                        </> : <SectionEmp message="Loading the article..."/>}
+                        </> : <SectionEmp message={strings.messageLoading}/>}
                     </> : <SectionErr reload={() => fetchData(api, setData, setIsError)}/>}
                 </Route>
                 <Redirect to="/not-found"/>

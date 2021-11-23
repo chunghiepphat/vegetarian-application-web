@@ -5,9 +5,26 @@ import {UserContext} from "../../../../context/UserContext";
 import Comment from "../../../commons/elements/Comment";
 import {SectionErr} from "../../../commons/elements/loaders/AlertError";
 import {FaAngleRight} from "react-icons/fa";
+import LocalizedStrings from "react-localization";
+import {SectionEmp} from "../../../commons/elements/loaders/AlertEmpty";
 
 const VideoComments = ({data}) => {
     const location = useLocation();
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            header: "Comments",
+            inputPlaceholder: "Does this video help you?",
+            noCommentsMessage: "Be the first share your thoughts on this video!",
+            signIn: "Sign in to comment!",
+        },
+        vi: {
+            header: "Bình luận",
+            inputPlaceholder: "Video này có hữu ích không?",
+            noCommentsMessage: "Hãy là người đầu tiên bình luận trên video này!",
+            signIn: "Hãy đăng nhập để bình luận!",
+        }
+    });
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const [comment, setComment] = useState("");
@@ -68,19 +85,20 @@ const VideoComments = ({data}) => {
     useEffect(() => {
         fetchComments();
     }, [data]);
+
     return (
         <section className="article-comments">
-            <h2>Comments</h2>
+            <h2>{strings.header}</h2>
             {user && user.role !== "admin" ?
                 <form className="form-comment" onSubmit={submitComment}>
                     <input aria-label="Comment" type="text" value={comment}
                            onChange={e => setComment(e.target.value)}
-                           placeholder="Share your thoughts about this recipe..." required/>
+                           placeholder={strings.inputPlaceholder} required/>
                 </form>
                 : <Link to={{
                     pathname: "/login",
                     state: {background: location}
-                }}>Sign in to comment! <FaAngleRight/></Link>}
+                }}>{strings.signIn} <FaAngleRight/></Link>}
             {!isError ? <>
                 {comments && comments.length > 0 ? <>
                     {comments.map(item => (
@@ -90,7 +108,7 @@ const VideoComments = ({data}) => {
                                  time={item.time}
                                  articleType="video"
                                  reload={fetchComments}/>))}
-                </> : <em>Be the first to comment on this recipe!</em>}
+                </> : <SectionEmp message={strings.noCommentsMessage}/>}
             </> : <SectionErr reload={fetchComments}/>}
         </section>
     )

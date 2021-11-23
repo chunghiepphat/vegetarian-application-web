@@ -1,8 +1,17 @@
 import React, {useContext} from "react";
-import {AiFillEye, AiOutlineEyeInvisible, FaHeart, FaRegHeart, RiDeleteBin4Line, RiEditLine} from "react-icons/all";
-import {UserContext} from "../../../../context/UserContext";
-import {apiUrl} from "../../../../helpers/Variables";
 import {useHistory} from "react-router-dom";
+import {apiUrl} from "../../../../helpers/Variables";
+import {UserContext} from "../../../../context/UserContext";
+import {articleStatusStrings, articleToolbarStrings, requestErrorStrings} from "../../../../helpers/DisplayStrings";
+import {
+    AiFillEye,
+    AiOutlineCheck,
+    AiOutlineEyeInvisible,
+    FaHeart,
+    FaRegHeart,
+    RiDeleteBin4Line,
+} from "react-icons/all";
+import {FaEdit} from "react-icons/fa";
 
 const BlogToolbar = ({id, location, data, reload, mainApi}) => {
     const history = useHistory();
@@ -10,9 +19,9 @@ const BlogToolbar = ({id, location, data, reload, mainApi}) => {
     const token = JSON.parse(localStorage.getItem("accessToken"));
     // Article status message to display based on array index
     const statusText = [
-        "Waiting for review.",
-        "Approved and published.",
-        "Rejected by administrator."
+        `${articleStatusStrings.statusPending}`,
+        `${articleStatusStrings.statusApproved}`,
+        `${articleStatusStrings.statusRejected}`,
     ];
     // Matching class names for text colors
     const statusColor = [
@@ -46,12 +55,12 @@ const BlogToolbar = ({id, location, data, reload, mainApi}) => {
             if (response.ok) {
                 reload(mainApi);
             } else if (response.status === 401) {
-                alert("You are not authorized to complete the request.")
+                alert(requestErrorStrings.requestErrorUnauthorized)
             } else {
-                alert("Error: " + response.status);
+                alert(requestErrorStrings.requestErrorStatus + response.status);
             }
         } catch (error) {
-            alert("A network error has occurred. " + error);
+            alert(requestErrorStrings.requestErrorException + error);
         }
     }
     // Handle public/private visibility switch
@@ -59,11 +68,11 @@ const BlogToolbar = ({id, location, data, reload, mainApi}) => {
         e.preventDefault();
         let message = "";
         if (data.is_private && data.status === 1)
-            message = "Submit your article for review?\nIt will be visible to others once approved by a moderator."
+            message = articleToolbarStrings.submitForReviewConfirm;
         if (data.is_private && data.status === 2)
-            message = "Republish your article?\nIt will be visible to everyone else."
+            message = articleToolbarStrings.setPublicConfirm;
         else if (!data.is_private)
-            message = "Set your article to private and save as draft?\nIt will no longer be visible to others.";
+            message = articleToolbarStrings.setPrivateConfirm;
         const isConfirmed = window.confirm(message);
         if (isConfirmed) {
             // Generates request
@@ -77,18 +86,20 @@ const BlogToolbar = ({id, location, data, reload, mainApi}) => {
             try {
                 if (response.ok) {
                     if (data.is_private && data.status === 1)
-                        alert("Your post will now be visible to others when approved by an admin.")
+                        alert(articleToolbarStrings.submitForReviewAlert)
                     else if (data.is_private && data.status === 2)
-                        alert("Your post is now public and visible to others.");
-                    else alert("Your post is now private.")
+                        alert(articleToolbarStrings.setPublicAlert);
+                    else {
+                        alert(articleToolbarStrings.setPrivateAlert);
+                    }
                     reload(mainApi);
                 } else if (response.status === 401) {
-                    alert("You are not authorized to do that.")
+                    alert(requestErrorStrings.requestErrorUnauthorized)
                 } else {
-                    alert("Unexpected error with code: " + response.status);
+                    alert(requestErrorStrings.requestErrorStatus + response.status);
                 }
             } catch (error) {
-                alert("A network error has occurred. " + error);
+                alert(requestErrorStrings.requestErrorException + error);
             }
         }
     }
@@ -99,7 +110,7 @@ const BlogToolbar = ({id, location, data, reload, mainApi}) => {
     // Handle delete article - sends user to previous page upon completion
     const deleteArticle = async (e) => {
         e.preventDefault();
-        const isConfirmed = window.confirm("Are you sure you wish to delete this blog post? This is irreversible.");
+        const isConfirmed = window.confirm(articleToolbarStrings.deleteConfirm);
         if (isConfirmed) {
             // Generates request
             let request = {
@@ -111,15 +122,15 @@ const BlogToolbar = ({id, location, data, reload, mainApi}) => {
             const response = await fetch(api, request);
             try {
                 if (response.ok) {
-                    alert("Your blog post has been deleted.");
+                    alert(articleToolbarStrings.deleteAlert);
                     history.goBack();
                 } else if (response.status === 401) {
-                    alert("You are not authorized to complete the request.")
+                    alert(requestErrorStrings.requestErrorUnauthorized)
                 } else {
-                    alert("Error: " + response.status);
+                    alert(requestErrorStrings.requestErrorStatus + response.status);
                 }
             } catch (error) {
-                alert("A network error has occurred. " + error);
+                alert(requestErrorStrings.requestErrorException + error);
             }
         }
     }
@@ -131,7 +142,7 @@ const BlogToolbar = ({id, location, data, reload, mainApi}) => {
                 {data.is_private ? <p>***PRIVATE DRAFT***</p> :
                     <p className={statusColor[data.status - 1]}>{statusText[data.status - 1]}</p>}
             </div>}
-            {user && user.role !== "admin" ?
+            {data && user && user.role !== "admin" ?
                 <div className="article-controls">
                     {/*If user is logged in, show toolbar*/}
                     {data &&
@@ -141,16 +152,18 @@ const BlogToolbar = ({id, location, data, reload, mainApi}) => {
                             <FaHeart/> : <FaRegHeart/>} {data.totalLike}
                     </button>}
                     {/*If user is the author of the article, allow modify*/}
-                    {data && user.id === data.user_id && <>
-                        {data &&
+                    {user.id === data.user_id && <>
                         <button title="Article visibility" className="article-button article-button-with-text"
                                 onClick={publishArticle}>
                             {data.is_private ?
-                                <><AiOutlineEyeInvisible/> Private</>
-                                : <><AiFillEye/> Public</>}
-                        </button>}
+                                <><AiOutlineEyeInvisible/> {articleToolbarStrings.buttonPrivate}</>
+                                : <>{data.status === 2 ?
+                                    <><AiFillEye/> {articleToolbarStrings.buttonPublic}</>
+                                    : <><AiOutlineCheck/> {articleToolbarStrings.buttonSubmit}</>}
+                                </>}
+                        </button>
                         <button className="article-button article-button-no-text" onClick={editArticle}>
-                            <RiEditLine/>
+                            <FaEdit/>
                         </button>
                         <button className="article-button article-button-no-text" onClick={deleteArticle}>
                             <RiDeleteBin4Line/>

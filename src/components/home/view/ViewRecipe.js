@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import LocalizedStrings from "react-localization";
 import {Redirect, Route, Switch, useParams} from "react-router-dom";
 import {apiUrl} from "../../../helpers/Variables";
 import RecipeHeader from "./recipe/RecipeHeader";
@@ -11,17 +12,16 @@ import RecipeComments from "./recipe/RecipeComments";
 import EditRecipe from "../../user/edit/EditRecipe";
 import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {SectionErr} from "../../commons/elements/loaders/AlertError";
-import LocalizedStrings from "react-localization";
 
 const ViewRecipe = ({user, location, fetchData}) => {
     let {id} = useParams();
     // Localizations
     let strings = new LocalizedStrings({
         en: {
-            loadingMessage: "Loading the article...",
+            messageLoading: "Loading the article...",
         },
         vi: {
-            loadingMessage: "Đang tải bài viết...",
+            messageLoading: "Đang tải công thức...",
         }
     });
     // Data states & API endpoint
@@ -62,7 +62,7 @@ const ViewRecipe = ({user, location, fetchData}) => {
                                     <RecipeComments data={data}/>
                                 </article>
                             </div>
-                        </> : <SectionEmp message={strings.loadingMessage}/>}
+                        </> : <SectionEmp message={strings.messageLoading}/>}
                     </> : <SectionErr reload={() => fetchData(api, setData, setIsError)}/>}
                 </Route>
                 <Redirect to="/not-found"/>

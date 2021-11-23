@@ -1,13 +1,30 @@
 import React, {useContext, useEffect, useState} from "react";
+import LocalizedStrings from "react-localization";
 import {Link, useLocation} from "react-router-dom";
 import {apiUrl} from "../../../../helpers/Variables";
 import {UserContext} from "../../../../context/UserContext";
 import Comment from "../../../commons/elements/Comment";
 import {SectionErr} from "../../../commons/elements/loaders/AlertError";
 import {FaAngleRight} from "react-icons/fa";
+import {SectionEmp} from "../../../commons/elements/loaders/AlertEmpty";
 
 const BlogComments = ({data}) => {
     const location = useLocation();
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            header: "Comments",
+            inputPlaceholder: "What do you think about this article?",
+            noCommentsMessage: "Be the first to comment!",
+            signIn: "Sign in to comment!",
+        },
+        vi: {
+            header: "Bình luận",
+            inputPlaceholder: "Bạn nghĩ sao về bài viết này?",
+            noCommentsMessage: "Hãy là người đầu tiên bình luận ở đây!",
+            signIn: "Hãy đăng nhập để bình luận!",
+        }
+    });
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const [comment, setComment] = useState("");
@@ -70,17 +87,17 @@ const BlogComments = ({data}) => {
 
     return (
         <section className="article-comments">
-            <h2>Comments</h2>
+            <h2>{strings.header}</h2>
             {user && user.role !== "admin" ?
                 <form className="form-comment" onSubmit={submitComment}>
                     <input aria-label="Comment" type="text" value={comment}
                            onChange={e => setComment(e.target.value)}
-                           placeholder="What do you think?" required/>
+                           placeholder={strings.inputPlaceholder} required/>
                 </form>
                 : <Link to={{
                     pathname: "/login",
                     state: {background: location}
-                }}>Sign in to comment! <FaAngleRight/></Link>}
+                }}>{strings.signIn} <FaAngleRight/></Link>}
             {!isError ? <>
                 {comments && comments.length > 0 ? <>
                     {comments.map(item => (
@@ -90,7 +107,7 @@ const BlogComments = ({data}) => {
                                  time={item.time}
                                  articleType="blog"
                                  reload={fetchComments}/>))}
-                </> : <em>Be the first to comment on this recipe!</em>}
+                </> : <SectionEmp message={strings.noCommentsMessage}/>}
             </> : <SectionErr reload={fetchComments}/>}
         </section>
     )

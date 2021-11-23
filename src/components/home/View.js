@@ -31,7 +31,6 @@ const View = () => {
     return (
         <div className="page-container">
             <div className="grid-container">
-                {/*Main content*/}
                 <main>
                     <Switch>
                         <Route path="/view/recipe/:id">
@@ -48,7 +47,6 @@ const View = () => {
                         <Route><Redirect to="/not-found"/></Route>
                     </Switch>
                 </main>
-                {/*Right sidebar*/}
                 <HomeSidebar/>
             </div>
         </div>

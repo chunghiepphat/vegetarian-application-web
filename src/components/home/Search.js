@@ -1,15 +1,15 @@
 import React, {useContext, useEffect, useState} from "react";
 import "./Home.css";
 import "./Search.css";
+import LocalizedStrings from "react-localization";
 import {useLocation} from "react-router-dom";
 import {apiUrl} from "../../helpers/Variables";
 import {UserContext} from "../../context/UserContext";
-import {SectionLoader} from "../commons/elements/loaders/Loader";
-import {SectionEmp} from "../commons/elements/loaders/AlertEmpty";
+import SearchFilters from "./search/SearchFilters";
 import ResultTabs from "./search/ResultTabs";
 import ResultList from "./search/ResultList";
-import SearchFilters from "./search/SearchFilters";
-import LocalizedStrings from "react-localization";
+import {SectionLoader} from "../commons/elements/loaders/Loader";
+import {SectionEmp} from "../commons/elements/loaders/AlertEmpty";
 
 const Search = () => {
     const location = useLocation();

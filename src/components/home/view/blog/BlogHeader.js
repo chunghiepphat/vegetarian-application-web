@@ -3,8 +3,19 @@ import moment from "moment";
 import Avatar from "../../../commons/elements/Avatar";
 import {Link} from "react-router-dom";
 import {FaAngleRight} from "react-icons/fa";
+import LocalizedStrings from "react-localization";
 
 const BlogHeader = ({data}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            lastEdited: "last edited",
+        },
+        vi: {
+            lastEdited: "chỉnh sửa lần cuối",
+        }
+    });
+
     return (
         <section className="article-title">
             <h1>{data.blog_title}</h1>
@@ -23,7 +34,7 @@ const BlogHeader = ({data}) => {
                     </span>
                     {data.time_updated &&
                     <span className="timestamp-updated">
-                        (edited {moment(data.time_updated).format("lll")})
+                        ({strings.lastEdited} {moment(data.time_updated).format("lll")})
                     </span>}
                 </div>
             </div>
