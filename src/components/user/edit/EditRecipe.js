@@ -8,8 +8,29 @@ import EditSteps from "./recipe/EditSteps";
 import Form from "../../commons/elements/form/Form";
 import {FaAngleLeft} from "react-icons/fa";
 import InputGroup from "../../commons/elements/form/InputGroup";
+import LocalizedStrings from "react-localization";
 
 const EditRecipe = ({id, data}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            gobackButton: "Go back",
+            cancelButton: "Cancel",
+            finishButton: "Finish",
+            alertSuccess: "Recipe updated successfully!",
+            alertAuthorized: "You are not authorized to do that.",
+            alertError: "Unexpected error with code: ",
+        },
+        vi: {
+            gobackButton: "Trở về",
+            cancelButton: "Hủy",
+            finishButton: "Lưu",
+            alertSuccess: "Cập nhật công thức thành công!",
+            alertAuthorized: "Bạn không có quyền truy cập.",
+            alertError: "Lỗi mã: ",
+        }
+    });
+
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const history = useHistory();
     const [difficulty, setDifficulty] = useState(data.recipe_difficulty);
@@ -54,12 +75,12 @@ const EditRecipe = ({id, data}) => {
         const api = `${apiUrl}/recipes/edit/${id}`;
         const response = await fetch(api, request);
         if (response.ok) {
-            alert("Recipe updated successfully!");
+            alert(strings.alertSuccess);
             history.push(`/view/recipe/${id}`);
         } else if (response.status === 401) {
-            alert("You are not authorized to do that.")
+            alert(strings.alertAuthorized)
         } else {
-            alert("Unexpected error with code: " + response.status);
+            alert(strings.alertError + response.status);
         }
     }
 
@@ -77,7 +98,7 @@ const EditRecipe = ({id, data}) => {
                     <img src="" alt=""/>
                 </picture>}
                 {/*Recipe title*/}
-                <Link to={`/view/recipe/${id}`}><FaAngleLeft/>Go back</Link>
+                <Link to={`/view/recipe/${id}`}><FaAngleLeft/>{strings.gobackButton}</Link>
                 <RecipeHeader data={data}/>
                 <Form id="updateForm" onSubmit={updatePost} style={{minHeight: "720px"}}>
                     <EditEstimations data={data}
@@ -95,8 +116,8 @@ const EditRecipe = ({id, data}) => {
             </article>
             <div className="sticky-bottom">
                 <InputGroup>
-                    <button className="button-light" onClick={cancelUpdate}>Cancel</button>
-                    <button type="submit" form="updateForm" className="button-dark">Finish</button>
+                    <button className="button-light" onClick={cancelUpdate}>{strings.cancelButton}</button>
+                    <button type="submit" form="updateForm" className="button-dark">{strings.finishButton}</button>
                 </InputGroup>
             </div>
         </div>

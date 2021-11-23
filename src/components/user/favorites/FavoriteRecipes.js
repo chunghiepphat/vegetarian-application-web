@@ -4,8 +4,22 @@ import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
+import LocalizedStrings from "react-localization";
 
 const FavoriteRecipes = ({location, data, isLoading, isError, fetchData}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            recipeHeader: "Recipes",
+            recipeMessageHeader: "Recipes you added to favorites will be shown here.",
+
+        },
+        vi: {
+            recipeHeader: "Công thức",
+            recipeMessageHeader: "Công thức yêu thích của bạn sẽ được hiển thị ở đây.",
+        }
+    });
+
     useEffect(() => {
         fetchData();
     }, [location]);
@@ -13,8 +27,8 @@ const FavoriteRecipes = ({location, data, isLoading, isError, fetchData}) => {
     return (
         <section>
             <div className="section-content">
-                <h1>Recipes</h1>
-                <p>Recipes you added to favorites will be shown here.</p>
+                <h1>{strings.recipeHeader}</h1>
+                <p>{strings.recipeMessageHeader}</p>
                 <Panel filler="card-narrow">
                     {!isLoading ? <>
                         {!isError ? <>

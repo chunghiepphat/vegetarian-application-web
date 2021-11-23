@@ -4,8 +4,23 @@ import VideoTile from "../../commons/elements/containers/VideoTile";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
+import LocalizedStrings from "react-localization";
 
 const DraftVideos = ({location, data, isLoading, isError, fetchData}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            videoDraftHeader: "Videos",
+            videoDraftMessage: "Your saved drafts & private videos.",
+            videoNoDraft: "It seems you haven't saved any drafts yet.",
+        },
+        vi: {
+            videoDraftHeader: "Video",
+            videoDraftMessage: "Nháp và video ẩn của tôi.",
+            videoNoDraft: "Bạn chưa có video nháp nào.",
+        }
+    });
+
     useEffect(() => {
         fetchData();
     }, [location]);
@@ -13,8 +28,8 @@ const DraftVideos = ({location, data, isLoading, isError, fetchData}) => {
     return (
         <section>
             <div className="section-content">
-                <h1>Videos</h1>
-                <p>Your saved drafts & private videos.</p>
+                <h1>{strings.videoDraftHeader}</h1>
+                <p>{strings.videoDraftMessage}</p>
                 <Panel filler="tile-video">
                     {!isLoading ? <>
                         {!isError ? <>
@@ -30,7 +45,7 @@ const DraftVideos = ({location, data, isLoading, isError, fetchData}) => {
                                                lastName={item.last_name}
                                                time={item.time_created}
                                                isFavorite={item.is_like}/>))}
-                            </> : <PanelEmp message="It seems you haven't saved any drafts yet."/>}
+                            </> : <PanelEmp message={strings.videoNoDraft}/>}
                         </> : <PanelErr reload={fetchData}/>}
                     </> : <PanelLoader/>}
                 </Panel>

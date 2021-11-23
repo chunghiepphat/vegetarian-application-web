@@ -8,8 +8,25 @@ import DisplayMenu from "./menu/DisplayMenu";
 import GenerateMenu from "./menu/GenerateMenu";
 import {FaAngleRight} from "react-icons/fa";
 import moment from "moment";
+import LocalizedStrings from "react-localization";
 
 const Menu = () => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            menuHeader: "Suggestion Menu",
+            menuMessageHeader: "Share with us some details about you, so that we may recommend recipes that suit you best.",
+            menuMessageBody: "It seems your health and routine profile are incomplete.",
+            healthProfileLink: "Complete your health profile to receive tailored meal plans",
+        },
+        vi: {
+            menuHeader: "Đề xuất thực đơn",
+            menuMessageHeader: "Hãy chia sẻ chúng tôi một chút về bạn để có thể đề xuất thực đơn phù hợp với bạn",
+            menuMessageBody: "Có vẻ như hồ sơ sức khỏe của bạn chưa hoàn thành",
+            healthProfileLink: "Hãy hoàn thành hồ sơ sức khỏe ngay để nhận được lịch trình ăn"
+        }
+    });
+
     const location = useLocation();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -136,16 +153,13 @@ const Menu = () => {
                     </> : <>
                         <section>
                             <header className="section-header">
-                                <h1>Menu suggestion</h1>
-                                <p>Share with us some details about you, so that we may recommend recipes that suit
-                                    you
-                                    best.</p>
+                                <h1>{strings.menuHeader}</h1>
+                                <p>{strings.menuMessageHeader}</p>
                             </header>
                             <div className="section-content" style={promptStyles}>
-                                <p>It seems your health and routine profile are incomplete.</p>
+                                <p>{strings.menuMessageBody}</p>
                                 <Link to="/health">
-                                    Complete your health profile to receive tailored meal
-                                    plans <FaAngleRight/></Link>
+                                    {strings.healthProfileLink} <FaAngleRight/></Link>
                             </div>
                         </section>
                     </>}

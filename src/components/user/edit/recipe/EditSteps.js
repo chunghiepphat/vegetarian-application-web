@@ -2,8 +2,29 @@ import React from "react";
 import Form from "../../../commons/elements/form/Form";
 import {ImCross} from "react-icons/all";
 import InputGroup from "../../../commons/elements/form/InputGroup";
+import LocalizedStrings from "react-localization";
 
 const EditSteps = (props) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            editHeader: "Update your step-by-step guide...",
+            editStepMessage: "Add some step-by-step guide for your recipe",
+            addStepButton: "Add a step",
+            clearChangesButton: "Clear changes",
+            steps: "Step",
+            stepPlaceholder: "What to do?",
+        },
+        vi: {
+            editHeader: "Chỉnh sửa các bước nấu món ăn...",
+            editStepMessage: "Thêm chỉ dẫn các bước thực hiện công thức của bạn",
+            addStepButton: "Thêm bước",
+            clearChangesButton: "Hủy thay đổi",
+            steps: "Bước",
+            stepPlaceholder: "Làm gì đây?",
+        }
+    });
+
     const handleAddField = (e) => {
         e.preventDefault();
         const step = {
@@ -38,17 +59,17 @@ const EditSteps = (props) => {
 
     return (
         <section>
-            <h1>Update your step-by-step guide...</h1>
+            <h1>{strings.editHeader}</h1>
             {props.steps.length > 0 ?
                 <ul className="form-dynamic">
                     {props.steps.map((item, index) => (
                         <div key={index}>
-                            <label htmlFor={`Step ${index}`}>Step {index + 1}</label>
+                            <label htmlFor={`Step ${index}`}>{strings.steps} {index + 1}</label>
                             <InputGroup>
                                         <textarea id={`Step ${index}`} name="step_content"
                                                   value={item.step_content}
                                                   onChange={(e) => handleChange(e, index)}
-                                                  placeholder="What to do?" required/>
+                                                  placeholder={strings.stepPlaceholder} required/>
                                 <button className="button-remove"
                                         onClick={(e) => handleRemoveField(e, index)}>
                                     <ImCross/>
@@ -58,11 +79,11 @@ const EditSteps = (props) => {
                     ))}
                 </ul>
                 :
-                <em>Add some ingredients to your recipe...</em>
+                <em>{strings.editStepMessage}</em>
             }
             <div className="input-group">
-                <button onClick={handleAddField}>Add a step</button>
-                <button className="button-light" onClick={handleUndo}>Clear changes</button>
+                <button onClick={handleAddField}>{strings.addStepButton}</button>
+                <button className="button-light" onClick={handleUndo}>{strings.clearChangesButton}</button>
             </div>
         </section>
     )

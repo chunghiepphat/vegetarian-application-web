@@ -4,8 +4,18 @@ import {UserContext} from "../../../context/UserContext";
 import {FaAngleRight, FaEnvelope, FaFacebook, FaHome, FaInstagram, FaPhoneAlt} from "react-icons/fa";
 import {Link} from "react-router-dom";
 import {MdEdit} from "react-icons/all";
+import LocalizedStrings from "react-localization";
 
 const DashboardBanner = ({user}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            editButton: "Edit"
+        },
+        vi: {
+            editButton: "Chỉnh sửa"
+        }
+    });
     return (
         <div className="banner-container banner-dashboard">
             <div className="banner">
@@ -38,7 +48,7 @@ const DashboardBanner = ({user}) => {
                         <li><FaFacebook/> {user.facebook_link} </li>}
                         {user.instagram_link &&
                         <li><FaInstagram/> {user.instagram_link} </li>}
-                        <li><Link to="/update"><FaAngleRight/>Edit</Link></li>
+                        <li><Link to="/update"><FaAngleRight/>{strings.editButton}</Link></li>
                     </ul>
                 </div>
             </div>

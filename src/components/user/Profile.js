@@ -5,8 +5,23 @@ import UpdateAvatar from "./profile/UpdateAvatar";
 import UpdateProfile from "./profile/UpdateProfile";
 import UpdatePassword from "./profile/UpdatePassword";
 import DashboardSidebar from "./DashboardSidebar";
+import LocalizedStrings from "react-localization";
 
 const Profile = ({reload}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            updatePicture: "Update picture",
+            updateProfile: "Update profile",
+            changePassword: "Change password",
+        },
+        vi: {
+            updatePicture: "Ảnh đại diện",
+            updateProfile: "Hồ sơ",
+            changePassword: "Đổi mật khẩu",
+        }
+    });
+    
     const urlAvatar = "/update/avatar";
     const urlProfile = "/update/profile";
     const urlPassword = "/update/password";
@@ -16,9 +31,9 @@ const Profile = ({reload}) => {
                 <main>
                     <section className="page-navbar">
                         <Navbar>
-                            <NavLink to={urlAvatar}>Update picture</NavLink>
-                            <NavLink to={urlProfile}>Update profile</NavLink>
-                            <NavLink to={urlPassword}>Change password</NavLink>
+                            <NavLink to={urlAvatar}>{strings.updatePicture}</NavLink>
+                            <NavLink to={urlProfile}>{strings.updateProfile}</NavLink>
+                            <NavLink to={urlPassword}>{strings.changePassword}</NavLink>
                         </Navbar>
                     </section>
                     <Switch>

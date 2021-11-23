@@ -1,8 +1,29 @@
 import React, {useContext, useEffect, useState} from "react";
 import {apiUrl} from "../../../helpers/Variables";
 import {UserContext} from "../../../context/UserContext";
+import LocalizedStrings from "react-localization";
 
 const DashboardRecommendations = () => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            recommendHeader: "Recommended daily nutrition consumption",
+            recommendMesage: "Based on your BMI, profile and routine.",
+            protein: "Protein",
+            fat: "Fat",
+            carb: "Carb",
+            calories: "Calories",
+        },
+        vi: {
+            recommendHeader: "Lượng dinh dưỡng bạn cần cho mỗi ngày",
+            recommendMessage: "Dựa vào chỉ số BMI, hồ sơ và thói quen sinh hoạt của bạn.",
+            protein: "Chất đạm",
+            fat: "Chất béo",
+            carb: "Carb",
+            calories: "Calo",
+        }
+    });
+
     const user = useContext(UserContext);
     const today = new Date;
     const birthdate = new Date(user.birth_date);
@@ -35,19 +56,19 @@ const DashboardRecommendations = () => {
     return (
         <section>
             <header className="section-header">
-                <h1>Recommended daily nutrition consumption</h1>
-                <p>Based on your BMI, profile and routine.</p>
+                <h1>{strings.recommendHeader}</h1>
+                <p>{strings.recommendMessage}</p>
             </header>
             <div className="section-content">
                 <ul style={{paddingTop: "20px"}}>
                     {protein >= 0 &&
-                    <li><span style={{fontWeight: "bold"}}>Protein: </span>{Math.round(protein)} g</li>}
+                    <li><span style={{fontWeight: "bold"}}>{strings.protein}: </span>{Math.round(protein)} g</li>}
                     {fat >= 0 &&
-                    <li><span style={{fontWeight: "bold"}}>Fat: </span>{Math.round(fat)} g</li>}
+                    <li><span style={{fontWeight: "bold"}}>{strings.fat}: </span>{Math.round(fat)} g</li>}
                     {carb >= 0 &&
-                    <li><span style={{fontWeight: "bold"}}>Carb: </span>{Math.round(carb)} g</li>}
+                    <li><span style={{fontWeight: "bold"}}>{strings.carb}: </span>{Math.round(carb)} g</li>}
                     {calories >= 0 &&
-                    <li><span style={{fontWeight: "bold"}}>Calories: </span>{Math.round(calories)} cal</li>}
+                    <li><span style={{fontWeight: "bold"}}>{strings.calories}: </span>{Math.round(calories)} cal</li>}
                 </ul>
             </div>
         </section>

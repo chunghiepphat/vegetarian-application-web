@@ -7,8 +7,23 @@ import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
+import LocalizedStrings from "react-localization";
 
 const DashboardLatestBlogs = ({user, location, token}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            lastestBlogHeader: "Your recent blogs",
+            viewAllButton: "View all",
+            noBlogsMessage: "It seems you haven't posted anything yet."
+        },
+        vi: {
+            lastestBlogHeader: "Các bài viết gần đây",
+            viewAllButton: "Xem",
+            noBlogsMessage: "Bạn chưa có bài viết nào."
+        }
+    });
+
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -48,8 +63,8 @@ const DashboardLatestBlogs = ({user, location, token}) => {
     return (
         <section>
             <header className="section-header linked-header">
-                <h1>Your recent blogs</h1>
-                <Link to="/history/blogs"><FaAngleRight/>View all</Link>
+                <h1>{strings.lastestBlogHeader}</h1>
+                <Link to="/history/blogs"><FaAngleRight/>{strings.viewAllButton}</Link>
             </header>
             <div className="section-content">
                 <Panel filler="card-medium">
@@ -70,7 +85,7 @@ const DashboardLatestBlogs = ({user, location, token}) => {
                                                  totalLikes={item.totalLike}
                                                  isFavorite={item.is_like}
                                                  status={item.status}/>))}
-                            </> : <PanelEmp message="It seems you haven't posted anything yet."/>}
+                            </> : <PanelEmp message={strings.noBlogsMessage}/>}
                         </> : <PanelErr reload={fetchData}/>}
                     </> : <PanelLoader/>}
                 </Panel>

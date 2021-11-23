@@ -3,8 +3,31 @@ import {Link, useHistory} from "react-router-dom";
 import Form from "../../../commons/elements/form/Form";
 import InputGroup from "../../../commons/elements/form/InputGroup";
 import {FaAngleLeft} from "react-icons/fa";
+import LocalizedStrings from "react-localization";
 
 const RecipeStep02 = (props) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            step2Header: "Add a picture",
+            step2MessageHeader: "Add a thumbnail to show everyone what your delightful dish would look like.",
+            thumbnailHeader: "Upload your image and preview it here",
+            thumbnailMessageHeader: "Click to pick an image...",
+            clearButton: "Clear",
+            nextStepButton: "Next step",
+            previousStepButton: "Previous step",
+        },
+        vi: {
+            step2Header: "Thêm hình ảnh",
+            step2MessageHeader: "Hãy thêm hình ảnh để mọi người có thể thấy món ăn sẽ trong như thế nào.",
+            thumbnailHeader: "Tải hình ảnh và xem ở đây",
+            thumbnailMessageHeader: "Nhấn vào để chọn hình ảnh",
+            clearButton: "Xóa",
+            nextStepButton: "Bước tiếp theo",
+            previousStepButton: "Bước trước",
+        }
+    });
+
     const history = useHistory();
     const inputRef = useRef();
     const [image, setImage] = useState(null)
@@ -24,9 +47,9 @@ const RecipeStep02 = (props) => {
     return (
         <section>
             <header className="section-header">
-                <Link to="/post/recipe/step-1"><FaAngleLeft/>Previous step</Link>
-                <h1>Step 2 - Add a picture</h1>
-                <em>Add a thumbnail to show everyone what your delightful dish would look like.</em>
+                <Link to="/post/recipe/step-1"><FaAngleLeft/>{strings.previousStepButton}</Link>
+                <h1>{strings.step2Header}</h1>
+                <em>{strings.step2MessageHeader}</em>
             </header>
             <div className="section-content">
                 <Form onSubmit={nextStep}>
@@ -37,8 +60,8 @@ const RecipeStep02 = (props) => {
                                 <img src="" alt=""/>
                             </picture>
                             : <div className="upload-thumbnail">
-                                <h1>Upload your image and preview it here</h1>
-                                <p>Click to pick an image...</p>
+                                <h1>{strings.thumbnailHeader}</h1>
+                                <p>{strings.thumbnailMessageHeader}</p>
                             </div>}
                     </label>
                     <input id="file-selector" style={{display: "none"}}
@@ -48,14 +71,14 @@ const RecipeStep02 = (props) => {
                     <div className="sticky-bottom">
                         {image ?
                             <InputGroup>
-                                <button className="button-light" onClick={clearInput}>Clear</button>
+                                <button className="button-light" onClick={clearInput}>{strings.clearButton}</button>
                                 <button type="submit" className="button-dark">
-                                    Next step
+                                    {strings.nextStepButton}
                                 </button>
                             </InputGroup>
                             : <InputGroup>
-                                <button disabled>Clear</button>
-                                <button disabled>Next step</button>
+                                <button disabled>{strings.clearButton}</button>
+                                <button disabled>{strings.nextStepButton}</button>
                             </InputGroup>}
                     </div>
                 </Form>

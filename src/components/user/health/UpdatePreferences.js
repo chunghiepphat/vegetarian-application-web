@@ -4,8 +4,31 @@ import Form from "../../commons/elements/form/Form";
 import InputArray from "../../commons/elements/form/InputArray";
 import InputGroup from "../../commons/elements/form/InputGroup";
 import {ImCross} from "react-icons/all";
+import LocalizedStrings from "react-localization";
 
 const UpdatePreferences = ({user, token, location}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            preferencesHeader: "Food preferences",
+            preferencesMessageHeader: "Share with us the ingredients you love so that we can suggest better recipes to your tastes!",
+            preferencesMessage: "What's your favorite? Tofu? Cherry tomatoes? Share with us!",
+            addIngredientButton: "Add ingredient",
+            clearButton: "Clear",
+            saveButton: "Save",
+            ingredientPlaceholder: "e.g: tomato,...",
+        },
+        vi: {
+            preferencesHeader: "Thực phẩm yêu thích",
+            preferencesMessageHeader: "Hãy chia sẻ với chúng tôi các thực phẩm mà bạn thích để chúng tôi có thể đề xuất các công thức cho bạn tốt hơn!",
+            preferencesMessage: "Thực phẩm yêu thích của bạn là gì? Đậu hủ? Cà chua bi? Hãy chia sẻ với chúng tôi!",
+            addIngredientButton: "Thêm thực phẩm",
+            clearButton: "Xóa",
+            saveButton: "Lưu",
+            ingredientPlaceholder: "ví dụ: cà chua,...",
+        }
+    });
+
     const [ingredients, setIngredients] = useState([]);
     const fetchData = async () => {
         const api = `${apiUrl}/user/getpreferences/${user.id}`;
@@ -76,8 +99,8 @@ const UpdatePreferences = ({user, token, location}) => {
     return (
         <section>
             <header className="section-header">
-                <h1>Food preferences</h1>
-                <p>Share with us the ingredients you love so that we can suggest better recipes to your tastes!</p>
+                <h1>{strings.preferencesHeader}</h1>
+                <p>{strings.preferencesMessageHeader}</p>
             </header>
             <div className="section-content">
                 <Form onSubmit={updatePreferences}>
@@ -94,7 +117,7 @@ const UpdatePreferences = ({user, token, location}) => {
                                             <input name="ingredient_name" type="text"
                                                    value={item.ingredient_name}
                                                    onChange={(e) => handleChange(e, index)}
-                                                   placeholder="e.g: tomato,..." required/>
+                                                   placeholder={strings.ingredientPlaceholder} required/>
                                             {/*Remove button*/}
                                             <button className="button-remove"
                                                     onClick={(e) => handleRemoveField(e, index)}>
@@ -104,16 +127,16 @@ const UpdatePreferences = ({user, token, location}) => {
                                     ))}
                                 </InputArray>
                             </div>
-                            : <em>What's your favorite? Tofu? Cherry tomatoes? Share with us!</em>}
+                            : <em>{strings.preferencesMessage}</em>}
                     </div>
                     {/*Control buttons*/}
                     <div className="sticky-bottom">
                         <div className="input-group">
-                            <button className="button-light" onClick={handleAddField}>Add ingredient</button>
-                            <button className="button-light" onClick={handleClear}>Clear</button>
+                            <button className="button-light" onClick={handleAddField}>{strings.addIngredientButton}</button>
+                            <button className="button-light" onClick={handleClear}>{strings.clearButton}</button>
                             {ingredients.length > 0 ?
-                                <button type="submit" className="button-dark">Save</button>
-                                : <button disabled>Save</button>}
+                                <button type="submit" className="button-dark">{strings.saveButton}</button>
+                                : <button disabled>{strings.saveButton}</button>}
                         </div>
                     </div>
                 </Form>

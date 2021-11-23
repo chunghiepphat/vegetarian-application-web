@@ -5,8 +5,23 @@ import VideoTile from "../../commons/elements/containers/VideoTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
+import LocalizedStrings from "react-localization";
 
 const PostedVideos = ({user, location, data, isLoading, isError, fetchData}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            videoHeader: "Videos",
+            videoMessageHeader: "Your published videos tutorials.",
+            videoMessageEmpty: "It seems you haven't posted anything yet.",
+        },
+        vi: {
+            videoHeader: "Video",
+            videoMessageHeader: "Video mà bạn đã đăng",
+            videoMessageEmpty: "Có vẻ như bạn chưa đăng video nào",
+        }
+    });
+
     const api = `${apiUrl}/video/getallbyuserID/${user.id}?page=1&limit=100`;
     // Executes fetch once on page load
     useEffect(() => {
@@ -16,8 +31,8 @@ const PostedVideos = ({user, location, data, isLoading, isError, fetchData}) => 
     return (
         <section>
             <div className="section-content">
-                <h1>Videos</h1>
-                <p>Your published videos tutorials.</p>
+                <h1>{strings.videoHeader}</h1>
+                <p>{strings.videoMessageHeader}</p>
                 <Panel filler="tile-video">
                     {!isLoading ? <>
                         {!isError ? <>
@@ -34,7 +49,7 @@ const PostedVideos = ({user, location, data, isLoading, isError, fetchData}) => 
                                                time={item.time_created}
                                                isFavorite={item.is_like}
                                                totalLikes={item.totalLike}/>))}
-                            </> : <PanelEmp message="It seems you haven't posted anything yet."/>}
+                            </> : <PanelEmp message={strings.videoMessageEmpty}/>}
                         </> : <PanelErr reload={fetchData} api={api}/>}
                     </> : <PanelLoader/>}
                 </Panel>

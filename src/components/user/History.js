@@ -6,8 +6,23 @@ import Navbar from "../commons/elements/bars/Navbar";
 import PostedRecipes from "./history/PostedRecipes";
 import PostedVideos from "./history/PostedVideos";
 import PostedBlogs from "./history/PostedBlogs";
+import LocalizedStrings from "react-localization";
 
 const History = () => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            recipeHistory: "Your recipes",
+            videoHistory: "Your videos",
+            blogHistory: "Your blogs",
+        },
+        vi: {
+            recipeHistory: "Công thức",
+            videoHistory: "Video",
+            blogHistory: "Bài viết",
+        }
+    });
+
     const location = useLocation();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -52,9 +67,9 @@ const History = () => {
                 <main>
                     <section className="page-navbar">
                         <Navbar>
-                            <NavLink to={urlRecipes}>Your recipes</NavLink>
-                            <NavLink to={urlVideos}>Your videos</NavLink>
-                            <NavLink to={urlBlogs}>Your blogs</NavLink>
+                            <NavLink to={urlRecipes}>{strings.recipeHistory}</NavLink>
+                            <NavLink to={urlVideos}>{strings.videoHistory}</NavLink>
+                            <NavLink to={urlBlogs}>{strings.blogHistory}</NavLink>
                         </Navbar>
                     </section>
                     <Switch>

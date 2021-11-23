@@ -4,8 +4,37 @@ import {apiUrl} from "../../../helpers/Variables";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import InputGroup from "../../commons/elements/form/InputGroup";
+import LocalizedStrings from "react-localization";
 
 const PostBlog = ({user, token, history}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            blogHeader: "Share your story",
+            blogMessageHeader: "Please keep content relevant to our site, which is about vegetarian food, recipes and lifestyle.",
+            thumbnailHeader: "Upload a thumbnail for your blog post",
+            thumbnailMessageHeader: "Click to pick an image...",
+            titlePlaceholder: "Title",
+            subTitlePlaceholder: "Subtitle (optional)",
+            contentPlaceholder: "What's your story",
+            clearThumbnailButton: "Clear thumbnail",
+            saveDraftButton: "Save draft",
+            publishButton: "Publish",
+        },
+        vi: {
+            blogHeader: "Chia sẻ câu chuyện của bạn",
+            blogMessageHeader: "Xin hãy giữ nội dụng liên quan về đồ ăn, công thức chay và lối sống của người ăn chay.",
+            thumbnailHeader: "Tải hinh lên cho bài viết của bạn",
+            thumbnailMessageHeader: "Nhấn để chọn hình ảnh...",
+            titlePlaceholder: "Tiêu đề",
+            subTitlePlaceholder: "Phụ đề (không bắt buộc)",
+            contentPlaceholder: "Câu chuyện của bạn?",
+            clearThumbnailButton: "Xóa hình ảnh",
+            saveDraftButton: "Lưu nháp",
+            publishButton: "Tạo mới",
+        }
+    });
+
     const [isLoading, setIsLoading] = useState(false);
     const [uploadProgress, setUploadProgress] = useState("");
     // Parameters
@@ -133,9 +162,8 @@ const PostBlog = ({user, token, history}) => {
     return (
         <section>
             <header className="section-header">
-                <h1>Share your story</h1>
-                <em>Please keep content relevant to our site, which is about vegetarian food, recipes and
-                    lifestyle.</em>
+                <h1>{strings.blogHeader}</h1>
+                <em>{strings.blogMessageHeader}</em>
             </header>
             <div className="section-content">
                 <form className="form-container" onSubmit={submitPost}>
@@ -146,8 +174,8 @@ const PostBlog = ({user, token, history}) => {
                                 <img src="" alt=""/>
                             </picture>
                             : <div className="upload-thumbnail">
-                                <h1>Upload a thumbnail for your blog post</h1>
-                                <p>Click to pick an image...</p>
+                                <h1>{strings.thumbnailHeader}</h1>
+                                <p>{strings.thumbnailMessageHeader}</p>
                             </div>}
                     </label>
                     <input id="file-selector" style={{display: "none"}}
@@ -156,14 +184,14 @@ const PostBlog = ({user, token, history}) => {
                            ref={inputRef}/>
                     <input aria-label="Blog title" type="text" value={title}
                            onChange={e => setTitle(e.target.value)}
-                           placeholder="Title" required/>
+                           placeholder={strings.titlePlaceholder} required/>
                     <input aria-label="Blog subtitle" type="text" value={subtitle}
                            onChange={e => setSubtitle(e.target.value)}
-                           placeholder="Subtitle (optional)"/>
+                           placeholder={strings.subTitlePlaceholder}/>
                     <ReactQuill theme="snow" value={content}
                                 onChange={handleQuill}
                                 modules={modules}
-                                placeholder="What's your story?">
+                                placeholder={strings.contentPlaceholder}>
                     </ReactQuill>
                     <div className="sticky-bottom">
                         <InputGroup>
@@ -171,13 +199,13 @@ const PostBlog = ({user, token, history}) => {
                                 <button disabled>{uploadProgress}</button>
                             </> : <>
                                 {image ? <>
-                                    <button className="button-light" onClick={handleClear}>Clear thumbnail</button>
-                                    <button type="submit" className="button-dark" name="true">Save draft</button>
-                                    <button type="submit" className="button-dark" name="false">Publish</button>
+                                    <button className="button-light" onClick={handleClear}>{strings.clearThumbnailButton}</button>
+                                    <button type="submit" className="button-dark" name="true">{strings.saveDraftButton}</button>
+                                    <button type="submit" className="button-dark" name="false">{strings.publishButton}</button>
                                 </> : <>
-                                    <button disabled>Clear thumbnail</button>
-                                    <button disabled>Save draft</button>
-                                    <button disabled>Publish</button>
+                                    <button disabled>{strings.clearThumbnailButton}</button>
+                                    <button disabled>{strings.saveDraftButton}</button>
+                                    <button disabled>{strings.publishButton}</button>
                                 </>}
                             </>}
                         </InputGroup>

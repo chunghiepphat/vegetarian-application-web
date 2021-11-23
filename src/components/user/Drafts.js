@@ -10,8 +10,24 @@ import {apiUrl} from "../../helpers/Variables";
 import DraftRecipes from "./drafts/DraftRecipes";
 import DraftVideos from "./drafts/DraftVideos";
 import DraftBlogs from "./drafts/DraftBlogs";
+import LocalizedStrings from "react-localization";
 
 const Drafts = () => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            recipeDraft: "Recipe drafts",
+            videoDraft: "Video drafts",
+            blogDraft: "Blog drafts",
+
+        },
+        vi: {
+            recipeDraft: "Công thức nháp",
+            videoDraft: "Video nháp",
+            blogDraft: "Bài viết nháp",
+        }
+    });
+
     const location = useLocation();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -61,9 +77,9 @@ const Drafts = () => {
                 <main>
                     <section className="page-navbar">
                         <Navbar>
-                            <NavLink to={urlRecipes}>Recipe drafts</NavLink>
-                            <NavLink to={urlVideos}>Video drafts</NavLink>
-                            <NavLink to={urlBlogs}>Blog drafts</NavLink>
+                            <NavLink to={urlRecipes}>{strings.recipeDraft}</NavLink>
+                            <NavLink to={urlVideos}>{strings.videoDraft}</NavLink>
+                            <NavLink to={urlBlogs}>{strings.blogDraft}</NavLink>
                         </Navbar>
                     </section>
                     <Switch>

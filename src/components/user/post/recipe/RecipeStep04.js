@@ -4,8 +4,37 @@ import Form from "../../../commons/elements/form/Form";
 import InputGroup from "../../../commons/elements/form/InputGroup";
 import {FaAngleLeft} from "react-icons/fa";
 import {ImCross} from "react-icons/all";
+import LocalizedStrings from "react-localization";
 
 const RecipeStep04 = (props) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            step4Header: "Step 4 - Add your step-by-step instructions",
+            step4MessageHeader: "Almost there! Share with us the secrets to this recipe and you're done!",
+            previousStepButton: "Previous step",
+            addStepMessage: "Add some step-by-step guide for your recipe",
+            addStepButton: "Add a step",
+            clearButton: "Clear",
+            steps: "Step",
+            stepPlaceholder: "What to do?",
+            saveDraftButton: "Save draft",
+            publishButton: "Publish",
+        },
+        vi: {
+            step4Header: "Bước 4 - Thêm chỉ dẫn từng bước để nấu món ăn",
+            step4MessageHeader: "Hãy chia sẻ những bước cho công thức này cho mọi người!",
+            previousStepButton: "Bước trước",
+            addStepMessage: "Thêm chỉ dẫn các bước thực hiện công thức của bạn",
+            addStepButton: "Thêm bước",
+            clearButton: "Hủy",
+            steps: "Bước",
+            stepPlaceholder: "Làm gì đây?",
+            saveDraftButton: "Lưu nháp",
+            publishButton: "Tạo công thức",
+        }
+    });
+
     const handleAddField = (e) => {
         e.preventDefault();
         const step = {
@@ -44,9 +73,9 @@ const RecipeStep04 = (props) => {
     return (
         <section>
             <header className="section-header">
-                <Link to="/post/recipe/step-3"><FaAngleLeft/>Previous step</Link>
-                <h1>Step 4 - Add your step-by-step instructions</h1>
-                <em>Almost there! Share with us the secrets to this recipe and you're done!</em>
+                <Link to="/post/recipe/step-3"><FaAngleLeft/>{strings.previousStepButton}</Link>
+                <h1>{strings.step4Header}</h1>
+                <em>{strings.step4MessageHeader}</em>
             </header>
             <div className="section-content">
                 <Form onSubmit={props.submitPost}>
@@ -55,12 +84,12 @@ const RecipeStep04 = (props) => {
                             <ul className="form-dynamic">
                                 {props.steps.map((item, index) => (
                                     <div key={index}>
-                                        <label htmlFor={`Step ${index}`}>Step {index + 1}</label>
+                                        <label htmlFor={`Step ${index}`}>{strings.steps} {index + 1}</label>
                                         <InputGroup>
                                         <textarea id={`Step ${index}`} name="step_content"
                                                   value={item.step_content}
                                                   onChange={(e) => handleChange(e, index)}
-                                                  placeholder="What to do?" required/>
+                                                  placeholder={strings.stepPlaceholder} required/>
                                             <button className="button-remove" disabled={!!props.isLoading}
                                                     onClick={(e) => handleRemoveField(e, index)}>
                                                 <ImCross/>
@@ -69,21 +98,21 @@ const RecipeStep04 = (props) => {
                                     </div>))}
                             </ul>
                         </fieldset>
-                        : <em>Add some ingredients to your recipe...</em>}
+                        : <em>{strings.addStepMessage}</em>}
                     <div className="sticky-bottom">
                         <InputGroup>
                             {props.isLoading ? <>
                                 <button disabled>{props.uploadProgress}</button>
                             </> : <>
-                                <button className="button-light" onClick={handleAddField}>Add a step</button>
+                                <button className="button-light" onClick={handleAddField}>{strings.addStepButton}</button>
                                 {props.steps.length > 0 ? <>
-                                    <button className="button-light" onClick={handleClear}>Clear</button>
-                                    <button type="submit" className="button-dark" name="true">Save draft</button>
-                                    <button type="submit" className="button-dark" name="false">Publish</button>
+                                    <button className="button-light" onClick={handleClear}>{strings.clearButton}</button>
+                                    <button type="submit" className="button-dark" name="true">{strings.saveDraftButton}</button>
+                                    <button type="submit" className="button-dark" name="false">{strings.publishButton}</button>
                                 </> : <>
-                                    <button disabled>Clear</button>
-                                    <button disabled>Save draft</button>
-                                    <button disabled>Publish</button>
+                                    <button disabled>{strings.clearButton}</button>
+                                    <button disabled>{strings.saveDraftButton}</button>
+                                    <button disabled>{strings.publishButton}</button>
                                 </>}
                             </>}
                         </InputGroup>

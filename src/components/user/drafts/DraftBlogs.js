@@ -4,8 +4,23 @@ import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
+import LocalizedStrings from "react-localization";
 
 const DraftBlogs = ({location, data, isLoading, isError, fetchData}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            blogDraftHeader: "Blogs",
+            blogDraftMessage: "Your saved drafts & private blogs.",
+            blogNoDraft: "It seems you haven't saved any drafts yet.",
+        },
+        vi: {
+            blogDraftHeader: "Bài viết",
+            blogDraftMessage: "Nháp và bài viết ẩn của tôi.",
+            blogNoDraft: "Bạn chưa có bài viết nháp nào.",
+        }
+    });
+
     useEffect(() => {
         fetchData();
     }, [location]);
@@ -13,8 +28,8 @@ const DraftBlogs = ({location, data, isLoading, isError, fetchData}) => {
     return (
         <section>
             <div className="section-content">
-                <h1>Blogs</h1>
-                <i>Your saved drafts & private blogs.</i>
+                <h1>{strings.blogDraftHeader}</h1>
+                <i>{strings.blogDraftMessage}</i>
                 <Panel filler="card-full">
                     {!isLoading ? <>
                         {!isError ? <>
@@ -31,7 +46,7 @@ const DraftBlogs = ({location, data, isLoading, isError, fetchData}) => {
                                                  firstName={item.first_name}
                                                  lastName={item.last_name}
                                                  time={item.time_created}/>))}
-                            </> : <PanelEmp message="It seems you haven't saved any drafts yet."/>}
+                            </> : <PanelEmp message={strings.blogNoDraft}/>}
                         </> : <PanelErr reload={fetchData}/>}
                     </> : <PanelLoader/>}
                 </Panel>

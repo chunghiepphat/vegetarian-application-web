@@ -7,8 +7,23 @@ import ArticleTile from "../../commons/elements/containers/ArticleTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
+import LocalizedStrings from "react-localization";
 
 const DashboardLatestRecipes = ({user, location, token}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            lastestRecipeHeader: "Your recent recipes",
+            viewAllButton: "View all",
+            noRecipesMessage: "It seems you haven't posted anything yet."
+        },
+        vi: {
+            lastestRecipeHeader: "Các công thức gần đây",
+            viewAllButton: "Xem",
+            noRecipesMessage: "Bạn chưa có công thức nào."
+        }
+    });
+
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -53,8 +68,8 @@ const DashboardLatestRecipes = ({user, location, token}) => {
     return (
         <section>
             <header className="section-header linked-header">
-                <h1>Your recent posts</h1>
-                <Link to="/history/recipes"><FaAngleRight/>View all</Link>
+                <h1>{strings.lastestRecipeHeader}</h1>
+                <Link to="/history/recipes"><FaAngleRight/>{strings.viewAllButton}</Link>
             </header>
             <Panel>
                 {!isLoading ? <>
@@ -84,7 +99,7 @@ const DashboardLatestRecipes = ({user, location, token}) => {
                                                  totalLikes={item.totalLike}
                                                  status={item.status}/>))}
                             </div>
-                        </> : <PanelEmp message="It seems you haven't posted anything yet."/>}
+                        </> : <PanelEmp message={strings.noRecipesMessage}/>}
                     </> : <PanelErr reload={fetchData}/>}
                 </> : <PanelLoader/>}
             </Panel>

@@ -5,8 +5,23 @@ import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
+import LocalizedStrings from "react-localization";
 
 const PostedRecipes = ({user, location, data, isLoading, isError, fetchData}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            recipeHeader: "Recipes",
+            recipeMessageHeader: "Your published recipes are shown here.",
+            recipeMessageEmpty: "It seems you haven't posted anything yet.",
+        },
+        vi: {
+            recipeHeader: "Công thức",
+            recipeMessageHeader: "Công thức mà bạn đã đăng.",
+            recipeMessageEmpty: "Có vẻ như bạn chưa đăng công thức nào.",
+        }
+    });
+
     const api = `${apiUrl}/recipes/getallbyuserID/${user.id}?page=1&limit=100`;
     // Executes fetch once on page load
     useEffect(() => {
@@ -16,8 +31,8 @@ const PostedRecipes = ({user, location, data, isLoading, isError, fetchData}) =>
     return (
         <section>
             <div className="section-content">
-                <h1>Recipes</h1>
-                <p>Your published recipes are shown here.</p>
+                <h1>{strings.recipeHeader}</h1>
+                <p>{strings.recipeMessageHeader}</p>
                 <Panel filler="card-full">
                     {!isLoading ? <>
                         {!isError ? <>
@@ -36,7 +51,7 @@ const PostedRecipes = ({user, location, data, isLoading, isError, fetchData}) =>
                                                  isFavorite={item.is_like}
                                                  totalLikes={item.totalLike}
                                                  status={item.status}/>))}
-                            </> : <PanelEmp message="It seems you haven't posted anything yet."/>}
+                            </> : <PanelEmp message={strings.recipeMessageEmpty}/>}
                         </> : <PanelErr reload={fetchData} api={api}/>}
                     </> : <PanelLoader/>}
                 </Panel>

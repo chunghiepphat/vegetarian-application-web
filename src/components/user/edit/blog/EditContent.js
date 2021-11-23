@@ -1,8 +1,20 @@
 import React from "react";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
+import LocalizedStrings from "react-localization";
 
 const EditSubtitle = (props) => {
+    let strings = new LocalizedStrings({
+        en: {
+            editBlogContent: "Update the content...",
+            contentPlaceholder: "What's your story?",
+        },
+        vi: {
+            editBlogContent: "Cập nhật nội dung bài viết...",
+            contentPlaceholder: "Câu chuyện của bạn?",
+        }
+    });
+
     // Quill JS toolbar config
     const modules = {
         toolbar: [
@@ -19,11 +31,11 @@ const EditSubtitle = (props) => {
 
     return (
         <section>
-            <label>Update the content...
+            <label>{strings.editBlogContent}
                 <ReactQuill theme="snow" value={props.content}
                             onChange={handleQuill}
                             modules={modules}
-                            placeholder="What's your story?">
+                            placeholder={strings.contentPlaceholder}>
                 </ReactQuill>
             </label>
         </section>

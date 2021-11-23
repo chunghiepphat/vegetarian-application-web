@@ -6,8 +6,23 @@ import FavoriteRecipes from "./favorites/FavoriteRecipes";
 import FavoriteBlogs from "./favorites/FavoriteBlogs";
 import {UserContext} from "../../context/UserContext";
 import {apiUrl} from "../../helpers/Variables";
+import LocalizedStrings from "react-localization";
 
 const Favorites = () => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            favoriteRecipe: "Your favorite recipes",
+            favoriteBlog: "Your favorite blogs",
+            favoriteVideo: "Your favorite video",
+        },
+        vi: {
+            favoriteRecipe: "Công thức yêu thích",
+            favoriteBlog: "Bài viết yêu thích",
+            favoriteVideo: "Video yêu thích",
+        }
+    });
+
     const location = useLocation();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -55,8 +70,8 @@ const Favorites = () => {
                 <main>
                     <section className="page-navbar">
                         <Navbar>
-                            <NavLink to={urlRecipes}>Your favorite recipes</NavLink>
-                            <NavLink to={urlBlogs}>Your favorite blogs</NavLink>
+                            <NavLink to={urlRecipes}>{strings.favoriteRecipe}</NavLink>
+                            <NavLink to={urlBlogs}>{strings.favoriteBlog}</NavLink>
                         </Navbar>
                     </section>
                     <Switch>

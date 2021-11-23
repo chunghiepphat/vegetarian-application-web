@@ -6,8 +6,23 @@ import UpdatePreferences from "./health/UpdatePreferences";
 import {NavLink, Redirect, Route, Switch, useLocation} from "react-router-dom";
 import Navbar from "../commons/elements/bars/Navbar";
 import {UserContext} from "../../context/UserContext";
+import LocalizedStrings from "react-localization";
 
 const Health = ({reload}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            healthDetails: "Health details",
+            foodAllergies: "Food allergies",
+            foodPreferences: "Food preferences",
+        },
+        vi: {
+            healthDetails: "Hồ sơ sức khỏe",
+            foodAllergies: "Thực phẩm dị ứng",
+            foodPreferences: "Thực phẩm yêu thích",
+        }
+    });
+
     const location = useLocation();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -21,9 +36,9 @@ const Health = ({reload}) => {
                 <main>
                     <section className="page-navbar">
                         <Navbar>
-                            <NavLink to={urlDetails}>Health details</NavLink>
-                            <NavLink to={urlAllergies}>Food allergies</NavLink>
-                            <NavLink to={urlPreferences}>Food preferences</NavLink>
+                            <NavLink to={urlDetails}>{strings.healthDetails}</NavLink>
+                            <NavLink to={urlAllergies}>{strings.foodAllergies}</NavLink>
+                            <NavLink to={urlPreferences}>{strings.foodPreferences}</NavLink>
                         </Navbar>
                     </section>
                     <Switch>

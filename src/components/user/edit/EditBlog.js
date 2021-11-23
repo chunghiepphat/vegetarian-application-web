@@ -7,8 +7,29 @@ import {Link, useHistory} from "react-router-dom";
 import Form from "../../commons/elements/form/Form";
 import {FaAngleLeft} from "react-icons/fa";
 import InputGroup from "../../commons/elements/form/InputGroup";
+import LocalizedStrings from "react-localization";
 
 const EditBlog = ({id, data}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            gobackButton: "Go back",
+            cancelButton: "Cancel",
+            finishButton: "Finish",
+            alertSuccess: "Blog updated successfully!",
+            alertAuthorized: "You are not authorized to do that.",
+            alertError: "Unexpected error with code: ",
+        },
+        vi: {
+            gobackButton: "Trở về",
+            cancelButton: "Hủy",
+            finishButton: "Lưu",
+            alertSuccess: "Cập nhật bài viết thành công!",
+            alertAuthorized: "Bạn không có quyền truy cập.",
+            alertError: "Lỗi mã: ",
+        }
+    });
+
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const history = useHistory();
 
@@ -41,12 +62,12 @@ const EditBlog = ({id, data}) => {
         const api = `${apiUrl}/blogs/edit/${id}`;
         const response = await fetch(api, request);
         if (response.ok) {
-            alert("Blog updated successfully!");
+            alert(strings.alertSuccess);
             history.push(`/view/blog/${id}`);
         } else if (response.status === 401) {
-            alert("You are not authorized to do that.")
+            alert(strings.alertAuthorized)
         } else {
-            alert("Unexpected error with code: " + response.status);
+            alert(strings.alertError + response.status);
         }
     }
 
@@ -64,7 +85,7 @@ const EditBlog = ({id, data}) => {
                     <img src="" alt=""/>
                 </picture>}
                 {/*Recipe title*/}
-                <Link to={`/view/blog/${id}`}><FaAngleLeft/>Go back</Link>
+                <Link to={`/view/blog/${id}`}><FaAngleLeft/>{strings.gobackButton}</Link>
                 <BlogHeader data={data}/>
                 <Form id="updateForm" onSubmit={updatePost}>
                     <EditSubtitle subtitle={subtitle} setSubtitle={setSubtitle}/>
@@ -73,8 +94,8 @@ const EditBlog = ({id, data}) => {
             </article>
             <div className="sticky-bottom">
                 <InputGroup>
-                    <button className="button-light" onClick={cancelUpdate}>Cancel</button>
-                    <button type="submit" form="updateForm" className="button-dark">Finish</button>
+                    <button className="button-light" onClick={cancelUpdate}>{strings.cancelButton}</button>
+                    <button type="submit" form="updateForm" className="button-dark">{strings.finishButton}</button>
                 </InputGroup>
             </div>
         </div>

@@ -3,8 +3,19 @@ import {NavLink, Redirect, Route, Switch} from "react-router-dom";
 import PostSidebar from "./PostSidebar";
 import EditRecipe from "./edit/EditRecipe";
 import EditBlog from "./edit/EditBlog";
+import LocalizedStrings from "react-localization";
 
 const Edit = () => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+
+        },
+        vi: {
+
+        }
+    });
+
     const urlRecipe = "/edit/recipe";
     const urlBlog = "/edit/blog";
 

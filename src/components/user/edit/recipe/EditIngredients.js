@@ -1,8 +1,27 @@
 import React from "react";
 import {ImCross} from "react-icons/all";
 import InputGroup from "../../../commons/elements/form/InputGroup";
+import LocalizedStrings from "react-localization";
 
 const EditIngredients = (props) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            editHeader: "Edit, add or remove ingredients... (in grams)",
+            editIngredientMessage: "Add some ingredients to your recipe...",
+            ingredientPlaceholder: "e.g: lettuce, tomato, basil,...",
+            addIngredientButton: "Add ingredient",
+            clearChangesButton: "Clear changes",
+        },
+        vi: {
+            editHeader: "Chỉnh sửa, thêm hoặc giảm nguyên liệu... (tính theo gram)",
+            editIngredientMessage: "Thêm nguyên liệu cho công thức của bạn...",
+            ingredientPlaceholder: "ví dụ: cải bông, cà chua, húng quế,...",
+            addIngredientButton: "Thêm nguyên liệu",
+            clearChangesButton: "Hủy thay đổi",
+        }
+    });
+
     const handleAddField = (e) => {
         e.preventDefault();
         const ingredient = {
@@ -36,7 +55,7 @@ const EditIngredients = (props) => {
 
     return (
         <section>
-            <h1>Edit, add or remove ingredients... (in grams)</h1>
+            <h1>{strings.editHeader}</h1>
             {props.ingredients.length > 0 ?
                 <ul className="form-dynamic">
                     {props.ingredients.map((item, index) => (
@@ -44,7 +63,7 @@ const EditIngredients = (props) => {
                             <input name="ingredient_name" type="text"
                                    value={item.ingredient_name}
                                    onChange={(e) => handleChange(e, index)}
-                                   placeholder="e.g: lettuce, tomato, basil,..." required/>
+                                   placeholder={strings.ingredientPlaceholder} required/>
                             <input name="amount_in_mg" type="number"
                                    value={item.amount_in_mg} min={1}
                                    onChange={(e) => handleChange(e, index)}/>
@@ -56,11 +75,11 @@ const EditIngredients = (props) => {
                     ))}
                 </ul>
                 :
-                <em>Add some ingredients to your recipe...</em>
+                <em>{strings.editIngredientMessage}</em>
             }
             <div className="input-group">
-                <button onClick={handleAddField}>Add ingredient</button>
-                <button className="button-light" onClick={handleUndo}>Clear changes</button>
+                <button onClick={handleAddField}>{strings.addIngredientButton}</button>
+                <button className="button-light" onClick={handleUndo}>{strings.clearChangesButton}</button>
             </div>
         </section>
     )

@@ -4,8 +4,31 @@ import Form from "../../commons/elements/form/Form";
 import InputArray from "../../commons/elements/form/InputArray";
 import InputGroup from "../../commons/elements/form/InputGroup";
 import {ImCross} from "react-icons/all";
+import LocalizedStrings from "react-localization";
 
 const UpdateAllergies = ({user, token, location}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            allergiesHeader: "Food allergies",
+            allergiesMessageHeader: "Manage ingredients you are allergic to. You will not receive recipe suggestions that include them.",
+            allergiesMessage: "What are you allergic to?",
+            addIngredientButton: "Add ingredient",
+            clearButton: "Clear",
+            saveButton: "Save",
+            ingredientPlaceholder: "e.g: peppers,...",
+        },
+        vi: {
+            allergiesHeader: "Thực phẩm dị ứng",
+            allergiesMessageHeader: "Quản lý thực phẩm mà bạn dị ứng. Hệ thống sẽ không đề xuất những công thức có những thứ này.",
+            allergiesMessage: "Bạn bị dị ứng với cái gì?",
+            addIngredientButton: "Thêm thực phẩm",
+            clearButton: "Xóa",
+            saveButton: "Lưu",
+            ingredientPlaceholder: "ví dụ: tiêu,...",
+        }
+    });
+
     const [ingredients, setIngredients] = useState([]);
     const fetchData = async () => {
         const api = `${apiUrl}/user/getallergies/${user.id}`;
@@ -76,9 +99,8 @@ const UpdateAllergies = ({user, token, location}) => {
     return (
         <section>
             <header className="section-header">
-                <h1>Food allergies</h1>
-                <p>Manage ingredients you are allergic to. You will not receive recipe suggestions that include
-                    them.</p>
+                <h1>{strings.allergiesHeader}</h1>
+                <p>{strings.allergiesMessageHeader}</p>
             </header>
             <div className="section-content">
                 <Form onSubmit={updateAllergies}>
@@ -95,7 +117,7 @@ const UpdateAllergies = ({user, token, location}) => {
                                             <input name="ingredient_name" type="text"
                                                    value={item.ingredient_name}
                                                    onChange={(e) => handleChange(e, index)}
-                                                   placeholder="e.g: peppers,..." required/>
+                                                   placeholder={strings.ingredientPlaceholder} required/>
                                             {/*Remove button*/}
                                             <button className="button-remove"
                                                     onClick={(e) => handleRemoveField(e, index)}>
@@ -105,16 +127,16 @@ const UpdateAllergies = ({user, token, location}) => {
                                     ))}
                                 </InputArray>
                             </div>
-                            : <em>What are you allergic to?</em>}
+                            : <em>{strings.allergiesMessage}</em>}
                     </div>
                     {/*Control buttons*/}
                     <div className="sticky-bottom">
                         <div className="input-group">
-                            <button className="button-light" onClick={handleAddField}>Add ingredient</button>
-                            <button className="button-light" onClick={handleClear}>Clear</button>
+                            <button className="button-light" onClick={handleAddField}>{strings.addIngredientButton}</button>
+                            <button className="button-light" onClick={handleClear}>{strings.clearButton}</button>
                             {ingredients.length > 0 ?
-                                <button type="submit" className="button-dark">Save</button>
-                                : <button disabled>Save</button>}
+                                <button type="submit" className="button-dark">{strings.saveButton}</button>
+                                : <button disabled>{strings.saveButton}</button>}
                         </div>
                     </div>
                 </Form>

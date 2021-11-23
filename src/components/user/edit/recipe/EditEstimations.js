@@ -1,7 +1,33 @@
 import React, {useState} from "react";
 import InputGroup from "../../../commons/elements/form/InputGroup";
+import LocalizedStrings from "react-localization";
 
 const EditEstimations = (props) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            editHeader: "Update recipe info & estimations...",
+            editDifficulty: "Recipe difficulty",
+            editPortion: "Portion",
+            editservings: "servings",
+            editpieces: "pieces",
+            editPrepTime: "Prep time (minutes)",
+            editBakingTime: "Baking time (minutes)",
+            editRestingTime: "Resting time (minutes)",
+            clearChangesButton: "Clear changes",
+        },
+        vi: {
+            editHeader: "Chỉnh sửa thông tin công thức và ước lượng...",
+            editDifficulty: "Độ khó",
+            editPortion: "Khẩu phần",
+            editservings: "phần",
+            editpieces: "miếng",
+            editPrepTime: "Thời gian chuẩn bị (phút)",
+            editBakingTime: "Thời gian nướng (phút)",
+            editRestingTime: "Thời gian nghỉ (phút)",
+            clearChangesButton: "Hủy thay đổi",
+        }
+    });
 
     const handleUndo = (e) => {
         e.preventDefault();
@@ -15,9 +41,9 @@ const EditEstimations = (props) => {
 
     return (
         <section>
-            <h1>Update recipe info & estimations...</h1>
+            <h1>{strings.editHeader}</h1>
             {/*Difficulty radio buttons*/}
-            <label>Recipe difficulty</label>
+            <label>{strings.editDifficulty}</label>
             <InputGroup>
                 <label className="radio-button">
                     <input type="radio" name="difficulty" value="1" defaultChecked
@@ -46,38 +72,38 @@ const EditEstimations = (props) => {
                 </label>
             </InputGroup>
             {/*Portion estimates*/}
-            <label>Portion
+            <label>{strings.editPortion}
                 <InputGroup>
                     <input aria-label="Portion size" type="number" min={1} value={props.portionSize}
                            onChange={e => props.setPortionSize(e.target.value)}/>
                     <select aria-label="Portion type" value={props.portionType}
                             onChange={e => props.setPortionType(e.target.value)}>
-                        <option value="1">servings</option>
-                        <option value="2">pieces</option>
+                        <option value="1">{strings.editservings}</option>
+                        <option value="2">{strings.editpieces}</option>
                     </select>
                 </InputGroup>
             </label>
             {/*Time estimates*/}
-            <label>Prep time (minutes)
+            <label>{strings.editPrepTime}
                 <InputGroup>
                     <input aria-label="Prep time" type="number" min={0} value={props.prepTime}
                            onChange={e => props.setPrepTime(e.target.value)}/>
                 </InputGroup>
 
             </label>
-            <label>Baking time (minutes)
+            <label>{strings.editBakingTime}
                 <InputGroup>
                     <input aria-label="Baking time" type="number" min={0} value={props.bakingTime}
                            onChange={e => props.setBakingTime(e.target.value)}/>
                 </InputGroup>
             </label>
-            <label>Resting time (minutes)
+            <label>{strings.editRestingTime}
                 <InputGroup>
                     <input aria-label="Resting time" type="number" min={0} value={props.restingTime}
                            onChange={e => props.setRestingTime(e.target.value)}/>
                 </InputGroup>
             </label>
-            <button className="button-light" onClick={handleUndo}>Clear changes</button>
+            <button className="button-light" onClick={handleUndo}>{strings.clearChangesButton}</button>
         </section>
     )
 }

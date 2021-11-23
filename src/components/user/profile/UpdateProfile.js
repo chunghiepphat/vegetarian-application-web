@@ -102,7 +102,8 @@ const UpdateProfile = ({reload}) => {
                             <label>Gender
                                 <select value={gender} onChange={e => setGender(e.target.value)}>
                                     {genders.map((gender) => (
-                                        <option>{gender}</option>))}
+                                        <option>{gender}</option>
+                                    ))}
                                 </select>
                             </label>
                             <label>Date of birth
