@@ -24,7 +24,7 @@ const PostBlog = ({user, token, history}) => {
         vi: {
             blogHeader: "Chia sẻ câu chuyện của bạn",
             blogMessageHeader: "Xin hãy giữ nội dụng liên quan về đồ ăn, công thức chay và lối sống của người ăn chay.",
-            thumbnailHeader: "Tải hinh lên cho bài viết của bạn",
+            thumbnailHeader: "Tải hình ảnh lên cho bài viết của bạn",
             thumbnailMessageHeader: "Nhấn để chọn hình ảnh...",
             titlePlaceholder: "Tiêu đề",
             subTitlePlaceholder: "Phụ đề (không bắt buộc)",

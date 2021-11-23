@@ -4,8 +4,53 @@ import {UserContext} from "../../../context/UserContext";
 import Form from "../../commons/elements/form/Form";
 import InputGroup from "../../commons/elements/form/InputGroup";
 import CountrySelect from "../../commons/elements/CountrySelect";
+import LocalizedStrings from "react-localization";
 
 const UpdateProfile = ({reload}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            updateProfileHeader: "Profile details",
+            firstName: "First name",
+            firstNamePlaceHolder: "First name",
+            lastName: "Last name",
+            lastNamePlaceholder: "Last name",
+            email: "Email address",
+            phoneNumber: "Phone number",
+            phoneNumberPlaceholder: "09876...",
+            gender: "Gender",
+            birthdate: "Date of birth",
+            country: "Country",
+            facebookLink: "Facebook profile",
+            instagramLink: "Instagram profile",
+            aboutMe: "About you",
+            aboutMePlaceholder: "Write a short something about you...",
+            updateButton: "Update",
+            updatingButton: "Updating...",
+            alertSuccess: "Profile updated.",
+        },
+        vi: {
+            updateProfileHeader: "Chi tiết hồ sơ",
+            firstName: "Tên",
+            firstNamePlaceHolder: "Tên",
+            lastName: "Họ",
+            lastNamePlaceholder: "Họ",
+            email: "Địa chỉ email",
+            phoneNumber: "Số điện thoại",
+            phoneNumberPlaceholder: "09876...",
+            gender: "Giới tính",
+            birthdate: "Ngày sinh",
+            country: "Quốc gia",
+            facebookLink: "Thông tin Facebook",
+            instagramLink: "Thông tin Instagram",
+            aboutMe: "Về tôi",
+            aboutMePlaceholder: "Hãy viết một ít về bạn...",
+            updateButton: "Cập nhật",
+            updatingButton: "Đang cập nhật...",
+            alertSuccess: "Cập nhật thành công.",
+        }
+    });
+
     const [isLoading, setIsLoading] = useState(false);
     // Authentication and API stuff
     const user = useContext(UserContext);
@@ -58,7 +103,7 @@ const UpdateProfile = ({reload}) => {
             const response = await fetch(api, request);
             if (response.ok) {
                 reload();
-                alert("Profile updated.");
+                alert(strings.alertSuccess);
                 setIsLoading(false);
             } else if (response.status === 401) {
                 alert("You are not authorized to complete the request.")
@@ -76,62 +121,62 @@ const UpdateProfile = ({reload}) => {
     return (
         <section>
             <header className="section-header">
-                <h1>Profile details</h1>
+                <h1>{strings.updateProfileHeader}</h1>
             </header>
             <div className="section-content">
                 <Form onSubmit={updateProfile}>
                     <div style={{minHeight: "400px"}}>
                         <InputGroup>
-                            <label>First name
+                            <label>{strings.firstName}
                                 <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)}
-                                       placeholder="First name"/>
+                                       placeholder={strings.firstNamePlaceHolder}/>
                             </label>
-                            <label>Last name
+                            <label>{strings.lastName}
                                 <input type="text" value={lastName} onChange={e => setLastName(e.target.value)}
-                                       placeholder="Last name"/>
+                                       placeholder={strings.lastNamePlaceholder}/>
                             </label>
                         </InputGroup>
-                        <label>Email address
+                        <label>{strings.email}
                             <input type="text" value={user.email} placeholder="" disabled/>
                         </label>
-                        <label>Phone number
+                        <label>{strings.phoneNumber}
                             <input type="phone" value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)}
-                                   placeholder="09876..."/>
+                                   placeholder={strings.phoneNumberPlaceholder}/>
                         </label>
                         <InputGroup>
-                            <label>Gender
+                            <label>{strings.gender}
                                 <select value={gender} onChange={e => setGender(e.target.value)}>
                                     {genders.map((gender) => (
                                         <option>{gender}</option>
                                     ))}
                                 </select>
                             </label>
-                            <label>Date of birth
+                            <label>{strings.birthdate}
                                 <input aria-label="Date of birth" type="date"
                                        value={birthdate} max={today}
                                        onChange={e => setBirthdate(e.target.value)}/>
                             </label>
                         </InputGroup>
-                        <label>Country
+                        <label>{strings.country}
                             <CountrySelect value={country} onChange={e => setCountry(e.target.value)}/>
                         </label>
-                        <label>Facebook profile
+                        <label>{strings.facebookLink}
                             <input type="text" value={facebookLink} onChange={e => setFacebookLink(e.target.value)}
                                    placeholder="https://www.facebook.com/..."/>
                         </label>
-                        <label>Instagram profile
+                        <label>{strings.instagramLink}
                             <input type="text" value={instagramLink} onChange={e => setInstagramLink(e.target.value)}
                                    placeholder="https://www.instagram.com/..."/>
                         </label>
-                        <label>About you
+                        <label>{strings.aboutMe}
                             <textarea value={aboutMe} onChange={e => setAboutMe(e.target.value)}
-                                      placeholder="Write a short something about you..."/>
+                                      placeholder={strings.aboutMePlaceholder}/>
                         </label>
                     </div>
                     <div className="sticky-bottom">
                         {!isLoading ?
-                            <button type="submit" className="button-dark">Update</button>
-                            : <button disabled>Updating...</button>}
+                            <button type="submit" className="button-dark">{strings.updateButton}</button>
+                            : <button disabled>{strings.updatingButton}</button>}
                     </div>
                 </Form>
             </div>

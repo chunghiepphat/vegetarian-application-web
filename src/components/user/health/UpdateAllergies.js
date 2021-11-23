@@ -17,6 +17,7 @@ const UpdateAllergies = ({user, token, location}) => {
             clearButton: "Clear",
             saveButton: "Save",
             ingredientPlaceholder: "e.g: peppers,...",
+            alertSuccess: "Food allergies updated.",
         },
         vi: {
             allergiesHeader: "Thực phẩm dị ứng",
@@ -26,6 +27,7 @@ const UpdateAllergies = ({user, token, location}) => {
             clearButton: "Xóa",
             saveButton: "Lưu",
             ingredientPlaceholder: "ví dụ: tiêu,...",
+            alertSuccess: "Đã cập nhật thực phẩm dị ứng.",
         }
     });
 
@@ -86,7 +88,7 @@ const UpdateAllergies = ({user, token, location}) => {
         const api = `${apiUrl}/user/allergies/${user.id}`;
         const response = await fetch(api, request);
         if (response.ok) {
-            alert("Food allergies updated.");
+            alert(strings.alertSuccess);
             await fetchData();
         } else if (response.status === 401) {
             alert("You are not authorized to complete the request.")

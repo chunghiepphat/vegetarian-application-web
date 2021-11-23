@@ -18,12 +18,14 @@ const Menu = () => {
             menuMessageHeader: "Share with us some details about you, so that we may recommend recipes that suit you best.",
             menuMessageBody: "It seems your health and routine profile are incomplete.",
             healthProfileLink: "Complete your health profile to receive tailored meal plans",
+            alertSuccess: "Menu saved.",
         },
         vi: {
             menuHeader: "Đề xuất thực đơn",
             menuMessageHeader: "Hãy chia sẻ chúng tôi một chút về bạn để có thể đề xuất thực đơn phù hợp với bạn",
             menuMessageBody: "Có vẻ như hồ sơ sức khỏe của bạn chưa hoàn thành",
-            healthProfileLink: "Hãy hoàn thành hồ sơ sức khỏe ngay để nhận được lịch trình ăn"
+            healthProfileLink: "Hãy hoàn thành hồ sơ sức khỏe ngay để nhận được lịch trình ăn",
+            alertSuccess: "Đã lưu thực đơn.",
         }
     });
 
@@ -97,7 +99,7 @@ const Menu = () => {
         try {
             const response = await fetch(api, request);
             if (response.ok) {
-                alert("Menu saved.");
+                alert(strings.alertSuccess);
                 // setIsMenuExisting(true);
                 setIsMenuNew(false);
             } else if (response.status === 401) {

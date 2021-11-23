@@ -3,8 +3,33 @@ import {cloudName, uploadPreset} from "../../../../helpers/Cloudinary";
 import {ButtonLoader, PanelLoader} from "../../../commons/elements/loaders/Loader";
 import {Link} from "react-router-dom";
 import {FaAngleLeft} from "react-icons/fa";
+import LocalizedStrings from "react-localization";
 
 const VideoStep02 = (props) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            previousStepButton: "Previous step",
+            step2Header: "Step 2 - Upload",
+            step2Message: "Pick a video to upload to our server and it's done!",
+            previewHeader: "Preview",
+            videoLink: "Link to your video.",
+            finishButton: "Finish",
+            uploadingButton: "Uploading...",
+            uploadButton: "Upload",
+        },
+        vi: {
+            previousStepButton: "Bước trước",
+            step2Header: "Step 2 - Tải video",
+            step2Message: "Hãy chọn video để tải lên máy chú chúng tôi!",
+            previewHeader: "Xem trước",
+            videoLink: "Đường dẫn đến video của bạn.",
+            finishButton: "Xong",
+            uploadingButton: "Đang tải...",
+            uploadButton: "Tải",
+        }
+    });
+
     const inputRef = useRef();
     const [file, setFile] = useState();
     const [uploading, setUploading] = useState(false);
@@ -35,16 +60,16 @@ const VideoStep02 = (props) => {
         <>
             <section>
                 <header className="section-header">
-                    <Link to="/post/recipe/step-1"><FaAngleLeft/>Previous step</Link>
-                    <h1>Step 2 - Upload</h1>
-                    <em>Pick a video to upload to our server and it's done!</em>
+                    <Link to="/post/recipe/step-1"><FaAngleLeft/>{strings.previousStepButton}</Link>
+                    <h1>{strings.step2Header}</h1>
+                    <em>{strings.step2Message}</em>
                 </header>
                 <div className="section-content">
                     {props.link ?
                         <form className="form-container" onSubmit={props.submitPost}>
-                            <h1>Preview</h1>
-                            <a href={props.link} target="_blank" rel="noopener noreferrer">Link to your video.</a>
-                            <button type="submit">Finish</button>
+                            <h1>{strings.previewHeader}</h1>
+                            <a href={props.link} target="_blank" rel="noopener noreferrer">{strings.videoLink}</a>
+                            <button type="submit">{strings.finishButton}</button>
                         </form>
                         :
                         <form className="form-container" onSubmit={uploadFile}>
@@ -56,7 +81,7 @@ const VideoStep02 = (props) => {
                                            onChange={() => (setFile(inputRef.current.files[0]))}
                                            ref={inputRef} disabled/></label>
                                 <div className="sticky-bottom">
-                                    <button type="submit" disabled>Uploading...</button>
+                                    <button type="submit" disabled>{strings.uploadingButton}</button>
                                 </div>
                             </> : <>
                                 <label>Video
@@ -64,7 +89,7 @@ const VideoStep02 = (props) => {
                                            onChange={() => (setFile(inputRef.current.files[0]))}
                                            ref={inputRef}/></label>
                                 <div className="sticky-bottom">
-                                    <button type="submit" className="button-dark">Upload</button>
+                                    <button type="submit" className="button-dark">{strings.uploadButton}</button>
                                 </div>
                             </>}
                         </form>}

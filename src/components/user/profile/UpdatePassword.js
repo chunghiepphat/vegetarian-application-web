@@ -2,8 +2,35 @@ import React, {useContext, useEffect, useState} from "react";
 import {apiUrl} from "../../../helpers/Variables";
 import {UserContext} from "../../../context/UserContext";
 import Form from "../../commons/elements/form/Form";
+import LocalizedStrings from "react-localization";
 
 const UpdatePassword = () => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            updatePasswordHeader: "Change password",
+            currenPassword: "Your current password",
+            currenPasswordPlaceholder: "Current password",
+            newPassword: "New password",
+            newPasswordPlaceholder: "New password",
+            confirmPasswordPlaceholder: "Confirm password",
+            updateButton: "Update",
+            updatingButton: "Updating...",
+            alertSuccess: "Password updated successfully.",
+        },
+        vi: {
+            updatePasswordHeader: "Đổi mật khẩu",
+            currenPassword: "Mật khẩu hiện tại",
+            currenPasswordPlaceholder: "Mật khẩu hiện tại",
+            newPassword: "Mật khẩu mới",
+            newPasswordPlaceholder: "Mật khẩu mới",
+            confirmPasswordPlaceholder: "Xác nhận mật khẩu mới",
+            updateButton: "Cập nhật",
+            updatingButton: "Đang cập nhật...",
+            alertSuccess: "Cập nhật mật khẩu thành công.",
+        }
+    });
+
     const [isLoading, setIsLoading] = useState(false);
     // Authentication and API stuff
     const user = useContext(UserContext);
@@ -62,7 +89,7 @@ const UpdatePassword = () => {
         try {
             const response = await fetch(api, request);
             if (response.ok) {
-                alert("Password updated successfully.");
+                alert(strings.alertSuccess);
                 setIsLoading(false);
             } else if (response.status === 400) {
                 alert("Your old password is incorrect, please try again.");
@@ -83,34 +110,34 @@ const UpdatePassword = () => {
     return (
         <section>
             <header className="section-header">
-                <h1>Change password</h1>
+                <h1>{strings.updatePasswordHeader}</h1>
             </header>
             <div className="section-content">
                 <Form onSubmit={updatePassword}>
                     <div style={{minHeight: "400px"}}>
                         {/*Password*/}
-                        <label>Your current password
+                        <label>{strings.currenPassword}
                             <input type="password"
                                    value={oldPassword}
                                    onChange={e => setOldPassword(e.target.value)}
-                                   placeholder="Current password" required/>
+                                   placeholder={strings.currenPasswordPlaceholder} required/>
                         </label>
-                        <label>New password
+                        <label>{strings.newPassword}
                             <input type="password"
                                    value={newPassword}
                                    onChange={e => setNewPassword(e.target.value)}
-                                   placeholder="New password" required/>
+                                   placeholder={strings.newPasswordPlaceholder} required/>
                             <input type="password"
                                    value={confirmPassword}
                                    onChange={e => setConfirmPassword(e.target.value)}
-                                   placeholder="Confirm password" required/>
+                                   placeholder={strings.confirmPasswordPlaceholder} required/>
                         </label>
                         <p className={isValid ? `text-positive` : `text-negative`}>{message}</p>
                     </div>
                     <div className="sticky-bottom">
                         {!isLoading ?
-                            <button type="submit" className="button-dark" disabled={!isValid}>Update</button>
-                            : <button disabled>Updating...</button>}
+                            <button type="submit" className="button-dark" disabled={!isValid}>{strings.updateButton}</button>
+                            : <button disabled>{strings.updatingButton}</button>}
                     </div>
 
                 </Form>

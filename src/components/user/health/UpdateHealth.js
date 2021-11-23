@@ -46,13 +46,14 @@ const UpdateHealth = ({user, token, reload}) => {
             genderMale: "Male",
             genderFemale: "Female",
             verdictNone: "We will automatically calculate your BMI with your height and weight.",
-            saveButton: "Save"
+            saveButton: "Save",
+            alertSuccess: "Health profile updated.",
         },
         vi: {
-            lowRoutine: "Vận động ít - người văn phòng, không thể thao.",
-            averageRoutine: "Vận động vừa - người thể thao thường xuyên.",
-            highRoutine: "Vận động nhiều - người có sở thích thể thao hoặc luyện tập hằng ngày.",
-            extremeRoutine: "Vận động cao - vận động viên chuyên nghiệp.",
+            lowRoutine: "Ít vận động - làm việc văn phòng, không thể thao.",
+            averageRoutine: "Vận động vừa phải - lao động chân tay hoặc thỉnh thoảng tập luyện.",
+            highRoutine: "Vận động thường xuyên - người có sở thích thể thao hoặc luyện tập hằng ngày.",
+            extremeRoutine: "Vận động cường độ nặng - vận động viên chuyên nghiệp.",
             severeUnderweightBody: "Thiếu cân nghiêm trọng.",
             moderateUnderweightBody: "Thiếu cân vừa phải.",
             mildUnderweightBody: "Thiếu cân nhẹ.",
@@ -77,15 +78,16 @@ const UpdateHealth = ({user, token, reload}) => {
             gender: "Giới tính",
             height: "Chiều cao",
             weight: "Cân nặng",
-            workoutRoutine: "Cường độ thể thao",
+            workoutRoutine: "Cường độ tập luyện",
             generateMenuButton: "Đề xuất thực đơn cho bạn",
-            notEnoughHealth: "Hãy để chúng tôi biết nhiều hơn để có thể đề xuất các công thức phù hợp với bạn",
+            notEnoughHealth: "Hãy chia sẻ với chúng tôi một số thông tin để có thể đề xuất các công thức phù hợp hơn với bạn",
             noHealth: "Bắt đầu ngay",
             yearsOld: "tuổi",
             genderMale: "Nam",
             genderFemale: "Nữ",
             verdictNone: "Chúng tôi sẽ tính toán chỉ số BMI của bạn dựa trên cân nặng và chiều cao",
-            saveButton: "Lưu"
+            saveButton: "Lưu",
+            alertSuccess: "Đã cập nhật hồ sơ sức khỏe.",
         }
     });
 
@@ -136,7 +138,7 @@ const UpdateHealth = ({user, token, reload}) => {
             const response = await fetch(api, request);
             if (response.ok) {
                 reload();
-                alert("Health profile updated.");
+                alert(strings.alertSuccess);
                 // window.location.reload();
             } else if (response.status === 401) {
                 alert("You are not authorized to complete the request.")

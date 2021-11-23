@@ -17,6 +17,7 @@ const UpdatePreferences = ({user, token, location}) => {
             clearButton: "Clear",
             saveButton: "Save",
             ingredientPlaceholder: "e.g: tomato,...",
+            alertSuccess: "Food preferences updated.",
         },
         vi: {
             preferencesHeader: "Thực phẩm yêu thích",
@@ -26,6 +27,7 @@ const UpdatePreferences = ({user, token, location}) => {
             clearButton: "Xóa",
             saveButton: "Lưu",
             ingredientPlaceholder: "ví dụ: cà chua,...",
+            alertSuccess: "Đã cập nhật thực phẩm yêu thích.",
         }
     });
 
@@ -86,7 +88,7 @@ const UpdatePreferences = ({user, token, location}) => {
         const api = `${apiUrl}/user/preferences/${user.id}`;
         const response = await fetch(api, request);
         if (response.ok) {
-            alert("Food preferences updated.");
+            alert(strings.alertSuccess);
             await fetchData();
         } else if (response.status === 401) {
             alert("You are not authorized to complete the request.")

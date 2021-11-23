@@ -4,8 +4,31 @@ import {UserContext} from "../../../context/UserContext";
 import {apiUrl} from "../../../helpers/Variables";
 import Form from "../../commons/elements/form/Form";
 import InputGroup from "../../commons/elements/form/InputGroup";
+import LocalizedStrings from "react-localization";
 
 const UpdateAvatar = ({reload}) => {
+    // Localizations
+    let strings = new LocalizedStrings({
+        en: {
+            updateAvatarHeader: "Profile picture",
+            clearImageButton: "Clear image",
+            updateButton: "Update",
+            profilePictureHeader: "Profile picture",
+            imagePictureMessage: "Click to pick an image",
+            updatingButton: "Updating...",
+            alertSuccess: "Profile image updated.",
+        },
+        vi: {
+            updateAvatarHeader: "Hình ảnh hồ sơ",
+            clearImageButton: "Xóa hình ảnh",
+            updateButton: "Cập nhật",
+            profilePictureHeader: "Hình ảnh hồ sơ",
+            imagePictureMessage: "Nhấn để chọn hình ảnh",
+            updatingButton: "Đang cập nhật...",
+            alertSuccess: "Cập nhật hình ảnh thành công",
+        }
+    });
+
     // Authentication and API stuff
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -51,7 +74,7 @@ const UpdateAvatar = ({reload}) => {
         const response = await fetch(api, request);
         if (response.ok) {
             reload();
-            alert("Profile image updated.");
+            alert(strings.alertSuccess);
             setIsLoading(false);
         } else if (response.status === 401) {
             alert("You are not authorized to complete the request.")
@@ -99,7 +122,7 @@ const UpdateAvatar = ({reload}) => {
     return (
         <section>
             <header className="section-header">
-                <h1>Profile picture</h1>
+                <h1>{strings.updateAvatarHeader}</h1>
             </header>
             <div className="section-content">
                 <Form onSubmit={uploadFile}>
@@ -111,8 +134,8 @@ const UpdateAvatar = ({reload}) => {
                                     <img src="" alt="" style={{height: "unset"}}/>
                                 </picture>
                                 : <div className="upload-thumbnail" style={previewStyles}>
-                                    <h1>Profile picture</h1>
-                                    <p>Click to pick an image...</p>
+                                    <h1>{strings.profilePictureHeader}</h1>
+                                    <p>{strings.imagePictureMessage}</p>
                                 </div>}
                         </label>
                         <input id="file-selector" style={{display: "none"}}
@@ -123,11 +146,11 @@ const UpdateAvatar = ({reload}) => {
                     <div className="sticky-bottom">
                         <InputGroup>
                             <button type="button" className="button-light"
-                                    onClick={handleClear}>Clear image
+                                    onClick={handleClear}>{strings.clearImageButton}
                             </button>
                             {!isLoading ?
-                                <button type="submit" className="button-dark">Update</button>
-                                : <button disabled>Updating...</button>}
+                                <button type="submit" className="button-dark">{strings.updateButton}</button>
+                                : <button disabled>{strings.updatingButton}</button>}
                         </InputGroup>
                     </div>
                 </Form>
