@@ -32,7 +32,7 @@ const ViewRecipe = ({user, location, fetchData}) => {
     const api = `${apiUrl}/recipes/getrecipeby/${id}?translate=${language}${user ? `&userID=${user.id}` : ``}`;
     // Fetches data on page load
     useEffect(() => {
-        fetchData(api, setData, setIsError, setIsTranslated);
+        fetchData(api, setData, setIsError);
     }, [id, api]);
 
     return (

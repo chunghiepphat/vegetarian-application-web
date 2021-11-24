@@ -11,8 +11,9 @@ import {
     RiDeleteBin4Line,
 } from "react-icons/all";
 import {articleStatusStrings, articleToolbarStrings, requestErrorStrings} from "../../../../helpers/DisplayStrings";
+import {FaEdit} from "react-icons/fa";
 
-const VideoToolbar = ({id, location, data, reload}) => {
+const VideoToolbar = ({id, location, data, reload, setLanguage}) => {
     const history = useHistory();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -140,18 +141,14 @@ const VideoToolbar = ({id, location, data, reload}) => {
             <div className="article-status">
                 <p className={statusColor[data.status - 1]}>{statusText[data.status - 1]}</p>
             </div>}
-            {user && user.role !== "admin" ?
-                <div className="article-controls">
-                    {/*If user is logged in, show toolbar*/}
-                    {data &&
+            <div className="article-controls">
+                {data && user && user.role !== "admin" ? <>
                     <button title="Add to favorites" onClick={favoriteArticle}
                             className={`article-button article-button-with-text ${data.is_like && "button-favorite"}`}>
                         {data.is_like ?
                             <FaHeart/> : <FaRegHeart/>} {data.totalLike}
-                    </button>}
-                    {/*If user is the author of the article, allow modify*/}
-                    {data && user.id === data.user_id && <>
-                        {data &&
+                    </button>
+                    {user.id === data.user_id && <>
                         <button title="Article visibility" className="article-button article-button-with-text"
                                 onClick={publishArticle}>
                             {data.is_private ?
@@ -160,15 +157,13 @@ const VideoToolbar = ({id, location, data, reload}) => {
                                     <><AiFillEye/> {articleToolbarStrings.buttonPublic}</>
                                     : <><AiOutlineCheck/> {articleToolbarStrings.buttonSubmit}</>}
                                 </>}
-                        </button>}
+                        </button>
                         <button title="Delete article" className="article-button article-button-no-text"
                                 onClick={deleteArticle}>
                             <RiDeleteBin4Line/>
                         </button>
                     </>}
-                </div>
-                : <div className="article-controls">
-                    {/*If not logged in, the favorite button directs to login form*/}
+                </> : <>
                     <button className={`article-button article-button-with-text ${data.is_like && "button-favorite"}`}
                             onClick={() => history.push({
                                 pathname: "/login",
@@ -176,7 +171,12 @@ const VideoToolbar = ({id, location, data, reload}) => {
                             })}>
                         <FaRegHeart/> {data.totalLike}
                     </button>
-                </div>}
+                </>}
+                <button className="article-button article-button-with-text"
+                        onClick={() => setLanguage(window.navigator.language)}>
+                    {articleToolbarStrings.buttonTranslate} {window.navigator.language}
+                </button>
+            </div>
         </section>
     )
 }

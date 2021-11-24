@@ -12,8 +12,9 @@ const ViewVideo = ({user, location, fetchData}) => {
     let {id} = useParams();
     // Data states & API endpoint
     const [data, setData] = useState();
+    const [language, setLanguage] = useState("vi");
     const [isError, setIsError] = useState();
-    const api = `${apiUrl}/video/getvideoby/${id}${user ? `?userID=${user.id}` : ``}`;
+    const api = `${apiUrl}/video/getvideoby/${id}?translate=${language}${user ? `&userID=${user.id}` : ``}`;
     // Fetches data on page load
     useEffect(() => {
         fetchData(api, setData, setIsError);
@@ -26,7 +27,7 @@ const ViewVideo = ({user, location, fetchData}) => {
                     <div className="section-content">
                         <article className="video-article">
                             <VideoPlayer data={data}/>
-                            <VideoToolbar id={id} location={location} data={data}
+                            <VideoToolbar id={id} location={location} data={data} setLanguage={setLanguage}
                                           reload={() => fetchData(api, setData, setIsError)}/>
                             <VideoDetails data={data}/>
                             <VideoComments data={data}/>
