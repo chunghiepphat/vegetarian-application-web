@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import LocalizedStrings from "react-localization";
 import {Link} from "react-router-dom";
 import {FaAngleRight} from "react-icons/fa";
+import moment from "moment";
 
 
 const DashboardHealth = ({user}) => {
@@ -157,7 +158,8 @@ const DashboardHealth = ({user}) => {
                 </div>}
                 <ul style={{paddingTop: "20px"}}>
                     {user.birth_date &&
-                    <li><span style={{fontWeight: "bold"}}>{strings.birthdate}:</span> {user.birth_date} ({ageYear} {strings.yearsOld})
+                    <li><span
+                        style={{fontWeight: "bold"}}>{strings.birthdate}: </span>{moment(user.birth_date).format("ll")} ({ageYear} {strings.yearsOld})
                     </li>}
                     {user.gender &&
                     <li><span style={{fontWeight: "bold"}}>{strings.gender}:</span> {user.gender} </li>}

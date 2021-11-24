@@ -29,7 +29,11 @@ const SearchFilters = ({categoryList}) => {
             difficulty5: "Gordon Ramsay",
             labelPrepTime: "Preparation time",
             prepTimeMinutes: "minute(s) or less",
-            labelSortBy: "Sort by",
+            labelSort: "Sort by",
+            sortLatest: "Latest",
+            sortOldest: "Oldest",
+            sortPopularity: "Popularity",
+            sortName: "Name",
             labelSearch: "Search query",
             placeholderSearch: "Search content by article title or author's name",
             buttonSearch: "Search",
@@ -51,7 +55,11 @@ const SearchFilters = ({categoryList}) => {
             difficulty5: "Gordon Ramsay",
             labelPrepTime: "Thời gian chế biến",
             prepTimeMinutes: "phút trở xuống",
-            labelSortBy: "Sắp xếp theo",
+            labelSort: "Sắp xếp theo",
+            sortLatest: "Mới nhất",
+            sortOldest: "Cũ nhất",
+            sortPopularity: "Phổ biến nhất",
+            sortName: "Tên bài viết",
             labelSearch: "Từ khóa tìm kiếm",
             placeholderSearch: "Tìm kiếm nội dung với tên bài viết hoặc tác giả",
             buttonSearch: "Tìm kiếm",
@@ -76,6 +84,7 @@ const SearchFilters = ({categoryList}) => {
     const [category, setCategory] = useState();
     const [difficulty, setDifficulty] = useState();
     const [prepTime, setPrepTime] = useState("10");
+    const [sort, setSort] = useState("newest")
     useEffect(() => {
         setQuery(queryString.get("search"));
     }, [location.search])
@@ -88,7 +97,9 @@ const SearchFilters = ({categoryList}) => {
             if (category) searchString = searchString + `&category=${category}`;
             if (difficulty) searchString = searchString + `&difficulty=${difficulty}`;
             if (prepTime) searchString = searchString + `&prepare_time=${prepTime}`;
+
         }
+        searchString = searchString + `&sort=${sort}`;
         history.push({
             pathname: "/search",
             search: searchString,
@@ -113,7 +124,7 @@ const SearchFilters = ({categoryList}) => {
                             <select value={category} onChange={e => setCategory(e.target.value)}>
                                 <option value="">{strings.categoryAll}</option>
                                 {categoryList && categoryList.length > 0 && categoryList.map(item => (
-                                    <option value={item.category_id}>{item.category_name}</option>))}
+                                    <option value={item.category_name}>{item.category_name}</option>))}
                             </select>
                         </label>
                         <label>{strings.labelDifficulty}
@@ -134,9 +145,12 @@ const SearchFilters = ({categoryList}) => {
                             </div>
                         </label>
                     </>}
-                    <label style={{flexBasis: "200px"}}>{strings.labelSortBy}
-                        <select>
-                            <option>Mày đã làm sort đâu em</option>
+                    <label style={{flexBasis: "200px"}}>{strings.labelSort}
+                        <select value={sort} onChange={e => setSort(e.target.value)}>
+                            <option value="newest">{strings.sortLatest}</option>
+                            <option value="oldest">{strings.sortOldest}</option>
+                            <option value="mostlike">{strings.sortPopularity}</option>
+                            <option value="alphabet">{strings.sortName}</option>
                         </select>
                     </label>
                 </div>

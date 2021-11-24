@@ -32,52 +32,54 @@ const HomeBanner = ({user, fetchData}) => {
     }, [user]);
 
     return (
-        <div className="banner-container banner-home">
-            {/*Best recipes showcase banner*/}
-            <div className="banner">
-                <section className="banner-section banner-showcase">
-                    <header className="section-header">
-                        <h1>{strings.header}</h1>
-                    </header>
-                    <div className="section-content">
-                        <div className="banner-panel">
-                            {!isLoading ? <>
-                                {!isError ? <>
-                                    {data && data.length > 0 ? <>
-                                        {data.map((item, index) => (
-                                            <ArticleTile
-                                                className={`${index === 0 ? "tile-half" : "tile-eighth tile-eighth-" + index}`}
-                                                key={item.recipe_id}
-                                                id={item.recipe_id}
-                                                type="recipe"
-                                                title={item.recipe_title}
-                                                thumbnail={item.recipe_thumbnail}
-                                                userId={item.user_id}
-                                                firstName={item.first_name}
-                                                lastName={item.last_name}
-                                                time={item.time_created}
-                                                isFavorite={item.is_like}
-                                                totalLikes={item.totalLike}/>))}
-                                    </> : <PanelEmp style={{gridArea: "1 / 1 / 3 / 5"}}/>}
-                                </> : <PanelErr style={{gridArea: "1 / 1 / 3 / 5"}}
-                                                reload={() => fetchData(api, setData, setIsLoading, setIsError)}/>}
-                            </> : <PanelLoader style={{gridArea: "1 / 1 / 3 / 5"}}/>}
+        <>
+            <div className="banner-container banner-home">
+                {/*Best recipes showcase banner*/}
+                <div className="banner">
+                    <section className="banner-section banner-showcase">
+                        <header className="section-header">
+                            <h1>{strings.header}</h1>
+                        </header>
+                        <div className="section-content">
+                            <div className="banner-panel">
+                                {!isLoading ? <>
+                                    {!isError ? <>
+                                        {data && data.length > 0 ? <>
+                                            {data.map((item, index) => (
+                                                <ArticleTile
+                                                    className={`${index === 0 ? "tile-half" : "tile-eighth tile-eighth-" + index}`}
+                                                    key={item.recipe_id}
+                                                    id={item.recipe_id}
+                                                    type="recipe"
+                                                    title={item.recipe_title}
+                                                    thumbnail={item.recipe_thumbnail}
+                                                    userId={item.user_id}
+                                                    firstName={item.first_name}
+                                                    lastName={item.last_name}
+                                                    time={item.time_created}
+                                                    isFavorite={item.is_like}
+                                                    totalLikes={item.totalLike}/>))}
+                                        </> : <PanelEmp style={{gridArea: "1 / 1 / 3 / 5"}}/>}
+                                    </> : <PanelErr style={{gridArea: "1 / 1 / 3 / 5"}}
+                                                    reload={() => fetchData(api, setData, setIsLoading, setIsError)}/>}
+                                </> : <PanelLoader style={{gridArea: "1 / 1 / 3 / 5"}}/>}
+                            </div>
                         </div>
-                    </div>
-                    <div className="banner-background" style={{backgroundImage: `url(${bannerBackground})`}}>
-                        <div className="banner-overlay"/>
-                    </div>
-                </section>
-                {/*Arrow button for snap scrolling down*/}
-                <button onClick={executeScroll} className="button-scroll"><span/></button>
-                {/*Quick shortcuts section*/}
-                <HomeBannerShortcuts user={user} scrollRef={scrollRef}/>
-            </div>
-            {/*Blurred banner background*/}
-            <div className="banner-background" style={{backgroundImage: `url(${bannerBackground})`}}>
+                        <div className="banner-background" style={{backgroundImage: `url(${bannerBackground})`}}>
+                            <div className="banner-overlay"/>
+                        </div>
+                    </section>
+                    {/*Arrow button for snap scrolling down*/}
+                    <button onClick={executeScroll} className="button-scroll"><span/></button>
+                    {/*Quick shortcuts section*/}
+                    <HomeBannerShortcuts user={user} scrollRef={scrollRef}/>
+                </div>
+                {/*Blurred banner background*/}
                 <div className="banner-overlay"/>
+                <div className="banner-background" style={{backgroundImage: `url(${bannerBackground})`}}/>
             </div>
-        </div>
+
+        </>
     )
 }
 

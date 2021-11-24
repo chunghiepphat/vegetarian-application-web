@@ -14,7 +14,7 @@ const UserCard = ({
     return (
         <div className={`user-card ${className}`}>
             <Link className="card-url" to={user && user.role === "admin" ?
-                `/console/user/${id}`
+                `/console/review/user/${id}`
                 : `/view/user/${id}`}/>
             <div className="card-cell-1">
                 <Avatar className={"card-avatar"} userImage={avatar}/>

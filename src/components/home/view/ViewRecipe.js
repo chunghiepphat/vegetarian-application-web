@@ -26,12 +26,14 @@ const ViewRecipe = ({user, location, fetchData}) => {
     });
     // Data states & API endpoint
     const [data, setData] = useState();
+    const [language, setLanguage] = useState("");
     const [isError, setIsError] = useState(false);
-    const api = `${apiUrl}/recipes/getrecipeby/${id}${user ? `?userID=${user.id}` : ``}`;
+    const [isTranslated, setIsTranslated] = useState(false);
+    const api = `${apiUrl}/recipes/getrecipeby/${id}?translate=${language}${user ? `&userID=${user.id}` : ``}`;
     // Fetches data on page load
     useEffect(() => {
-        fetchData(api, setData, setIsError);
-    }, [id]);
+        fetchData(api, setData, setIsError, setIsTranslated);
+    }, [id, api]);
 
     return (
         <section>
@@ -53,8 +55,8 @@ const ViewRecipe = ({user, location, fetchData}) => {
                                         <img src="" alt=""/>
                                     </picture>}
                                     <RecipeHeader data={data}/>
-                                    <RecipeToolbar id={id} location={location} data={data}
-                                                   reload={() => fetchData(api, setData, setIsError)} mainApi={api}/>
+                                    <RecipeToolbar id={id} location={location} data={data} setLanguage={setLanguage}
+                                                   reload={() => fetchData(api, setData, setIsError)}/>
                                     <RecipeIngredients data={data}/>
                                     <RecipeEstimations data={data}/>
                                     <RecipeNutrients portion={data.portion_size} nutrients={data.nutrition}/>

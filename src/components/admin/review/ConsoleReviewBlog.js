@@ -1,15 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {SectionLoader} from "../../commons/elements/loaders/Loader";
-import VideoDetails from "../../home/view/video/VideoDetails";
-import VideoPlayer from "../../home/view/video/VideoPlayer";
-import {Link, useLocation, useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {apiUrl} from "../../../helpers/Variables";
+import BlogHeader from "../../home/view/blog/BlogHeader";
+import BlogContent from "../../home/view/blog/BlogContent";
 import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {SectionErr} from "../../commons/elements/loaders/AlertError";
-import {FaAngleLeft} from "react-icons/fa";
 import {FaCheck, FaTimes} from "react-icons/all";
 
-const ReviewVideo = () => {
+const ConsoleReviewBlog = () => {
     let {id} = useParams();
     const location = useLocation();
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -32,7 +30,7 @@ const ReviewVideo = () => {
     headers.append("Accept", "application/json");
     const fetchData = async () => {
         setIsError(false);
-        const api = `${apiUrl}/video/getvideoby/${id}`;
+        const api = `${apiUrl}/blogs/getblogby/${id}`;
         try {
             const response = await fetch(api)
             if (response.ok) {
@@ -59,7 +57,7 @@ const ReviewVideo = () => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiUrl}/video/approve/${id}`;
+        const api = `${apiUrl}/blogs/approve/${id}`;
         const response = await fetch(api, request);
         if (response.ok) {
             await fetchData();
@@ -71,14 +69,15 @@ const ReviewVideo = () => {
     }
     // Executes fetch once on page load
     useEffect(() => {
-        fetchData();
+        fetchData().catch(error => {
+            console.error(error);
+        });
     }, [location]);
 
     return (
-        <section>
+        <>
             <div className="console-toolbar">
-                <Link to="/console/manage-content/recipes"><FaAngleLeft/> Go back</Link>
-                {data && <h1>Video {id}</h1>}
+                {data && <h1>Blog {id}</h1>}
                 {data && <p className={statusColor[data.status - 1]}>{statusText[data.status - 1]}</p>}
                 {data && <>
                     {data.status !== 2 ?
@@ -93,16 +92,21 @@ const ReviewVideo = () => {
                 {!isError ? <>
                     {data ? <>
                         <div className="section-content">
-                            <article className="video-article">
-                                <VideoPlayer data={data}/>
-                                <VideoDetails data={data}/>
+                            <article>
+                                {data.blog_thumbnail &&
+                                <picture className="article-thumbnail">
+                                    <source srcSet={data.blog_thumbnail}/>
+                                    <img src="" alt=""/>
+                                </picture>}
+                                <BlogHeader data={data}/>
+                                <BlogContent data={data}/>
                             </article>
                         </div>
-                    </> : <SectionEmp message="Loading the video..."/>}
+                    </> : <SectionEmp message="Loading the article..."/>}
                 </> : <SectionErr reload={fetchData}/>}
             </div>
-        </section>
+        </>
     )
 }
 
-export default ReviewVideo;
+export default ConsoleReviewBlog;

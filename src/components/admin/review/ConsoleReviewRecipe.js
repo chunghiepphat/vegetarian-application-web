@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from "react";
-import {Link, useLocation, useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {apiUrl} from "../../../helpers/Variables";
 import RecipeHeader from "../../home/view/recipe/RecipeHeader";
 import RecipeIngredients from "../../home/view/recipe/RecipeIngredients";
 import RecipeEstimations from "../../home/view/recipe/RecipeEstimations";
 import RecipeNutrients from "../../home/view/recipe/RecipeNutrients";
 import RecipeSteps from "../../home/view/recipe/RecipeSteps";
-import {FaCheck, FaTimes} from "react-icons/all";
-import {FaAngleLeft} from "react-icons/fa";
 import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {SectionErr} from "../../commons/elements/loaders/AlertError";
+import {FaCheck, FaTimes} from "react-icons/all";
 
-const ReviewRecipe = () => {
+const ConsoleReviewRecipe = () => {
     let {id} = useParams();
     const location = useLocation();
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -77,9 +76,8 @@ const ReviewRecipe = () => {
     }, [location]);
 
     return (
-        <section>
+        <>
             <div className="console-toolbar">
-                <Link to="/console/manage-content/recipes"><FaAngleLeft/> Go back</Link>
                 {data && <h1>Recipe {id}</h1>}
                 {data && <p className={statusColor[data.status - 1]}>{statusText[data.status - 1]}</p>}
                 {data && <>
@@ -113,8 +111,8 @@ const ReviewRecipe = () => {
                     </> : <SectionEmp message="Loading the article..."/>}
                 </> : <SectionErr reload={fetchData}/>}
             </div>
-        </section>
+        </>
     )
 }
 
-export default ReviewRecipe;
+export default ConsoleReviewRecipe;

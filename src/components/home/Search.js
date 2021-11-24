@@ -47,7 +47,7 @@ const Search = () => {
     const [isLoading, setIsLoading] = useState(true);
     const fetchData = async () => {
         setIsLoading(true);
-        const api = `${apiUrl}/home/find${location.search}`;
+        const api = `${apiUrl}/home/find${location.search}${user ? `&userID=${user.id}` : ``}`;
         try {
             const response = await fetch(api)
             if (response.ok) {
@@ -80,7 +80,6 @@ const Search = () => {
                 </main>
             </div>
         </div>
-
     )
 }
 

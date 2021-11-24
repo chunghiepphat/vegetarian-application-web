@@ -1,16 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {Link, Route, Switch, useLocation, useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {apiUrl} from "../../../helpers/Variables";
-import BlogHeader from "../../home/view/blog/BlogHeader";
-import BlogToolbar from "../../home/view/blog/BlogToolbar";
-import BlogContent from "../../home/view/blog/BlogContent";
-import {SectionLoader} from "../../commons/elements/loaders/Loader";
-import {FaCheck, FaTimes} from "react-icons/all";
-import {FaAngleLeft} from "react-icons/fa";
+import VideoPlayer from "../../home/view/video/VideoPlayer";
+import VideoDetails from "../../home/view/video/VideoDetails";
 import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {SectionErr} from "../../commons/elements/loaders/AlertError";
+import {FaCheck, FaTimes} from "react-icons/all";
 
-const ViewRecipe = () => {
+const ConsoleReviewVideo = () => {
     let {id} = useParams();
     const location = useLocation();
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -33,7 +30,7 @@ const ViewRecipe = () => {
     headers.append("Accept", "application/json");
     const fetchData = async () => {
         setIsError(false);
-        const api = `${apiUrl}/blogs/getblogby/${id}`;
+        const api = `${apiUrl}/video/getvideoby/${id}`;
         try {
             const response = await fetch(api)
             if (response.ok) {
@@ -60,7 +57,7 @@ const ViewRecipe = () => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiUrl}/blogs/approve/${id}`;
+        const api = `${apiUrl}/video/approve/${id}`;
         const response = await fetch(api, request);
         if (response.ok) {
             await fetchData();
@@ -72,16 +69,13 @@ const ViewRecipe = () => {
     }
     // Executes fetch once on page load
     useEffect(() => {
-        fetchData().catch(error => {
-            console.error(error);
-        });
+        fetchData();
     }, [location]);
 
     return (
-        <section>
+        <>
             <div className="console-toolbar">
-                <Link to="/console/manage-content/recipes"><FaAngleLeft/> Go back</Link>
-                {data && <h1>Blog {id}</h1>}
+                {data && <h1>Video {id}</h1>}
                 {data && <p className={statusColor[data.status - 1]}>{statusText[data.status - 1]}</p>}
                 {data && <>
                     {data.status !== 2 ?
@@ -96,21 +90,16 @@ const ViewRecipe = () => {
                 {!isError ? <>
                     {data ? <>
                         <div className="section-content">
-                            <article>
-                                {data.blog_thumbnail &&
-                                <picture className="article-thumbnail">
-                                    <source srcSet={data.blog_thumbnail}/>
-                                    <img src="" alt=""/>
-                                </picture>}
-                                <BlogHeader data={data}/>
-                                <BlogContent data={data}/>
+                            <article className="video-article">
+                                <VideoPlayer data={data}/>
+                                <VideoDetails data={data}/>
                             </article>
                         </div>
-                    </> : <SectionEmp message="Loading the article..."/>}
+                    </> : <SectionEmp message="Loading the video..."/>}
                 </> : <SectionErr reload={fetchData}/>}
             </div>
-        </section>
+        </>
     )
 }
 
-export default ViewRecipe;
+export default ConsoleReviewVideo;

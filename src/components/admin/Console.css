@@ -81,11 +81,15 @@
     overflow-y: scroll;
 }
 
+.console-article::-webkit-scrollbar {
+    display: none;
+}
+
 .console-toolbar {
     grid-area: 2 / 8 / 3 / 10;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     height: 100%;
     padding: 20px 40px;
 }

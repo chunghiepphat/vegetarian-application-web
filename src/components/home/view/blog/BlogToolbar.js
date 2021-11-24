@@ -13,7 +13,7 @@ import {
 } from "react-icons/all";
 import {FaEdit} from "react-icons/fa";
 
-const BlogToolbar = ({id, location, data, reload, mainApi}) => {
+const BlogToolbar = ({id, location, data, reload}) => {
     const history = useHistory();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -53,7 +53,7 @@ const BlogToolbar = ({id, location, data, reload, mainApi}) => {
         const response = await fetch(api, request);
         try {
             if (response.ok) {
-                reload(mainApi);
+                reload();
             } else if (response.status === 401) {
                 alert(requestErrorStrings.requestErrorUnauthorized)
             } else {
@@ -92,7 +92,7 @@ const BlogToolbar = ({id, location, data, reload, mainApi}) => {
                     else {
                         alert(articleToolbarStrings.setPrivateAlert);
                     }
-                    reload(mainApi);
+                    reload();
                 } else if (response.status === 401) {
                     alert(requestErrorStrings.requestErrorUnauthorized)
                 } else {

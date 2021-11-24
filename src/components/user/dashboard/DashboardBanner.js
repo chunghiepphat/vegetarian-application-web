@@ -1,6 +1,5 @@
-import React, {useContext} from "react";
+import React from "react";
 import placeholderAvatar from "assets/user-image-default.png";
-import {UserContext} from "../../../context/UserContext";
 import {FaAngleRight, FaEnvelope, FaFacebook, FaHome, FaInstagram, FaPhoneAlt} from "react-icons/fa";
 import {Link} from "react-router-dom";
 import {MdEdit} from "react-icons/all";
@@ -16,6 +15,7 @@ const DashboardBanner = ({user}) => {
             editButton: "Chỉnh sửa"
         }
     });
+
     return (
         <div className="banner-container banner-dashboard">
             <div className="banner">
@@ -52,9 +52,8 @@ const DashboardBanner = ({user}) => {
                     </ul>
                 </div>
             </div>
-            <div className="banner-background" style={{backgroundImage: `url(${user.profile_image})`}}>
-                <div className="banner-overlay"/>
-            </div>
+            <div className="banner-overlay"/>
+            <div className="banner-background" style={{backgroundImage: `url(${user.profile_image})`}}/>
         </div>
     )
 }

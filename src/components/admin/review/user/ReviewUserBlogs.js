@@ -6,8 +6,8 @@ import {PanelLoader} from "../../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../../commons/elements/loaders/AlertError";
 
-const AccountRecipes = ({user, location, data, isLoading, isError, fetchData, userId}) => {
-    const api = `${apiUrl}/recipes/admin/getallbyuser/${userId}?page=1&limit=100`;
+const ReviewUserBlogs = ({user, location, data, isLoading, isError, fetchData, userId}) => {
+    const api = `${apiUrl}/blogs/admin/getallbyuser/${userId}?page=1&limit=100`;
     // Executes fetch once on page load
     useEffect(() => {
         fetchData(api);
@@ -16,17 +16,18 @@ const AccountRecipes = ({user, location, data, isLoading, isError, fetchData, us
     return (
         <section>
             <div className="section-content">
-                <Panel filler="card-narrow">
+                <Panel filler="card-medium">
                     {!isLoading ? <>
                         {!isError ? <>
                             {data && data.length > 0 ? <>
                                 {data.map(item => (
-                                    <ArticleCard className="card-narrow"
-                                                 key={item.recipe_id}
-                                                 id={item.recipe_id}
-                                                 type="recipe"
-                                                 title={item.recipe_title}
-                                                 thumbnail={item.recipe_thumbnail}
+                                    <ArticleCard className="card-medium"
+                                                 key={item.blog_id}
+                                                 id={item.blog_id}
+                                                 type="blog"
+                                                 title={item.blog_title}
+                                                 thumbnail={item.blog_thumbnail}
+                                                 subtitle={item.blog_subtitle}
                                                  userId={item.user_id}
                                                  firstName={item.first_name}
                                                  lastName={item.last_name}
@@ -43,4 +44,4 @@ const AccountRecipes = ({user, location, data, isLoading, isError, fetchData, us
     )
 }
 
-export default AccountRecipes;
+export default ReviewUserBlogs;

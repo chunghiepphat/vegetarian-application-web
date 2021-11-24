@@ -1,10 +1,10 @@
 import React from "react";
 import LocalizedStrings from "react-localization";
-import Panel from "../../../commons/elements/containers/Panel";
-import VideoTile from "../../../commons/elements/containers/VideoTile";
-import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
+import Panel from "../../commons/elements/containers/Panel";
+import VideoTile from "../../commons/elements/containers/VideoTile";
+import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 
-const ResultVideos = ({data}) => {
+const ConsoleResultVideos = ({data}) => {
     // Localizations
     let strings = new LocalizedStrings({
         en: {
@@ -31,7 +31,8 @@ const ResultVideos = ({data}) => {
                                        lastName={item.last_name}
                                        time={item.time_created}
                                        isFavorite={item.is_like}
-                                       totalLikes={item.totalLike}/>))}
+                                       totalLikes={item.totalLike}
+                                       status={item.status}/>))}
                     </> : <PanelEmp message={strings.messageEmpty}/>}
                 </Panel>
             </div>
@@ -39,4 +40,4 @@ const ResultVideos = ({data}) => {
     )
 }
 
-export default ResultVideos;
+export default ConsoleResultVideos;

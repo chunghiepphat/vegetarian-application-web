@@ -45,6 +45,10 @@
     margin-bottom: 0;
 }
 
+.search-query label {
+    margin-bottom: 0;
+}
+
 .search-form button {
     flex-grow: 1;
     flex-basis: 5%;

@@ -34,28 +34,20 @@ const ListUsers = () => {
     }, []);
 
     return (
-        <>
-
-            {data &&
-            <Panel>
-                {/*Iterates over the result JSON and renders a matching amount of card items*/}
-                {data.length > 0 ?
-                    data.map(item => (
-                        <UserCard key={item.id}
-                                  id={item.id}
-                                  isActive={item.is_active}
-                                  avatar={item.profile_image}
-                                  firstName={item.first_name}
-                                  lastName={item.last_name}
-                                  email={item.email}
-                                  country={item.country}
-                                  role={item.role}/>
-                    ))
-                    :
-                    <SectionLoader/>
-                }
-            </Panel>}
-        </>
+        <Panel>
+            {data && data.length > 0 ?
+                data.map(item => (
+                    <UserCard key={item.id}
+                              id={item.id}
+                              isActive={item.is_active}
+                              avatar={item.profile_image}
+                              firstName={item.first_name}
+                              lastName={item.last_name}
+                              email={item.email}
+                              country={item.country}
+                              role={item.role}/>))
+                : <SectionLoader/>}
+        </Panel>
     )
 }
 

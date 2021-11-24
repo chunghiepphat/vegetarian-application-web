@@ -58,9 +58,7 @@ export default function App() {
     useEffect(() => {
         // 1. If userInfo exists in local storage, that means user is authenticated
         // 2. Executes fetch to get user info, then updates UserContext
-        if (userInfo !== null) {
-            fetchData();
-        }
+        if (userInfo !== null) fetchData();
         // Otherwise, clears UserContext
         else setUser(undefined);
         // Resets scroll back to top on page change
@@ -105,12 +103,13 @@ export default function App() {
                     <Redirect to="/not-found"/>
                 </Switch>
                 {background && !user && <Route path="/" children={<AuthModal background={background}/>}/>}
-                {location.pathname !== "/console"
-                && location.pathname !== "/auth/register"
-                && location.pathname !== "/auth/account-verify"
-                && location.pathname !== "/auth/account-recover"
-                && location.pathname !== "/not-found"
-                && <Footer/>}
+                {user && user.role === "admin" ? "" : <>
+                    {location.pathname !== "/auth/register"
+                    && location.pathname !== "/auth/account-verify"
+                    && location.pathname !== "/auth/account-recover"
+                    && location.pathname !== "/not-found"
+                    && <Footer/>}
+                </>}
             </div>
         </UserContext.Provider>
     );

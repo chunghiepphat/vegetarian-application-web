@@ -51,7 +51,7 @@ const ViewBlog = ({user, location, fetchData}) => {
                                     </picture>}
                                     <BlogHeader data={data}/>
                                     <BlogToolbar id={id} location={location} data={data}
-                                                 reload={fetchData} mainApi={api}/>
+                                                 reload={() => fetchData(api, setData, setIsError)}/>
                                     <BlogContent data={data}/>
                                     <BlogComments data={data}/>
                                 </article>

@@ -6,7 +6,7 @@ import {PanelLoader} from "../../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../../commons/elements/loaders/AlertError";
 
-const AccountVideos = ({user, location, data, isLoading, isError, fetchData, userId}) => {
+const ReviewUserVideos = ({user, location, data, isLoading, isError, fetchData, userId}) => {
     const api = `${apiUrl}/video/admin/getallbyuser/${userId}?page=1&limit=100`;
     // Executes fetch once on page load
     useEffect(() => {
@@ -42,4 +42,4 @@ const AccountVideos = ({user, location, data, isLoading, isError, fetchData, use
     )
 }
 
-export default AccountVideos;
+export default ReviewUserVideos;

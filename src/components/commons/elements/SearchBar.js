@@ -1,10 +1,11 @@
 import React, {useContext, useState} from "react";
 import "./SearchBar.css";
 import {UserContext} from "../../../context/UserContext";
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import {FaSistrix} from "react-icons/all";
 
 const SearchBar = (props) => {
+    const location = useLocation()
     const history = useHistory();
     const user = useContext(UserContext);
     // Handles form submission
@@ -12,15 +13,19 @@ const SearchBar = (props) => {
     const submitQuery = async (e) => {
         e.preventDefault();
         if (user && user.role === "admin") {
-            history.push({
-                pathname: "/console/search",
-                search: `search=${query}`,
-            })
+            if (!location.pathname.match("/console/search"))
+                history.push({
+                    pathname: "/console/search",
+                    search: `search=${query}`,
+                })
+            else history.push({search: `search=${query}`})
         } else {
-            history.push({
-                pathname: "/search",
-                search: `search=${query}`,
-            })
+            if (!location.pathname.match("/search"))
+                history.push({
+                    pathname: "/search",
+                    search: `search=${query}`,
+                })
+            else history.push({search: `search=${query}`})
         }
     }
 

@@ -13,7 +13,7 @@ import {
 } from "react-icons/all";
 import {FaEdit} from "react-icons/fa";
 
-const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
+const RecipeToolbar = ({id, location, data, reload, setLanguage}) => {
     const history = useHistory();
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -53,7 +53,7 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
         const response = await fetch(api, request);
         try {
             if (response.ok) {
-                reload(mainApi);
+                reload();
             } else if (response.status === 401) {
                 alert(requestErrorStrings.requestErrorUnauthorized)
             } else {
@@ -62,6 +62,10 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
         } catch (error) {
             alert(requestErrorStrings.requestErrorException + error);
         }
+    }
+    // Handles translating content
+    const translateArticle = async (e) => {
+        e.preventDefault();
     }
     // Handle public/private visibility switch
     const publishArticle = async (e) => {
@@ -92,7 +96,7 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
                     else {
                         alert(articleToolbarStrings.setPrivateAlert);
                     }
-                    reload(mainApi);
+                    reload();
                 } else if (response.status === 401) {
                     alert(requestErrorStrings.requestErrorUnauthorized)
                 } else {
@@ -142,15 +146,13 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
                 {data.is_private ? <p>{articleStatusStrings.statusDraft}</p>
                     : <p className={statusColor[data.status - 1]}>{statusText[data.status - 1]}</p>}
             </div>}
-            {data && user && user.role !== "admin" ?
-                <div className="article-controls">
-                    {/*If user is logged in, show toolbar*/}
+            <div className="article-controls">
+                {data && user && user.role !== "admin" ? <>
                     <button title="Add to favorites" onClick={favoriteArticle}
                             className={`article-button article-button-with-text ${data.is_like && "button-favorite"}`}>
                         {data.is_like ?
                             <FaHeart/> : <FaRegHeart/>} {data.totalLike}
                     </button>
-                    {/*If user is the author of the article, allow modify*/}
                     {user.id === data.user_id && <>
                         <button title="Article visibility" className="article-button article-button-with-text"
                                 onClick={publishArticle}>
@@ -170,9 +172,7 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
                             <RiDeleteBin4Line/>
                         </button>
                     </>}
-                </div>
-                : <div className="article-controls">
-                    {/*If not logged in, the favorite button directs to login form*/}
+                </> : <>
                     <button className={`article-button article-button-with-text ${data.is_like && "button-favorite"}`}
                             onClick={() => history.push({
                                 pathname: "/login",
@@ -180,7 +180,12 @@ const RecipeToolbar = ({id, location, data, reload, mainApi}) => {
                             })}>
                         <FaRegHeart/> {data.totalLike}
                     </button>
-                </div>}
+                </>}
+                <button className="article-button article-button-with-text"
+                        onClick={() => setLanguage(window.navigator.language)}>
+                    {articleToolbarStrings.buttonTranslate} {window.navigator.language}
+                </button>
+            </div>
         </section>
     )
 }

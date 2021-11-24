@@ -30,6 +30,7 @@ export let articleStatusStrings = new LocalizedStrings({
 
 export let articleToolbarStrings = new LocalizedStrings({
     en: {
+        buttonTranslate: "Translate to ",
         buttonSubmit: "Submitted for review",
         buttonPublic: "Public",
         buttonPrivate: "Private",
@@ -43,6 +44,7 @@ export let articleToolbarStrings = new LocalizedStrings({
         deleteAlert: "Your post has been deleted.",
     },
     vi: {
+        buttonTranslate: "Dịch thành ",
         buttonSubmit: "Đã gửi lên xét duyệt",
         buttonPublic: "Công khai",
         buttonPrivate: "Riêng tư",

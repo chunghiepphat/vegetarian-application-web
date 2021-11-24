@@ -34,7 +34,7 @@ const ArticleCard = ({
     return (
         <div className={`article-card ${className}`}>
             <Link className="card-url" to={user && user.role === "admin" ?
-                `/console/${type}/${id}` : `/view/${type}/${id}`}/>
+                `/console/review/${type}/${id}` : `/view/${type}/${id}`}/>
             {!hideThumbnail &&
             <picture className="card-thumbnail">
                 <source srcSet={thumbnail}/>

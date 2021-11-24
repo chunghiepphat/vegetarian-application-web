@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useState} from "react";
 import {useLocation} from "react-router-dom";
 import {apiUrl} from "../../../helpers/Variables";
 import {UserContext} from "../../../context/UserContext";

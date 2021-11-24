@@ -21,7 +21,7 @@ const VideoTile = ({className, id, title, thumbnail, firstName, lastName, status
     return (
         <div className={`article-tile tile-video ${className}`}>
             <Link className="tile-url" to={user && user.role === "admin" ?
-                `/console/video/${id}` : `/view/video/${id}`}/>
+                `/console/review/video/${id}` : `/view/video/${id}`}/>
             <picture className="tile-thumbnail">
                 <source srcSet={thumbnail}/>
                 <img src={placeholderThumbnail} alt=""/>
