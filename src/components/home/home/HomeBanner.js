@@ -50,7 +50,7 @@ const HomeBanner = ({user, fetchData}) => {
         const max = Math.floor(backgrounds.length);
         setBackground(backgrounds[Math.floor(Math.random() * (max - min) + min)]);
     }, [])
-    // Checks scroll offset to blur banner background with conditional CSS styles
+    // Checks scroll offset to blur overlay and resize background image
     const [overlayStyles, setOverlayStyles] = useState();
     const [backgroundScale, setBackgroundScale] = useState(120);
     useEffect(() => {
