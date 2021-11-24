@@ -52,7 +52,7 @@ const HomeBanner = ({user, fetchData}) => {
     }, [])
     // Checks scroll offset to blur banner background with conditional CSS styles
     const [overlayStyles, setOverlayStyles] = useState();
-    const [backgroundScale, setBackgroundScale] = useState(1.2);
+    const [backgroundScale, setBackgroundScale] = useState(120);
     useEffect(() => {
         if (typeof window !== "undefined") {
             window.addEventListener("scroll", () => {
