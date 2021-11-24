@@ -1,7 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
 import LocalizedStrings from "react-localization";
 import {apiUrl} from "../../../helpers/Variables";
-import bannerBackground from "assets/profile-banner-default.png";
+import bannerBackgroundA from "assets/banner-background-1.png";
+import bannerBackgroundB from "assets/banner-background-2.png";
+import bannerBackgroundC from "assets/banner-background-3.png";
+import bannerBackgroundD from "assets/banner-background-4.png";
+import bannerBackgroundE from "assets/banner-background-5.png";
+import bannerBackgroundF from "assets/banner-background-6.png";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
@@ -30,6 +35,40 @@ const HomeBanner = ({user, fetchData}) => {
     useEffect(() => {
         fetchData(api, setData, setIsLoading, setIsError);
     }, [user]);
+    // Randomizes banner background
+    const [background, setBackground] = useState();
+    const backgrounds = [
+        bannerBackgroundA,
+        bannerBackgroundB,
+        bannerBackgroundC,
+        bannerBackgroundD,
+        bannerBackgroundE,
+        bannerBackgroundF,
+    ];
+    useEffect(() => {
+        const min = Math.ceil(0);
+        const max = Math.floor(backgrounds.length);
+        setBackground(backgrounds[Math.floor(Math.random() * (max - min) + min)]);
+    }, [])
+    // Checks scroll offset to blur banner background with conditional CSS styles
+    const [overlayStyles, setOverlayStyles] = useState();
+    const [backgroundScale, setBackgroundScale] = useState(1.2);
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            window.addEventListener("scroll", () => {
+                if (window.pageYOffset < 600) {
+                    setOverlayStyles({
+                        background: `linear-gradient(0deg,
+                        rgba(254, 254, 254, 0.0) 0%,
+                        rgba(254, 254, 254, ${100 - (window.pageYOffset / 10)}%) 100%,
+                        rgba(254, 254, 254, 1) 100%)`,
+                        backdropFilter: `blur(${4 + window.pageYOffset / 50}px)`
+                    });
+                    setBackgroundScale(120 - (window.pageYOffset / 40));
+                }
+            });
+        }
+    }, []);
 
     return (
         <>
@@ -65,9 +104,6 @@ const HomeBanner = ({user, fetchData}) => {
                                 </> : <PanelLoader style={{gridArea: "1 / 1 / 3 / 5"}}/>}
                             </div>
                         </div>
-                        <div className="banner-background" style={{backgroundImage: `url(${bannerBackground})`}}>
-                            <div className="banner-overlay"/>
-                        </div>
                     </section>
                     {/*Arrow button for snap scrolling down*/}
                     <button onClick={executeScroll} className="button-scroll"><span/></button>
@@ -75,8 +111,11 @@ const HomeBanner = ({user, fetchData}) => {
                     <HomeBannerShortcuts user={user} scrollRef={scrollRef}/>
                 </div>
                 {/*Blurred banner background*/}
-                <div className="banner-overlay"/>
-                <div className="banner-background" style={{backgroundImage: `url(${bannerBackground})`}}/>
+                <div className={`banner-overlay`} style={overlayStyles}/>
+                <div className="banner-background" style={{
+                    backgroundImage: `url(${background})`,
+                    backgroundSize: `${backgroundScale}%`,
+                }}/>
             </div>
 
         </>

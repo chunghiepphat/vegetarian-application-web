@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import "./Auth.css";
-import bannerBackground from "assets/profile-banner-default.png";
+import bannerBackground from "assets/banner-background-1.png";
 import Register from "./forms/Register";
 import {Redirect, Route, Switch} from "react-router-dom";
 import AccountVerification from "./forms/AccountVerification";

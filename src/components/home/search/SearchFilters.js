@@ -124,7 +124,7 @@ const SearchFilters = ({categoryList}) => {
                             <select value={category} onChange={e => setCategory(e.target.value)}>
                                 <option value="">{strings.categoryAll}</option>
                                 {categoryList && categoryList.length > 0 && categoryList.map(item => (
-                                    <option value={item.category_name}>{item.category_name}</option>))}
+                                    <option value={item.category_id}>{item.category_name}</option>))}
                             </select>
                         </label>
                         <label>{strings.labelDifficulty}
