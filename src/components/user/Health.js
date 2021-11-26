@@ -13,13 +13,13 @@ const Health = ({reload}) => {
     let strings = new LocalizedStrings({
         en: {
             healthDetails: "Health details",
-            foodAllergies: "Food allergies",
-            foodPreferences: "Food preferences",
+            dashboardSidebarSettingsFoodAllergies: "Food allergies",
+            dashboardSidebarSettingsFoodPreferences: "Food preferences",
         },
         vi: {
             healthDetails: "Hồ sơ sức khỏe",
-            foodAllergies: "Thực phẩm dị ứng",
-            foodPreferences: "Thực phẩm yêu thích",
+            dashboardSidebarSettingsFoodAllergies: "Thực phẩm dị ứng",
+            dashboardSidebarSettingsFoodPreferences: "Thực phẩm yêu thích",
         }
     });
 
@@ -37,8 +37,8 @@ const Health = ({reload}) => {
                     <section className="page-navbar">
                         <Navbar>
                             <NavLink to={urlDetails}>{strings.healthDetails}</NavLink>
-                            <NavLink to={urlAllergies}>{strings.foodAllergies}</NavLink>
-                            <NavLink to={urlPreferences}>{strings.foodPreferences}</NavLink>
+                            <NavLink to={urlAllergies}>{strings.dashboardSidebarSettingsFoodAllergies}</NavLink>
+                            <NavLink to={urlPreferences}>{strings.dashboardSidebarSettingsFoodPreferences}</NavLink>
                         </Navbar>
                     </section>
                     <Switch>

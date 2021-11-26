@@ -47,7 +47,7 @@ const UpdateHealth = ({user, token, reload}) => {
             genderFemale: "Female",
             verdictNone: "We will automatically calculate your BMI with your height and weight.",
             saveButton: "Save",
-            alertSuccess: "Health profile updated.",
+            menuSaved: "Health profile updated.",
         },
         vi: {
             routineLowIntensity: "Ít vận động - làm việc văn phòng, không thể thao.",
@@ -87,7 +87,7 @@ const UpdateHealth = ({user, token, reload}) => {
             genderFemale: "Nữ",
             verdictNone: "Chúng tôi sẽ tính toán chỉ số BMI của bạn dựa trên cân nặng và chiều cao",
             saveButton: "Lưu",
-            alertSuccess: "Đã cập nhật hồ sơ sức khỏe.",
+            menuSaved: "Đã cập nhật hồ sơ sức khỏe.",
         }
     });
 
@@ -138,7 +138,7 @@ const UpdateHealth = ({user, token, reload}) => {
             const response = await fetch(api, request);
             if (response.ok) {
                 reload();
-                alert(strings.alertSuccess);
+                alert(strings.menuSaved);
                 // window.location.reload();
             } else if (response.status === 401) {
                 alert("You are not authorized to complete the request.")

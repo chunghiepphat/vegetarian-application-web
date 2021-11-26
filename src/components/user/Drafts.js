@@ -2,50 +2,42 @@ import React, {useContext, useState} from "react";
 import DashboardSidebar from "./DashboardSidebar";
 import Navbar from "../commons/elements/bars/Navbar";
 import {NavLink, Redirect, Route, Switch, useLocation} from "react-router-dom";
-import PostedRecipes from "./history/PostedRecipes";
-import PostedVideos from "./history/PostedVideos";
-import PostedBlogs from "./history/PostedBlogs";
 import {UserContext} from "../../context/UserContext";
 import {apiUrl} from "../../helpers/Variables";
 import DraftRecipes from "./drafts/DraftRecipes";
 import DraftVideos from "./drafts/DraftVideos";
 import DraftBlogs from "./drafts/DraftBlogs";
 import LocalizedStrings from "react-localization";
+import {draftDisplayStrings} from "../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../context/LocaleContext";
 
 const Drafts = () => {
-    // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            recipeDraft: "Recipe drafts",
-            videoDraft: "Video drafts",
-            blogDraft: "Blog drafts",
-
-        },
-        vi: {
-            recipeDraft: "Công thức nháp",
-            videoDraft: "Video nháp",
-            blogDraft: "Bài viết nháp",
-        }
-    });
-
     const location = useLocation();
+
+    // Localizations
+    draftDisplayStrings.setLanguage(useContext(LocaleContext));
+
+    // Gets user info
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
+
     // URL variables
     const urlRecipes = "/drafts/recipes";
     const urlVideos = "/drafts/videos";
     const urlBlogs = "/drafts/blogs";
-    // Data states
-    const [recipes, setRecipes] = useState([]);
-    const [videos, setVideos] = useState([]);
-    const [blogs, setBlogs] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
+
     // Generates request headers
     let headers = new Headers();
     if (token) headers.append("Authorization", `Bearer ${token.token}`);
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
+
+    // Fetches data
+    const [recipes, setRecipes] = useState([]);
+    const [videos, setVideos] = useState([]);
+    const [blogs, setBlogs] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
     const fetchData = async () => {
         // Generates request
         let request = {
@@ -66,7 +58,6 @@ const Drafts = () => {
                 setIsLoading(false);
             }
         } catch (error) {
-            console.error(error);
             setIsError(true);
         }
     }
@@ -77,9 +68,9 @@ const Drafts = () => {
                 <main>
                     <section className="page-navbar">
                         <Navbar>
-                            <NavLink to={urlRecipes}>{strings.recipeDraft}</NavLink>
-                            <NavLink to={urlVideos}>{strings.videoDraft}</NavLink>
-                            <NavLink to={urlBlogs}>{strings.blogDraft}</NavLink>
+                            <NavLink to={urlRecipes}>{draftDisplayStrings.draftTabsRecipes}</NavLink>
+                            <NavLink to={urlVideos}>{draftDisplayStrings.draftTabsVideos}</NavLink>
+                            <NavLink to={urlBlogs}>{draftDisplayStrings.draftTabBlogs}</NavLink>
                         </Navbar>
                     </section>
                     <Switch>

@@ -13,13 +13,13 @@ const Post = () => {
     let strings = new LocalizedStrings({
         en: {
             postRecipe: "Recipe",
-            postVideo: "Video",
-            postBlog: "Blog",
+            dashboardSidebarPostVideo: "Video",
+            dashboardSidebarPostBlog: "Blog",
         },
         vi: {
             postRecipe: "Công thức",
-            postVideo: "Video",
-            postBlog: "Bài viết",
+            dashboardSidebarPostVideo: "Video",
+            dashboardSidebarPostBlog: "Bài viết",
         }
     });
 
@@ -37,8 +37,8 @@ const Post = () => {
                     <section className="page-navbar">
                         <Navbar>
                             <NavLink to={urlRecipe}>{strings.postRecipe}</NavLink>
-                            <NavLink to={urlVideo}>{strings.postVideo}</NavLink>
-                            <NavLink to={urlBlog}>{strings.postBlog}</NavLink>
+                            <NavLink to={urlVideo}>{strings.dashboardSidebarPostVideo}</NavLink>
+                            <NavLink to={urlBlog}>{strings.dashboardSidebarPostBlog}</NavLink>
                         </Navbar>
                     </section>
                     <Switch>

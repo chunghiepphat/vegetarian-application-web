@@ -27,7 +27,7 @@ const UpdateProfile = ({reload}) => {
             aboutMePlaceholder: "Write a short something about you...",
             updateButton: "Update",
             updatingButton: "Updating...",
-            alertSuccess: "Profile updated.",
+            menuSaved: "Profile updated.",
         },
         vi: {
             updateProfileHeader: "Chi tiết hồ sơ",
@@ -47,7 +47,7 @@ const UpdateProfile = ({reload}) => {
             aboutMePlaceholder: "Hãy viết một ít về bạn...",
             updateButton: "Cập nhật",
             updatingButton: "Đang cập nhật...",
-            alertSuccess: "Cập nhật thành công.",
+            menuSaved: "Cập nhật thành công.",
         }
     });
 
@@ -103,7 +103,7 @@ const UpdateProfile = ({reload}) => {
             const response = await fetch(api, request);
             if (response.ok) {
                 reload();
-                alert(strings.alertSuccess);
+                alert(strings.menuSaved);
                 setIsLoading(false);
             } else if (response.status === 401) {
                 alert("You are not authorized to complete the request.")

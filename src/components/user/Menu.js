@@ -1,43 +1,26 @@
 import React, {useContext, useEffect, useState} from "react";
 import "./Menu.css";
-import {Link, useLocation} from "react-router-dom";
-import {apiUrl} from "../../helpers/Variables";
+import {requestErrorStrings} from "../../resources/CommonDisplayStrings";
+import {menuDisplayStrings} from "../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../context/LocaleContext";
 import {UserContext} from "../../context/UserContext";
+import {apiUrl} from "../../helpers/Variables";
+import {Link} from "react-router-dom";
 import DashboardSidebar from "./DashboardSidebar";
 import DisplayMenu from "./menu/DisplayMenu";
 import GenerateMenu from "./menu/GenerateMenu";
 import {FaAngleRight} from "react-icons/fa";
-import moment from "moment";
-import LocalizedStrings from "react-localization";
 
 const Menu = () => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            menuHeader: "Suggestion Menu",
-            menuMessageHeader: "Share with us some details about you, so that we may recommend recipes that suit you best.",
-            menuMessageBody: "It seems your health and routine profile are incomplete.",
-            healthProfileLink: "Complete your health profile to receive tailored meal plans",
-            alertSuccess: "Menu saved.",
-        },
-        vi: {
-            menuHeader: "Đề xuất thực đơn",
-            menuMessageHeader: "Hãy chia sẻ chúng tôi một chút về bạn để có thể đề xuất thực đơn phù hợp với bạn",
-            menuMessageBody: "Có vẻ như hồ sơ sức khỏe của bạn chưa hoàn thành",
-            healthProfileLink: "Hãy hoàn thành hồ sơ sức khỏe ngay để nhận được lịch trình ăn",
-            alertSuccess: "Đã lưu thực đơn.",
-        }
-    });
+    menuDisplayStrings.setLanguage(useContext(LocaleContext));
+    requestErrorStrings.setLanguage(useContext(LocaleContext));
 
-    const location = useLocation();
+    // Gets user info
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    const [data, setData] = useState([]);
-    const [startDate, setStartDate] = useState();
-    const [endDate, setEndDate] = useState();
-    const [isMenuLoaded, setIsMenuLoaded] = useState(false);
-    const [isMenuNew, setIsMenuNew] = useState(false);
-    const [isValid, setIsValid] = useState(false);
+
+    // CSS styles
     const promptStyles = {
         display: "flex",
         flexDirection: "column",
@@ -45,6 +28,7 @@ const Menu = () => {
         minHeight: "600px",
         padding: "60px 0",
     }
+
     // Checks if user has specified health and routine details
     const checkUser = () => {
         if (user.height > 0 && user.weight > 0
@@ -54,11 +38,23 @@ const Menu = () => {
             loadMenu();
         } else setIsValid(false);
     }
+    useEffect(() => {
+        checkUser();
+    }, [user]);
+
     // Generates request headers
     let headers = new Headers();
     if (token) headers.append("Authorization", `Bearer ${token.token}`);
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
+
+    // Gets saved menu
+    const [data, setData] = useState([]);
+    const [startDate, setStartDate] = useState();
+    const [endDate, setEndDate] = useState();
+    const [isMenuLoaded, setIsMenuLoaded] = useState(false);
+    const [isMenuNew, setIsMenuNew] = useState(false);
+    const [isValid, setIsValid] = useState(false);
     const loadMenu = async () => {
         let currentDate = new Date;
         // Generate request
@@ -82,6 +78,8 @@ const Menu = () => {
             alert("Unexpected error: " + error);
         }
     }
+
+    // Saves new menu to profile
     const saveMenu = async (e) => {
         e.preventDefault();
         // Generates request body
@@ -99,18 +97,21 @@ const Menu = () => {
         try {
             const response = await fetch(api, request);
             if (response.ok) {
-                alert(strings.alertSuccess);
+                alert(menuDisplayStrings.menuSaved);
                 // setIsMenuExisting(true);
                 setIsMenuNew(false);
+                checkUser();
             } else if (response.status === 401) {
-                alert("You are not authorized to complete the request.")
+                alert(requestErrorStrings.requestErrorUnauthorized)
             } else {
-                alert("Error: " + response.status);
+                alert(requestErrorStrings.requestErrorStatus + response.status);
             }
         } catch (error) {
-            alert("Unexpected error: " + error);
+            alert(requestErrorStrings.requestErrorException + error);
         }
     }
+
+    // Generates new menu
     const generateMenu = async (e) => {
         e.preventDefault();
         // Request headers with access token
@@ -132,39 +133,34 @@ const Menu = () => {
                 setIsMenuLoaded(true);
                 setIsMenuNew(true);
             } else if (response.status === 401) {
-                alert("You are not authorized to complete the request.")
+                alert(requestErrorStrings.requestErrorUnauthorized)
             } else {
-                alert("Error: " + response.status);
+                alert(requestErrorStrings.requestErrorStatus + response.status);
             }
         } catch (error) {
-            alert("Unexpected error: " + error);
+            alert(requestErrorStrings.requestErrorException + error);
         }
     }
-    useEffect(() => {
-        checkUser();
-    }, [location, user]);
 
     return (
         <div className="page-container">
             <div className="grid-container">
                 <main>
-                    {isValid ? <>
+                    {isValid ?
                         <DisplayMenu user={user} startDate={startDate} endDate={endDate}
                                      data={data} isMenuLoaded={isMenuLoaded}
                                      isMenuNew={isMenuNew}/>
-                    </> : <>
-                        <section>
+                        : <section>
                             <header className="section-header">
-                                <h1>{strings.menuHeader}</h1>
-                                <p>{strings.menuMessageHeader}</p>
+                                <h1>{menuDisplayStrings.menuHeader}</h1>
+                                <p>{menuDisplayStrings.menuSubheader}</p>
                             </header>
                             <div className="section-content" style={promptStyles}>
-                                <p>{strings.menuMessageBody}</p>
+                                <p>{menuDisplayStrings.menuMessageProfileIncomplete}</p>
                                 <Link to="/health">
-                                    {strings.healthProfileLink} <FaAngleRight/></Link>
+                                    {menuDisplayStrings.menuUrlCompleteProfile} <FaAngleRight/></Link>
                             </div>
-                        </section>
-                    </>}
+                        </section>}
                     {isValid &&
                     <GenerateMenu user={user} generate={generateMenu} isMenuLoaded={isMenuLoaded}
                                   isMenuNew={isMenuNew} save={saveMenu} load={loadMenu}/>}

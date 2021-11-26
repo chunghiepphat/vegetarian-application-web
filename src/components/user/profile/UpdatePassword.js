@@ -19,7 +19,7 @@ const UpdatePassword = () => {
             passwordTooShort: "Password must be at least 8 characters.",
             updateButton: "Update",
             updatingButton: "Updating...",
-            alertSuccess: "Password updated successfully.",
+            menuSaved: "Password updated successfully.",
         },
         vi: {
             updatePasswordHeader: "Đổi mật khẩu",
@@ -33,7 +33,7 @@ const UpdatePassword = () => {
             passwordTooShort: "Mật khẩu phải dài ít nhất 8 ký tự.",
             updateButton: "Cập nhật",
             updatingButton: "Đang cập nhật...",
-            alertSuccess: "Cập nhật mật khẩu thành công.",
+            menuSaved: "Cập nhật mật khẩu thành công.",
         }
     });
 
@@ -95,7 +95,7 @@ const UpdatePassword = () => {
         try {
             const response = await fetch(api, request);
             if (response.ok) {
-                alert(strings.alertSuccess);
+                alert(strings.menuSaved);
                 setIsLoading(false);
             } else if (response.status === 400) {
                 alert("Your old password is incorrect, please try again.");

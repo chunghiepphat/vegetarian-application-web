@@ -16,7 +16,7 @@ const UpdateAvatar = ({reload}) => {
             profilePictureHeader: "Profile picture",
             imagePictureMessage: "Click to pick an image",
             updatingButton: "Updating...",
-            alertSuccess: "Profile image updated.",
+            menuSaved: "Profile image updated.",
         },
         vi: {
             updateAvatarHeader: "Hình ảnh hồ sơ",
@@ -25,7 +25,7 @@ const UpdateAvatar = ({reload}) => {
             profilePictureHeader: "Hình ảnh hồ sơ",
             imagePictureMessage: "Nhấn để chọn hình ảnh",
             updatingButton: "Đang cập nhật...",
-            alertSuccess: "Cập nhật hình ảnh thành công",
+            menuSaved: "Cập nhật hình ảnh thành công",
         }
     });
 
@@ -74,7 +74,7 @@ const UpdateAvatar = ({reload}) => {
         const response = await fetch(api, request);
         if (response.ok) {
             reload();
-            alert(strings.alertSuccess);
+            alert(strings.menuSaved);
             setIsLoading(false);
         } else if (response.status === 401) {
             alert("You are not authorized to complete the request.")

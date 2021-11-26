@@ -16,7 +16,7 @@ const EditBlog = ({id, data}) => {
             gobackButton: "Go back",
             cancelButton: "Cancel",
             finishButton: "Finish",
-            alertSuccess: "Blog updated successfully!",
+            menuSaved: "Blog updated successfully!",
             alertAuthorized: "You are not authorized to do that.",
             alertError: "Unexpected error with code: ",
         },
@@ -24,7 +24,7 @@ const EditBlog = ({id, data}) => {
             gobackButton: "Trở về",
             cancelButton: "Hủy",
             finishButton: "Lưu",
-            alertSuccess: "Cập nhật bài viết thành công!",
+            menuSaved: "Cập nhật bài viết thành công!",
             alertAuthorized: "Bạn không có quyền truy cập.",
             alertError: "Lỗi mã: ",
         }
@@ -62,7 +62,7 @@ const EditBlog = ({id, data}) => {
         const api = `${apiUrl}/blogs/edit/${id}`;
         const response = await fetch(api, request);
         if (response.ok) {
-            alert(strings.alertSuccess);
+            alert(strings.menuSaved);
             history.push(`/view/blog/${id}`);
         } else if (response.status === 401) {
             alert(strings.alertAuthorized)

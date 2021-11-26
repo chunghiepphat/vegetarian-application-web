@@ -1,25 +1,15 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect} from "react";
+import {draftDisplayStrings} from "../../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
-import LocalizedStrings from "react-localization";
 
 const DraftBlogs = ({location, data, isLoading, isError, fetchData}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            blogDraftHeader: "Blogs",
-            blogDraftMessage: "Your saved drafts & private blogs.",
-            blogNoDraft: "It seems you haven't saved any drafts yet.",
-        },
-        vi: {
-            blogDraftHeader: "Bài viết",
-            blogDraftMessage: "Nháp và bài viết ẩn của tôi.",
-            blogNoDraft: "Bạn chưa có bài viết nháp nào.",
-        }
-    });
+    draftDisplayStrings.setLanguage(useContext(LocaleContext));
 
     useEffect(() => {
         fetchData();
@@ -28,8 +18,8 @@ const DraftBlogs = ({location, data, isLoading, isError, fetchData}) => {
     return (
         <section>
             <div className="section-content">
-                <h1>{strings.blogDraftHeader}</h1>
-                <i>{strings.blogDraftMessage}</i>
+                <h1>{draftDisplayStrings.draftBlogsHeader}</h1>
+                <i>{draftDisplayStrings.draftBlogsSubheader}</i>
                 <Panel filler="card-full">
                     {!isLoading ? <>
                         {!isError ? <>
@@ -46,7 +36,7 @@ const DraftBlogs = ({location, data, isLoading, isError, fetchData}) => {
                                                  firstName={item.first_name}
                                                  lastName={item.last_name}
                                                  time={item.time_created}/>))}
-                            </> : <PanelEmp message={strings.blogNoDraft}/>}
+                            </> : <PanelEmp message={draftDisplayStrings.draftBlogsEmpty}/>}
                         </> : <PanelErr reload={fetchData}/>}
                     </> : <PanelLoader/>}
                 </Panel>

@@ -1,38 +1,31 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
+import {historyDisplayStrings} from "../../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
 import Panel from "../../commons/elements/containers/Panel";
 import VideoTile from "../../commons/elements/containers/VideoTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
-import LocalizedStrings from "react-localization";
 
-const PostedVideos = ({user, location, data, isLoading, isError, fetchData}) => {
+const PostedVideos = ({user, fetchData}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            videoHeader: "Videos",
-            videoMessageHeader: "Your published videos tutorials.",
-            videoMessageEmpty: "It seems you haven't posted anything yet.",
-        },
-        vi: {
-            videoHeader: "Video",
-            videoMessageHeader: "Video mà bạn đã đăng",
-            videoMessageEmpty: "Có vẻ như bạn chưa đăng video nào",
-        }
-    });
+    historyDisplayStrings.setLanguage(useContext(LocaleContext));
 
+    // Fetches data on page load
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
     const api = `${apiUrl}/video/getallbyuserID/${user.id}?page=1&limit=100`;
-    // Executes fetch once on page load
     useEffect(() => {
-        fetchData(api);
-    }, [location]);
+        fetchData(api, setData, setIsLoading, setIsError);
+    }, [user]);
 
     return (
         <section>
             <div className="section-content">
-                <h1>{strings.videoHeader}</h1>
-                <p>{strings.videoMessageHeader}</p>
+                <h1>{historyDisplayStrings.historyVideosHeader}</h1>
+                <p>{historyDisplayStrings.historyVideosSubheader}</p>
                 <Panel filler="tile-video">
                     {!isLoading ? <>
                         {!isError ? <>
@@ -49,8 +42,8 @@ const PostedVideos = ({user, location, data, isLoading, isError, fetchData}) => 
                                                time={item.time_created}
                                                isFavorite={item.is_like}
                                                totalLikes={item.totalLike}/>))}
-                            </> : <PanelEmp message={strings.videoMessageEmpty}/>}
-                        </> : <PanelErr reload={fetchData} api={api}/>}
+                            </> : <PanelEmp message={historyDisplayStrings.historyVideosEmpty}/>}
+                        </> : <PanelErr reload={() => fetchData(api, setData, setIsLoading, setIsError)}/>}
                     </> : <PanelLoader/>}
                 </Panel>
             </div>

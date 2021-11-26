@@ -1,25 +1,15 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect} from "react";
+import {draftDisplayStrings} from "../../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
-import LocalizedStrings from "react-localization";
 
 const DraftRecipes = ({location, data, isLoading, isError, fetchData}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            recipeDraftHeader: "Recipes",
-            recipeDraftMessage: "Your saved drafts & private recipes.",
-            recipeNoDraft: "It seems you haven't saved any drafts yet.",
-        },
-        vi: {
-            recipeDraftHeader: "Công thức",
-            recipeDraftMessage: "Nháp và công thức ẩn của tôi.",
-            recipeNoDraft: "Bạn chưa có công thức nháp nào.",
-        }
-    });
+    draftDisplayStrings.setLanguage(useContext(LocaleContext));
 
     useEffect(() => {
         fetchData();
@@ -28,8 +18,8 @@ const DraftRecipes = ({location, data, isLoading, isError, fetchData}) => {
     return (
         <section>
             <div className="section-content">
-                <h1>{strings.recipeDraftHeader}</h1>
-                <p>{strings.recipeDraftMessage}</p>
+                <h1>{draftDisplayStrings.draftRecipesHeader}</h1>
+                <p>{draftDisplayStrings.draftRecipesSubheader}</p>
                 <Panel filler="card-full">
                     {!isLoading ? <>
                         {!isError ? <>
@@ -45,7 +35,7 @@ const DraftRecipes = ({location, data, isLoading, isError, fetchData}) => {
                                                  firstName={item.first_name}
                                                  lastName={item.last_name}
                                                  time={item.time_created}/>))}
-                            </> : <PanelEmp message={strings.recipeNoDraft}/>}
+                            </> : <PanelEmp message={draftDisplayStrings.draftRecipesEmpty}/>}
                         </> : <PanelErr reload={fetchData}/>}
                     </> : <PanelLoader/>}
                 </Panel>

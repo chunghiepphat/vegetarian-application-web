@@ -1,40 +1,26 @@
-import React from "react";
+import React, {useContext} from "react";
+import {menuDisplayStrings} from "../../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import InputGroup from "../../commons/elements/form/InputGroup";
-import LocalizedStrings from "react-localization";
 
 const GenerateMenu = (props) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            generateMenuButton: "Generate a new menu",
-            loadMenuButton: "Load your saved menu",
-            saveMenuButton: "Save this menu",
-            showingMenuButton: "Showing your saved menu",
-            alreadySavedButton: "Already saved",
-        },
-        vi: {
-            generateMenuButton: "Tạo menu mới",
-            loadMenuButton: "Lấy thực đơn đã lưu",
-            saveMenuButton: "Lưu thực đơn",
-            showingMenuButton: "Đang hiện thực đơn đã lưu",
-            alreadySavedButton: "Đã lưu",
-        }
-    });
+    menuDisplayStrings.setLanguage(useContext(LocaleContext));
 
     return (
         <section className="sticky-bottom">
             <div className="section-content">
                 <InputGroup>
                     <button className="button-light" onClick={props.generate}>
-                        {strings.generateMenuButton}
+                        {menuDisplayStrings.menuGenerate}
                     </button>
                     {props.isMenuLoaded && <>
                         {props.isMenuNew ? <>
-                            <button className="button-light" onClick={props.load}>{strings.loadMenuButton}</button>
-                            <button className="button-dark" onClick={props.save}>{strings.saveMenuButton}</button>
+                            <button className="button-light" onClick={props.load}>{menuDisplayStrings.menuLoad}</button>
+                            <button className="button-dark" onClick={props.save}>{menuDisplayStrings.menuSave}</button>
                         </> : <>
-                            <button className="button-light" disabled>{strings.showingMenuButton}</button>
-                            <button className="button-dark" disabled>{strings.alreadySavedButton}</button>
+                            <button className="button-light" disabled>{menuDisplayStrings.menuCurrentlyShowing}</button>
+                            <button className="button-dark" disabled>{menuDisplayStrings.menuAlreadySaved}</button>
                         </>}
                     </>}
                 </InputGroup>

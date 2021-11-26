@@ -1,38 +1,31 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
+import {historyDisplayStrings} from "../../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
-import LocalizedStrings from "react-localization";
 
-const PostedRecipes = ({user, location, data, isLoading, isError, fetchData}) => {
+const PostedRecipes = ({user, fetchData}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            recipeHeader: "Recipes",
-            recipeMessageHeader: "Your published recipes are shown here.",
-            recipeMessageEmpty: "It seems you haven't posted anything yet.",
-        },
-        vi: {
-            recipeHeader: "Công thức",
-            recipeMessageHeader: "Công thức mà bạn đã đăng.",
-            recipeMessageEmpty: "Có vẻ như bạn chưa đăng công thức nào.",
-        }
-    });
+    historyDisplayStrings.setLanguage(useContext(LocaleContext));
 
+    // Fetches data on page load
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
     const api = `${apiUrl}/recipes/getallbyuserID/${user.id}?page=1&limit=100`;
-    // Executes fetch once on page load
     useEffect(() => {
-        fetchData(api);
-    }, [location]);
+        fetchData(api, setData, setIsLoading, setIsError);
+    }, [user]);
 
     return (
         <section>
             <div className="section-content">
-                <h1>{strings.recipeHeader}</h1>
-                <p>{strings.recipeMessageHeader}</p>
+                <h1>{historyDisplayStrings.historyRecipesHeader}</h1>
+                <p>{historyDisplayStrings.historyRecipesSubheader}</p>
                 <Panel filler="card-full">
                     {!isLoading ? <>
                         {!isError ? <>
@@ -51,8 +44,8 @@ const PostedRecipes = ({user, location, data, isLoading, isError, fetchData}) =>
                                                  isFavorite={item.is_like}
                                                  totalLikes={item.totalLike}
                                                  status={item.status}/>))}
-                            </> : <PanelEmp message={strings.recipeMessageEmpty}/>}
-                        </> : <PanelErr reload={fetchData} api={api}/>}
+                            </> : <PanelEmp message={historyDisplayStrings.historyRecipesEmpty}/>}
+                        </> : <PanelErr reload={() => fetchData(api, setData, setIsLoading, setIsError)}/>}
                     </> : <PanelLoader/>}
                 </Panel>
             </div>

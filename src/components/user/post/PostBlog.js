@@ -11,7 +11,7 @@ const PostBlog = ({user, token, history}) => {
     let strings = new LocalizedStrings({
         en: {
             blogHeader: "Share your story",
-            blogMessageHeader: "Please keep content relevant to our site, which is about vegetarian food, recipes and lifestyle.",
+            historyBlogSubheader: "Please keep content relevant to our site, which is about vegetarian food, recipes and lifestyle.",
             thumbnailHeader: "Upload a thumbnail for your blog post",
             thumbnailMessageHeader: "Click to pick an image...",
             titlePlaceholder: "Title",
@@ -23,7 +23,7 @@ const PostBlog = ({user, token, history}) => {
         },
         vi: {
             blogHeader: "Chia sẻ câu chuyện của bạn",
-            blogMessageHeader: "Xin hãy giữ nội dụng liên quan về đồ ăn, công thức chay và lối sống của người ăn chay.",
+            historyBlogSubheader: "Xin hãy giữ nội dụng liên quan về đồ ăn, công thức chay và lối sống của người ăn chay.",
             thumbnailHeader: "Tải hình ảnh lên cho bài viết của bạn",
             thumbnailMessageHeader: "Nhấn để chọn hình ảnh...",
             titlePlaceholder: "Tiêu đề",
@@ -163,7 +163,7 @@ const PostBlog = ({user, token, history}) => {
         <section>
             <header className="section-header">
                 <h1>{strings.blogHeader}</h1>
-                <em>{strings.blogMessageHeader}</em>
+                <em>{strings.historyBlogSubheader}</em>
             </header>
             <div className="section-content">
                 <form className="form-container" onSubmit={submitPost}>

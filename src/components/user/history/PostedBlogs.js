@@ -1,38 +1,31 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
+import {historyDisplayStrings} from "../../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
-import LocalizedStrings from "react-localization";
 
-const PostedBlogs = ({user, data, isLoading, isError, fetchData}) => {
+const PostedBlogs = ({user, fetchData}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            blogHeader: "Blogs",
-            blogMessageHeader: "Your published blogs and stories.",
-            blogMessageEmpty: "It seems you haven't posted anything yet.",
-        },
-        vi: {
-            blogHeader: "Bài viết",
-            blogMessageHeader: "Bài viết mà bạn đã đăng",
-            blogMessageEmpty: "Có vẻ như bạn chưa đăng bài viết nào",
-        }
-    });
+    historyDisplayStrings.setLanguage(useContext(LocaleContext));
 
+    // Fetches data on page load
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
     const api = `${apiUrl}/blogs/getallbyuserID/${user.id}?page=1&limit=100`;
-    // Executes fetch once on page load
     useEffect(() => {
-        fetchData(api);
+        fetchData(api, setData, setIsLoading, setIsError);
     }, [user]);
 
     return (
         <section>
             <div className="section-content">
-                <h1>{strings.blogHeader}</h1>
-                <p>{strings.blogMessageHeader}</p>
+                <h1>{historyDisplayStrings.historyBlogsHeader}</h1>
+                <p>{historyDisplayStrings.historyBlogSubheader}</p>
                 <Panel filler="card-full">
                     {!isLoading ? <>
                         {!isError ? <>
@@ -52,8 +45,8 @@ const PostedBlogs = ({user, data, isLoading, isError, fetchData}) => {
                                                  isFavorite={item.is_like}
                                                  totalLikes={item.totalLike}
                                                  status={item.status}/>))}
-                            </> : <PanelEmp message={strings.blogMessageEmpty}/>}
-                        </> : <PanelErr reload={fetchData} api={api}/>}
+                            </> : <PanelEmp message={historyDisplayStrings.historyBlogsEmpty}/>}
+                        </> : <PanelErr reload={() => fetchData(api, setData, setIsLoading, setIsError)}/>}
                     </> : <PanelLoader/>}
                 </Panel>
             </div>

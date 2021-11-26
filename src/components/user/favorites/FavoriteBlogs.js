@@ -1,24 +1,16 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect} from "react";
+import {favoritesDisplayStrings} from "../../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import ArticleCard from "../../commons/elements/containers/ArticleCard";
-import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import Panel from "../../commons/elements/containers/Panel";
+import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
-import LocalizedStrings from "react-localization";
+
 
 const FavoriteBlogs = ({location, data, isLoading, isError, fetchData}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            blogHeader: "Blogs",
-            blogMessageHeader: "Stories you added to favorites will be shown here.",
-
-        },
-        vi: {
-            blogHeader: "Bài viết",
-            blogMessageHeader: "Bài viết yêu thích của bạn sẽ được hiển thị ở đây.",
-        }
-    });
+    favoritesDisplayStrings.setLanguage(useContext(LocaleContext));
 
     useEffect(() => {
         fetchData();
@@ -27,8 +19,8 @@ const FavoriteBlogs = ({location, data, isLoading, isError, fetchData}) => {
     return (
         <section>
             <div className="section-content">
-                <h1>{strings.blogHeader}</h1>
-                <p>{strings.blogMessageHeader}</p>
+                <h1>{favoritesDisplayStrings.favoriteBlogsHeader}</h1>
+                <p>{favoritesDisplayStrings.favoriteBlogsSubheader}</p>
                 <Panel filler="card-full">
                     {!isLoading ? <>
                         {!isError ? <>

@@ -17,7 +17,7 @@ const EditRecipe = ({id, data}) => {
             gobackButton: "Go back",
             cancelButton: "Cancel",
             finishButton: "Finish",
-            alertSuccess: "Recipe updated successfully!",
+            menuSaved: "Recipe updated successfully!",
             alertAuthorized: "You are not authorized to do that.",
             alertError: "Unexpected error with code: ",
         },
@@ -25,7 +25,7 @@ const EditRecipe = ({id, data}) => {
             gobackButton: "Trở về",
             cancelButton: "Hủy",
             finishButton: "Lưu",
-            alertSuccess: "Cập nhật công thức thành công!",
+            menuSaved: "Cập nhật công thức thành công!",
             alertAuthorized: "Bạn không có quyền truy cập.",
             alertError: "Lỗi mã: ",
         }
@@ -75,7 +75,7 @@ const EditRecipe = ({id, data}) => {
         const api = `${apiUrl}/recipes/edit/${id}`;
         const response = await fetch(api, request);
         if (response.ok) {
-            alert(strings.alertSuccess);
+            alert(strings.menuSaved);
             history.push(`/view/recipe/${id}`);
         } else if (response.status === 401) {
             alert(strings.alertAuthorized)

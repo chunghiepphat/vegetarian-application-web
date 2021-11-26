@@ -1,27 +1,17 @@
-import React, {useContext, useEffect, useState} from "react";
-import Navbar from "../commons/elements/bars/Navbar";
-import {Link, NavLink, Redirect, Route, Switch, useLocation} from "react-router-dom";
-import DashboardSidebar from "./DashboardSidebar";
-import FavoriteRecipes from "./favorites/FavoriteRecipes";
-import FavoriteBlogs from "./favorites/FavoriteBlogs";
+import React, {useContext, useState} from "react";
+import {favoritesDisplayStrings} from "../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../context/LocaleContext";
 import {UserContext} from "../../context/UserContext";
 import {apiUrl} from "../../helpers/Variables";
-import LocalizedStrings from "react-localization";
+import {NavLink, Redirect, Route, Switch, useLocation} from "react-router-dom";
+import DashboardSidebar from "./DashboardSidebar";
+import Navbar from "../commons/elements/bars/Navbar";
+import FavoriteRecipes from "./favorites/FavoriteRecipes";
+import FavoriteBlogs from "./favorites/FavoriteBlogs";
 
 const Favorites = () => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            favoriteRecipe: "Your favorite recipes",
-            favoriteBlog: "Your favorite blogs",
-            favoriteVideo: "Your favorite video",
-        },
-        vi: {
-            favoriteRecipe: "Công thức yêu thích",
-            favoriteBlog: "Bài viết yêu thích",
-            favoriteVideo: "Video yêu thích",
-        }
-    });
+    favoritesDisplayStrings.setLanguage(useContext(LocaleContext));
 
     const location = useLocation();
     const user = useContext(UserContext);
@@ -58,7 +48,6 @@ const Favorites = () => {
                 setIsLoading(false);
             }
         } catch (error) {
-            console.error(error);
             setIsError(true);
             setIsLoading(false);
         }
@@ -70,8 +59,8 @@ const Favorites = () => {
                 <main>
                     <section className="page-navbar">
                         <Navbar>
-                            <NavLink to={urlRecipes}>{strings.favoriteRecipe}</NavLink>
-                            <NavLink to={urlBlogs}>{strings.favoriteBlog}</NavLink>
+                            <NavLink to={urlRecipes}>{favoritesDisplayStrings.favoriteTabsRecipes}</NavLink>
+                            <NavLink to={urlBlogs}>{favoritesDisplayStrings.favoriteTabsBlogs}</NavLink>
                         </Navbar>
                     </section>
                     <Switch>

@@ -1,24 +1,15 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect} from "react";
+import {favoritesDisplayStrings} from "../../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
-import LocalizedStrings from "react-localization";
 
 const FavoriteRecipes = ({location, data, isLoading, isError, fetchData}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            recipeHeader: "Recipes",
-            recipeMessageHeader: "Recipes you added to favorites will be shown here.",
-
-        },
-        vi: {
-            recipeHeader: "Công thức",
-            recipeMessageHeader: "Công thức yêu thích của bạn sẽ được hiển thị ở đây.",
-        }
-    });
+    favoritesDisplayStrings.setLanguage(useContext(LocaleContext));
 
     useEffect(() => {
         fetchData();
@@ -27,8 +18,8 @@ const FavoriteRecipes = ({location, data, isLoading, isError, fetchData}) => {
     return (
         <section>
             <div className="section-content">
-                <h1>{strings.recipeHeader}</h1>
-                <p>{strings.recipeMessageHeader}</p>
+                <h1>{favoritesDisplayStrings.favoriteRecipesHeader}</h1>
+                <p>{favoritesDisplayStrings.favoriteRecipesSubheader}</p>
                 <Panel filler="card-narrow">
                     {!isLoading ? <>
                         {!isError ? <>
