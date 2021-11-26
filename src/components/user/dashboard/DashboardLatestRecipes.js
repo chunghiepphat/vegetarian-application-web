@@ -1,36 +1,29 @@
-import React, {useEffect, useRef, useState} from "react";
-import {Link} from "react-router-dom";
+import React, {useContext, useEffect, useRef, useState} from "react";
+import {dashboardDisplayStrings} from "../../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
-import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
+import {Link} from "react-router-dom";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
-import LocalizedStrings from "react-localization";
+import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
 
-const DashboardLatestRecipes = ({user, location, token}) => {
+const DashboardLatestRecipes = ({user, token}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            lastestRecipeHeader: "Your recent recipes",
-            viewAllButton: "View all",
-            noRecipesMessage: "It seems you haven't posted anything yet."
-        },
-        vi: {
-            lastestRecipeHeader: "Các công thức gần đây",
-            viewAllButton: "Xem",
-            noRecipesMessage: "Bạn chưa có công thức nào."
-        }
-    });
+    dashboardDisplayStrings.setLanguage(useContext(LocaleContext));
 
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
+    // Generates request headers
     let headers = new Headers();
     if (token) headers.append("Authorization", `Bearer ${token.token}`);
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
+
+    // Fetches data
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
     const fetchData = async () => {
         setIsLoading(true);
         // Generates request
@@ -51,14 +44,13 @@ const DashboardLatestRecipes = ({user, location, token}) => {
                 setIsLoading(false);
             }
         } catch (error) {
-            console.error(error);
             setIsError(true);
         }
     }
-    // Executes fetch once on page load
     useEffect(() => {
         fetchData();
-    }, [location]);
+    }, [user]);
+
     // Handles slider scrolling on button click
     const ref = useRef(null);
     const scroll = (scrollOffset) => {
@@ -68,8 +60,8 @@ const DashboardLatestRecipes = ({user, location, token}) => {
     return (
         <section>
             <header className="section-header linked-header">
-                <h1>{strings.lastestRecipeHeader}</h1>
-                <Link to="/history/recipes"><FaAngleRight/>{strings.viewAllButton}</Link>
+                <h1>{dashboardDisplayStrings.dashboardRecipes}</h1>
+                <Link to="/history/recipes"><FaAngleRight/>{dashboardDisplayStrings.dashboardViewAll}</Link>
             </header>
             <Panel>
                 {!isLoading ? <>
@@ -99,7 +91,7 @@ const DashboardLatestRecipes = ({user, location, token}) => {
                                                  totalLikes={item.totalLike}
                                                  status={item.status}/>))}
                             </div>
-                        </> : <PanelEmp message={strings.noRecipesMessage}/>}
+                        </> : <PanelEmp message={dashboardDisplayStrings.dashboardRecipesEmpty}/>}
                     </> : <PanelErr reload={fetchData}/>}
                 </> : <PanelLoader/>}
             </Panel>

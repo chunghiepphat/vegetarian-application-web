@@ -1,7 +1,8 @@
-import React, {useEffect, useRef, useState} from "react";
-import LocalizedStrings from "react-localization";
-import {Link} from "react-router-dom";
+import React, {useContext, useEffect, useRef, useState} from "react";
+import {homeDisplayStrings} from "../../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
+import {Link} from "react-router-dom";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
@@ -11,36 +12,28 @@ import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
 
 const HomeLatestRecipes = ({user, fetchData}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            header: "Our community's latest recipes",
-            seeMore: "See more",
-        },
-        vi: {
-            header: "Những công thức đang được chia sẻ",
-            seeMore: "Xem thêm",
-        }
-    });
+    homeDisplayStrings.setLanguage(useContext(LocaleContext));
+
+    // Data states, API endpoint & fetches data on page load
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
+    const api = `${apiUrl}/recipes/get10recipes${user ? `?userID=${user.id}` : ``}`;
+    useEffect(() => {
+        fetchData(api, setData, setIsLoading, setIsError);
+    }, [user]);
+
     // Handles slider scroll on button click
     const ref = useRef(null);
     const scroll = (scrollOffset) => {
         ref.current.scrollLeft += scrollOffset;
     };
-    // Data states & API endpoint
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
-    const api = `${apiUrl}/recipes/get10recipes${user ? `?userID=${user.id}` : ``}`;
-    // Fetches data on page load
-    useEffect(() => {
-        fetchData(api, setData, setIsLoading, setIsError);
-    }, [user]);
 
     return (
         <section>
             <header className="section-header linked-header">
-                <h1>{strings.header}</h1>
-                <Link to="/browse/recipes"><FaAngleRight/>{strings.seeMore}</Link>
+                <h1>{homeDisplayStrings.homeRecipesHeader}</h1>
+                <Link to="/browse/recipes"><FaAngleRight/>{homeDisplayStrings.homeRecipesSeeMore}</Link>
             </header>
             <Panel>
                 {!isLoading ? <>

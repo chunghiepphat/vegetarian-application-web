@@ -1,42 +1,31 @@
-import React from "react";
-import LocalizedStrings from "react-localization";
+import React, {useContext} from "react";
+import {viewDisplayStrings} from "../../../../resources/PublicDisplayStrings";
+import {genericStrings} from "../../../../resources/CommonDisplayStrings";
+import {LocaleContext} from "../../../../context/LocaleContext";
 import {FaLeaf} from "react-icons/all";
+
 
 const RecipeIngredients = ({data}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            header: "Ingredients",
-            per: "per",
-            servings: "serving(s)",
-            pieces: "piece(s)",
-            grams: "(grams)",
-            noIngredientMessage: "It seems the creator of this recipe did not specify any ingredients...",
-        },
-        vi: {
-            header: "Nguyên liệu",
-            per: "cho",
-            servings: "khẩu phần ăn",
-            pieces: "miếng",
-            grams: "(gam)",
-            noIngredientMessage: "Có vẻ như tác giả của công thức này đã không liệt kê bất kỳ nguyên liệu nào...",
-        }
-    });
+    viewDisplayStrings.setLanguage(useContext(LocaleContext));
+    genericStrings.setLanguage(useContext(LocaleContext));
 
     return (
         <section className="article-list">
             {data.ingredients && data.ingredients.length > 0 ? <>
-                <h2>{strings.header}</h2>
-                <p>{strings.per} {data.portion_size}
+                <h2>{viewDisplayStrings.viewRecipeIngredients}</h2>
+                <p>{genericStrings.per} {data.portion_size}
                     {/* eslint-disable-next-line eqeqeq */}
-                    {data.portion_type == 1 && <> {strings.servings}</>}
+                    {data.portion_type == 1 && <> {genericStrings.servings}</>}
                     {/* eslint-disable-next-line eqeqeq */}
-                    {data.portion_type == 2 && <> {strings.pieces}</>}</p>
+                    {data.portion_type == 2 && <> {genericStrings.pieces}</>}</p>
                 <ul>
-                    {data.ingredients.map(ingredient => (
-                        <li><FaLeaf/> {ingredient.ingredient_name} - {ingredient.amount_in_mg} {strings.grams}</li>))}
+                    {data.ingredients.map(item => (
+                        <li key={item.ingredient_name}>
+                            <FaLeaf/> {item.ingredient_name} - {item.amount_in_mg} {genericStrings.grams}
+                        </li>))}
                 </ul>
-            </> : <em>{strings.noIngredientMessage}</em>}
+            </> : <em>{viewDisplayStrings.viewRecipeIngredientsEmpty}</em>}
         </section>
     )
 }

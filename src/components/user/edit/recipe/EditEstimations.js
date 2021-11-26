@@ -93,13 +93,13 @@ const EditEstimations = (props) => {
             </label>
             <label>{strings.editBakingTime}
                 <InputGroup>
-                    <input aria-label="Baking time" type="number" min={0} value={props.bakingTime}
+                    <input aria-label="Baking time" type="number" min={0} value={props.viewRecipeEstimatedBakingTime}
                            onChange={e => props.setBakingTime(e.target.value)}/>
                 </InputGroup>
             </label>
             <label>{strings.editRestingTime}
                 <InputGroup>
-                    <input aria-label="Resting time" type="number" min={0} value={props.restingTime}
+                    <input aria-label="Resting time" type="number" min={0} value={props.viewRecipeEstimatedRestingTime}
                            onChange={e => props.setRestingTime(e.target.value)}/>
                 </InputGroup>
             </label>

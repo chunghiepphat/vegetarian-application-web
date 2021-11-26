@@ -1,10 +1,15 @@
-import React from "react";
-import Avatar from "../../../commons/elements/Avatar";
+import React, {useContext} from "react";
+import {genericStrings} from "../../../../resources/CommonDisplayStrings";
+import {LocaleContext} from "../../../../context/LocaleContext";
 import moment from "moment";
-import {FaAngleRight} from "react-icons/fa";
 import {Link} from "react-router-dom";
+import Avatar from "../../../commons/elements/Avatar";
+import {FaAngleRight} from "react-icons/fa";
 
 const VideoDetails = ({data}) => {
+    // Localizations
+    genericStrings.setLanguage(useContext(LocaleContext));
+
     return (
         <section className="article-title">
             <h1>{data.video_title}</h1>
@@ -22,7 +27,7 @@ const VideoDetails = ({data}) => {
                     </span>
                     {data.time_updated &&
                     <span className="timestamp-updated">
-                        (edited {moment(data.time_updated).format("lll")})
+                        ({genericStrings.lastEdited} {moment(data.time_updated).format("lll")})
                     </span>}
                 </div>
             </div>

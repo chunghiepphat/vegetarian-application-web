@@ -1,19 +1,13 @@
-import React from "react";
-import LocalizedStrings from "react-localization";
+import React, {useContext} from "react";
+import {searchDisplayStrings} from "../../../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../../../context/LocaleContext";
 import Panel from "../../../commons/elements/containers/Panel";
 import ArticleCard from "../../../commons/elements/containers/ArticleCard";
 import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
 
 const ResultBlogs = ({data}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            messageEmpty: "There were no blogs matching your criteria.",
-        },
-        vi: {
-            messageEmpty: "Không có bài viết nào khớp với tìm kiếm của bạn.",
-        }
-    });
+    searchDisplayStrings.setLanguage(useContext(LocaleContext));
 
     return (
         <section>
@@ -34,7 +28,7 @@ const ResultBlogs = ({data}) => {
                                          time={item.time_created}
                                          isFavorite={item.is_like}
                                          totalLikes={item.totalLike}/>))}
-                    </> : <PanelEmp message={strings.messageEmpty}/>}
+                    </> : <PanelEmp message={searchDisplayStrings.searchResultsBlogsEmpty}/>}
                 </Panel>
             </div>
         </section>

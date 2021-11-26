@@ -1,31 +1,28 @@
 import React, {useContext, useEffect, useState} from "react";
 import "./Home.css";
 import "./Search.css";
-import LocalizedStrings from "react-localization";
-import {useLocation} from "react-router-dom";
-import {apiUrl} from "../../helpers/Variables";
+import {searchDisplayStrings} from "../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../context/LocaleContext";
 import {UserContext} from "../../context/UserContext";
+import {apiUrl} from "../../helpers/Variables";
+import {useLocation} from "react-router-dom";
 import SearchFilters from "./search/SearchFilters";
-import ResultTabs from "./search/ResultTabs";
-import ResultList from "./search/ResultList";
+import SearchTabs from "./search/SearchTabs";
+import SearchResults from "./search/SearchResults";
 import {SectionLoader} from "../commons/elements/loaders/Loader";
 import {SectionEmp} from "../commons/elements/loaders/AlertEmpty";
 
+
 const Search = () => {
     const location = useLocation();
-    const user = useContext(UserContext);
+
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            messageEmpty: "There were no results matching your criteria.",
-            messageInvalid: "It seems your search query was invalid.",
-        },
-        vi: {
-            messageEmpty: "Không có kết quả nào phù hợp với tìm kiếm của bạn.",
-            messageInvalid: "Có vẻ như từ khóa tìm kiếm của bạn không hợp lệ.",
-        }
-    });
-    // Fetches category list from server
+    searchDisplayStrings.setLanguage(useContext(LocaleContext));
+
+    // Gets user info
+    const user = useContext(UserContext);
+
+    // Fetches recipe category list from server
     const [categoryList, setCategoryList] = useState([]);
     const fetchCategories = async () => {
         const api = `${apiUrl}/recipes/categories`
@@ -35,14 +32,14 @@ const Search = () => {
                 const result = await response.json();
                 await setCategoryList(result.listResult);
             }
-        } catch (error) {
-
+        } catch {
         }
     }
     useEffect(() => {
         fetchCategories();
     }, [user]);
-    // Handles fetching results
+
+    // Fetches search results
     const [data, setData] = useState()
     const [isLoading, setIsLoading] = useState(true);
     const fetchData = async () => {
@@ -61,7 +58,7 @@ const Search = () => {
         }
     }
     useEffect(() => {
-        fetchData(); // fetches results again everytime the query changes
+        fetchData(); // Fetches results again everytime the query changes
     }, [location.search])
 
     return (
@@ -72,10 +69,10 @@ const Search = () => {
                     {!isLoading ? <>
                         {data ? <>
                             {data.listRecipe.length > 0 || data.listVideo.length > 0 || data.listBlog.length > 0 ? <>
-                                <ResultTabs data={data}/>
-                                <ResultList data={data}/>
-                            </> : <SectionEmp message={strings.messageEmpty}/>}
-                        </> : <SectionEmp message={strings.messageInvalid}/>}
+                                <SearchTabs data={data}/>
+                                <SearchResults data={data}/>
+                            </> : <SectionEmp message={searchDisplayStrings.searchResultsEmpty}/>}
+                        </> : <SectionEmp message={searchDisplayStrings.searchResultsInvalid}/>}
                     </> : <SectionLoader/>}
                 </main>
             </div>

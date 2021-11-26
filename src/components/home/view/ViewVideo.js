@@ -1,24 +1,30 @@
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import React, {useContext, useEffect, useState} from "react";
+import {viewDisplayStrings} from "../../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
+import {useParams} from "react-router-dom";
+import ArticleToolbar from "./ArticleToolbar";
+import ArticleComments from "./ArticleComments";
 import VideoPlayer from "./video/VideoPlayer";
 import VideoDetails from "./video/VideoDetails";
 import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {SectionErr} from "../../commons/elements/loaders/AlertError";
-import VideoToolbar from "./video/VideoToolbar";
-import VideoComments from "./video/VideoComments";
 
-const ViewVideo = ({user, location, fetchData}) => {
+const ViewVideo = ({user, fetchData}) => {
     let {id} = useParams();
-    // Data states & API endpoint
+
+    // Localizations
+    viewDisplayStrings.setLanguage(useContext(LocaleContext));
+
+    // Fetches article content on page load
     const [data, setData] = useState();
-    const [language, setLanguage] = useState("vi");
-    const [isError, setIsError] = useState();
-    const api = `${apiUrl}/video/getvideoby/${id}?translate=${language}${user ? `&userID=${user.id}` : ``}`;
-    // Fetches data on page load
+    const [locale, setLocale] = useState("");
+    const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const api = `${apiUrl}/video/getvideoby/${id}?translate=${locale}${user ? `&userID=${user.id}` : ``}`;
     useEffect(() => {
-        fetchData(api, setData, setIsError);
-    }, [id]);
+        fetchData(api, setData, setIsError, setIsLoading);
+    }, [id, api]);
 
     return (
         <section>
@@ -27,13 +33,14 @@ const ViewVideo = ({user, location, fetchData}) => {
                     <div className="section-content">
                         <article className="video-article">
                             <VideoPlayer data={data}/>
-                            <VideoToolbar id={id} location={location} data={data} setLanguage={setLanguage}
-                                          reload={() => fetchData(api, setData, setIsError)}/>
+                            <ArticleToolbar type={"video"} id={id} data={data}
+                                            isLoading={isLoading} setLocale={setLocale}
+                                            reload={() => fetchData(api, setData, setIsError, setIsLoading)}/>
                             <VideoDetails data={data}/>
-                            <VideoComments data={data}/>
+                            <ArticleComments type={"video"} data={data}/>
                         </article>
                     </div>
-                </> : <SectionEmp message="Loading the article..."/>}
+                </> : <SectionEmp message={viewDisplayStrings.viewVideoLoading}/>}
             </> : <SectionErr reload={() => fetchData(api, setData, setIsError)}/>}
         </section>
     )

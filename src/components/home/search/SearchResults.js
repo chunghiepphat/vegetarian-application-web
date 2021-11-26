@@ -4,7 +4,7 @@ import ResultRecipes from "./result/ResultRecipes";
 import ResultVideos from "./result/ResultVideos";
 import ResultBlogs from "./result/ResultBlogs";
 
-const ResultList = ({data}) => {
+const SearchResults = ({data}) => {
     const location = useLocation();
 
     return (
@@ -34,4 +34,4 @@ const ResultList = ({data}) => {
     )
 }
 
-export default ResultList
+export default SearchResults

@@ -1,8 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
-import LocalizedStrings from "react-localization";
-import {NavLink, withRouter} from "react-router-dom";
-import {apiUrl} from "../../helpers/Variables";
+import {homeDisplayStrings} from "../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../context/LocaleContext";
 import {UserContext} from "../../context/UserContext";
+import {apiUrl} from "../../helpers/Variables";
+import {NavLink, withRouter} from "react-router-dom";
 import Sidebar from "../commons/elements/Sidebar";
 import Navbar from "../commons/elements/bars/Navbar";
 import Panel from "../commons/elements/containers/Panel";
@@ -12,31 +13,11 @@ import {PanelEmp} from "../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../commons/elements/loaders/AlertError";
 import {FaAngleRight} from "react-icons/fa";
 
+
 const HomeSidebar = () => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            headerExplore: "Explore",
-            urlRecipes: "Recipes",
-            urlVideos: "Videos",
-            urlBlogs: "Blogs",
-            headerSearch: "Search",
-            urlSearch: "Advanced search",
-            headerRecommendations: "Try these recipes",
-            headerBlogs: "Popular stories",
+    homeDisplayStrings.setLanguage(useContext(LocaleContext));
 
-        },
-        vi: {
-            headerExplore: "Khám phá",
-            urlRecipes: "Công thức nấu ăn",
-            urlVideos: "Video hướng dẫn",
-            urlBlogs: "Bài viết chia sẻ",
-            headerSearch: "Tìm kiếm",
-            urlSearch: "Tìm kiếm nâng cao",
-            headerRecommendations: "Có lẽ bạn sẽ thích",
-            headerBlogs: "Bài viết phổ biến",
-        }
-    });
     // Handles fetching recommended recipes if user is logged in
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
@@ -79,6 +60,7 @@ const HomeSidebar = () => {
     useEffect(() => {
         if (user !== null && token !== null) fetchRecommendations();
     }, [user]);
+
     // Handles fetching popular blogs
     const [blogs, setBlogs] = useState([]);
     const [isLoadingBlogs, setIsLoadingBlogs] = useState(false);
@@ -109,22 +91,23 @@ const HomeSidebar = () => {
     return (
         <Sidebar>
             <section className="sidebar-widget">
-                <h1>{strings.headerExplore}</h1>
+                <h1>{homeDisplayStrings.homeSidebarExplore}</h1>
                 <Navbar>
-                    <NavLink to="/browse/recipes"><FaAngleRight/>{strings.urlRecipes}</NavLink>
-                    <NavLink to="/browse/videos"><FaAngleRight/>{strings.urlVideos}</NavLink>
-                    <NavLink to="/browse/blogs"><FaAngleRight/>{strings.urlBlogs}</NavLink>
+                    <NavLink to="/browse/recipes"><FaAngleRight/>{homeDisplayStrings.homeSidebarExploreRecipes}
+                    </NavLink>
+                    <NavLink to="/browse/videos"><FaAngleRight/>{homeDisplayStrings.homeSidebarExploreVideos}</NavLink>
+                    <NavLink to="/browse/blogs"><FaAngleRight/>{homeDisplayStrings.homeSidebarExploreBlogs}</NavLink>
                 </Navbar>
             </section>
             <section className="sidebar-widget">
-                <h1>{strings.headerSearch}</h1>
+                <h1>{homeDisplayStrings.homeSidebarSearch}</h1>
                 <Navbar>
-                    <NavLink to="/search"><FaAngleRight/>{strings.urlSearch}</NavLink>
+                    <NavLink to="/search"><FaAngleRight/>{homeDisplayStrings.homeSidebarSearchUrl}</NavLink>
                 </Navbar>
             </section>
             {user &&
             <section className="sidebar-widget">
-                <h1>{strings.headerRecommendations}</h1>
+                <h1>{homeDisplayStrings.homeSidebarRecommendations}</h1>
                 <Panel>
                     {!isLoadingRecommendations ? <>
                         {!isErrorRecommendations ? <>
@@ -146,7 +129,7 @@ const HomeSidebar = () => {
                 </Panel>
             </section>}
             <section className="sidebar-widget">
-                <h1>{strings.headerBlogs}</h1>
+                <h1>{homeDisplayStrings.homeSidebarBlogs}</h1>
                 <Panel>
                     {!isLoadingBlogs ? <>
                         {!isErrorBlogs ? <>

@@ -1,7 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
 import "./Header.css";
-import LocalizedStrings from "react-localization";
 import {NavLink, useLocation, withRouter} from "react-router-dom";
+import {headerStrings} from "../../../../resources/CommonDisplayStrings";
+import {LocaleContext} from "../../../../context/LocaleContext";
 import {UserContext} from "../../../../context/UserContext";
 import placeholderAvatar from "assets/user-image-default.png";
 import Brand from "./Brand";
@@ -9,30 +10,16 @@ import Navbar from "../bars/Navbar";
 import SearchBar from "../SearchBar";
 import Logout from "../../../auth/Logout";
 
-const Header = () => {
+const Header = ({locale, setLocale}) => {
     const location = useLocation();
+
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            urlHome: "Home",
-            urlAbout: "About",
-            searchPlaceholder: "What would you have for dinner?",
-            urlProfile: "Your profile",
-            urlSignIn: "Sign in",
-            urlSignUp: "Sign up",
-        },
-        vi: {
-            urlHome: "Trang chủ",
-            urlAbout: "Giới thiệu",
-            searchPlaceholder: "Tối nay ăn gì?",
-            urlProfile: "Hồ sơ",
-            urlSignIn: "Đăng nhập",
-            urlSignUp: "Đăng ký",
-        }
-    });
+    headerStrings.setLanguage(useContext(LocaleContext));
+
     // Gets user info
     const user = useContext(UserContext);
     let token = JSON.parse(localStorage.getItem("accessToken"));
+
     // Checks scroll offset to resize header with conditional CSS class
     const [shrink, setShrink] = useState(false);
     useEffect(() => {
@@ -52,10 +39,10 @@ const Header = () => {
                     <Brand/>
                     <Navbar>
                         {/*<Link to="/"><Brand/></Link>*/}
-                        <NavLink to="/home">{strings.urlHome}</NavLink>
-                        <NavLink to="/about">{strings.urlAbout}</NavLink>
+                        <NavLink to="/home">{headerStrings.urlHome}</NavLink>
+                        <NavLink to="/about">{headerStrings.urlAbout}</NavLink>
                     </Navbar>
-                    <SearchBar placeholder={strings.searchPlaceholder}/>
+                    {!location.pathname.match("/search") && <SearchBar placeholder={headerStrings.searchPlaceholder}/>}
                 </section>
                 {/*Right-side nav with authentication and profile links*/}
                 <section className="header-section">
@@ -68,19 +55,23 @@ const Header = () => {
                                         <img src={placeholderAvatar} alt=""/>
                                     </picture>
                                     {user.first_name}
-                                </> : <>{strings.urlProfile}</>}
+                                </> : <>{headerStrings.urlProfile}</>}
                             </NavLink>
                             <Logout/>
                         </> : <>
                             <NavLink to={{
                                 pathname: "/login",
                                 state: {background: location}
-                            }}>{strings.urlSignIn}</NavLink>
+                            }}>{headerStrings.urlSignIn}</NavLink>
                             <NavLink to={{
                                 pathname: "/auth/register",
-                            }}>{strings.urlSignUp}</NavLink>
+                            }}>{headerStrings.urlSignUp}</NavLink>
                         </>}
                     </Navbar>
+                    <select value={locale} onChange={e => setLocale(e.target.value)}>
+                        <option value="en">English</option>
+                        <option value="vi">Tiếng Việt</option>
+                    </select>
                 </section>
             </div>
         </header>

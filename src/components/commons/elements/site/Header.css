@@ -43,6 +43,12 @@
     max-width: 660px;
 }
 
+.header-content select {
+    width: auto;
+    background: white;
+    border: none;
+}
+
 .header-content .profile-image {
     width: 36px;
     height: 36px;

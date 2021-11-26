@@ -1,19 +1,13 @@
-import React from "react";
-import LocalizedStrings from "react-localization";
+import React, {useContext} from "react";
+import {searchDisplayStrings} from "../../../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../../../context/LocaleContext";
 import Panel from "../../../commons/elements/containers/Panel";
 import VideoTile from "../../../commons/elements/containers/VideoTile";
 import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
 
 const ResultVideos = ({data}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            messageEmpty: "There were no videos matching your criteria.",
-        },
-        vi: {
-            messageEmpty: "Không có video hướng dẫn nào khớp với tìm kiếm của bạn.",
-        }
-    });
+    searchDisplayStrings.setLanguage(useContext(LocaleContext));
 
     return (
         <section>
@@ -32,7 +26,7 @@ const ResultVideos = ({data}) => {
                                        time={item.time_created}
                                        isFavorite={item.is_like}
                                        totalLikes={item.totalLike}/>))}
-                    </> : <PanelEmp message={strings.messageEmpty}/>}
+                    </> : <PanelEmp message={searchDisplayStrings.searchResultsVideosEmpty}/>}
                 </Panel>
             </div>
         </section>

@@ -1,4 +1,6 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect} from "react";
+import {browseDisplayStrings} from "../../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
 import Panel from "../../commons/elements/containers/Panel";
 import VideoTile from "../../commons/elements/containers/VideoTile";
@@ -6,18 +8,21 @@ import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 
-const BrowseVideos = ({user, location, data, isLoading, isError, fetchData}) => {
+const BrowseVideos = ({user, data, isLoading, isError, fetchData}) => {
+    // Localizations
+    browseDisplayStrings.setLanguage(useContext(LocaleContext));
+
+    // Executes fetch on page load
     const api = `${apiUrl}/video/getall?page=1&limit=100${user ? `&userID=${user.id}` : ``}`;
-    // Executes fetch once on page load
     useEffect(() => {
         fetchData(api);
-    }, [location, user]);
+    }, [user]);
 
     return (
         <section>
             <div className="section-content">
-                <h1>Videos</h1>
-                <p>Follow along and try for yourself with these how-to videos.</p>
+                <h1>{browseDisplayStrings.browseVideosHeader}</h1>
+                <p>{browseDisplayStrings.browseVideosSubheader}.</p>
                 <Panel filler="tile-video">
                     {!isLoading ? <>
                         {!isError ? <>

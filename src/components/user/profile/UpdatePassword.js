@@ -14,6 +14,9 @@ const UpdatePassword = () => {
             newPassword: "New password",
             newPasswordPlaceholder: "New password",
             confirmPasswordPlaceholder: "Confirm password",
+            passwordMatching: "Passwords match.",
+            passwordNotMatching: "Passwords do not match.",
+            passwordTooShort: "Password must be at least 8 characters.",
             updateButton: "Update",
             updatingButton: "Updating...",
             alertSuccess: "Password updated successfully.",
@@ -25,6 +28,9 @@ const UpdatePassword = () => {
             newPassword: "Mật khẩu mới",
             newPasswordPlaceholder: "Mật khẩu mới",
             confirmPasswordPlaceholder: "Xác nhận mật khẩu mới",
+            passwordMatching: "Mật khẩu khớp.",
+            passwordNotMatching: "Mật khẩu không khớp.",
+            passwordTooShort: "Mật khẩu phải dài ít nhất 8 ký tự.",
             updateButton: "Cập nhật",
             updatingButton: "Đang cập nhật...",
             alertSuccess: "Cập nhật mật khẩu thành công.",
@@ -47,14 +53,14 @@ const UpdatePassword = () => {
         if (newPassword && confirmPassword) {
             if (newPassword.length >= 8) {
                 if (newPassword === confirmPassword) {
-                    setMessage("Passwords match.");
+                    setMessage(strings.passwordMatching);
                     setIsValid(true);
                 } else {
-                    setMessage("Passwords do not match.");
+                    setMessage(strings.passwordNotMatching);
                     setIsValid(false);
                 }
             } else {
-                setMessage("Password must be at least 8 characters.");
+                setMessage(strings.passwordTooShort);
                 setIsValid(false);
             }
         } else {
@@ -132,11 +138,13 @@ const UpdatePassword = () => {
                                    onChange={e => setConfirmPassword(e.target.value)}
                                    placeholder={strings.confirmPasswordPlaceholder} required/>
                         </label>
-                        <p className={isValid ? `text-positive` : `text-negative`}>{message}</p>
+                        <p className={isValid ? `text-positive` : `text-negative`}
+                           style={{fontWeight: "600"}}>{message}</p>
                     </div>
                     <div className="sticky-bottom">
                         {!isLoading ?
-                            <button type="submit" className="button-dark" disabled={!isValid}>{strings.updateButton}</button>
+                            <button type="submit" className="button-dark"
+                                    disabled={!isValid}>{strings.updateButton}</button>
                             : <button disabled>{strings.updatingButton}</button>}
                     </div>
 

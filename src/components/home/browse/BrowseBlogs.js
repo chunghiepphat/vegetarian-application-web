@@ -1,4 +1,6 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect} from "react";
+import {browseDisplayStrings} from "../../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleCard from "../../commons/elements/containers/ArticleCard";
@@ -6,18 +8,21 @@ import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 
-const BrowseBlogs = ({user, location, data, isLoading, isError, fetchData}) => {
+const BrowseBlogs = ({user, data, isLoading, isError, fetchData}) => {
+    // Localizations
+    browseDisplayStrings.setLanguage(useContext(LocaleContext));
+
+    // Executes fetch on page load
     const api = `${apiUrl}/blogs/getall?page=1&limit=100${user ? `&userID=${user.id}` : ``}`;
-    // Executes fetch once on page load
     useEffect(() => {
         fetchData(api);
-    }, [location, user]);
+    }, [user]);
 
     return (
         <section>
             <div className="section-content">
-                <h1>Blogs</h1>
-                <p>Stories, thoughts, discussions and more.</p>
+                <h1>{browseDisplayStrings.browseBlogsHeader}</h1>
+                <p>{browseDisplayStrings.browseBlogsSubheader}</p>
                 <Panel filler="card-full">
                     {!isLoading ? <>
                         {!isError ? <>

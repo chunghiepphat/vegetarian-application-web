@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from "react";
-import LocalizedStrings from "react-localization";
-import {Link} from "react-router-dom";
+import React, {useContext, useEffect, useState} from "react";
+import {homeDisplayStrings} from "../../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
+import {Link} from "react-router-dom";
 import Panel from "../../commons/elements/containers/Panel";
 import VideoTile from "../../commons/elements/containers/VideoTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
@@ -11,22 +12,13 @@ import {FaAngleRight} from "react-icons/fa";
 
 const HomeLatestVideos = ({user, fetchData}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            header: "Latest how-to videos",
-            seeMore: "See more",
-        },
-        vi: {
-            header: "Các video hướng dẫn mới nhất",
-            seeMore: "Xem thêm",
-        }
-    });
-    // Data states & API endpoint
+    homeDisplayStrings.setLanguage(useContext(LocaleContext));
+
+    // Data states, API endpoint & fetches data on page load
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const api = `${apiUrl}/video/get4videos${user ? `?userID=${user.id}` : ``}`;
-    // Fetches data on page load
     useEffect(() => {
         fetchData(api, setData, setIsLoading, setIsError);
     }, [user]);
@@ -34,8 +26,8 @@ const HomeLatestVideos = ({user, fetchData}) => {
     return (
         <section>
             <header className="section-header linked-header">
-                <h1>{strings.header}</h1>
-                <Link to="/browse/videos"><FaAngleRight/>{strings.seeMore}</Link>
+                <h1>{homeDisplayStrings.homeVideosHeader}</h1>
+                <Link to="/browse/videos"><FaAngleRight/>{homeDisplayStrings.homeVideosSeeMore}</Link>
             </header>
             <div className="section-content">
                 <Panel filler="tile-video">

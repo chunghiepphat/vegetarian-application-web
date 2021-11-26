@@ -3,12 +3,12 @@ import LocalizedStrings from "react-localization";
 import {Redirect, Route, Switch, useParams} from "react-router-dom";
 import {apiUrl} from "../../../helpers/Variables";
 import BlogHeader from "./blog/BlogHeader";
-import BlogToolbar from "./blog/BlogToolbar";
 import BlogContent from "./blog/BlogContent";
-import BlogComments from "./blog/BlogComments";
 import EditBlog from "../../user/edit/EditBlog";
 import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {SectionErr} from "../../commons/elements/loaders/AlertError";
+import ArticleToolbar from "./ArticleToolbar";
+import ArticleComments from "./ArticleComments";
 
 const ViewBlog = ({user, location, fetchData}) => {
     let {id} = useParams();
@@ -21,14 +21,15 @@ const ViewBlog = ({user, location, fetchData}) => {
             messageLoading: "Đang tải bài viết...",
         }
     });
-    // Data states & API endpoint
+    // Fetches article content on page load
     const [data, setData] = useState();
+    const [locale, setLocale] = useState("");
     const [isError, setIsError] = useState(false);
-    const api = `${apiUrl}/blogs/getblogby/${id}${user ? `?userID=${user.id}` : ``}`;
-    // Fetches data on page load
+    const [isLoading, setIsLoading] = useState(true);
+    let api = `${apiUrl}/blogs/getblogby/${id}?translate=${locale}${user ? `&userID=${user.id}` : ``}`;
     useEffect(() => {
-        fetchData(api, setData, setIsError);
-    }, [id]);
+        fetchData(api, setData, setIsError, setIsLoading);
+    }, [id, api]);
 
     return (
         <section>
@@ -50,10 +51,11 @@ const ViewBlog = ({user, location, fetchData}) => {
                                         <img src="" alt=""/>
                                     </picture>}
                                     <BlogHeader data={data}/>
-                                    <BlogToolbar id={id} location={location} data={data}
-                                                 reload={() => fetchData(api, setData, setIsError)}/>
+                                    <ArticleToolbar type={"blog"} id={id} data={data}
+                                                    isLoading={isLoading} setLocale={setLocale}
+                                                    reload={() => fetchData(api, setData, setIsError, setIsLoading)}/>
                                     <BlogContent data={data}/>
-                                    <BlogComments data={data}/>
+                                    <ArticleComments type={"blog"} data={data}/>
                                 </article>
                             </div>
                         </> : <SectionEmp message={strings.messageLoading}/>}

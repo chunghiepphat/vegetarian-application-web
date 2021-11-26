@@ -32,15 +32,25 @@ import History from "./components/user/History";
 import Favorites from "./components/user/Favorites";
 // Admin-exclusive components
 import Console from "./components/admin/Console";
+import {LocaleContext} from "./context/LocaleContext";
 
 export default function App() {
     let location = useLocation();
-    // Sets datetime locales
-    let locale = window.navigator.language;
+
+    // Initialize locales
+    let userLocale = localStorage.getItem("userLocale");
+    if (!userLocale) userLocale = window.navigator.language;
+    const [locale, setLocale] = useState(userLocale)
     moment.locale(locale);
+    useEffect(() => {
+        localStorage.setItem("userLocale", locale);
+        // moment.locale(locale);
+    }, [locale]);
+
     // Authenticated user data
     let userInfo = JSON.parse(localStorage.getItem("userInfo"));
     const [user, setUser] = useState(userInfo);
+
     // Refreshes authenticated user's data and save it to local storage
     const fetchData = async () => {
         const api = `${apiUrl}/user/${userInfo.id}`
@@ -52,7 +62,6 @@ export default function App() {
                 localStorage.setItem("userInfo", JSON.stringify(result));
             }
         } catch (error) {
-
         }
     }
     useEffect(() => {
@@ -60,57 +69,57 @@ export default function App() {
         // 2. Executes fetch to get user info, then updates UserContext
         if (userInfo !== null) fetchData();
         // Otherwise, clears UserContext
-        else setUser(undefined);
+        else setUser(null);
         // Resets scroll back to top on page change
         window.scrollTo(0, 0)
     }, [location]);
+
     // Handles modal background states
     const background = location.state && location.state.background;
 
     return (
         <UserContext.Provider value={user}>
-            <div className="App">
-                <Header/>
-                {/*{!isLoading && <>*/}
-                <Switch location={background || location}>
-                    {/*Auth module*/}
-                    {!user ? <Route path="/auth"><Auth/></Route>
-                        : <Route path="/auth"><Redirect to="/home"/></Route>}
-                    {/*User module*/}
-                    {user && user.role !== "admin" && <Route path="/profile"><Dashboard/></Route>}
-                    {user && user.role !== "admin" && <Route path="/update"><Profile reload={fetchData}/></Route>}
-                    {user && user.role !== "admin" && <Route path="/health"><Health reload={fetchData}/></Route>}
-                    {user && user.role !== "admin" && <Route path="/drafts"><Drafts/></Route>}
-                    {user && user.role !== "admin" && <Route path="/history"><History/></Route>}
-                    {user && user.role !== "admin" && <Route path="/favorites"><Favorites/></Route>}
-                    {user && user.role !== "admin" && <Route path="/post"><Post/></Route>}
-                    {user && user.role !== "admin" && <Route path="/menu"><Menu/></Route>}
-                    {/*Admin module*/}
-                    {user && user.role === "admin" &&
-                    <Route path="/console"><Console/></Route>}
-                    {user && user.role === "admin" &&
-                    <Route><Redirect to="/console"/></Route>}
-                    {/*Public module*/}
-                    <Route exact path="/"><Redirect to="/home"/></Route>
-                    <Route exact path="/index"><Redirect to="/home"/></Route>
-                    <Route path="/console"><Redirect to="/home"/></Route>
-                    <Route exact path="/home"><Home/></Route>
-                    <Route path="/view"><View/></Route>
-                    <Route path="/search"><Search/></Route>
-                    <Route path="/browse"><Browse/></Route>
-                    <Route path="/about"><About/></Route>
-                    <Route path="/not-found"><NotFound/></Route>
-                    <Redirect to="/not-found"/>
-                </Switch>
-                {background && !user && <Route path="/" children={<AuthModal background={background}/>}/>}
-                {user && user.role === "admin" ? "" : <>
-                    {location.pathname !== "/auth/register"
-                    && location.pathname !== "/auth/account-verify"
-                    && location.pathname !== "/auth/account-recover"
-                    && location.pathname !== "/not-found"
-                    && <Footer/>}
-                </>}
-            </div>
+            <LocaleContext.Provider value={locale}>
+                <div className="App">
+                    <Header locale={locale} setLocale={setLocale}/>
+                    {/*{!isLoading && <>*/}
+                    <Switch location={background || location}>
+                        {/*Auth module*/}
+                        {!user ? <Route path="/auth"><Auth/></Route>
+                            : <Route path="/auth"><Redirect to="/home"/></Route>}
+                        {/*User module*/}
+                        {user && user.role !== "admin" && <Route path="/profile"><Dashboard/></Route>}
+                        {user && user.role !== "admin" && <Route path="/update"><Profile reload={fetchData}/></Route>}
+                        {user && user.role !== "admin" && <Route path="/health"><Health reload={fetchData}/></Route>}
+                        {user && user.role !== "admin" && <Route path="/drafts"><Drafts/></Route>}
+                        {user && user.role !== "admin" && <Route path="/history"><History/></Route>}
+                        {user && user.role !== "admin" && <Route path="/favorites"><Favorites/></Route>}
+                        {user && user.role !== "admin" && <Route path="/post"><Post/></Route>}
+                        {user && user.role !== "admin" && <Route path="/menu"><Menu/></Route>}
+                        {/*Admin module*/}
+                        {user && user.role === "admin" &&
+                        <Route path="/console"><Console/></Route>}
+                        {user && user.role === "admin" &&
+                        <Route><Redirect to="/console"/></Route>}
+                        {/*Public module*/}
+                        <Route exact path="/"><Redirect to="/home"/></Route>
+                        <Route exact path="/index"><Redirect to="/home"/></Route>
+                        <Route path="/console"><Redirect to="/home"/></Route>
+                        <Route exact path="/home"><Home/></Route>
+                        <Route path="/view"><View/></Route>
+                        <Route path="/search"><Search/></Route>
+                        <Route path="/browse"><Browse/></Route>
+                        <Route path="/about"><About/></Route>
+                        <Route path="/not-found"><NotFound/></Route>
+                        <Redirect to="/not-found"/>
+                    </Switch>
+                    {background && !user && <Route path="/" children={<AuthModal background={background}/>}/>}
+                    {!location.pathname.match("/auth")
+                    && !location.pathname.match("/console")
+                    && !location.pathname.match("/not-found")
+                    && <Footer locale={locale} setLocale={setLocale}/>}
+                </div>
+            </LocaleContext.Provider>
         </UserContext.Provider>
     );
 }

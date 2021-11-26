@@ -1,20 +1,15 @@
-import React from "react";
+import React, {useContext} from "react";
+import {genericStrings} from "../../../../resources/CommonDisplayStrings";
+import {LocaleContext} from "../../../../context/LocaleContext";
 import moment from "moment";
-import Avatar from "../../../commons/elements/Avatar";
 import {Link} from "react-router-dom";
+import Avatar from "../../../commons/elements/Avatar";
 import {FaAngleRight} from "react-icons/fa";
-import LocalizedStrings from "react-localization";
+
 
 const BlogHeader = ({data}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            lastEdited: "last edited",
-        },
-        vi: {
-            lastEdited: "chỉnh sửa lần cuối",
-        }
-    });
+    genericStrings.setLanguage(useContext(LocaleContext));
 
     return (
         <section className="article-title">
@@ -34,7 +29,7 @@ const BlogHeader = ({data}) => {
                     </span>
                     {data.time_updated &&
                     <span className="timestamp-updated">
-                        ({strings.lastEdited} {moment(data.time_updated).format("lll")})
+                        ({genericStrings.lastEdited} {moment(data.time_updated).format("lll")})
                     </span>}
                 </div>
             </div>

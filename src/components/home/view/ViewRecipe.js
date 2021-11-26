@@ -1,38 +1,33 @@
-import React, {useEffect, useState} from "react";
-import LocalizedStrings from "react-localization";
-import {Redirect, Route, Switch, useParams} from "react-router-dom";
+import React, {useContext, useEffect, useState} from "react";
+import {viewDisplayStrings} from "../../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
+import {Redirect, Route, Switch, useParams} from "react-router-dom";
+import ArticleToolbar from "./ArticleToolbar";
+import ArticleComments from "./ArticleComments";
 import RecipeHeader from "./recipe/RecipeHeader";
-import RecipeToolbar from "./recipe/RecipeToolbar";
 import RecipeIngredients from "./recipe/RecipeIngredients";
 import RecipeEstimations from "./recipe/RecipeEstimations";
 import RecipeNutrients from "./recipe/RecipeNutrients";
 import RecipeSteps from "./recipe/RecipeSteps";
-import RecipeComments from "./recipe/RecipeComments";
 import EditRecipe from "../../user/edit/EditRecipe";
 import {SectionEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {SectionErr} from "../../commons/elements/loaders/AlertError";
 
-const ViewRecipe = ({user, location, fetchData}) => {
+const ViewRecipe = ({user, fetchData}) => {
     let {id} = useParams();
+
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            messageLoading: "Loading the article...",
-        },
-        vi: {
-            messageLoading: "Đang tải công thức...",
-        }
-    });
-    // Data states & API endpoint
+    viewDisplayStrings.setLanguage(useContext(LocaleContext));
+
+    // Fetches article content on page load
     const [data, setData] = useState();
-    const [language, setLanguage] = useState("");
+    const [locale, setLocale] = useState("");
     const [isError, setIsError] = useState(false);
-    const [isTranslated, setIsTranslated] = useState(false);
-    const api = `${apiUrl}/recipes/getrecipeby/${id}?translate=${language}${user ? `&userID=${user.id}` : ``}`;
-    // Fetches data on page load
+    const [isLoading, setIsLoading] = useState(true);
+    let api = `${apiUrl}/recipes/getrecipeby/${id}?translate=${locale}${user ? `&userID=${user.id}` : ``}`;
     useEffect(() => {
-        fetchData(api, setData, setIsError);
+        fetchData(api, setData, setIsError, setIsLoading);
     }, [id, api]);
 
     return (
@@ -55,16 +50,17 @@ const ViewRecipe = ({user, location, fetchData}) => {
                                         <img src="" alt=""/>
                                     </picture>}
                                     <RecipeHeader data={data}/>
-                                    <RecipeToolbar id={id} location={location} data={data} setLanguage={setLanguage}
-                                                   reload={() => fetchData(api, setData, setIsError)}/>
+                                    <ArticleToolbar type={"recipe"} id={id} data={data}
+                                                    isLoading={isLoading} setLocale={setLocale}
+                                                    reload={() => fetchData(api, setData, setIsError, setIsLoading)}/>
                                     <RecipeIngredients data={data}/>
                                     <RecipeEstimations data={data}/>
                                     <RecipeNutrients portion={data.portion_size} nutrients={data.nutrition}/>
                                     <RecipeSteps steps={data.steps}/>
-                                    <RecipeComments data={data}/>
+                                    <ArticleComments type={"recipe"} data={data}/>
                                 </article>
                             </div>
-                        </> : <SectionEmp message={strings.messageLoading}/>}
+                        </> : <SectionEmp message={viewDisplayStrings.viewBlogLoading}/>}
                     </> : <SectionErr reload={() => fetchData(api, setData, setIsError)}/>}
                 </Route>
                 <Redirect to="/not-found"/>

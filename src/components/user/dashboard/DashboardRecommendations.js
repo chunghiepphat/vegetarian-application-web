@@ -1,30 +1,19 @@
 import React, {useContext, useEffect, useState} from "react";
-import {apiUrl} from "../../../helpers/Variables";
+import {dashboardDisplayStrings} from "../../../resources/UserDisplayStrings";
+import {genericStrings} from "../../../resources/CommonDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {UserContext} from "../../../context/UserContext";
-import LocalizedStrings from "react-localization";
+import {apiUrl} from "../../../helpers/Variables";
 
 const DashboardRecommendations = () => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            recommendHeader: "Recommended daily nutrition consumption",
-            recommendMesage: "Based on your BMI, profile and routine.",
-            protein: "Protein",
-            fat: "Fat",
-            carb: "Carb",
-            calories: "Calories",
-        },
-        vi: {
-            recommendHeader: "Lượng dinh dưỡng bạn cần cho mỗi ngày",
-            recommendMessage: "Dựa vào chỉ số BMI, hồ sơ và thói quen sinh hoạt của bạn.",
-            protein: "Chất đạm",
-            fat: "Chất béo",
-            carb: "Carb",
-            calories: "Calo",
-        }
-    });
+    dashboardDisplayStrings.setLanguage(useContext(LocaleContext));
+    genericStrings.setLanguage(useContext(LocaleContext));
 
+    // Gets user info
     const user = useContext(UserContext);
+
+    // Calculates age from birthdate and current date
     const today = new Date;
     const birthdate = new Date(user.birth_date);
     let ageYear = today.getFullYear() - birthdate.getFullYear();
@@ -48,7 +37,6 @@ const DashboardRecommendations = () => {
                 await setCalories(result.calories);
             }
         } catch (error) {
-            console.log(error);
         }
     }
     useEffect(fetchData, [user]);
@@ -56,19 +44,20 @@ const DashboardRecommendations = () => {
     return (
         <section>
             <header className="section-header">
-                <h1>{strings.recommendHeader}</h1>
-                <p>{strings.recommendMessage}</p>
+                <h1>{dashboardDisplayStrings.dashboardRecommendations}</h1>
+                <p>{dashboardDisplayStrings.recommendMessage}</p>
             </header>
             <div className="section-content">
                 <ul style={{paddingTop: "20px"}}>
                     {protein >= 0 &&
-                    <li><span style={{fontWeight: "bold"}}>{strings.protein}: </span>{Math.round(protein)} g</li>}
+                    <li><span style={{fontWeight: "bold"}}>{genericStrings.protein}: </span>{Math.round(protein)}g</li>}
                     {fat >= 0 &&
-                    <li><span style={{fontWeight: "bold"}}>{strings.fat}: </span>{Math.round(fat)} g</li>}
+                    <li><span style={{fontWeight: "bold"}}>{genericStrings.fat}: </span>{Math.round(fat)}g</li>}
                     {carb >= 0 &&
-                    <li><span style={{fontWeight: "bold"}}>{strings.carb}: </span>{Math.round(carb)} g</li>}
+                    <li><span style={{fontWeight: "bold"}}>{genericStrings.carb}: </span>{Math.round(carb)}g</li>}
                     {calories >= 0 &&
-                    <li><span style={{fontWeight: "bold"}}>{strings.calories}: </span>{Math.round(calories)} cal</li>}
+                    <li><span style={{fontWeight: "bold"}}>{genericStrings.calories}: </span>{Math.round(calories)} cal
+                    </li>}
                 </ul>
             </div>
         </section>

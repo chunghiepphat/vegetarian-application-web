@@ -3,7 +3,6 @@ import {apiUrl} from "../../../../helpers/Variables";
 import Panel from "../../../commons/elements/containers/Panel";
 import {SectionLoader} from "../../../commons/elements/loaders/Loader";
 import UserCard from "../../elements/UserCard";
-import Avatar from "../../../commons/elements/Avatar";
 
 const ListUsers = () => {
     const [data, setData] = useState([]);

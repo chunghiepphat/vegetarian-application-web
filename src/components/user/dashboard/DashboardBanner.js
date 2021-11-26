@@ -1,20 +1,14 @@
-import React from "react";
+import React, {useContext} from "react";
+import {dashboardDisplayStrings} from "../../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
+import {Link} from "react-router-dom";
 import placeholderAvatar from "assets/user-image-default.png";
 import {FaAngleRight, FaEnvelope, FaFacebook, FaHome, FaInstagram, FaPhoneAlt} from "react-icons/fa";
-import {Link} from "react-router-dom";
 import {MdEdit} from "react-icons/all";
-import LocalizedStrings from "react-localization";
 
 const DashboardBanner = ({user}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            editButton: "Edit"
-        },
-        vi: {
-            editButton: "Chỉnh sửa"
-        }
-    });
+    dashboardDisplayStrings.setLanguage(useContext(LocaleContext));
 
     return (
         <div className="banner-container banner-dashboard">
@@ -48,7 +42,7 @@ const DashboardBanner = ({user}) => {
                         <li><FaFacebook/> {user.facebook_link} </li>}
                         {user.instagram_link &&
                         <li><FaInstagram/> {user.instagram_link} </li>}
-                        <li><Link to="/update"><FaAngleRight/>{strings.editButton}</Link></li>
+                        <li><Link to="/update"><FaAngleRight/>{dashboardDisplayStrings.dashboardEdit}</Link></li>
                     </ul>
                 </div>
             </div>

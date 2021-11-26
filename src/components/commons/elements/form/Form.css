@@ -19,6 +19,7 @@ button, .button-link {
     border-radius: 8px;
     box-shadow: 0 2px 4px #d0d0d0;
     cursor: pointer;
+    transition: 0.3s ease-in-out;
 }
 
 button svg, .button-link svg {

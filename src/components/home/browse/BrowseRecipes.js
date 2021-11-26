@@ -1,4 +1,6 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect} from "react";
+import {browseDisplayStrings} from "../../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleCard from "../../commons/elements/containers/ArticleCard";
@@ -6,19 +8,21 @@ import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 
-const BrowseRecipes = ({user, location, data, isLoading, isError, fetchData}) => {
+const BrowseRecipes = ({user, data, isLoading, isError, fetchData}) => {
+    // Localizations
+    browseDisplayStrings.setLanguage(useContext(LocaleContext));
+
+    // Executes fetch on page load
     const api = `${apiUrl}/recipes/getall?page=1&limit=300${user ? `&userID=${user.id}` : ``}`;
-    // Executes fetch once on page load
     useEffect(() => {
         fetchData(api);
-    }, [location, user]);
+    }, [user]);
 
     return (
         <section>
             <div className="section-content">
-                <h1>Recipes</h1>
-                <p>Vegetarian doesn't have to mean salads. Explore new and absolutely delicious recipes from
-                    our community.</p>
+                <h1>{browseDisplayStrings.browseRecipesHeader}</h1>
+                <p>{browseDisplayStrings.browseRecipesSubheader}</p>
                 <Panel filler="card-narrow">
                     {!isLoading ? <>
                         {!isError ? <>

@@ -10,26 +10,26 @@ const UpdateHealth = ({user, token, reload}) => {
     // Localizations
     let strings = new LocalizedStrings({
         en: {
-            lowRoutine: "Low intensity - office work or similar, no workout.",
-            averageRoutine: "Average intensity - manual labor and/or semi-regular workouts",
-            highRoutine: "High intensity -  hobbyist athlete and/or daily workouts",
-            extremeRoutine: "Extreme intensity - professional athlete",
-            severeUnderweightBody: "Underweight (Severe thinness)",
-            moderateUnderweightBody: "Underweight (Moderate thinness)",
-            mildUnderweightBody: "Underweight (Mild thinness)",
-            normalRangeBody: "Normal range",
-            preOverweightBody: "Overweight (Pre-obese)",
-            class1ObeseBody: "Obese (Class I)",
-            class2ObeseBody: "Obese (Class II)",
-            class3ObeseBody: "Obese (Class III)",
-            severeUnderweightVerdict: "This might indicate severe malnutrition and/or an eating disorder. You should eat more calories and check in with a doctor.",
-            moderateUnderweightVerdict: "This might indicate some degree of malnutrition. It is recommended to eat and exercise more.",
-            mildUnderweightVerdict: "You are slightly thin. A tad more calories a day and a touch more exercising should put you in shape.",
-            normalRangeVerdict: "You are in shape! Keep it up!",
-            preOverweightVerdict: "You are slightly overweight. You should cut down on the fat intake.",
-            class1ObeseVerdict: "You are overweight. It is recommended to eat healthier and exercise more.",
-            class2ObeseVerdict: "You are severely obese. You should eat healthier and check in with a doctor.",
-            class3ObeseVerdict: "You are morbidly obese. Please check in with a doctor.",
+            routineLowIntensity: "Low intensity - office work or similar, no workout.",
+            routineAverageIntensity: "Average intensity - manual labor and/or semi-regular workouts",
+            routineHighIntensity: "High intensity -  hobbyist athlete and/or daily workouts",
+            routineExtremeIntensity: "Extreme intensity - professional athlete",
+            bmiSevereThinness: "Underweight (Severe thinness)",
+            bmiModerateThinness: "Underweight (Moderate thinness)",
+            bmiMildThinness: "Underweight (Mild thinness)",
+            bmiNormal: "Normal range",
+            bmiPreObese: "Overweight (Pre-obese)",
+            bmiObese1: "Obese (Class I)",
+            bmiObese2: "Obese (Class II)",
+            bmiObese3: "Obese (Class III)",
+            bmiSevereThinnessVerdict: "This might indicate severe malnutrition and/or an eating disorder. You should eat more calories and check in with a doctor.",
+            bmiModerateThinnessVerdict: "This might indicate some degree of malnutrition. It is recommended to eat and exercise more.",
+            bmiMildThinnessVerdict: "You are slightly thin. A tad more calories a day and a touch more exercising should put you in shape.",
+            bmiNormalVerdict: "You are in shape! Keep it up!",
+            bmiPreObeseVerdict: "You are slightly overweight. You should cut down on the fat intake.",
+            bmiObese1Verdict: "You are overweight. It is recommended to eat healthier and exercise more.",
+            bmiObese2Verdict: "You are severely obese. You should eat healthier and check in with a doctor.",
+            bmiObese3Verdict: "You are morbidly obese. Please check in with a doctor.",
             healthProfile: "Your health profile & routine",
             healthProfileMessage: "Share your body stats and workout routine to receive better personalized recipe suggestions.",
             editButton: "Edit",
@@ -50,26 +50,26 @@ const UpdateHealth = ({user, token, reload}) => {
             alertSuccess: "Health profile updated.",
         },
         vi: {
-            lowRoutine: "Ít vận động - làm việc văn phòng, không thể thao.",
-            averageRoutine: "Vận động vừa phải - lao động chân tay hoặc thỉnh thoảng tập luyện.",
-            highRoutine: "Vận động thường xuyên - người có sở thích thể thao hoặc luyện tập hằng ngày.",
-            extremeRoutine: "Vận động cường độ nặng - vận động viên chuyên nghiệp.",
-            severeUnderweightBody: "Thiếu cân nghiêm trọng.",
-            moderateUnderweightBody: "Thiếu cân vừa phải.",
-            mildUnderweightBody: "Thiếu cân nhẹ.",
-            normalRangeBody: "Cân nặng bình thường.",
-            preOverweightBody: "Tiền thừa cân.",
-            class1ObeseBody: "Béo phì độ 1.",
-            class2ObeseBody: "Béo phì độ 2.",
-            class3ObeseBody: "Béo phì độ 3.",
-            severeUnderweightVerdict: "Bạn đang bị suy dinh dưỡng hoặc rối loạn ăn uống. Bạn cần ăn nhiều calo hơn và tìm bác sĩ kiểm tra sức khỏe của bạn.",
-            moderateUnderweightVerdict: "Bạn đang bị suy dinh dưỡng. Bạn cần ăn nhiều hơn và tập thể dục thường xuyên.",
-            mildUnderweightVerdict: "Bạn đang thiếu cân. Hãy nạp nhiều calo hơn và tập thể dục để có được một cơ thể khỏe mạnh.",
-            normalRangeVerdict: "Bạn đang có một cơ thể khỏe mạnh! Hãy giữ vững nó nhé!",
-            preOverweightVerdict: "Bạn đang thừa cân. Bạn nên giảm lượng chất béo.",
-            class1ObeseVerdict: "Bạn đang béo phì độ 1. Hãy ăn uống lành mạnh hơn và thường xuyên tập thể dục.",
-            class2ObeseVerdict: "Bạn đang béo phì độ 2. Hãy ăn uống lành mạnh hơn nữa và tìm bác sĩ để kiểm tra sức khỏe của bạn.",
-            class3ObeseVerdict: "Bạn đang béo phì độ 3. Hãy tìm bác sĩ để kiểm tra sức khỏe của bạn ngay.",
+            routineLowIntensity: "Ít vận động - làm việc văn phòng, không thể thao.",
+            routineAverageIntensity: "Vận động vừa phải - lao động chân tay hoặc thỉnh thoảng tập luyện.",
+            routineHighIntensity: "Vận động thường xuyên - người có sở thích thể thao hoặc luyện tập hằng ngày.",
+            routineExtremeIntensity: "Vận động cường độ nặng - vận động viên chuyên nghiệp.",
+            bmiSevereThinness: "Thiếu cân nghiêm trọng.",
+            bmiModerateThinness: "Thiếu cân vừa phải.",
+            bmiMildThinness: "Thiếu cân nhẹ.",
+            bmiNormal: "Cân nặng bình thường.",
+            bmiPreObese: "Tiền thừa cân.",
+            bmiObese1: "Béo phì độ 1.",
+            bmiObese2: "Béo phì độ 2.",
+            bmiObese3: "Béo phì độ 3.",
+            bmiSevereThinnessVerdict: "Bạn đang bị suy dinh dưỡng hoặc rối loạn ăn uống. Bạn cần ăn nhiều calo hơn và tìm bác sĩ kiểm tra sức khỏe của bạn.",
+            bmiModerateThinnessVerdict: "Bạn đang bị suy dinh dưỡng. Bạn cần ăn nhiều hơn và tập thể dục thường xuyên.",
+            bmiMildThinnessVerdict: "Bạn đang thiếu cân. Hãy nạp nhiều calo hơn và tập thể dục để có được một cơ thể khỏe mạnh.",
+            bmiNormalVerdict: "Bạn đang có một cơ thể khỏe mạnh! Hãy giữ vững nó nhé!",
+            bmiPreObeseVerdict: "Bạn đang thừa cân. Bạn nên giảm lượng chất béo.",
+            bmiObese1Verdict: "Bạn đang béo phì độ 1. Hãy ăn uống lành mạnh hơn và thường xuyên tập thể dục.",
+            bmiObese2Verdict: "Bạn đang béo phì độ 2. Hãy ăn uống lành mạnh hơn nữa và tìm bác sĩ để kiểm tra sức khỏe của bạn.",
+            bmiObese3Verdict: "Bạn đang béo phì độ 3. Hãy tìm bác sĩ để kiểm tra sức khỏe của bạn ngay.",
             healthProfile: "Hồ sơ sức khỏe và lịch trình sinh hoạt",
             healthProfileMessage: "Hãy chia sẻ về chỉ số cơ thể và lịch trình sinh hoạt của bạn để chúng tôi đề xuất các công thức phù hợp",
             editButton: "Chỉnh sửa",
@@ -99,10 +99,10 @@ const UpdateHealth = ({user, token, reload}) => {
     const [bodyType, setBodyType] = useState();
     const [verdict, setVerdict] = useState()
     const routines = [
-        strings.lowRoutine,
-        strings.averageRoutine,
-        strings.highRoutine,
-        strings.extremeRoutine
+        strings.routineLowIntensity,
+        strings.routineAverageIntensity,
+        strings.routineHighIntensity,
+        strings.routineExtremeIntensity
     ]
     // User profile
     const [gender, setGender] = useState(user.gender);
@@ -196,29 +196,29 @@ const UpdateHealth = ({user, token, reload}) => {
             setVerdict(strings.verdictNone);
         } else {
             if (result < 16) {
-                setBodyType(strings.severeUnderweightBody);
-                setVerdict(strings.severeUnderweightVerdict)
+                setBodyType(strings.bmiSevereThinness);
+                setVerdict(strings.bmiSevereThinnessVerdict)
             } else if (result < 17 && result >= 16) {
-                setBodyType(strings.moderateUnderweightBody);
-                setVerdict(strings.moderateUnderweightVerdict)
+                setBodyType(strings.bmiModerateThinness);
+                setVerdict(strings.bmiModerateThinnessVerdict)
             } else if (result < 18.5 && result >= 17) {
-                setBodyType(strings.mildUnderweightBody);
-                setVerdict(strings.mildUnderweightVerdict)
+                setBodyType(strings.bmiMildThinness);
+                setVerdict(strings.bmiMildThinnessVerdict)
             } else if (result < 25 && result >= 18.5) {
-                setBodyType(strings.normalRangeBody);
-                setVerdict(strings.normalRangeVerdict)
+                setBodyType(strings.bmiNormal);
+                setVerdict(strings.bmiNormalVerdict)
             } else if (result < 30 && result >= 25) {
-                setBodyType(strings.preOverweightBody);
-                setVerdict(strings.preOverweightVerdict)
+                setBodyType(strings.bmiPreObese);
+                setVerdict(strings.bmiPreObeseVerdict)
             } else if (result < 35 && result >= 30) {
-                setBodyType(strings.class1ObeseBody);
-                setVerdict(strings.class1ObeseVerdict)
+                setBodyType(strings.bmiObese1);
+                setVerdict(strings.bmiObese1Verdict)
             } else if (result < 40 && result >= 35) {
-                setBodyType(strings.class2ObeseBody);
-                setVerdict(strings.class2ObeseVerdict)
+                setBodyType(strings.bmiObese2);
+                setVerdict(strings.bmiObese2Verdict)
             } else if (result >= 40) {
-                setBodyType(strings.class3ObeseBody);
-                setVerdict(strings.class3ObeseVerdict)
+                setBodyType(strings.bmiObese3);
+                setVerdict(strings.bmiObese3Verdict)
             }
         }
     }

@@ -1,36 +1,29 @@
-import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import React, {useContext, useEffect, useState} from "react";
+import {dashboardDisplayStrings} from "../../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
-import {FaAngleRight} from "react-icons/fa";
+import {Link} from "react-router-dom";
 import Panel from "../../commons/elements/containers/Panel";
 import ArticleCard from "../../commons/elements/containers/ArticleCard";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
-import LocalizedStrings from "react-localization";
+import {FaAngleRight} from "react-icons/fa";
 
-const DashboardLatestBlogs = ({user, location, token}) => {
+const DashboardLatestBlogs = ({user, token}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            lastestBlogHeader: "Your recent blogs",
-            viewAllButton: "View all",
-            noBlogsMessage: "It seems you haven't posted anything yet."
-        },
-        vi: {
-            lastestBlogHeader: "Các bài viết gần đây",
-            viewAllButton: "Xem",
-            noBlogsMessage: "Bạn chưa có bài viết nào."
-        }
-    });
+    dashboardDisplayStrings.setLanguage(useContext(LocaleContext));
 
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
+    // Generates request headers
     let headers = new Headers();
     if (token) headers.append("Authorization", `Bearer ${token.token}`);
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
+
+    // Fetches data
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
     const fetchData = async () => {
         setIsLoading(true);
         // Generate request
@@ -51,20 +44,18 @@ const DashboardLatestBlogs = ({user, location, token}) => {
                 setIsLoading(false);
             }
         } catch (error) {
-            console.error(error);
             setIsError(true);
         }
     }
-    // Executes fetch once on page load
     useEffect(() => {
         fetchData();
-    }, [location]);
+    }, [user]);
 
     return (
         <section>
             <header className="section-header linked-header">
-                <h1>{strings.lastestBlogHeader}</h1>
-                <Link to="/history/blogs"><FaAngleRight/>{strings.viewAllButton}</Link>
+                <h1>{dashboardDisplayStrings.dashboardBlogs}</h1>
+                <Link to="/history/blogs"><FaAngleRight/>{dashboardDisplayStrings.dashboardViewAll}</Link>
             </header>
             <div className="section-content">
                 <Panel filler="card-medium">
@@ -85,7 +76,7 @@ const DashboardLatestBlogs = ({user, location, token}) => {
                                                  totalLikes={item.totalLike}
                                                  isFavorite={item.is_like}
                                                  status={item.status}/>))}
-                            </> : <PanelEmp message={strings.noBlogsMessage}/>}
+                            </> : <PanelEmp message={dashboardDisplayStrings.dashboardBlogsEmpty}/>}
                         </> : <PanelErr reload={fetchData}/>}
                     </> : <PanelLoader/>}
                 </Panel>

@@ -157,6 +157,7 @@ article section {
     color: #656665;
     background: none;
     border-radius: 18px;
+    transition: 0.3s ease-in-out;
 }
 
 .article-button svg {
@@ -168,15 +169,25 @@ article section {
 }
 
 .article-button:hover {
+    color: #656665;
     background: #e6d3a3;
 }
 
-.article-button-with-text {
+.article-button:hover svg {
+    fill: #656665;
+}
+
+.article-button-labeled {
     width: auto;
 }
 
-.article-button-no-text {
+.article-button-active {
+    background: #a8763e;
+    color: #eeeeee;
+}
 
+.article-button-active svg {
+    fill: #eeeeee;
 }
 
 .article-button-no-text svg {
@@ -293,6 +304,14 @@ article > section > h2 {
 article .form-container {
     padding: 0;
     border: none;
+}
+
+.article-comments {
+    border-top: thin solid lightgray;
+}
+
+.article-comments > h2 {
+    margin-bottom: 20px;
 }
 
 /*User profile page*/

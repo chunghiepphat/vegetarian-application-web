@@ -37,7 +37,7 @@
 
 .banner-home .banner-showcase .section-header h1 {
     font-size: 30px;
-    font-weight: 500;
+    font-weight: 800;
 }
 
 .banner-home .banner-showcase .section-content {
@@ -156,7 +156,7 @@
 }
 
 .overlay-clear {
-    background: rgba(254, 254, 254, 0.4)!important;
+    background: rgba(254, 254, 254, 0.4) !important;
     /*transition: 0.3s ease-out;*/
 }
 
