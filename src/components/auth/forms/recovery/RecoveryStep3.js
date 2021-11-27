@@ -36,7 +36,7 @@ const RecoveryStep3 = ({history, email, setStep}) => {
         // Generates request body
         let body = JSON.stringify({
             "email": email,
-            "newPassword": newPassword,
+            "profilePasswordNew": newPassword,
             "confirmPassword": confirmPassword,
         });
         // Generates request

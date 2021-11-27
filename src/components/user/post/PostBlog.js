@@ -1,43 +1,18 @@
-import React, {useEffect, useRef, useState} from "react";
-import {cloudName, uploadPreset} from "../../../helpers/Cloudinary";
+import React, {useContext, useEffect, useRef, useState} from "react";
+import {postDisplayStrings} from "../../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
+import {cloudName, uploadPreset} from "../../../helpers/Cloudinary";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import InputGroup from "../../commons/elements/form/InputGroup";
-import LocalizedStrings from "react-localization";
+import {requestErrorStrings} from "../../../resources/CommonDisplayStrings";
 
 const PostBlog = ({user, token, history}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            blogHeader: "Share your story",
-            historyBlogSubheader: "Please keep content relevant to our site, which is about vegetarian food, recipes and lifestyle.",
-            thumbnailHeader: "Upload a thumbnail for your blog post",
-            thumbnailMessageHeader: "Click to pick an image...",
-            titlePlaceholder: "Title",
-            subTitlePlaceholder: "Subtitle (optional)",
-            contentPlaceholder: "What's your story",
-            clearThumbnailButton: "Clear thumbnail",
-            saveDraftButton: "Save draft",
-            publishButton: "Publish",
-        },
-        vi: {
-            blogHeader: "Chia sẻ câu chuyện của bạn",
-            historyBlogSubheader: "Xin hãy giữ nội dụng liên quan về đồ ăn, công thức chay và lối sống của người ăn chay.",
-            thumbnailHeader: "Tải hình ảnh lên cho bài viết của bạn",
-            thumbnailMessageHeader: "Nhấn để chọn hình ảnh...",
-            titlePlaceholder: "Tiêu đề",
-            subTitlePlaceholder: "Phụ đề (không bắt buộc)",
-            contentPlaceholder: "Câu chuyện của bạn?",
-            clearThumbnailButton: "Xóa hình ảnh",
-            saveDraftButton: "Lưu nháp",
-            publishButton: "Tạo mới",
-        }
-    });
+    postDisplayStrings.setLanguage(useContext(LocaleContext));
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [uploadProgress, setUploadProgress] = useState("");
-    // Parameters
+    // Input values
     const inputRef = useRef();
     const [title, setTitle] = useState();
     const [subtitle, setSubtitle] = useState();
@@ -45,6 +20,7 @@ const PostBlog = ({user, token, history}) => {
     const [thumbnailUrl, setThumbnailUrl] = useState("");
     const [thumbnailFile, setThumbnailFile] = useState("");
     const [isPrivate, setIsPrivate] = useState(false);
+
     // Handles image selection
     const [image, setImage] = useState(null)
     const handleChange = (event) => {
@@ -53,7 +29,8 @@ const PostBlog = ({user, token, history}) => {
             setImage(URL.createObjectURL(event.target.files[0]));
         }
     }
-    // Quill JS toolbar config
+
+    // Quill JS handlers
     const modules = {
         toolbar: [
             [{'header': [1, 2, 3, false]}],
@@ -66,17 +43,21 @@ const PostBlog = ({user, token, history}) => {
     const handleQuill = (value) => {
         setContent(value);
     }
+
     // Clears selected image
     const handleClear = (e) => {
         e.preventDefault();
-        setImage();
+        setImage(undefined);
     }
+
     // Handles form submission, image upload and getting image URL
+    const [isLoading, setIsLoading] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState("");
     const submitPost = async (e) => {
         e.preventDefault();
         setIsPrivate(e.nativeEvent.submitter.name);
         setIsLoading(true);
-        setUploadProgress("Processing image(s)...")
+        setUploadProgress(postDisplayStrings.postArticleProcessingImages)
         // Generates form data
         const formData = new FormData();
         formData.append("file", thumbnailFile);
@@ -96,20 +77,21 @@ const PostBlog = ({user, token, history}) => {
                 const result = await response.json();
                 setThumbnailUrl(result.secure_url);
             } else if (response.status >= 400 && response.status < 600) {
-                alert("We couldn't reach our hosting services. Status code: " + response.status);
+                alert(requestErrorStrings.hostingServiceErrorStatus + response.status);
                 setIsLoading(false);
-                setUploadProgress();
+                setUploadProgress(null);
             }
         } catch (error) {
-            alert("There was an unexpected error. " + error);
+            alert(requestErrorStrings.requestErrorException + error);
             setIsLoading(false);
-            setUploadProgress();
+            setUploadProgress(null);
         }
     }
+
     // Handles fetch for post submission upon image upload completion
     const uploadPost = async () => {
         setIsLoading(true);
-        setUploadProgress("Uploading your blog...")
+        setUploadProgress(postDisplayStrings.postArticleUploading);
         // Generates request headers
         let headers = new Headers();
         if (token) headers.append("Authorization", `Bearer ${token.token}`);
@@ -135,23 +117,24 @@ const PostBlog = ({user, token, history}) => {
         const response = await fetch(api, request);
         try {
             if (response.ok) {
-                alert("Blog posted successfully!");
+                alert(postDisplayStrings.postArticleUploadSuccess);
                 history.push("/home");
             } else if (response.status === 401) {
-                alert("You are not authorized to do that.")
+                alert(requestErrorStrings.requestErrorUnauthorized);
                 setIsLoading(false);
-                setUploadProgress();
+                setUploadProgress(null);
             } else {
-                alert("An unexpected error has occurred. Status code: " + response.status);
+                alert(requestErrorStrings.requestErrorStatus + response.status);
                 setIsLoading(false);
-                setUploadProgress();
+                setUploadProgress(null);
             }
         } catch (error) {
-            alert("A network error has occurred.");
+            alert(requestErrorStrings.requestErrorException + error);
             setIsLoading(false);
-            setUploadProgress();
+            setUploadProgress(null);
         }
     }
+
     // Initiates post upload when image URL is ready
     useEffect(() => {
         if (thumbnailUrl) {
@@ -162,8 +145,8 @@ const PostBlog = ({user, token, history}) => {
     return (
         <section>
             <header className="section-header">
-                <h1>{strings.blogHeader}</h1>
-                <em>{strings.historyBlogSubheader}</em>
+                <h1>{postDisplayStrings.postBlog}</h1>
+                <em>{postDisplayStrings.postBlogSubheader}</em>
             </header>
             <div className="section-content">
                 <form className="form-container" onSubmit={submitPost}>
@@ -174,24 +157,26 @@ const PostBlog = ({user, token, history}) => {
                                 <img src="" alt=""/>
                             </picture>
                             : <div className="upload-thumbnail">
-                                <h1>{strings.thumbnailHeader}</h1>
-                                <p>{strings.thumbnailMessageHeader}</p>
+                                <h1>{postDisplayStrings.postBlogThumbnail}</h1>
+                                <p>{postDisplayStrings.postBlogThumbnailPlaceholder}</p>
                             </div>}
                     </label>
                     <input id="file-selector" style={{display: "none"}}
                            aria-label="Recipe thumbnail" type="file"
                            onChange={handleChange}
-                           ref={inputRef}/>
+                           ref={inputRef} readOnly={isLoading}/>
                     <input aria-label="Blog title" type="text" value={title}
                            onChange={e => setTitle(e.target.value)}
-                           placeholder={strings.titlePlaceholder} required/>
+                           placeholder={postDisplayStrings.postBlogTitle}
+                           readOnly={isLoading} required/>
                     <input aria-label="Blog subtitle" type="text" value={subtitle}
                            onChange={e => setSubtitle(e.target.value)}
-                           placeholder={strings.subTitlePlaceholder}/>
+                           placeholder={postDisplayStrings.postBlogSubtitle}
+                           readOnly={isLoading}/>
                     <ReactQuill theme="snow" value={content}
                                 onChange={handleQuill}
-                                modules={modules}
-                                placeholder={strings.contentPlaceholder}>
+                                modules={modules} readOnly={isLoading}
+                                placeholder={postDisplayStrings.postBlogContent}>
                     </ReactQuill>
                     <div className="sticky-bottom">
                         <InputGroup>
@@ -199,13 +184,16 @@ const PostBlog = ({user, token, history}) => {
                                 <button disabled>{uploadProgress}</button>
                             </> : <>
                                 {image ? <>
-                                    <button className="button-light" onClick={handleClear}>{strings.clearThumbnailButton}</button>
-                                    <button type="submit" className="button-dark" name="true">{strings.saveDraftButton}</button>
-                                    <button type="submit" className="button-dark" name="false">{strings.publishButton}</button>
+                                    <button className="button-light"
+                                            onClick={handleClear}>{postDisplayStrings.postBlogClearThumbnail}</button>
+                                    <button type="submit" className="button-dark"
+                                            name="true">{postDisplayStrings.postBlogSaveDraft}</button>
+                                    <button type="submit" className="button-dark"
+                                            name="false">{postDisplayStrings.postBlogSubmitForReview}</button>
                                 </> : <>
-                                    <button disabled>{strings.clearThumbnailButton}</button>
-                                    <button disabled>{strings.saveDraftButton}</button>
-                                    <button disabled>{strings.publishButton}</button>
+                                    <button disabled>{postDisplayStrings.postBlogClearThumbnail}</button>
+                                    <button disabled>{postDisplayStrings.postBlogSaveDraft}</button>
+                                    <button disabled>{postDisplayStrings.postBlogSubmitForReview}</button>
                                 </>}
                             </>}
                         </InputGroup>

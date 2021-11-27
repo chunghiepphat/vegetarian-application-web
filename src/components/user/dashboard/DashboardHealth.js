@@ -22,7 +22,7 @@ const DashboardHealth = ({user}) => {
         ageYear--;
     }
 
-
+    // Displays workout routine
     const routines = [
         profileStrings.routineLowIntensity,
         profileStrings.routineAverageIntensity,

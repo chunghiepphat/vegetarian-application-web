@@ -1,19 +1,21 @@
-import React, {useEffect, useState} from "react";
-import {Redirect, Route, Switch} from "react-router-dom";
-import {cloudName, uploadPreset} from "../../../helpers/Cloudinary";
+import React, {useContext, useEffect, useState} from "react";
+import {requestErrorStrings} from "../../../resources/CommonDisplayStrings";
+import {postDisplayStrings} from "../../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
+import {cloudName, uploadPreset} from "../../../helpers/Cloudinary";
+import {Redirect, Route, Switch} from "react-router-dom";
 import RecipeStep01 from "./recipe/RecipeStep01";
 import RecipeStep02 from "./recipe/RecipeStep02";
 import RecipeStep03 from "./recipe/RecipeStep03";
 import RecipeStep04 from "./recipe/RecipeStep04";
-import LocalizedStrings from "react-localization";
 
 const PostRecipe = ({user, token, history}) => {
+    // Localizations
+    requestErrorStrings.setLanguage(useContext(LocaleContext));
+    postDisplayStrings.setLanguage(useContext(LocaleContext));
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [uploadProgress, setUploadProgress] = useState("");
-    const [categoryList, setCategoryList] = useState([]);
-    // Step 1 parameters
+    // Step 1 input data
     const [title, setTitle] = useState();
     const [category, setCategory] = useState(1);
     const [difficulty, setDifficulty] = useState(1);
@@ -22,15 +24,20 @@ const PostRecipe = ({user, token, history}) => {
     const [prepTime, setPrepTime] = useState(0);
     const [bakingTime, setBakingTime] = useState(0);
     const [restingTime, setRestingTime] = useState(0);
-    // Step 2 parameters
+
+    // Step 2 input data
     const [thumbnailUrl, setThumbnailUrl] = useState("");
     const [thumbnailFile, setThumbnailFile] = useState("");
-    // Step 3 parameters
+
+    // Step 3 input data
     const [ingredients, setIngredients] = useState([]);
-    // Step 4 parameters
+
+    // Step 4 input data
     const [steps, setSteps] = useState([]);
     const [isPrivate, setIsPrivate] = useState(false);
+
     // Fetch category list from server
+    const [categoryList, setCategoryList] = useState([]);
     const fetchCategories = async () => {
         const api = `${apiUrl}/recipes/categories`
         try {
@@ -38,19 +45,20 @@ const PostRecipe = ({user, token, history}) => {
             if (response.ok) {
                 const result = await response.json();
                 await setCategoryList(result.listResult);
-                console.log(categoryList)
             }
         } catch (error) {
-            console.error(error);
         }
     }
     useEffect(fetchCategories, [user]);
+
     // Handles form submission, image upload and getting image URL
+    const [isLoading, setIsLoading] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState("");
     const submitPost = async (e) => {
         e.preventDefault();
         setIsPrivate(e.nativeEvent.submitter.name);
         setIsLoading(true);
-        setUploadProgress("Processing image(s)...")
+        setUploadProgress(postDisplayStrings.postArticleProcessingImages)
         // Generates form data
         const formData = new FormData();
         formData.append("file", thumbnailFile);
@@ -70,20 +78,21 @@ const PostRecipe = ({user, token, history}) => {
                 const result = await response.json();
                 setThumbnailUrl(result.secure_url);
             } else if (response.status >= 400 && response.status < 600) {
-                alert("We couldn't reach our hosting services. Status code: " + response.status);
+                alert(requestErrorStrings.hostingServiceErrorStatus + response.status);
                 setIsLoading(false);
-                setUploadProgress();
+                setUploadProgress(null);
             }
         } catch (error) {
-            alert("There was an unexpected error. " + error);
+            alert(requestErrorStrings.requestErrorException + error);
             setIsLoading(false);
-            setUploadProgress();
+            setUploadProgress(null);
         }
     }
+
     // Handles fetch for post submission upon image upload completion
     const uploadPost = async () => {
         setIsLoading(true);
-        setUploadProgress("Uploading your recipe...")
+        setUploadProgress(postDisplayStrings.postArticleUploading);
         // Generates request headers
         let headers = new Headers();
         if (token) headers.append("Authorization", `Bearer ${token.token}`);
@@ -116,23 +125,24 @@ const PostRecipe = ({user, token, history}) => {
         const response = await fetch(api, request);
         try {
             if (response.ok) {
-                alert("Recipe posted successfully!");
+                alert(postDisplayStrings.postArticleUploadSuccess);
                 history.push("/home");
             } else if (response.status === 401) {
-                alert("You are not authorized to do that.")
+                alert(requestErrorStrings.requestErrorUnauthorized);
                 setIsLoading(false);
-                setUploadProgress();
+                setUploadProgress(null);
             } else {
-                alert("An unexpected error has occurred. Status code: " + response.status);
+                alert(requestErrorStrings.requestErrorStatus + response.status);
                 setIsLoading(false);
-                setUploadProgress();
+                setUploadProgress(null);
             }
         } catch (error) {
-            alert("A network error has occurred.");
+            alert(requestErrorStrings.requestErrorException + error);
             setIsLoading(false);
-            setUploadProgress();
+            setUploadProgress(null);
         }
     }
+
     // Initiates post upload when image URL is ready
     useEffect(() => {
         if (thumbnailUrl) {

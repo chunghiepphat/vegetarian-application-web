@@ -1,27 +1,17 @@
-import React from "react";
+import React, {useContext} from "react";
+import {profileDisplayStrings} from "../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../context/LocaleContext";
 import {NavLink, Redirect, Route, Switch} from "react-router-dom";
+import DashboardSidebar from "./DashboardSidebar";
 import Navbar from "../commons/elements/bars/Navbar";
 import UpdateAvatar from "./profile/UpdateAvatar";
 import UpdateProfile from "./profile/UpdateProfile";
 import UpdatePassword from "./profile/UpdatePassword";
-import DashboardSidebar from "./DashboardSidebar";
-import LocalizedStrings from "react-localization";
 
 const Profile = ({reload}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            updatePicture: "Update picture",
-            updateProfile: "Update profile",
-            changePassword: "Change password",
-        },
-        vi: {
-            updatePicture: "Ảnh đại diện",
-            updateProfile: "Hồ sơ",
-            changePassword: "Đổi mật khẩu",
-        }
-    });
-    
+    profileDisplayStrings.setLanguage(useContext(LocaleContext));
+
     const urlAvatar = "/update/avatar";
     const urlProfile = "/update/profile";
     const urlPassword = "/update/password";
@@ -31,9 +21,9 @@ const Profile = ({reload}) => {
                 <main>
                     <section className="page-navbar">
                         <Navbar>
-                            <NavLink to={urlAvatar}>{strings.updatePicture}</NavLink>
-                            <NavLink to={urlProfile}>{strings.updateProfile}</NavLink>
-                            <NavLink to={urlPassword}>{strings.changePassword}</NavLink>
+                            <NavLink to={urlAvatar}>{profileDisplayStrings.profilePictureTab}</NavLink>
+                            <NavLink to={urlProfile}>{profileDisplayStrings.profileDetailsTab}</NavLink>
+                            <NavLink to={urlPassword}>{profileDisplayStrings.profilePasswordTab}</NavLink>
                         </Navbar>
                     </section>
                     <Switch>

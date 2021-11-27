@@ -1,21 +1,22 @@
-import React from "react";
+import React, {useContext} from "react";
 import Form from "../../../commons/elements/form/Form";
 import InputGroup from "../../../commons/elements/form/InputGroup";
 import LocalizedStrings from "react-localization";
+import {genericStrings} from "../../../../resources/CommonDisplayStrings";
+import {LocaleContext} from "../../../../context/LocaleContext";
 
 const RecipeStep01 = (props) => {
     // Localizations
+    genericStrings.setLanguage(useContext(LocaleContext));
     let strings = new LocalizedStrings({
         en: {
-            step1Header: "Step 1 - Getting started",
-            step1MessageHeader: "Share with us some details about your new exciting recipe.",
-            nameRecipe: "Name your recipe (*)",
-            namePlaceholder: "What would you call this dish?",
-            typeRecipe: "Recipe type",
-            difficultyRecipe: "Recipe difficulty",
-            portionRecipe: "Portion",
-            servingsRecipe: "servings",
-            piecesRecipe: "pieces",
+            postRecipeStep1: "Step 1 - Getting started",
+            postRecipeStep1Subheader: "Share with us some details about your new exciting recipe.",
+            postRecipeName: "Name your recipe (*)",
+            postRecipeNamePlaceholder: "What would you call this dish?",
+            postRecipeType: "Recipe type",
+            postRecipeDifficulty: "Recipe difficulty",
+            postRecipePortion: "Portion",
             prepRecipe: "Prep time (minutes)",
             bakingRecipe: "Baking time (minutes)",
             restingRecipe: "Resting time (minutes)",
@@ -23,15 +24,13 @@ const RecipeStep01 = (props) => {
             nextStepButton: "Next step"
         },
         vi: {
-            step1Header: "Bước 1 - Bắt đầu",
-            step1MessageHeader: "Chia sẻ với chúng tôi đôi chút về công thức của bạn",
-            nameRecipe: "Tên công thức (*)",
-            namePlaceholder: "Bạn sẽ gọi món này là gì?",
-            typeRecipe: "Loại",
-            difficultyRecipe: "Độ khó",
-            portionRecipe: "Khẩu phần ăn",
-            servingsRecipe: "phần ăn",
-            piecesRecipe: "miếng",
+            postRecipeStep1: "Bước 1 - Bắt đầu",
+            postRecipeStep1Subheader: "Chia sẻ với chúng tôi đôi chút về công thức của bạn",
+            postRecipeName: "Tên công thức (*)",
+            postRecipeNamePlaceholder: "Bạn sẽ gọi món này là gì?",
+            postRecipeType: "Loại",
+            postRecipeDifficulty: "Độ khó",
+            postRecipePortion: "Khẩu phần ăn",
             prepRecipe: "Thời gian chuẩn bị (phút)",
             bakingRecipe: "Thời gian nướng (phút)",
             restingRecipe: "Thời gian nghỉ (phút)",
@@ -61,17 +60,17 @@ const RecipeStep01 = (props) => {
     return (
         <section>
             <header className="section-header">
-                <h1>{strings.step1Header}</h1>
-                <em>{strings.step1MessageHeader}</em>
+                <h1>{strings.postRecipeStep1}</h1>
+                <em>{strings.postRecipeStep1Subheader}</em>
             </header>
             <div className="section-content">
                 <Form onSubmit={nextStep}>
-                    <label>{strings.nameRecipe}
+                    <label>{strings.postRecipeName}
                         <input aria-label="Recipe title" type="text" value={props.title}
                                onChange={e => props.setTitle(capitalizeFirstLetter(e.target.value))}
-                               placeholder={strings.namePlaceholder} required/>
+                               placeholder={strings.postRecipeNamePlaceholder} required/>
                     </label>
-                    <label>{strings.typeRecipe}
+                    <label>{strings.postRecipeType}
                         <select aria-label="Recipe type" value={props.category}
                                 onChange={e => props.setCategory(e.target.value)}>
                             {props.categoryList && props.categoryList.map(item => (
@@ -79,38 +78,38 @@ const RecipeStep01 = (props) => {
                             ))}}
                         </select>
                     </label>
-                    <label>{strings.difficultyRecipe}</label>
+                    <label>{strings.postRecipeDifficulty}</label>
                     <InputGroup>
                         <label className="radio-button">
                             <input type="radio" name="difficulty" value="1" defaultChecked
                                    onChange={e => props.setDifficulty(e.target.value)}/>
-                            <span className="radio-label">Beginner</span> </label>
+                            <span className="radio-label">{genericStrings.beginner}</span> </label>
                         <label className="radio-button">
                             <input type="radio" name="difficulty" value="2"
                                    onChange={e => props.setDifficulty(e.target.value)}/>
-                            <span className="radio-label">Novice</span> </label>
+                            <span className="radio-label">{genericStrings.novice}</span> </label>
                         <label className="radio-button">
                             <input type="radio" name="difficulty" value="3"
                                    onChange={e => props.setDifficulty(e.target.value)}/>
-                            <span className="radio-label">Cook</span> </label>
+                            <span className="radio-label">{genericStrings.cook}</span> </label>
                         <label className="radio-button">
                             <input type="radio" name="difficulty" value="4"
                                    onChange={e => props.setDifficulty(e.target.value)}/>
-                            <span className="radio-label">Chef</span> </label>
+                            <span className="radio-label">{genericStrings.chef}</span> </label>
                         <label className="radio-button">
                             <input type="radio" name="difficulty" value="5"
                                    onChange={e => props.setDifficulty(e.target.value)}/>
-                            <span className="radio-label">Gordon Ramsay</span> </label>
+                            <span className="radio-label">{genericStrings.gordonRamsay}</span> </label>
                     </InputGroup>
-                    <label>{strings.portionRecipe}
+                    <label>{strings.postRecipePortion}
                         <InputGroup>
                             <input aria-label="Portion size" type="number" min={1} value={props.portionSize}
                                    onChange={e => props.setPortionSize(e.target.value)}/>
                             <select aria-label="Portion type" value={props.portionType}
                                     onChange={e => props.setPortionType(e.target.value)}
                                     style={{maxWidth: "200px"}}>
-                                <option value="1">{strings.servingsRecipe}</option>
-                                <option value="2">{strings.piecesRecipe}</option>
+                                <option value="1">{genericStrings.servings}</option>
+                                <option value="2">{genericStrings.pieces}</option>
                             </select> </InputGroup> </label>
                     <label>{strings.prepRecipe}
                         <InputGroup>
@@ -118,11 +117,13 @@ const RecipeStep01 = (props) => {
                                    onChange={e => props.setPrepTime(e.target.value)}/> </InputGroup> </label>
                     <label>{strings.bakingRecipe}
                         <InputGroup>
-                            <input aria-label="Baking time" type="number" min={0} value={props.viewRecipeEstimatedBakingTime}
+                            <input aria-label="Baking time" type="number" min={0}
+                                   value={props.viewRecipeEstimatedBakingTime}
                                    onChange={e => props.setBakingTime(e.target.value)}/> </InputGroup> </label>
                     <label>{strings.restingRecipe}
                         <InputGroup>
-                            <input aria-label="Resting time" type="number" min={0} value={props.viewRecipeEstimatedRestingTime}
+                            <input aria-label="Resting time" type="number" min={0}
+                                   value={props.viewRecipeEstimatedRestingTime}
                                    onChange={e => props.setRestingTime(e.target.value)}/> </InputGroup> </label>
                     <div className="sticky-bottom">
                         <InputGroup>

@@ -1,9 +1,9 @@
 import React from "react";
-import "./Brand.css";
+import "./HeaderBrand.css";
 import {Link} from "react-router-dom";
 import siteLogo from "assets/site-logo.png";
 
-const Brand = () => {
+const HeaderBrand = () => {
     return (
         <Link to="/home" className="brand-link">
             <picture className="brand">
@@ -13,4 +13,4 @@ const Brand = () => {
     )
 }
 
-export default Brand;
+export default HeaderBrand;

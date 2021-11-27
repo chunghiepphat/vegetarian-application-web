@@ -1,36 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
+import {healthDisplayStrings} from "../../../resources/UserDisplayStrings";
+import {requestErrorStrings} from "../../../resources/CommonDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
+import {useLocation} from "react-router-dom";
 import Form from "../../commons/elements/form/Form";
 import InputArray from "../../commons/elements/form/InputArray";
 import InputGroup from "../../commons/elements/form/InputGroup";
 import {ImCross} from "react-icons/all";
-import LocalizedStrings from "react-localization";
 
-const UpdatePreferences = ({user, token, location}) => {
+const UpdatePreferences = ({user, token}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            preferencesHeader: "Food preferences",
-            preferencesMessageHeader: "Share with us the ingredients you love so that we can suggest better recipes to your tastes!",
-            preferencesMessage: "What's your favorite? Tofu? Cherry tomatoes? Share with us!",
-            addIngredientButton: "Add ingredient",
-            clearButton: "Clear",
-            saveButton: "Save",
-            ingredientPlaceholder: "e.g: tomato,...",
-            menuSaved: "Food preferences updated.",
-        },
-        vi: {
-            preferencesHeader: "Thực phẩm yêu thích",
-            preferencesMessageHeader: "Hãy chia sẻ với chúng tôi các thực phẩm mà bạn thích để chúng tôi có thể đề xuất các công thức cho bạn tốt hơn!",
-            preferencesMessage: "Thực phẩm yêu thích của bạn là gì? Đậu hủ? Cà chua bi? Hãy chia sẻ với chúng tôi!",
-            addIngredientButton: "Thêm thực phẩm",
-            clearButton: "Xóa",
-            saveButton: "Lưu",
-            ingredientPlaceholder: "ví dụ: cà chua,...",
-            menuSaved: "Đã cập nhật thực phẩm yêu thích.",
-        }
-    });
+    healthDisplayStrings.setLanguage(useContext(LocaleContext));
+    requestErrorStrings.setLanguage(useContext(LocaleContext));
 
+    // Fetches food items
     const [ingredients, setIngredients] = useState([]);
     const fetchData = async () => {
         const api = `${apiUrl}/user/getpreferences/${user.id}`;
@@ -38,6 +22,8 @@ const UpdatePreferences = ({user, token, location}) => {
         const result = await response.json();
         setIngredients(result.listIngredient);
     }
+
+    //Adds , removes & clears input fields
     const handleAddField = (e) => {
         e.preventDefault();
         const ingredient = {
@@ -53,6 +39,8 @@ const UpdatePreferences = ({user, token, location}) => {
         e.preventDefault();
         setIngredients([]);
     }
+
+    // Handles input changes
     const handleChange = (e, index) => {
         e.preventDefault();
         e.persist();
@@ -67,11 +55,14 @@ const UpdatePreferences = ({user, token, location}) => {
             });
         });
     }
+
     // Generates request headers
     let headers = new Headers();
     headers.append("Authorization", `Bearer ${token.token}`);
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
+
+    // Updates preferences profile
     const updatePreferences = async (e) => {
         e.preventDefault();
         // Generates request body
@@ -86,23 +77,30 @@ const UpdatePreferences = ({user, token, location}) => {
         };
         // Executes fetch
         const api = `${apiUrl}/user/preferences/${user.id}`;
-        const response = await fetch(api, request);
-        if (response.ok) {
-            alert(strings.menuSaved);
-            await fetchData();
-        } else if (response.status === 401) {
-            alert("You are not authorized to complete the request.")
-        } else {
-            alert("Error: " + response.status);
+        try {
+            const response = await fetch(api, request);
+            if (response.ok) {
+                alert(healthDisplayStrings.healthPreferencesUpdateSuccess);
+                await fetchData();
+            } else if (response.status === 401) {
+                alert(requestErrorStrings.requestErrorUnauthorized);
+                // setIsLoading(false);
+            } else {
+                alert(requestErrorStrings.requestErrorStatus + response.status);
+                // setIsLoading(false);
+            }
+        } catch (error) {
+            alert(requestErrorStrings.requestErrorException + error);
+            // setIsLoading(false);
         }
     }
-    useEffect(fetchData, [location]);
+    useEffect(fetchData, [user]);
 
     return (
         <section>
             <header className="section-header">
-                <h1>{strings.preferencesHeader}</h1>
-                <p>{strings.preferencesMessageHeader}</p>
+                <h1>{healthDisplayStrings.healthPreferences}</h1>
+                <p>{healthDisplayStrings.healthPreferencesSubheader}</p>
             </header>
             <div className="section-content">
                 <Form onSubmit={updatePreferences}>
@@ -119,7 +117,8 @@ const UpdatePreferences = ({user, token, location}) => {
                                             <input name="ingredient_name" type="text"
                                                    value={item.ingredient_name}
                                                    onChange={(e) => handleChange(e, index)}
-                                                   placeholder={strings.ingredientPlaceholder} required/>
+                                                   placeholder={healthDisplayStrings.healthFoodItemPlaceholder}
+                                                   required/>
                                             {/*Remove button*/}
                                             <button className="button-remove"
                                                     onClick={(e) => handleRemoveField(e, index)}>
@@ -129,16 +128,19 @@ const UpdatePreferences = ({user, token, location}) => {
                                     ))}
                                 </InputArray>
                             </div>
-                            : <em>{strings.preferencesMessage}</em>}
+                            : <em>{healthDisplayStrings.healthPreferencesEmpty}</em>}
                     </div>
                     {/*Control buttons*/}
                     <div className="sticky-bottom">
                         <div className="input-group">
-                            <button className="button-light" onClick={handleAddField}>{strings.addIngredientButton}</button>
-                            <button className="button-light" onClick={handleClear}>{strings.clearButton}</button>
+                            <button className="button-light"
+                                    onClick={handleAddField}>{healthDisplayStrings.healthAddFoodItem}</button>
+                            <button className="button-light"
+                                    onClick={handleClear}>{healthDisplayStrings.healthClearFoodItems}</button>
                             {ingredients.length > 0 ?
-                                <button type="submit" className="button-dark">{strings.saveButton}</button>
-                                : <button disabled>{strings.saveButton}</button>}
+                                <button type="submit"
+                                        className="button-dark">{healthDisplayStrings.healthSaveFoodItems}</button>
+                                : <button disabled>{healthDisplayStrings.healthSaveFoodItems}</button>}
                         </div>
                     </div>
                 </Form>

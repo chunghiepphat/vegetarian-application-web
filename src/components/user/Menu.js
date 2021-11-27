@@ -6,10 +6,12 @@ import {LocaleContext} from "../../context/LocaleContext";
 import {UserContext} from "../../context/UserContext";
 import {apiUrl} from "../../helpers/Variables";
 import {Link} from "react-router-dom";
-import DashboardSidebar from "./DashboardSidebar";
+import DashboardSidebar from "./DashboardSidebar"
+import DashboardRecommendations from "./dashboard/DashboardRecommendations";
 import DisplayMenu from "./menu/DisplayMenu";
 import GenerateMenu from "./menu/GenerateMenu";
 import {FaAngleRight} from "react-icons/fa";
+
 
 const Menu = () => {
     // Localizations
@@ -56,7 +58,7 @@ const Menu = () => {
     const [isMenuNew, setIsMenuNew] = useState(false);
     const [isValid, setIsValid] = useState(false);
     const loadMenu = async () => {
-        let currentDate = new Date;
+        // let currentDate = new Date;
         // Generate request
         let request = {
             method: 'GET',
@@ -146,6 +148,7 @@ const Menu = () => {
         <div className="page-container">
             <div className="grid-container">
                 <main>
+                    <DashboardRecommendations/>
                     {isValid ?
                         <DisplayMenu user={user} startDate={startDate} endDate={endDate}
                                      data={data} isMenuLoaded={isMenuLoaded}

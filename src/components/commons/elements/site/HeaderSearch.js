@@ -1,10 +1,10 @@
 import React, {useContext, useState} from "react";
-import "./SearchBar.css";
-import {UserContext} from "../../../context/UserContext";
+import "./HeaderSearch.css";
+import {UserContext} from "../../../../context/UserContext";
 import {useHistory, useLocation} from "react-router-dom";
 import {FaSistrix} from "react-icons/all";
 
-const SearchBar = (props) => {
+const HeaderSearch = (props) => {
     const location = useLocation()
     const history = useHistory();
     const user = useContext(UserContext);
@@ -41,4 +41,4 @@ const SearchBar = (props) => {
     )
 }
 
-export default SearchBar;
+export default HeaderSearch;

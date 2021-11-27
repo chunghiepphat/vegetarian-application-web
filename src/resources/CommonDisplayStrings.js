@@ -2,6 +2,11 @@ import LocalizedStrings from "react-localization";
 
 export let genericStrings = new LocalizedStrings({
     en: {
+        beginner: "Beginner",
+        novice: "Novice",
+        cook: "Cook",
+        chef: "Chef",
+        gordonRamsay: "Gordon Ramsay",
         per: "per",
         servings: "serving(s)",
         pieces: "piece(s)",
@@ -12,8 +17,15 @@ export let genericStrings = new LocalizedStrings({
         carb: "Carbohydrates (mg)",
         calories: "Calories (cal)",
         lastEdited: "Last edited",
+        male: "Male",
+        female: "Female",
     },
     vi: {
+        beginner: "Vào nghề",
+        novice: "Tập sự",
+        cook: "Nội trợ",
+        chef: "Đầu bếp",
+        gordonRamsay: "Gordon Ramsay",
         per: "cho",
         servings: "khẩu phần ăn",
         pieces: "miếng",
@@ -23,7 +35,9 @@ export let genericStrings = new LocalizedStrings({
         fat: "Chất béo (mg)",
         carb: "Carb (mg)",
         calories: "Calo (cal)",
-        lastEdited: "Chỉnh sửa lần cuối"
+        lastEdited: "Chỉnh sửa lần cuối",
+        male: "Nam",
+        female: "Nữ",
     }
 })
 
@@ -93,20 +107,20 @@ export let profileStrings = new LocalizedStrings({
 // Site-wide element display strings
 export let headerStrings = new LocalizedStrings({
     en: {
-        urlHome: "Home",
-        urlAbout: "About",
-        searchPlaceholder: "What would you have for dinner?",
-        urlProfile: "Your profile",
-        urlSignIn: "Sign in",
-        urlSignUp: "Sign up",
+        headerHome: "Home",
+        headerAbout: "About",
+        headerSearchPlaceholder: "What would you have for dinner?",
+        headerProfile: "Your profile",
+        headerSignIn: "Sign in",
+        headerSignUp: "Sign up",
     },
     vi: {
-        urlHome: "Trang chủ",
-        urlAbout: "Giới thiệu",
-        searchPlaceholder: "Tối nay ăn gì?",
-        urlProfile: "Hồ sơ",
-        urlSignIn: "Đăng nhập",
-        urlSignUp: "Đăng ký",
+        headerHome: "Trang chủ",
+        headerAbout: "Giới thiệu",
+        headerSearchPlaceholder: "Tối nay ăn gì?",
+        headerProfile: "Hồ sơ",
+        headerSignIn: "Đăng nhập",
+        headerSignUp: "Đăng ký",
     }
 });
 export let footerStrings = new LocalizedStrings({
@@ -141,11 +155,13 @@ export let requestErrorStrings = new LocalizedStrings({
     en: {
         requestErrorUnauthorized: "You are not authorized to complete this request.",
         requestErrorStatus: "An error has occurred. Status code: ",
-        requestErrorException: "There was an unexpected error. "
+        requestErrorException: "There was an unexpected error. ",
+        hostingServiceErrorStatus: "We couldn't reach our hosting services. Status code: ",
     },
     vi: {
         requestErrorUnauthorized: "Bạn không được cấp quyền để thực hiện việc đó.",
         requestErrorStatus: "Đã có lỗi xảy ra. Mã lỗi: ",
-        requestErrorException: "Đã có lỗi bất ngờ. "
+        requestErrorException: "Đã có lỗi bất ngờ. ",
+        hostingServiceErrorStatus: "Chúng tôi không thể kết nối với máy chủ. Mã lỗi: ",
     }
 });

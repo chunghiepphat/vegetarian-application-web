@@ -7,7 +7,7 @@ const VideoStep01 = (props) => {
     // Localizations
     let strings = new LocalizedStrings({
         en: {
-            step1Header: "Step 1 - Getting started",
+            postRecipeStep1: "Step 1 - Getting started",
             step1Message: "Prefer a more visual approach over walls of text? Share your how-to videos instead!",
             titleVideo: "Title (*)",
             titlePlaceholder: "Your video title",
@@ -16,7 +16,7 @@ const VideoStep01 = (props) => {
             proceedButton: "Proceed"
         },
         vi: {
-            step1Header: "Bước 1 - Bắt đầu",
+            postRecipeStep1: "Bước 1 - Bắt đầu",
             step1Message: "Muốn thể hiện rõ hơn thay vì đọc cả một văn bản? Hãy chia sẻ video hướng dẫn ngay!",
             titleVideo: "Tiêu đề (*)",
             titlePlaceholder: "Tiêu đề của video",
@@ -36,7 +36,7 @@ const VideoStep01 = (props) => {
     return (
         <section>
             <header className="section-header">
-                <h1>{strings.step1Header}</h1>
+                <h1>{strings.postRecipeStep1}</h1>
                 <em>{strings.step1Message}</em>
             </header>
             <div className="section-content">

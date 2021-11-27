@@ -5,9 +5,9 @@ import {headerStrings} from "../../../../resources/CommonDisplayStrings";
 import {LocaleContext} from "../../../../context/LocaleContext";
 import {UserContext} from "../../../../context/UserContext";
 import placeholderAvatar from "assets/user-image-default.png";
-import Brand from "./Brand";
+import HeaderBrand from "./HeaderBrand";
 import Navbar from "../bars/Navbar";
-import SearchBar from "../SearchBar";
+import HeaderSearch from "./HeaderSearch";
 import Logout from "../../../auth/Logout";
 
 const Header = ({locale, setLocale}) => {
@@ -32,17 +32,18 @@ const Header = ({locale, setLocale}) => {
 
     // Renders the header
     return (
-        <header className={`header-container ${shrink ? "header-show" : ""}`}>
+        <header className={`header-container ${shrink ? "header-shrunk" : ""}`}>
             {/*Left side nav with logo and basic navigation links*/}
             <div className="header-content">
                 <section className="header-section">
-                    <Brand/>
+                    <HeaderBrand/>
                     <Navbar>
-                        {/*<Link to="/"><Brand/></Link>*/}
-                        <NavLink to="/home">{headerStrings.urlHome}</NavLink>
-                        <NavLink to="/about">{headerStrings.urlAbout}</NavLink>
+                        {/*<Link to="/"><HeaderBrand/></Link>*/}
+                        <NavLink to="/home">{headerStrings.headerHome}</NavLink>
+                        <NavLink to="/about">{headerStrings.headerAbout}</NavLink>
                     </Navbar>
-                    {!location.pathname.match("/search") && <SearchBar placeholder={headerStrings.searchPlaceholder}/>}
+                    {!location.pathname.match("/search") &&
+                    <HeaderSearch placeholder={headerStrings.headerSearchPlaceholder}/>}
                 </section>
                 {/*Right-side nav with authentication and profile links*/}
                 <section className="header-section">
@@ -55,17 +56,17 @@ const Header = ({locale, setLocale}) => {
                                         <img src={placeholderAvatar} alt=""/>
                                     </picture>
                                     {user.first_name}
-                                </> : <>{headerStrings.urlProfile}</>}
+                                </> : <>{headerStrings.headerProfile}</>}
                             </NavLink>
                             <Logout/>
                         </> : <>
                             <NavLink to={{
                                 pathname: "/login",
                                 state: {background: location}
-                            }}>{headerStrings.urlSignIn}</NavLink>
+                            }}>{headerStrings.headerSignIn}</NavLink>
                             <NavLink to={{
                                 pathname: "/auth/register",
-                            }}>{headerStrings.urlSignUp}</NavLink>
+                            }}>{headerStrings.headerSignUp}</NavLink>
                         </>}
                     </Navbar>
                     <select value={locale} onChange={e => setLocale(e.target.value)}>

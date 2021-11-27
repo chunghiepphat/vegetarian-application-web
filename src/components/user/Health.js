@@ -6,22 +6,12 @@ import UpdatePreferences from "./health/UpdatePreferences";
 import {NavLink, Redirect, Route, Switch, useLocation} from "react-router-dom";
 import Navbar from "../commons/elements/bars/Navbar";
 import {UserContext} from "../../context/UserContext";
-import LocalizedStrings from "react-localization";
+import {healthDisplayStrings} from "../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../context/LocaleContext";
 
 const Health = ({reload}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            healthDetails: "Health details",
-            dashboardSidebarSettingsFoodAllergies: "Food allergies",
-            dashboardSidebarSettingsFoodPreferences: "Food preferences",
-        },
-        vi: {
-            healthDetails: "Hồ sơ sức khỏe",
-            dashboardSidebarSettingsFoodAllergies: "Thực phẩm dị ứng",
-            dashboardSidebarSettingsFoodPreferences: "Thực phẩm yêu thích",
-        }
-    });
+    healthDisplayStrings.setLanguage(useContext(LocaleContext));
 
     const location = useLocation();
     const user = useContext(UserContext);
@@ -36,19 +26,19 @@ const Health = ({reload}) => {
                 <main>
                     <section className="page-navbar">
                         <Navbar>
-                            <NavLink to={urlDetails}>{strings.healthDetails}</NavLink>
-                            <NavLink to={urlAllergies}>{strings.dashboardSidebarSettingsFoodAllergies}</NavLink>
-                            <NavLink to={urlPreferences}>{strings.dashboardSidebarSettingsFoodPreferences}</NavLink>
+                            <NavLink to={urlDetails}>{healthDisplayStrings.healthDetailsTab}</NavLink>
+                            <NavLink to={urlAllergies}>{healthDisplayStrings.healthAllergiesTab}</NavLink>
+                            <NavLink to={urlPreferences}>{healthDisplayStrings.healthPreferencesTab}</NavLink>
                         </Navbar>
                     </section>
                     <Switch>
                         <Route exact path="/health"><Redirect to={urlDetails}/></Route>
                         <Route path={urlDetails}>
-                            <UpdateHealth user={user} token={token} location={location} reload={reload}/> </Route>
+                            <UpdateHealth user={user} token={token} reload={reload}/> </Route>
                         <Route path={urlAllergies}>
-                            <UpdateAllergies user={user} token={token} location={location} reload={reload}/> </Route>
+                            <UpdateAllergies user={user} token={token} reload={reload}/> </Route>
                         <Route path={urlPreferences}>
-                            <UpdatePreferences user={user} token={token} location={location} reload={reload}/> </Route>
+                            <UpdatePreferences user={user} token={token} reload={reload}/> </Route>
                     </Switch>
                 </main>
                 <DashboardSidebar/>
