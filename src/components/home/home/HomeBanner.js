@@ -6,8 +6,6 @@ import bannerBackgroundA from "assets/banner-background-1.png";
 import bannerBackgroundB from "assets/banner-background-2.png";
 import bannerBackgroundC from "assets/banner-background-3.png";
 import bannerBackgroundD from "assets/banner-background-4.png";
-import bannerBackgroundE from "assets/banner-background-5.png";
-import bannerBackgroundF from "assets/banner-background-6.png";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
@@ -39,8 +37,6 @@ const HomeBanner = ({user, fetchData}) => {
         bannerBackgroundB,
         bannerBackgroundC,
         bannerBackgroundD,
-        bannerBackgroundE,
-        bannerBackgroundF,
     ];
     useEffect(() => {
         const min = Math.ceil(0);
