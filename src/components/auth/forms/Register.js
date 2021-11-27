@@ -1,9 +1,10 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
+import {requestErrorStrings} from "../../../resources/CommonDisplayStrings";
 import {authDisplayStrings} from "../../../resources/PublicDisplayStrings";
 import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
 import {Link, useHistory, useLocation} from "react-router-dom";
-import {requestErrorStrings} from "../../../resources/CommonDisplayStrings";
+import {profileDisplayStrings} from "../../../resources/UserDisplayStrings";
 
 const Register = (props) => {
     const location = useLocation();
@@ -17,10 +18,38 @@ const Register = (props) => {
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
 
+    // Validates input
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState();
+    const [isValid, setIsValid] = useState(false);
+    let [message, setMessage] = useState("");
+    const checkConfirmation = () => {
+        if (password && confirmPassword) {
+            if (password.length >= 8) {
+                if (password === confirmPassword) {
+                    setMessage(profileDisplayStrings.profilePasswordMatching);
+                    setIsValid(true);
+                } else {
+                    setMessage(profileDisplayStrings.profilePasswordNotMatching);
+                    setIsValid(false);
+                }
+            } else {
+                setMessage(profileDisplayStrings.profilePasswordTooShort);
+                setIsValid(false);
+            }
+        } else {
+            setMessage("");
+            setIsValid(false);
+        }
+    }
+    useEffect(() => {
+        checkConfirmation();
+    }, [password, confirmPassword]);
+
     // Handles registration requests
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [password, setPassword] = useState("");
+
     const [isLoading, setIsLoading] = useState(false);
     let responseMessage;
     const signUp = async (e) => {
@@ -76,9 +105,13 @@ const Register = (props) => {
                        onChange={e => props.setEmail(e.target.value)} required/>
                 <input type="password" placeholder={authDisplayStrings.registerNewPassword}
                        onChange={e => setPassword(e.target.value)} required/>
-                <input type="password" placeholder={authDisplayStrings.registerConfirmPassword}/>
+                <input type="password" placeholder={authDisplayStrings.registerConfirmPassword}
+                       onChange={e => setConfirmPassword(e.target.value)} required/>
+                <p className={isValid ? `text-positive` : `text-negative`}
+                   style={{fontWeight: "600"}}>{message}</p>
                 {!isLoading ?
-                    <button type="submit" className="button-dark">{authDisplayStrings.registerCreateAccount}</button>
+                    <button type="submit" className="button-dark"
+                            disabled={!isValid}>{authDisplayStrings.registerCreateAccount}</button>
                     : <button disabled>{authDisplayStrings.registerCreatingAccount}</button>}
             </form>
         </div>

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import LocalizedStrings from "react-localization";
-import {Redirect, Route, Switch, useParams} from "react-router-dom";
+import {Redirect, Route, Switch, useLocation, useParams} from "react-router-dom";
 import {apiUrl} from "../../../helpers/Variables";
 import BlogHeader from "./blog/BlogHeader";
 import BlogContent from "./blog/BlogContent";
@@ -10,8 +10,10 @@ import {SectionErr} from "../../commons/elements/loaders/AlertError";
 import ArticleToolbar from "./ArticleToolbar";
 import ArticleComments from "./ArticleComments";
 
-const ViewBlog = ({user, location, fetchData}) => {
+const ViewBlog = ({user, fetchData}) => {
     let {id} = useParams();
+    const location = useLocation();
+
     // Localizations
     let strings = new LocalizedStrings({
         en: {
@@ -29,7 +31,7 @@ const ViewBlog = ({user, location, fetchData}) => {
     let api = `${apiUrl}/blogs/getblogby/${id}?translate=${locale}${user ? `&userID=${user.id}` : ``}`;
     useEffect(() => {
         fetchData(api, setData, setIsError, setIsLoading);
-    }, [id, api]);
+    }, [id, api, location]);
 
     return (
         <section>

@@ -1,22 +1,15 @@
-import React from "react";
-import Navbar from "../commons/elements/bars/Navbar";
+import React, {useContext} from "react";
+import {postDisplayStrings} from "../../resources/UserDisplayStrings";
+import {LocaleContext} from "../../context/LocaleContext";
 import {NavLink, withRouter} from "react-router-dom";
-import {FaAngleRight} from "react-icons/fa";
+import Navbar from "../commons/elements/bars/Navbar";
 import Sidebar from "../commons/elements/Sidebar";
-import LocalizedStrings from "react-localization";
+import {FaAngleRight} from "react-icons/fa";
+
 
 const PostSidebar = () => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            postingHeader: "Posting as",
-            profileSidebar: "Your profile"
-        },
-        vi: {
-            postingHeader: "Được đăng bởi",
-            profileSidebar: "Hồ sơ của bạn"
-        }
-    });
+    postDisplayStrings.setLanguage(useContext(LocaleContext));
 
     // Gets user info
     let user = JSON.parse(localStorage.getItem("userInfo"));
@@ -24,9 +17,9 @@ const PostSidebar = () => {
     return (
         <Sidebar>
             <section className="sidebar-widget">
-                <h1>{strings.postingHeader} {user.first_name} {user.last_name}</h1>
+                <h1>{postDisplayStrings.postSidebarHeader} {user.first_name} {user.last_name}</h1>
                 <Navbar>
-                    <NavLink to={`/profile`}><FaAngleRight/>{strings.profileSidebar}</NavLink>
+                    <NavLink to={`/profile`}><FaAngleRight/>{postDisplayStrings.postSidebarProfile}</NavLink>
                 </Navbar>
             </section>
         </Sidebar>

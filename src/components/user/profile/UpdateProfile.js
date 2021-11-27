@@ -105,7 +105,7 @@ const UpdateProfile = ({reload}) => {
                             </label>
                         </InputGroup>
                         <label>{profileDisplayStrings.profileDetailsEmail}
-                            <input type="text" value={user.profileDetailsEmail} placeholder="" disabled/>
+                            <input type="text" value={user.email} placeholder="" disabled/>
                         </label>
                         <label>{profileDisplayStrings.profileDetailsPhone}
                             <input type="phone" value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)}

@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {viewDisplayStrings} from "../../../resources/PublicDisplayStrings";
 import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import ArticleToolbar from "./ArticleToolbar";
 import ArticleComments from "./ArticleComments";
 import VideoPlayer from "./video/VideoPlayer";
@@ -12,6 +12,7 @@ import {SectionErr} from "../../commons/elements/loaders/AlertError";
 
 const ViewVideo = ({user, fetchData}) => {
     let {id} = useParams();
+    const location = useLocation();
 
     // Localizations
     viewDisplayStrings.setLanguage(useContext(LocaleContext));
@@ -24,7 +25,7 @@ const ViewVideo = ({user, fetchData}) => {
     const api = `${apiUrl}/video/getvideoby/${id}?translate=${locale}${user ? `&userID=${user.id}` : ``}`;
     useEffect(() => {
         fetchData(api, setData, setIsError, setIsLoading);
-    }, [id, api]);
+    }, [id, api, location]);
 
     return (
         <section>

@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {viewDisplayStrings} from "../../../resources/PublicDisplayStrings";
 import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
-import {Redirect, Route, Switch, useParams} from "react-router-dom";
+import {Redirect, Route, Switch, useLocation, useParams} from "react-router-dom";
 import ArticleToolbar from "./ArticleToolbar";
 import ArticleComments from "./ArticleComments";
 import RecipeHeader from "./recipe/RecipeHeader";
@@ -16,6 +16,7 @@ import {SectionErr} from "../../commons/elements/loaders/AlertError";
 
 const ViewRecipe = ({user, fetchData}) => {
     let {id} = useParams();
+    const location = useLocation();
 
     // Localizations
     viewDisplayStrings.setLanguage(useContext(LocaleContext));
@@ -28,7 +29,7 @@ const ViewRecipe = ({user, fetchData}) => {
     let api = `${apiUrl}/recipes/getrecipeby/${id}?translate=${locale}${user ? `&userID=${user.id}` : ``}`;
     useEffect(() => {
         fetchData(api, setData, setIsError, setIsLoading);
-    }, [id, api]);
+    }, [id, api, location]);
 
     return (
         <section>

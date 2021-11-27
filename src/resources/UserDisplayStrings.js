@@ -367,6 +367,8 @@ export let healthDisplayStrings = new LocalizedStrings({
 
 export let postDisplayStrings = new LocalizedStrings({
     en: {
+        postSidebarHeader: "Posting as",
+        postSidebarProfile: "Your profile",
         postArticleProcessingImages: "Processing image(s)...",
         postArticleUploading: "Uploading your post...",
         postArticleUploadSuccess: "Post uploaded successfully!",
@@ -431,6 +433,8 @@ export let postDisplayStrings = new LocalizedStrings({
         postBlogSubmitForReview: "Submit for review",
     },
     vi: {
+        postSidebarHeader: "Đăng với tư cách",
+        postSidebarProfile: "Hồ sơ của bạn",
         postArticleProcessingImages: "Đang xử lý tập tin...",
         postArticleUploading: "Đang đăng bài viết...",
         postArticleUploadSuccess: "Bài viết đã được đăng thành công!",
