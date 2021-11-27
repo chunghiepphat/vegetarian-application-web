@@ -9,11 +9,30 @@ const RecipeEstimations = ({data}) => {
     viewDisplayStrings.setLanguage(useContext(LocaleContext));
     genericStrings.setLanguage(useContext(LocaleContext));
 
+    let difficulty;
+    switch (data.recipe_difficulty) {
+        case 1:
+            difficulty = genericStrings.beginner;
+            break;
+        case 2:
+            difficulty = genericStrings.novice;
+            break;
+        case 3:
+            difficulty = genericStrings.cook;
+            break;
+        case 4:
+            difficulty = genericStrings.chef;
+            break;
+        case 5:
+            difficulty = genericStrings.gordonRamsay;
+            break;
+    }
+
     return (
         <section className="article-list">
             <ul>
                 {data.recipe_difficulty && <li>
-                    <FaFire/> {viewDisplayStrings.viewRecipeEstimatedDifficulty}: {data.recipe_difficulty}</li>}
+                    <FaFire/> {viewDisplayStrings.viewRecipeEstimatedDifficulty}: {difficulty}</li>}
                 {data.prep_time_minutes > 0 && <li>
                     <FaClock/> {viewDisplayStrings.viewRecipeEstimatedPrepTime}: {data.prep_time_minutes} {genericStrings.minutes}
                 </li>}
