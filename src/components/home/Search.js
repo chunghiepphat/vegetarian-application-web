@@ -15,7 +15,7 @@ import {SectionEmp} from "../commons/elements/loaders/AlertEmpty";
 
 const Search = () => {
     const location = useLocation();
-
+    let locale = useContext(LocaleContext);
     // Localizations
     searchDisplayStrings.setLanguage(useContext(LocaleContext));
 
@@ -25,7 +25,7 @@ const Search = () => {
     // Fetches recipe category list from server
     const [categoryList, setCategoryList] = useState([]);
     const fetchCategories = async () => {
-        const api = `${apiUrl}/recipes/categories`
+        const api = `${apiUrl}/recipes/categories?translate=${locale}`
         try {
             const response = await fetch(api);
             if (response.ok) {
@@ -37,7 +37,7 @@ const Search = () => {
     }
     useEffect(() => {
         fetchCategories();
-    }, [user]);
+    }, [user, locale]);
 
     // Fetches search results
     const [data, setData] = useState()

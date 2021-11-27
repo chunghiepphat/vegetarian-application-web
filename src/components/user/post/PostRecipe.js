@@ -12,8 +12,9 @@ import RecipeStep04 from "./recipe/RecipeStep04";
 
 const PostRecipe = ({user, token, history}) => {
     // Localizations
-    requestErrorStrings.setLanguage(useContext(LocaleContext));
-    postDisplayStrings.setLanguage(useContext(LocaleContext));
+    let locale = useContext(LocaleContext);
+    requestErrorStrings.setLanguage(locale);
+    postDisplayStrings.setLanguage(locale);
 
     // Step 1 input data
     const [title, setTitle] = useState();
@@ -39,7 +40,7 @@ const PostRecipe = ({user, token, history}) => {
     // Fetch category list from server
     const [categoryList, setCategoryList] = useState([]);
     const fetchCategories = async () => {
-        const api = `${apiUrl}/recipes/categories`
+        const api = `${apiUrl}/recipes/categories?translate=${locale}`;
         try {
             const response = await fetch(api);
             if (response.ok) {
@@ -49,7 +50,7 @@ const PostRecipe = ({user, token, history}) => {
         } catch (error) {
         }
     }
-    useEffect(fetchCategories, [user]);
+    useEffect(fetchCategories, [user, locale]);
 
     // Handles form submission, image upload and getting image URL
     const [isLoading, setIsLoading] = useState(false);
