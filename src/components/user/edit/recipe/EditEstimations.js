@@ -3,7 +3,7 @@ import InputGroup from "../../../commons/elements/form/InputGroup";
 import LocalizedStrings from "react-localization";
 
 const EditEstimations = (props) => {
-    // Localizations
+    // Localizations test
     let strings = new LocalizedStrings({
         en: {
             editHeader: "Update recipe info & estimations...",
