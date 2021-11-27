@@ -30,8 +30,8 @@ const Register = (props) => {
         let body = JSON.stringify({
             "first_name": firstName,
             "last_name": lastName,
-            "registerEmail": props.registerEmail,
-            "registerNewPassword": password
+            "email": props.email,
+            "password": password
         });
         // Generates request
         let request = {
