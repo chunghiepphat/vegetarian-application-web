@@ -71,7 +71,6 @@ export let profileStrings = new LocalizedStrings({
         bmiObese1Verdict: "You are overweight. It is recommended to eat healthier and exercise more.",
         bmiObese2Verdict: "You are severely obese. You should eat healthier and check in with a doctor.",
         bmiObese3Verdict: "You are morbidly obese. Please check in with a doctor.",
-
     },
     vi: {
         // Profile

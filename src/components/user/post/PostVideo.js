@@ -14,7 +14,7 @@ const PostVideo = () => {
     const history = useHistory();
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
-    const [category, setCategory] = useState("1");
+    const [thumbnailUrl, setThumbnailUrl] = useState("");
     const [link, setLink] = useState();
 
     const submitPost = async (e) => {
@@ -56,23 +56,23 @@ const PostVideo = () => {
     }
 
     return (
-            <Switch>
-                {/*Step 1*/}
-                <Route exact path="/post/video/">
-                    <Redirect to="/post/video/step-1"/>
-                </Route>
-                <Route path="/post/video/step-1">
-                    <VideoStep01 title={title} setTitle={setTitle}
-                                 description={description} setDescription={setDescription}/>
-                </Route>
-                {/*Step 2*/}
-                <Route path="/post/video/step-2">
-                    <VideoStep02 link={link} setLink={setLink}
-                                 submitPost={submitPost}/>
-                </Route>
-                {/*Not found*/}
-                <Route><Redirect to="/not-found"/></Route>
-            </Switch>
+        <Switch>
+            {/*Step 1*/}
+            <Route exact path="/post/video/">
+                <Redirect to="/post/video/step-1"/>
+            </Route>
+            <Route path="/post/video/step-1">
+                <VideoStep01 title={title} setTitle={setTitle}
+                             description={description} setDescription={setDescription}/>
+            </Route>
+            {/*Step 2*/}
+            <Route path="/post/video/step-2">
+                <VideoStep02 link={link} setLink={setLink}
+                             submitPost={submitPost}/>
+            </Route>
+            {/*Not found*/}
+            <Route><Redirect to="/not-found"/></Route>
+        </Switch>
     )
 }
 

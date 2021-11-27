@@ -18,7 +18,7 @@ const Login = ({background}) => {
             <h1>{authDisplayStrings.loginWelcome}</h1>
             <p>{authDisplayStrings.loginSignUp} <Link to={{
                 pathname: "/auth/register",
-            }}>{authDisplayStrings.urlSignUp}</Link></p>
+            }}>{authDisplayStrings.loginSignUpLink}</Link></p>
             {/*Social authentication*/}
             <h2>{authDisplayStrings.loginSocial}</h2>
             <LoginFacebook history={history} background={background} setIsLoggingIn={setIsLoggingIn}/>
