@@ -1,39 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
+import {requestErrorStrings} from "../../../../resources/CommonDisplayStrings";
+import {authDisplayStrings} from "../../../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../../../context/LocaleContext";
 import {apiUrl} from "../../../../helpers/Variables";
-import LocalizedStrings from "react-localization";
 
 const RecoveryStep2 = ({email, setStep}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            header: "Verify your email",
-            instructionPart1: "We have sent a code to",
-            instructionPart2: "Please check your email and enter the code below.",
-            placeholderCode: "Verification code",
-            buttonProceed: "Proceed",
-            loadingMessage: "Processing...",
-            buttonResend: "Resend code",
-            resendingMessage: "Resending...",
-            resendingFinished: "Sent. You can try again in",
-            seconds: "second(s)",
-        },
-        vi: {
-            header: "Xác nhận email của bạn",
-            instructionPart1: "Mã xác nhận đã được gửi tới",
-            instructionPart2: "Vui lòng kiểm tra và nhập mã vào đây.",
-            placeholderCode: "Mã xác nhận",
-            buttonProceed: "Tiếp tục",
-            loadingMessage: "Đang xử lý...",
-            buttonResend: "Gửi lại mã",
-            resendingMessage: "Đang gửi lại...",
-            resendingFinished: "Đã gửi. Bạn có thể thử lại trong",
-            seconds: "giây",
-        }
-    });
+    authDisplayStrings.setLanguage(useContext(LocaleContext));
+
     // Generates request headers
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
+
     // Resends code
     const [isLoading, setIsLoading] = useState(false);
     const [isResending, setIsResending] = useState(false);
@@ -57,11 +36,11 @@ const RecoveryStep2 = ({email, setStep}) => {
                 const error = response.json();
                 let message = error.message;
                 if (message !== undefined) alert(message);
-                else alert("There was an error. Status code: " + response.status);
+                else alert(requestErrorStrings.requestErrorStatus + response.status);
                 setIsResending(false);
             }
         } catch (error) {
-            alert("An unexpected error has occurred: " + error);
+            alert(requestErrorStrings.requestErrorException + error);
             setIsResending(false);
         }
     }
@@ -75,6 +54,7 @@ const RecoveryStep2 = ({email, setStep}) => {
         // Clears interval on re-render to avoid memory leaks
         return () => clearInterval(intervalId);
     }, [counter]);
+
     // Handles recovery requests
     const verifyRecovery = async (e) => {
         e.preventDefault();
@@ -95,30 +75,32 @@ const RecoveryStep2 = ({email, setStep}) => {
                 const error = response.json();
                 let message = error.message;
                 if (message !== undefined) alert(message);
-                else alert("There was an error. Status code: " + response.status);
+                else alert(requestErrorStrings.requestErrorStatus + response.status);
                 setIsLoading(false);
             }
         } catch (error) {
-            alert("An unexpected error has occurred: " + error);
+            alert(requestErrorStrings.requestErrorException + error);
             setIsLoading(false);
         }
     }
 
     return (
         <div className="auth-section">
-            <h1>{strings.header}</h1>
-            <p>{strings.instructionPart1} {email}.</p>
-            <p style={{marginBottom: "40px"}}>{strings.instructionPart2}</p>
+            <h1>{authDisplayStrings.recoveryStep2}</h1>
+            <p>{authDisplayStrings.recoveryStep2InstructionPart1} {email}.</p>
+            <p style={{marginBottom: "40px"}}>{authDisplayStrings.recoveryStep2InstructionPart2}</p>
             <form className="auth-form" onSubmit={verifyRecovery}>
-                <input type="text" placeholder={strings.placeholderCode}
+                <input type="text" placeholder={authDisplayStrings.recoveryVerificationCode}
                        onChange={e => setCode(e.target.value)} required/>
-                {!isLoading ? <button type="submit" className="button-dark">{strings.buttonProceed}</button>
-                    : <button disabled>{strings.loadingMessage}</button>}
+                {!isLoading ?
+                    <button type="submit" className="button-dark">{authDisplayStrings.recoveryProceed}</button>
+                    : <button disabled>{authDisplayStrings.recoveryProcessing}</button>}
                 {!isResending ? <>
                     {!counter ? <button type="button" className="button-light"
-                                        onClick={e => resendCode(e)}>{strings.buttonResend}</button>
-                        : <button disabled>{strings.resendingFinished} {counter} {strings.seconds}.</button>}
-                </> : <button disabled>{strings.resendingMessage}</button>}
+                                        onClick={e => resendCode(e)}>{authDisplayStrings.authResendCode}</button>
+                        : <button
+                            disabled>{authDisplayStrings.authResendSuccess} {counter} {authDisplayStrings.authResendSeconds}.</button>}
+                </> : <button disabled>{authDisplayStrings.authResending}</button>}
             </form>
         </div>
     )

@@ -1,29 +1,18 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
+import {requestErrorStrings} from "../../../../resources/CommonDisplayStrings";
+import {authDisplayStrings} from "../../../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../../../context/LocaleContext";
 import {apiUrl} from "../../../../helpers/Variables";
-import LocalizedStrings from "react-localization";
 
 const RecoveryStep1 = ({email, setEmail, setStep}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            header: "Recover your account",
-            instruction: "Enter your email below.",
-            placeholderEmail: "Your account email",
-            buttonProceed: "Proceed",
-            loadingMessage: "Processing...",
-        },
-        vi: {
-            header: "Phục hồi tài khoản",
-            instruction: "Nhập email liên kết với tài khoản của bạn.",
-            placeholderEmail: "Nhập email",
-            buttonProceed: "Tiếp tục",
-            loadingMessage: "Đang xử lý...",
-        }
-    });
+    authDisplayStrings.setLanguage(useContext(LocaleContext));
+
     // Generates request headers
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
+
     // Handles registration requests
     const [isLoading, setIsLoading] = useState(false);
     const requestRecovery = async (e) => {
@@ -45,24 +34,25 @@ const RecoveryStep1 = ({email, setEmail, setStep}) => {
                 const error = response.json();
                 let message = error.message;
                 if (message !== undefined) alert(message);
-                else alert("There was an error. Status code: " + response.status);
+                else alert(requestErrorStrings.requestErrorStatus + response.status);
                 setIsLoading(false);
             }
         } catch (error) {
-            alert("An unexpected error has occurred: " + error);
+            alert(requestErrorStrings.requestErrorException + error);
             setIsLoading(false);
         }
     }
 
     return (
         <div>
-            <h1>{strings.header}</h1>
-            <p style={{marginBottom: "40px"}}>{strings.instruction}</p>
+            <h1>{authDisplayStrings.recoveryStep1}</h1>
+            <p style={{marginBottom: "40px"}}>{authDisplayStrings.recoveryStep1Instruction}</p>
             <form className="auth-form" onSubmit={requestRecovery}>
-                <input type="text" aria-label="email" placeholder={strings.placeholderEmail}
+                <input type="text" aria-label="email" placeholder={authDisplayStrings.recoveryEmailPlaceholder}
                        onChange={e => setEmail(e.target.value)} required/>
-                {!isLoading ? <button type="submit" className="button-dark">{strings.buttonProceed}</button>
-                    : <button disabled>{strings.loadingMessage}</button>}
+                {!isLoading ?
+                    <button type="submit" className="button-dark">{authDisplayStrings.recoveryProceed}</button>
+                    : <button disabled>{authDisplayStrings.recoveryProcessing}</button>}
             </form>
         </div>
     )

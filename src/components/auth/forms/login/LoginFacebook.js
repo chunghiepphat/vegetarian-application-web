@@ -1,21 +1,16 @@
-import React, {useState} from "react";
+import React, {useContext} from "react";
+import {authDisplayStrings} from "../../../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../../../context/LocaleContext";
 import {apiUrl} from "../../../../helpers/Variables";
 import {appId} from "../../../../helpers/Facebook";
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import {FaFacebookF} from "react-icons/fa";
 import jwtDecode from "jwt-decode";
-import LocalizedStrings from "react-localization";
 
 const LoginFacebook = ({history, background}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            buttonFacebook: "Continue with Facebook",
-        },
-        vi: {
-            buttonFacebook: "Đăng nhập bằng Facebook",
-        }
-    });
+    authDisplayStrings.setLanguage(useContext(LocaleContext));
+
     // Handles login
     const responseFacebook = async (res) => {
         if (res) {
@@ -65,7 +60,7 @@ const LoginFacebook = ({history, background}) => {
             fields="first_name,last_name,email,picture"
             render={renderProps => (
                 <button onClick={renderProps.onClick} className="button-facebook">
-                    <FaFacebookF/> {strings.buttonFacebook}</button>)}/>
+                    <FaFacebookF/> {authDisplayStrings.loginFacebook}</button>)}/>
     )
 }
 

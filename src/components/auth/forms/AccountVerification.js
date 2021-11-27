@@ -1,42 +1,22 @@
-import React, {useEffect, useState} from "react";
-import LocalizedStrings from "react-localization";
-import {useHistory} from "react-router-dom";
+import React, {useContext, useEffect, useState} from "react";
+import {authDisplayStrings} from "../../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
+import {useHistory} from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import {requestErrorStrings} from "../../../resources/CommonDisplayStrings";
 
 const AccountVerification = (props) => {
     const history = useHistory();
+
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            header: "Verify your email",
-            instructionPart1: "We have sent a code to",
-            instructionPart2: "Please check your email and enter the code below.",
-            placeholderCode: "Verification code",
-            buttonVerify: "Verify account",
-            loadingMessage: "Verifying your account...",
-            buttonResend: "Resend code",
-            resendingMessage: "Resending...",
-            resendingFinished: "Sent. You can try again in",
-            seconds: "second(s)",
-        },
-        vi: {
-            header: "Xác nhận email của bạn",
-            instructionPart1: "Mã xác nhận đã được gửi tới",
-            instructionPart2: "Vui lòng kiểm tra và nhập mã vào đây.",
-            placeholderCode: "Mã xác nhận",
-            buttonVerify: "Xác nhận",
-            loadingMessage: "Đang kiểm tra...",
-            buttonResend: "Gửi lại mã",
-            resendingMessage: "Đang gửi lại...",
-            resendingFinished: "Đã gửi. Bạn có thể thử lại trong",
-            seconds: "giây",
-        }
-    });
+    authDisplayStrings.setLanguage(useContext(LocaleContext));
+
     // Generates request headers
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
+
     // Resends code
     const [isResending, setIsResending] = useState(false);
     const [counter, setCounter] = useState(0);
@@ -58,11 +38,11 @@ const AccountVerification = (props) => {
                 const error = response.json();
                 let message = error.message;
                 if (message !== undefined) alert(message);
-                else alert("An error has occurred. Status code: " + response.status);
+                else alert(requestErrorStrings.requestErrorStatus + response.status);
                 setIsResending(false);
             }
         } catch (error) {
-            alert("There was an unexpected error. Error message: " + error);
+            alert(requestErrorStrings.requestErrorException + error);
             setIsResending(false);
         }
     }
@@ -76,6 +56,7 @@ const AccountVerification = (props) => {
         // Clears interval on re-render to avoid memory leaks
         return () => clearInterval(intervalId);
     }, [counter]);
+
     // Handles account verification
     const [code, setCode] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -92,14 +73,13 @@ const AccountVerification = (props) => {
         await fetch(api, request)
             .then(response => {
                 if (response.ok) {
-                    alert("Authentication successful.");
                     return response.json();
                 } else if (response.status >= 400 && response.status < 600) {
                     const error = response.json();
                     let message = error.message;
                     setIsLoading(false);
                     if (message !== undefined) alert(message);
-                    else alert("An unexpected error has occurred. Status code: " + response.status);
+                    else alert(requestErrorStrings.requestErrorStatus + response.status);
                 }
             })
             // Saves result if response is green
@@ -113,28 +93,29 @@ const AccountVerification = (props) => {
             // Throws other errors
             .catch(error => {
                 setIsLoading(false);
-                alert("There was an unexpected error. Error message: " + error);
+                alert(requestErrorStrings.requestErrorException + error);
             });
     }
 
     // Renders the form
     return (
         <div className="auth-section">
-            <h1>{strings.header}</h1>
-            <p>{strings.instructionPart1} {props.email}.</p>
-            <p style={{marginBottom: "40px"}}>{strings.instructionPart2}</p>
+            <h1>{authDisplayStrings.registerVerify}</h1>
+            <p>{authDisplayStrings.registerInstructionPart1} {props.email}.</p>
+            <p style={{marginBottom: "40px"}}>{authDisplayStrings.registerInstructionPart2}</p>
             <form className="auth-form" onSubmit={verifyAccount}>
-                <input type="text" placeholder={strings.placeholderCode}
+                <input type="text" placeholder={authDisplayStrings.registerVerificationCode}
                        onChange={e => setCode(e.target.value)} required/>
                 {!isLoading ?
-                    <button type="submit" className="button-dark">{strings.buttonVerify}</button>
-                    : <button disabled>{strings.loadingMessage}</button>}
+                    <button type="submit" className="button-dark">{authDisplayStrings.registerVerifyButton}</button>
+                    : <button disabled>{authDisplayStrings.registerVerifying}</button>}
                 {!isResending ? <>
                     {!counter ?
                         <button type="button" className="button-light"
-                                onClick={e => resendCode(e)}>{strings.buttonResend}</button>
-                        : <button disabled>{strings.resendingFinished} {counter} {strings.seconds}.</button>}
-                </> : <button disabled>{strings.resendingMessage}</button>}
+                                onClick={e => resendCode(e)}>{authDisplayStrings.authResendCode}</button>
+                        : <button
+                            disabled>{authDisplayStrings.authResendSuccess} {counter} {authDisplayStrings.authResendSeconds}.</button>}
+                </> : <button disabled>{authDisplayStrings.authResending}</button>}
             </form>
         </div>
     )

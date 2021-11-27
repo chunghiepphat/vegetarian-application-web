@@ -1,31 +1,18 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
+import {requestErrorStrings} from "../../../../resources/CommonDisplayStrings";
+import {authDisplayStrings} from "../../../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../../../context/LocaleContext";
 import {apiUrl} from "../../../../helpers/Variables";
-import LocalizedStrings from "react-localization";
 
 const RecoveryStep3 = ({history, email, setStep}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            header: "Reset your password",
-            instruction: "Please enter your new password below to complete the account retrieval process.",
-            placeholderNewPassword: "New password",
-            placeholderConfirmPassword: "Confirm password",
-            buttonFinish: "Finish",
-            loadingMessage: "Processing...",
-        },
-        vi: {
-            header: "Đặt lại mật khẩu",
-            instruction: "Vui lòng đặt mật khẩu mới của bạn để hoàn tất việc khôi phục tài khoản.",
-            placeholderNewPassword: "Mật khẩu mới",
-            placeholderConfirmPassword: "Xác nhận mật khẩu",
-            buttonFinish: "Hoàn tất",
-            loadingMessage: "Đang xử lý...",
-        }
-    });
+    authDisplayStrings.setLanguage(useContext(LocaleContext));
+
     // Generates request headers
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
+
     // Handles password reset
     const [isLoading, setIsLoading] = useState(false);
     const [newPassword, setNewPassword] = useState("");
@@ -51,7 +38,7 @@ const RecoveryStep3 = ({history, email, setStep}) => {
             const response = await fetch(api, request)
             if (response.ok) {
                 setStep(1);
-                alert("Password reset successfully.")
+                alert(authDisplayStrings.recoverySuccess)
                 history.push({
                     pathname: "/login",
                     state: {background: {pathname: "/home"}}
@@ -60,26 +47,26 @@ const RecoveryStep3 = ({history, email, setStep}) => {
                 const error = response.json();
                 let message = error.message;
                 if (message !== undefined) alert(message);
-                else alert("There was an error. Status code: " + response.status);
+                else alert(requestErrorStrings.requestErrorStatus + response.status);
                 setIsLoading(false);
             }
         } catch (error) {
-            alert("An unexpected error has occurred: " + error);
+            alert(requestErrorStrings.requestErrorException + error);
             setIsLoading(false);
         }
     }
 
     return (
         <div className="auth-section">
-            <h1>{strings.header}</h1>
-            <p style={{marginBottom: "40px"}}>{strings.instruction}</p>
+            <h1>{authDisplayStrings.recoveryStep3}</h1>
+            <p style={{marginBottom: "40px"}}>{authDisplayStrings.recoveryStep3Instruction}</p>
             <form className="auth-form" onSubmit={resetPassword}>
-                <input type="password" placeholder={strings.placeholderNewPassword}
+                <input type="password" placeholder={authDisplayStrings.recoveryNewPassword}
                        onChange={e => setNewPassword(e.target.value)} required/>
-                <input type="password" placeholder={strings.placeholderConfirmPassword}
+                <input type="password" placeholder={authDisplayStrings.recoveryConfirmPassword}
                        onChange={e => setConfirmPassword(e.target.value)} required/>
-                {!isLoading ? <button type="submit" className="button-dark">{strings.buttonFinish}</button>
-                    : <button disabled>{strings.loadingMessage}</button>}
+                {!isLoading ? <button type="submit" className="button-dark">{authDisplayStrings.recoveryFinish}</button>
+                    : <button disabled>{authDisplayStrings.recoveryProcessing}</button>}
             </form>
         </div>
     )

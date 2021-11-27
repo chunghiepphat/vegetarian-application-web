@@ -1,32 +1,23 @@
-import React, {useState} from "react";
-import LocalizedStrings from "react-localization";
+import React, {useContext, useState} from "react";
+import {authDisplayStrings} from "../../../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../../../context/LocaleContext";
 import {apiUrl} from "../../../../helpers/Variables";
 import jwtDecode from "jwt-decode";
 
 const LoginEmail = ({history, background}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            placeholderEmail: "Enter email",
-            placeholderPassword: "Enter password",
-            buttonSignIn: "Sign in",
-            loadingMessage: "Logging you in..."
-        },
-        vi: {
-            placeholderEmail: "Nhập email",
-            placeholderPassword: "Nhập mật khẩu",
-            buttonSignIn: "Đăng nhập",
-            loadingMessage: "Đang đăng nhập..."
-        }
-    });
+    authDisplayStrings.setLanguage(useContext(LocaleContext));
+
     // Input states
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+
     // Generates request headers
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
+
     // Handles login requests
     const signIn = async (event) => {
         event.preventDefault();
@@ -82,13 +73,13 @@ const LoginEmail = ({history, background}) => {
 
     return (
         <form className="auth-form" onSubmit={signIn}>
-            <input type="email" name="email" placeholder={strings.placeholderEmail}
+            <input type="email" name="email" placeholder={authDisplayStrings.loginEmailPlaceholder}
                    onChange={e => setEmail(e.target.value)} required/>
-            <input type="password" name="password" placeholder={strings.placeholderPassword}
+            <input type="password" name="password" placeholder={authDisplayStrings.loginPasswordPlaceholder}
                    onChange={e => setPassword(e.target.value)} required/>
             {!isLoading ?
-                <button type="submit" className="button-dark">{strings.buttonSignIn}</button>
-                : <button disabled>{strings.loadingMessage}</button>}
+                <button type="submit" className="button-dark">{authDisplayStrings.loginSignInButton}</button>
+                : <button disabled>{authDisplayStrings.loginSigningIn}</button>}
         </form>
     )
 }

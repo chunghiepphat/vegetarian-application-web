@@ -1,21 +1,16 @@
-import React from "react";
+import React, {useContext} from "react";
+import {authDisplayStrings} from "../../../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../../../context/LocaleContext";
 import {apiUrl} from "../../../../helpers/Variables";
 import {clientId} from "../../../../helpers/Google";
 import {GoogleLogin} from "react-google-login";
 import {FcGoogle} from "react-icons/all";
 import jwtDecode from "jwt-decode";
-import LocalizedStrings from "react-localization";
 
 const LoginGoogle = ({history, background}) => {
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            buttonGoogle: "Continue with Google",
-        },
-        vi: {
-            buttonGoogle: "Đăng nhập bằng Google",
-        }
-    });
+    authDisplayStrings.setLanguage(useContext(LocaleContext));
+
     // Handles login
     const onSuccess = async (res) => {
         if (res) {
@@ -60,7 +55,7 @@ const LoginGoogle = ({history, background}) => {
             clientId={clientId}
             render={renderProps => (
                 <button className="button-google" onClick={renderProps.onClick}>
-                    <FcGoogle/> {strings.buttonGoogle}</button>)}
+                    <FcGoogle/> {authDisplayStrings.loginGoogle}</button>)}
             onSuccess={onSuccess}
             onFailure={onFailure}
             cookiePolicy={'single_host_origin'}

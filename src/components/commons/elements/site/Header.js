@@ -38,11 +38,13 @@ const Header = ({locale, setLocale}) => {
                 <section className="header-section">
                     <HeaderBrand/>
                     <Navbar>
-                        {/*<Link to="/"><HeaderBrand/></Link>*/}
                         <NavLink to="/home">{headerStrings.headerHome}</NavLink>
-                        <NavLink to="/about">{headerStrings.headerAbout}</NavLink>
+                        {!location.pathname.match("/console") &&
+                        <NavLink to="/about">{headerStrings.headerAbout}</NavLink>}
                     </Navbar>
-                    {!location.pathname.match("/search") &&
+                    {!location.pathname.match("/console") && !location.pathname.match("/search") &&
+                    <HeaderSearch placeholder={headerStrings.headerSearchPlaceholder}/>}
+                    {location.pathname.match("/console") &&
                     <HeaderSearch placeholder={headerStrings.headerSearchPlaceholder}/>}
                 </section>
                 {/*Right-side nav with authentication and profile links*/}
@@ -69,10 +71,11 @@ const Header = ({locale, setLocale}) => {
                             }}>{headerStrings.headerSignUp}</NavLink>
                         </>}
                     </Navbar>
+                    {!location.pathname.match("/console") &&
                     <select value={locale} onChange={e => setLocale(e.target.value)}>
                         <option value="en">English</option>
                         <option value="vi">Tiếng Việt</option>
-                    </select>
+                    </select>}
                 </section>
             </div>
         </header>

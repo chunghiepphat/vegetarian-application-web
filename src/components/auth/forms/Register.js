@@ -1,44 +1,22 @@
-import React, {useState} from "react";
-import LocalizedStrings from "react-localization";
-import {Link, useHistory, useLocation} from "react-router-dom";
+import React, {useContext, useState} from "react";
+import {authDisplayStrings} from "../../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
+import {Link, useHistory, useLocation} from "react-router-dom";
+import {requestErrorStrings} from "../../../resources/CommonDisplayStrings";
 
 const Register = (props) => {
     const location = useLocation();
     const history = useHistory();
+
     // Localizations
-    let strings = new LocalizedStrings({
-        en: {
-            welcome: "Welcome",
-            signInPrompt: "Already have an account?",
-            signInUrl: "Sign in!",
-            registrationHeader: "Sign up with your email",
-            firstName: "First name",
-            lastName: "Last name",
-            email: "Email address",
-            password: "Enter password",
-            confirmPassword: "Confirm password",
-            buttonRegister: "Create new account",
-            loadingMessage: "Creating your account...",
-        },
-        vi: {
-            welcome: "Chào mừng",
-            signInPrompt: "Bạn đã có tài khoản?",
-            signInUrl: "Đăng nhập!",
-            registrationHeader: "Đăng ký bằng email",
-            firstName: "Tên",
-            lastName: "Họ",
-            email: "Email",
-            password: "Mật khẩu",
-            confirmPassword: "Xác nhận mật khẩu",
-            buttonRegister: "Tạo tài khoản mới",
-            loadingMessage: "Đang tạo tài khoản...",
-        }
-    });
+    authDisplayStrings.setLanguage(useContext(LocaleContext));
+
     // Generates request headers
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
+
     // Handles registration requests
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -52,8 +30,8 @@ const Register = (props) => {
         let body = JSON.stringify({
             "first_name": firstName,
             "last_name": lastName,
-            "email": props.email,
-            "password": password
+            "registerEmail": props.registerEmail,
+            "registerNewPassword": password
         });
         // Generates request
         let request = {
@@ -72,35 +50,36 @@ const Register = (props) => {
                 responseMessage = error.message;
                 setIsLoading(false);
                 if (responseMessage !== undefined) alert(responseMessage);
-                else alert("An error has occurred. Status code: " + response.status);
+                else alert(requestErrorStrings.requestErrorStatus + response.status);
             }
         } catch (error) {
             setIsLoading(false);
-            alert("There was an unexpected error: " + error);
+            alert(requestErrorStrings.requestErrorException + error);
         }
     }
 
     // Renders the form
     return (
         <div className="auth-section">
-            <h1>{strings.welcome}</h1>
-            <p>{strings.signInPrompt} <Link to={{
+            <h1>{authDisplayStrings.registerWelcome}</h1>
+            <p>{authDisplayStrings.registerSignIn} <Link to={{
                 pathname: "/login",
                 state: {background: location}
-            }}>{strings.signInUrl}</Link></p>
-            <h2>{strings.registrationHeader}</h2>
+            }}>{authDisplayStrings.registerSignInLink}</Link></p>
+            <h2>{authDisplayStrings.registerHeader}</h2>
             <form className="auth-form" onSubmit={signUp}>
-                <input type="text" placeholder={strings.firstName}
+                <input type="text" placeholder={authDisplayStrings.registerFirstName}
                        onChange={e => setFirstName(e.target.value)} required/>
-                <input type="text" placeholder={strings.lastName}
+                <input type="text" placeholder={authDisplayStrings.registerLastName}
                        onChange={e => setLastName(e.target.value)} required/>
-                <input type="email" placeholder={strings.email}
+                <input type="email" placeholder={authDisplayStrings.registerEmail}
                        onChange={e => props.setEmail(e.target.value)} required/>
-                <input type="password" placeholder={strings.password}
+                <input type="password" placeholder={authDisplayStrings.registerNewPassword}
                        onChange={e => setPassword(e.target.value)} required/>
-                <input type="password" placeholder={strings.confirmPassword}/>
-                {!isLoading ? <button type="submit" className="button-dark">{strings.buttonRegister}</button>
-                    : <button disabled>{strings.loadingMessage}</button>}
+                <input type="password" placeholder={authDisplayStrings.registerConfirmPassword}/>
+                {!isLoading ?
+                    <button type="submit" className="button-dark">{authDisplayStrings.registerCreateAccount}</button>
+                    : <button disabled>{authDisplayStrings.registerCreatingAccount}</button>}
             </form>
         </div>
     )
