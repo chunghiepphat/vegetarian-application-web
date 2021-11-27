@@ -2,10 +2,6 @@ import React, {useContext, useEffect, useRef, useState} from "react";
 import {homeDisplayStrings} from "../../../resources/PublicDisplayStrings";
 import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
-import bannerBackgroundA from "assets/banner-background-1.png";
-import bannerBackgroundB from "assets/banner-background-2.png";
-import bannerBackgroundC from "assets/banner-background-3.png";
-import bannerBackgroundD from "assets/banner-background-4.png";
 import ArticleTile from "../../commons/elements/containers/ArticleTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
@@ -33,10 +29,10 @@ const HomeBanner = ({user, fetchData}) => {
     // Randomizes banner background
     const [background, setBackground] = useState();
     const backgrounds = [
-        bannerBackgroundA,
-        bannerBackgroundB,
-        bannerBackgroundC,
-        bannerBackgroundD,
+        "https://res.cloudinary.com/toanl33/image/upload/v1637988178/banner-background-1_merghi.png",
+        "https://res.cloudinary.com/toanl33/image/upload/v1637988185/banner-background-2_edwvp2.png",
+        "https://res.cloudinary.com/toanl33/image/upload/v1637988193/banner-background-3_rgdfem.png",
+        "https://res.cloudinary.com/toanl33/image/upload/v1637988198/banner-background-4_ywmsyq.png",
     ];
     useEffect(() => {
         const min = Math.ceil(0);

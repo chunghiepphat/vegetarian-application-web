@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import "./Auth.css";
-import bannerBackground from "assets/banner-background-1.png";
 import Register from "./forms/Register";
 import {Redirect, Route, Switch} from "react-router-dom";
 import AccountVerification from "./forms/AccountVerification";
@@ -9,6 +8,18 @@ import RecoveryStep2 from "./forms/recovery/RecoveryStep2";
 
 const Auth = () => {
     const [email, setEmail] = useState("");
+    const [background, setBackground] = useState();
+    const backgrounds = [
+        "https://res.cloudinary.com/toanl33/image/upload/v1637988178/banner-background-1_merghi.png",
+        "https://res.cloudinary.com/toanl33/image/upload/v1637988185/banner-background-2_edwvp2.png",
+        "https://res.cloudinary.com/toanl33/image/upload/v1637988193/banner-background-3_rgdfem.png",
+        "https://res.cloudinary.com/toanl33/image/upload/v1637988198/banner-background-4_ywmsyq.png",
+    ];
+    useEffect(() => {
+        const min = Math.ceil(0);
+        const max = Math.floor(backgrounds.length);
+        setBackground(backgrounds[Math.floor(Math.random() * (max - min) + min)]);
+    }, [])
 
     return (
         <div className="page-container page-full">
@@ -28,7 +39,7 @@ const Auth = () => {
                     </Switch>
                 </main>
             </div>
-            <div className="page-background" style={{backgroundImage: `url(${bannerBackground})`}}>
+            <div className="page-background" style={{backgroundImage: `url(${background})`}}>
                 <div className="page-overlay"/>
             </div>
         </div>
