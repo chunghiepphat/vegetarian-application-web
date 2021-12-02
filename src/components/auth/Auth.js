@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "./Auth.css";
-import Register from "./forms/Register";
 import {Redirect, Route, Switch} from "react-router-dom";
+import Register from "./forms/Register";
 import AccountVerification from "./forms/AccountVerification";
 import AccountRecovery from "./forms/AccountRecovery";
 import RecoveryStep2 from "./forms/recovery/RecoveryStep2";

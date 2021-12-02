@@ -19,20 +19,20 @@ const VideoTile = ({className, id, title, thumbnail, firstName, lastName, status
     ]
 
     return (
-        <div className={`article-tile tile-video ${className}`}>
-            <Link className="tile-url" to={user && user.role === "admin" ?
+        <div className={`tile-a tile-video ${className}`}>
+            <Link className="tile-a__url" to={user && user.role === "admin" ?
                 `/console/review/video/${id}` : `/view/video/${id}`}/>
-            <picture className="tile-thumbnail">
+            <picture className="tile-a__thumbnail">
                 <source srcSet={thumbnail}/>
                 <img src={placeholderThumbnail} alt=""/>
             </picture>
-            <div className="tile-overlay">
-                <div className="tile-details">
-                    <h1 className="tile-title">{title}</h1>
+            <div className="tile-a__overlay">
+                <div className="tile-a__details">
+                    <h1 className="tile-a__title">{title}</h1>
                     {firstName &&
-                    <div className="tile-author">by {firstName} {lastName}</div>}
+                    <div className="tile-a__author">by {firstName} {lastName}</div>}
                     {status &&
-                    <p className={`tile-status ${statusColor[status - 1]}`}>
+                    <p className={`tile-a__status ${statusColor[status - 1]}`}>
                         {statusText[status - 1]}
                     </p>}
                 </div>

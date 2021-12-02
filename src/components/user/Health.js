@@ -1,8 +1,8 @@
 import React, {useContext, useState} from "react";
 import DashboardSidebar from "./DashboardSidebar";
 import UpdateHealth from "./health/UpdateHealth";
-import UpdateAllergies from "./health/UpdateAllergies";
-import UpdatePreferences from "./health/UpdatePreferences";
+import FoodAbstinence from "./health/FoodAbstinence";
+import FoodPreferences from "./health/FoodPreferences";
 import {NavLink, Redirect, Route, Switch, useLocation} from "react-router-dom";
 import Navbar from "../commons/elements/bars/Navbar";
 import {UserContext} from "../../context/UserContext";
@@ -36,9 +36,9 @@ const Health = ({reload}) => {
                         <Route path={urlDetails}>
                             <UpdateHealth user={user} token={token} reload={reload}/> </Route>
                         <Route path={urlAllergies}>
-                            <UpdateAllergies user={user} token={token} reload={reload}/> </Route>
+                            <FoodAbstinence user={user} token={token} reload={reload}/> </Route>
                         <Route path={urlPreferences}>
-                            <UpdatePreferences user={user} token={token} reload={reload}/> </Route>
+                            <FoodPreferences user={user} token={token} reload={reload}/> </Route>
                     </Switch>
                 </main>
                 <DashboardSidebar/>

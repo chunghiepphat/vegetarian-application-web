@@ -183,7 +183,7 @@
     height: 100%;
 }
 
-.banner-panel .article-tile {
+.banner-panel .tile-a {
     border-radius: 0;
     animation: enlarge 0.5s;
     -webkit-animation: enlarge 0.5s;
@@ -209,19 +209,19 @@
     grid-area: 2 / 4 / 3 / 5;
 }
 
-.tile-half .tile-title {
+.tile-half .tile-a__title {
     font-size: 30px;
 }
 
-.tile-half .tile-author {
+.tile-half .tile-a__author {
     font-size: 18px;
 }
 
-.tile-eighth .tile-title {
+.tile-eighth .tile-a__title {
     font-size: 18px;
 }
 
-.tile-eighth .tile-author {
+.tile-eighth .tile-a__author {
     font-size: 16px;
 }
 

@@ -112,7 +112,6 @@ const DashboardHealth = ({user}) => {
                     <Link to="/menu">{dashboardDisplayStrings.dashboardHealthSuggestMenu} <FaAngleRight/></Link>
                     : <><em>{dashboardDisplayStrings.dashboardHealthCompleteProfile}</em>
                         <Link to="/health">{dashboardDisplayStrings.dashboardHealthGetStarted}<FaAngleRight/></Link></>}
-
             </div>
         </section>
     )

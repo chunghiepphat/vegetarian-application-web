@@ -114,6 +114,7 @@ const Menu = () => {
     }
 
     // Generates new menu
+    const [recipeCount, setRecipeCount] = useState(3);
     const generateMenu = async (e) => {
         e.preventDefault();
         // Request headers with access token
@@ -126,7 +127,7 @@ const Menu = () => {
             method: 'GET',
             headers: headers,
         };
-        const api = `${apiUrl}/menu/generate?id=${user.id}`
+        const api = `${apiUrl}/menu/generate?id=${user.id}&numberRecipe=${recipeCount}`
         try {
             const response = await fetch(api, request);
             if (response.ok) {
@@ -149,6 +150,11 @@ const Menu = () => {
             <div className="grid-container">
                 <main>
                     <DashboardRecommendations/>
+                    {isValid &&
+                    <GenerateMenu user={user} generate={generateMenu}
+                                  isMenuLoaded={isMenuLoaded} isMenuNew={isMenuNew}
+                                  recipeCount={recipeCount} setRecipeCount={setRecipeCount}
+                                  save={saveMenu} load={loadMenu}/>}
                     {isValid ?
                         <DisplayMenu user={user} startDate={startDate} endDate={endDate}
                                      data={data} isMenuLoaded={isMenuLoaded}
@@ -164,9 +170,6 @@ const Menu = () => {
                                     {menuDisplayStrings.menuUrlCompleteProfile} <FaAngleRight/></Link>
                             </div>
                         </section>}
-                    {isValid &&
-                    <GenerateMenu user={user} generate={generateMenu} isMenuLoaded={isMenuLoaded}
-                                  isMenuNew={isMenuNew} save={saveMenu} load={loadMenu}/>}
                 </main>
                 <DashboardSidebar/>
             </div>

@@ -8,9 +8,15 @@ const GenerateMenu = (props) => {
     menuDisplayStrings.setLanguage(useContext(LocaleContext));
 
     return (
-        <section className="sticky-bottom">
+        <section>
             <div className="section-content">
                 <InputGroup>
+                    <select value={props.recipeCount} onChange={e => props.setRecipeCount(e.target.value)}>
+                        <option value={3}>3</option>
+                        <option value={4}>4</option>
+                        <option value={5}>5</option>
+                        <option value={6}>6</option>
+                    </select>
                     <button className="button-light" onClick={props.generate}>
                         {menuDisplayStrings.menuGenerate}
                     </button>

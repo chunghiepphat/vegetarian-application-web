@@ -22,13 +22,14 @@ const HomeSidebar = () => {
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const [recommendations, setRecommendations] = useState([]);
-    const [isLoadingRecommendations, setIsLoadingRecommendations] = useState(false);
-    const [isErrorRecommendations, setIsErrorRecommendations] = useState(false);
+    const [suggestions, setSuggestions] = useState([]);
+    const [isLoadingRecipes, setIsLoadingRecipes] = useState(false);
+    const [isErrorRecipes, setIsErrorRecipes] = useState(false);
     const fetchRecommendations = async () => {
         // Checks authentication
         if (user !== null && token !== null) {
-            setIsErrorRecommendations(false);
-            setIsLoadingRecommendations(true);
+            setIsErrorRecipes(false);
+            setIsLoadingRecipes(true);
             // Generates request headers
             let headers = new Headers();
             if (token) headers.append("Authorization", `Bearer ${token.token}`);
@@ -45,15 +46,16 @@ const HomeSidebar = () => {
                 const response = await fetch(api, request);
                 if (response.ok) {
                     const result = await response.json();
-                    setRecommendations(result);
-                    setIsLoadingRecommendations(false);
+                    await setRecommendations(result.listBody);
+                    await setSuggestions(result.listSuggest);
+                    setIsLoadingRecipes(false);
                 } else if (response.status >= 400 && response.status < 600) {
-                    setIsErrorRecommendations(true);
-                    setIsLoadingRecommendations(false);
+                    setIsErrorRecipes(true);
+                    setIsLoadingRecipes(false);
                 }
             } catch (error) {
-                setIsErrorRecommendations(true);
-                setIsLoadingRecommendations(false);
+                setIsErrorRecipes(true);
+                setIsLoadingRecipes(false);
             }
         }
     }
@@ -109,10 +111,33 @@ const HomeSidebar = () => {
             <section className="sidebar-widget">
                 <h1>{homeDisplayStrings.homeSidebarRecommendations}</h1>
                 <Panel>
-                    {!isLoadingRecommendations ? <>
-                        {!isErrorRecommendations ? <>
+                    {!isLoadingRecipes ? <>
+                        {!isErrorRecipes ? <>
                             {recommendations && recommendations.length ? <>
                                 {recommendations.map(item => (
+                                    <ArticleCard className="card-compact"
+                                                 key={item.recipe_id}
+                                                 id={item.recipe_id}
+                                                 type="recipe"
+                                                 title={item.recipe_title}
+                                                 thumbnail={item.recipe_thumbnail}
+                                                 userId={item.user_id}
+                                                 firstName={item.first_name}
+                                                 lastName={item.last_name}
+                                                 recommendationCriteria={item.criteria}/>))}
+                            </> : <PanelEmp/>}
+                        </> : <PanelErr reload={fetchRecommendations}/>}
+                    </> : <PanelLoader/>}
+                </Panel>
+            </section>}
+            {user &&
+            <section className="sidebar-widget">
+                <h1>{homeDisplayStrings.homeSidebarSuggestions}</h1>
+                <Panel>
+                    {!isLoadingRecipes ? <>
+                        {!isErrorRecipes ? <>
+                            {suggestions && suggestions.length ? <>
+                                {suggestions.map(item => (
                                     <ArticleCard className="card-compact"
                                                  key={item.recipe_id}
                                                  id={item.recipe_id}

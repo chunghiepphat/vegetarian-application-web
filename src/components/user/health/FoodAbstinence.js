@@ -3,13 +3,12 @@ import {healthDisplayStrings} from "../../../resources/UserDisplayStrings";
 import {requestErrorStrings} from "../../../resources/CommonDisplayStrings";
 import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
-import {useLocation} from "react-router-dom";
 import Form from "../../commons/elements/form/Form";
 import InputArray from "../../commons/elements/form/InputArray";
 import InputGroup from "../../commons/elements/form/InputGroup";
 import {ImCross} from "react-icons/all";
 
-const UpdatePreferences = ({user, token}) => {
+const FoodAbstinence = ({user, token}) => {
     // Localizations
     healthDisplayStrings.setLanguage(useContext(LocaleContext));
     requestErrorStrings.setLanguage(useContext(LocaleContext));
@@ -17,13 +16,16 @@ const UpdatePreferences = ({user, token}) => {
     // Fetches food items
     const [ingredients, setIngredients] = useState([]);
     const fetchData = async () => {
-        const api = `${apiUrl}/user/getpreferences/${user.id}`;
-        const response = await fetch(api);
-        const result = await response.json();
-        setIngredients(result.listIngredient);
+        const api = `${apiUrl}/user/getallergies/${user.id}`;
+        try {
+            const response = await fetch(api);
+            const result = await response.json();
+            setIngredients(result.listIngredient);
+        } catch (error) {
+        }
     }
 
-    //Adds , removes & clears input fields
+    // Adds, removes & clears input fields
     const handleAddField = (e) => {
         e.preventDefault();
         const ingredient = {
@@ -62,8 +64,8 @@ const UpdatePreferences = ({user, token}) => {
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
 
-    // Updates preferences profile
-    const updatePreferences = async (e) => {
+    // Update allergy profile
+    const updateAllergies = async (e) => {
         e.preventDefault();
         // Generates request body
         let body = JSON.stringify({
@@ -76,11 +78,11 @@ const UpdatePreferences = ({user, token}) => {
             body: body,
         };
         // Executes fetch
-        const api = `${apiUrl}/user/preferences/${user.id}`;
+        const api = `${apiUrl}/user/allergies/${user.id}`;
         try {
             const response = await fetch(api, request);
             if (response.ok) {
-                alert(healthDisplayStrings.healthPreferencesUpdateSuccess);
+                alert(healthDisplayStrings.foodAbstinenceUpdateSuccess);
                 await fetchData();
             } else if (response.status === 401) {
                 alert(requestErrorStrings.requestErrorUnauthorized);
@@ -99,11 +101,11 @@ const UpdatePreferences = ({user, token}) => {
     return (
         <section>
             <header className="section-header">
-                <h1>{healthDisplayStrings.healthPreferences}</h1>
-                <p>{healthDisplayStrings.healthPreferencesSubheader}</p>
+                <h1>{healthDisplayStrings.foodAbstinence}</h1>
+                <p>{healthDisplayStrings.foodAbstinenceSubheader}</p>
             </header>
             <div className="section-content">
-                <Form onSubmit={updatePreferences}>
+                <Form onSubmit={updateAllergies}>
                     <div style={{minHeight: "400px"}}>
                         {ingredients.length > 0 ?
                             // Dynamic form container
@@ -128,7 +130,7 @@ const UpdatePreferences = ({user, token}) => {
                                     ))}
                                 </InputArray>
                             </div>
-                            : <em>{healthDisplayStrings.healthPreferencesEmpty}</em>}
+                            : <em>{healthDisplayStrings.foodAbstinenceEmpty}</em>}
                     </div>
                     {/*Control buttons*/}
                     <div className="sticky-bottom">
@@ -149,4 +151,4 @@ const UpdatePreferences = ({user, token}) => {
     )
 }
 
-export default UpdatePreferences;
+export default FoodAbstinence;

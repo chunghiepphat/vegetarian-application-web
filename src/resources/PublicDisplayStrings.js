@@ -152,7 +152,8 @@ export let homeDisplayStrings = new LocalizedStrings({
         homeSidebarExploreBlogs: "Blogs",
         homeSidebarSearch: "Search",
         homeSidebarSearchUrl: "Advanced search",
-        homeSidebarRecommendations: "Try these recipes",
+        homeSidebarRecommendations: "Recipes for your routine",
+        homeSidebarSuggestions: "You might like these",
         homeSidebarBlogs: "Popular stories",
     },
     vi: {
@@ -184,7 +185,8 @@ export let homeDisplayStrings = new LocalizedStrings({
         homeSidebarExploreBlogs: "Bài viết chia sẻ",
         homeSidebarSearch: "Tìm kiếm",
         homeSidebarSearchUrl: "Tìm kiếm nâng cao",
-        homeSidebarRecommendations: "Có lẽ bạn sẽ thích",
+        homeSidebarRecommendations: "Dành riêng cho bạn",
+        homeSidebarSuggestions: "Có lẽ bạn sẽ thích",
         homeSidebarBlogs: "Bài viết phổ biến",
     }
 });

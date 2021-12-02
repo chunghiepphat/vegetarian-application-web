@@ -19,6 +19,7 @@
     flex-wrap: nowrap;
     flex-direction: row;
     align-items: center;
+    gap: 10px;
     padding: 0 60px;
     overflow-x: hidden;
     scroll-behavior: smooth;

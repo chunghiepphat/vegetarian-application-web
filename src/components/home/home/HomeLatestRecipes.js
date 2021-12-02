@@ -50,7 +50,7 @@ const HomeLatestRecipes = ({user, fetchData}) => {
                             <div className="panel-slider" ref={ref}>
                                 {/*Iterates over the result JSON and renders a matching amount of card items*/}
                                 {data.map(item => (
-                                    <ArticleTile className="tile-small"
+                                    <ArticleTile className="tile-a--small"
                                                  key={item.recipe_id}
                                                  id={item.recipe_id}
                                                  type="recipe"
