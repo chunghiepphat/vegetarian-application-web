@@ -90,13 +90,11 @@ const RecipeStep01 = (props) => {
                                    onChange={e => props.setPrepTime(e.target.value)}/> </InputGroup> </label>
                     <label>{postDisplayStrings.postRecipeBakingTime}
                         <InputGroup>
-                            <input aria-label="Baking time" type="number" min={0}
-                                   value={props.viewRecipeEstimatedBakingTime}
+                            <input aria-label="Baking time" type="number" min={0} value={props.bakingTime}
                                    onChange={e => props.setBakingTime(e.target.value)}/> </InputGroup> </label>
                     <label>{postDisplayStrings.postRecipeRestingTime}
                         <InputGroup>
-                            <input aria-label="Resting time" type="number" min={0}
-                                   value={props.viewRecipeEstimatedRestingTime}
+                            <input aria-label="Resting time" type="number" min={0} value={props.restingTime}
                                    onChange={e => props.setRestingTime(e.target.value)}/> </InputGroup> </label>
                     <div className="sticky-bottom">
                         <InputGroup>

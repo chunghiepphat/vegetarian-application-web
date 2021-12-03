@@ -10,7 +10,7 @@ const BreakfastMenu = ({data}) => {
         <div className="menu__meal">
             <div className="menu__dish">
                 <h3>{menuDisplayStrings.menuBreakfast}</h3>
-                <i>{menuDisplayStrings.about} {data.listRecipe[0].calo} calories</i>
+                <i>{menuDisplayStrings.menuAbout} {data.listRecipe[0].calo} calories</i>
                 <ArticleTile className="tile-a--menu-dish"
                              key={data.listRecipe[0].recipe_id}
                              id={data.listRecipe[0].recipe_id}

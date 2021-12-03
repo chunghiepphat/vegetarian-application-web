@@ -6,6 +6,8 @@ import {apiKey} from "../../../helpers/Cloudinary";
 import VideoStep01 from "./video/VideoStep01";
 import VideoStep02 from "./video/VideoStep02";
 import {SectionLoader} from "../../commons/elements/loaders/Loader";
+import {requestErrorStrings} from "../../../resources/CommonDisplayStrings";
+import {postDisplayStrings} from "../../../resources/UserDisplayStrings";
 
 const PostVideo = () => {
     const user = useContext(UserContext);
@@ -15,7 +17,7 @@ const PostVideo = () => {
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
     const [thumbnailUrl, setThumbnailUrl] = useState("");
-    const [link, setLink] = useState();
+    const [videoUrl, setVideoUrl] = useState();
 
     const submitPost = async (e) => {
         e.preventDefault();
@@ -32,7 +34,8 @@ const PostVideo = () => {
             "video_title": title,
             "video_category_id": "1",
             "video_description": description,
-            "video_link": link,
+            "video_thumbnail": thumbnailUrl,
+            "video_link": videoUrl,
         });
 
         // Generates request
@@ -43,21 +46,21 @@ const PostVideo = () => {
         };
 
         // Executes fetch
-        const response = await fetch(api, request);
-        if (response.ok) {
-            alert("Video posted successfully!");
-            history.push("/home");
-
-        } else if (response.status === 401) {
-            alert("You are not authorized to do that.")
-        } else {
-            alert("Unexpected error with code: " + response.status);
+        try {
+            const response = await fetch(api, request);
+            if (response.ok) {
+                alert(postDisplayStrings.postArticleUploadSuccess);
+                history.push("/home");
+            } else if (response.status >= 400 && response.status < 600) {
+                alert(requestErrorStrings.hostingServiceErrorStatus + response.status);
+            }
+        } catch (error) {
+            alert(requestErrorStrings.requestErrorException + error);
         }
     }
 
     return (
         <Switch>
-            {/*Step 1*/}
             <Route exact path="/post/video/">
                 <Redirect to="/post/video/step-1"/>
             </Route>
@@ -65,12 +68,11 @@ const PostVideo = () => {
                 <VideoStep01 title={title} setTitle={setTitle}
                              description={description} setDescription={setDescription}/>
             </Route>
-            {/*Step 2*/}
             <Route path="/post/video/step-2">
-                <VideoStep02 link={link} setLink={setLink}
+                <VideoStep02 videoUrl={videoUrl} setVideoUrl={setVideoUrl}
+                             setThumbnailUrl={setThumbnailUrl}
                              submitPost={submitPost}/>
             </Route>
-            {/*Not found*/}
             <Route><Redirect to="/not-found"/></Route>
         </Switch>
     )

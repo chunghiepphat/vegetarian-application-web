@@ -8,6 +8,7 @@ import DashboardSidebar from "./DashboardSidebar";
 import Navbar from "../commons/elements/bars/Navbar";
 import FavoriteRecipes from "./favorites/FavoriteRecipes";
 import FavoriteBlogs from "./favorites/FavoriteBlogs";
+import FavoriteVideos from "./favorites/FavoriteVideos";
 
 const Favorites = () => {
     // Localizations
@@ -17,11 +18,13 @@ const Favorites = () => {
     const user = useContext(UserContext);
     const token = JSON.parse(localStorage.getItem("accessToken"));
     const [recipes, setRecipes] = useState([]);
+    const [videos, setVideos] = useState([]);
     const [blogs, setBlogs] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     // Component URLS
     const urlRecipes = "/favorites/recipes";
+    const urlVideos = "/favorites/videos";
     const urlBlogs = "/favorites/blogs";
     // Generates request headers
     let headers = new Headers();
@@ -41,6 +44,7 @@ const Favorites = () => {
             if (response.ok) {
                 const result = await response.json();
                 setRecipes(result.listRecipe);
+                setVideos(result.listVideo);
                 setBlogs(result.listBlog);
                 setIsLoading(false);
             } else if (response.status >= 400 && response.status < 600) {
@@ -60,6 +64,7 @@ const Favorites = () => {
                     <section className="page-navbar">
                         <Navbar>
                             <NavLink to={urlRecipes}>{favoritesDisplayStrings.favoriteTabsRecipes}</NavLink>
+                            <NavLink to={urlVideos}>{favoritesDisplayStrings.favoriteTabsVideos}</NavLink>
                             <NavLink to={urlBlogs}>{favoritesDisplayStrings.favoriteTabsBlogs}</NavLink>
                         </Navbar>
                     </section>
@@ -69,6 +74,10 @@ const Favorites = () => {
                             <FavoriteRecipes data={recipes} user={user} location={location}
                                              isLoading={isLoading} isError={isError}
                                              fetchData={fetchData}/> </Route>
+                        <Route exact path={urlVideos}>
+                            <FavoriteVideos data={videos} user={user} location={location}
+                                            isLoading={isLoading} isError={isError}
+                                            fetchData={fetchData}/> </Route>
                         <Route exact path={urlBlogs}>
                             <FavoriteBlogs data={blogs} user={user} location={location}
                                            isLoading={isLoading} isError={isError}

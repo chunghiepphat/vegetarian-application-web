@@ -5,8 +5,8 @@ import ArticleTile from "../../../commons/elements/containers/ArticleTile";
 const DinnerMenu = ({data}) => {
     // Calculates total calories per meal
     let total = data.listRecipe[2].calo
-    if (data.listSnack.length > 1) total = total + data.listSnack[0].calo;
-    if (data.listSnack.length > 2) {
+    if (data.listSnack.length > 1) total = total + data.listSnack[1].calo;
+    if (data.listSnack.length > 2) { // Checks if the third dish was appended to dinner
         if (data.listSnack[1].calo + data.listSnack[2].calo < data.listSnack[0].calo) {
             total = total + data.listSnack[2].calo;
         }
@@ -18,7 +18,7 @@ const DinnerMenu = ({data}) => {
             // Main dish / meal
             <div className="menu__dish">
                 <h3>{menuDisplayStrings.menuDinner}</h3>
-                <i>{menuDisplayStrings.about} {data.listRecipe[2].calo} calories</i>
+                <i>{menuDisplayStrings.menuAbout} {data.listRecipe[2].calo} calories</i>
                 <ArticleTile className="tile-a--menu-dish"
                              key={data.listRecipe[2].recipe_id}
                              id={data.listRecipe[2].recipe_id}
@@ -32,10 +32,10 @@ const DinnerMenu = ({data}) => {
             <div className="meal__supplements">
                 {data && data.listSnack.length > 1 && <>
                     <h3>{menuDisplayStrings.menuSideDishes}</h3>
-                    <div className="meal__supplements--content">
+                    <div className="meal__side-dishes">
                         <div className="menu__dish">
                             <h3>{data.listSnack[1].meal_of_day}</h3>
-                            <i>{menuDisplayStrings.about} {data.listSnack[1].calo} calories</i>
+                            <i>{menuDisplayStrings.menuAbout} {data.listSnack[1].calo} calories</i>
                             <ArticleTile className="tile-a--menu-snack"
                                          key={data.listSnack[1].recipe_id}
                                          id={data.listSnack[1].recipe_id}
@@ -50,7 +50,7 @@ const DinnerMenu = ({data}) => {
                             {data.listSnack[1].calo + data.listSnack[2].calo < data.listSnack[0].calo &&
                             <div className="menu__dish">
                                 <h3>{data.listSnack[2].meal_of_day}</h3>
-                                <i>{menuDisplayStrings.about} {data.listSnack[2].calo} calories</i>
+                                <i>{menuDisplayStrings.menuAbout} {data.listSnack[2].calo} calories</i>
                                 <ArticleTile className="tile-a--menu-snack"
                                              key={data.listSnack[2].recipe_id}
                                              id={data.listSnack[2].recipe_id}

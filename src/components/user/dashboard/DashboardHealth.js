@@ -1,10 +1,12 @@
 import React, {useState, useEffect, useContext} from "react";
-import {dashboardDisplayStrings} from "../../../resources/UserDisplayStrings";
+import {dashboardDisplayStrings, healthDisplayStrings} from "../../../resources/UserDisplayStrings";
 import {profileStrings} from "../../../resources/CommonDisplayStrings";
 import {LocaleContext} from "../../../context/LocaleContext";
 import moment from "moment";
 import {Link} from "react-router-dom";
 import {FaAngleRight} from "react-icons/fa";
+import {apiUrl} from "../../../helpers/Variables";
+import {MdEdit} from "react-icons/all";
 
 
 const DashboardHealth = ({user}) => {
@@ -81,6 +83,20 @@ const DashboardHealth = ({user}) => {
     }
     useEffect(calculateBmi, [user.height, user.weight, locale]);
 
+    // Fetches user abstinence & allergies
+    const [ingredients, setIngredients] = useState([]);
+    const fetchData = async () => {
+        const api = `${apiUrl}/user/getallergies/${user.id}`;
+        try {
+            const response = await fetch(api);
+            const result = await response.json();
+            setIngredients(result.listIngredient);
+        } catch (error) {
+        }
+    }
+    useEffect(fetchData, [user]);
+
+
     return (
         <section>
             <header className="section-header linked-header">
@@ -98,13 +114,20 @@ const DashboardHealth = ({user}) => {
                         style={{fontWeight: "bold"}}>{profileStrings.birthdate}: </span>{moment(user.birth_date).format("ll")} ({ageYear} {profileStrings.yearsOld})
                     </li>}
                     {user.gender &&
-                    <li><span style={{fontWeight: "bold"}}>{profileStrings.gender}:</span> {user.gender} </li>}
+                    <li><span style={{fontWeight: "bold"}}>{profileStrings.gender}: </span>{user.gender}</li>}
                     {user.height > 0 &&
-                    <li><span style={{fontWeight: "bold"}}>{profileStrings.height}:</span> {user.height} cm </li>}
+                    <li><span style={{fontWeight: "bold"}}>{profileStrings.height}: </span>{user.height} cm</li>}
                     {user.weight > 0 &&
-                    <li><span style={{fontWeight: "bold"}}>{profileStrings.weight}:</span> {user.weight} kg </li>}
+                    <li><span style={{fontWeight: "bold"}}>{profileStrings.weight}: </span>{user.weight} kg</li>}
                     {user.workout_routine > 0 &&
-                    <li><span style={{fontWeight: "bold"}}>{profileStrings.workoutRoutine}:</span> {routine} </li>}
+                    <li><span style={{fontWeight: "bold"}}>{profileStrings.workoutRoutine}: </span>{routine}</li>}
+                    {ingredients.length > 0 &&
+                    <li><span style={{fontWeight: "bold"}}>{healthDisplayStrings.foodAbstinence}: </span>
+                        {ingredients.map((item, index) => (
+                            `${item.ingredient_name}${index < ingredients.length - 1 ? `, ` : `.`}`))}
+                        <Link to="/health/allergies"
+                              style={{display: "inline-flex", marginLeft: "12px"}}><MdEdit/></Link>
+                    </li>}
                 </ul>
                 {user.birth_date && user.gender
                 && user.height > 0 && user.weight > 0

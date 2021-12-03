@@ -24,7 +24,7 @@
 .menu__date-dropdown {
     -webkit-appearance: none;
     -moz-appearance: none;
-    height: 60px;
+    height: 40px;
     background: none;
     border: none;
     font-size: 22px;
@@ -33,6 +33,7 @@
 .menu__content-panel {
     flex-direction: column;
     justify-content: flex-start;
+    gap: 14px;
     padding: 0;
 }
 
@@ -51,7 +52,7 @@
     flex-grow: 1;
 }
 
-.meal__supplements--content {
+.meal__side-dishes {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -64,6 +65,9 @@
     border-left: thin solid lightgray;
 }
 
-.menu__dish {
-
+.menu__dish h3,
+.meal__supplements h3,
+.meal__nutrients h3 {
+    font-weight: 500;
+    line-height: 1.2;
 }

@@ -338,7 +338,7 @@ export let viewDisplayStrings = new LocalizedStrings({
         // Article toolbar
         viewArticleTranslateButton: "Dịch thành ",
         viewArticleRevertTranslationButton: "Đã dịch",
-        viewArticleSubmitForReview: "Đã gửi lên xét duyệt",
+        viewArticleSubmitForReview: "Chờ duyệt",
         viewArticleSetPublic: "Công khai",
         viewArticleSetPrivate: "Riêng tư",
         viewArticleSubmitForReviewConfirm: "Gửi bài đăng của bạn lên xét duyệt?\nBài đăng sẽ được hiển thị với mọi người sau khi được duyệt bởi quản trị viên.",

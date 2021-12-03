@@ -13,16 +13,6 @@ const DisplayMenu = (props) => {
     // Localizations
     menuDisplayStrings.setLanguage(useContext(LocaleContext));
 
-    // CSS Styles
-    const buttonStyles = {
-        maxWidth: "40px",
-        background: "white",
-        boxShadow: "none",
-    }
-    const dropdownStyles = {
-        height: "60px",
-        fontSize: "22px",
-    }
     let currentDate = new Date;
     let nextDate = new Date();
     nextDate.setDate(nextDate.getDate() + 1);
@@ -31,7 +21,7 @@ const DisplayMenu = (props) => {
     let isMenuExpired = moment(currentDate).format() > moment(props.endDate).format();
 
     // Handles date picker
-    const [menuIndex, setMenuIndex] = useState();
+    const [menuIndex, setMenuIndex] = useState(0);
     const nextIndex = (e) => {
         e.preventDefault();
         if (menuIndex < 6) setMenuIndex(menuIndex + 1);
@@ -50,8 +40,19 @@ const DisplayMenu = (props) => {
         }
     }, [props.data])
 
+    // Calculates daily total calories
+    let total;
+    if (props.data && props.data.length > 0
+        && props.data[menuIndex].listRecipe && props.data[menuIndex].listRecipe.length > 0) {
+        total = props.data[menuIndex].listRecipe[0].calo + props.data[menuIndex].listRecipe[1].calo + props.data[menuIndex].listRecipe[2].calo;
+        console.log(total)
+        if (props.data[menuIndex].listSnack.length > 0) total = total + props.data[menuIndex].listSnack[0].calo;
+        if (props.data[menuIndex].listSnack.length > 1) total = total + props.data[menuIndex].listSnack[1].calo;
+        if (props.data[menuIndex].listSnack.length > 2) total = total + props.data[menuIndex].listSnack[2].calo;
+    }
+
     return (
-        <section>
+        <section style={{borderTop: "thin solid lightgray"}}>
             <header className="section-header">
                 {!props.isMenuLoaded ? <>
                     <h1>{menuDisplayStrings.menuHeader}</h1>
@@ -72,12 +73,11 @@ const DisplayMenu = (props) => {
             <div className="section-content">
                 {props.data && props.data.length > 0 ?
                     <div className="menu">
-                        {menuIndex !== undefined &&
                         <Panel className="menu__content-panel">
                             <BreakfastMenu data={props.data[menuIndex]}/>
                             <LunchMenu data={props.data[menuIndex]}/>
                             <DinnerMenu data={props.data[menuIndex]}/>
-                        </Panel>}
+                        </Panel>
                     </div> : <>
                         {props.isMenuNew ? <SectionEmp message={menuDisplayStrings.menuMessageNoRecipes}/>
                             : <SectionEmp message={menuDisplayStrings.menuMessageEmptyMenu}/>}
@@ -94,6 +94,7 @@ const DisplayMenu = (props) => {
                                     {moment(item.date).format("L")}
                                     {today === moment(item.date).format("L") && ` (${menuDisplayStrings.menuToday})`}
                                     {tomorrow === moment(item.date).format("L") && ` (${menuDisplayStrings.menuTomorrow})`}
+                                    {` - ${total} cal`}
                                 </option>))}
                         </select>
                         <button className="menu__date-button"

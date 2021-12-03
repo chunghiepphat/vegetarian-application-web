@@ -196,7 +196,7 @@ const UpdateHealth = ({token, reload}) => {
                         <InputGroup>
                             <label>{profileStrings.gender}
                                 <select value={gender} onChange={e => setGender(e.target.value)}>
-                                    {gender === null && <option selected disabled>Your gender...</option>}
+                                    {gender === null && <option selected disabled>...</option>}
                                     {genders.map((gender) => (
                                         <option value={gender.value}>{gender.name}</option>))}
                                 </select>

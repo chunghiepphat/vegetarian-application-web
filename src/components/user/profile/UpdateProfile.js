@@ -6,7 +6,7 @@ import {apiUrl} from "../../../helpers/Variables";
 import Form from "../../commons/elements/form/Form";
 import InputGroup from "../../commons/elements/form/InputGroup";
 import CountrySelect from "../../commons/elements/CountrySelect";
-import {requestErrorStrings} from "../../../resources/CommonDisplayStrings";
+import {genericStrings, requestErrorStrings} from "../../../resources/CommonDisplayStrings";
 
 const UpdateProfile = ({reload}) => {
     // Localizations
@@ -21,11 +21,11 @@ const UpdateProfile = ({reload}) => {
     const [firstName, setFirstName] = useState(user.first_name);
     const [lastName, setLastName] = useState(user.last_name);
     const [aboutMe, setAboutMe] = useState(user.about_me);
-    const [country, setCountry] = useState(user.profileDetailsCountry);
+    const [country, setCountry] = useState(user.country);
     const [phoneNumber, setPhoneNumber] = useState(user.phone_number);
     const [facebookLink, setFacebookLink] = useState(user.facebook_link);
     const [instagramLink, setInstagramLink] = useState(user.instagram_link);
-    const [gender, setGender] = useState(user.profileDetailsGender);
+    const [gender, setGender] = useState(user.gender);
     const [birthdate, setBirthdate] = useState(user.birth_date);
 
     // Gets current date to limit date picker
@@ -34,7 +34,10 @@ const UpdateProfile = ({reload}) => {
     if (currentMonth < 10) currentMonth = "0" + currentMonth;
     let currentYear = new Date().getFullYear();
     const today = currentYear + "-" + currentMonth + "-" + currentDate;
-    const genders = ["Male", "Female"];
+    let genders = [
+        {name: genericStrings.male, value: "Male"},
+        {name: genericStrings.female, value: "Female"}
+    ];
 
     // Generates request headers
     let headers = new Headers();
@@ -112,11 +115,11 @@ const UpdateProfile = ({reload}) => {
                                    placeholder={profileDisplayStrings.profileDetailsPhonePlaceholder}/>
                         </label>
                         <InputGroup>
-                            <label>{profileDisplayStrings.profileDetailsGender}
+                            <label>{profileDisplayStrings.profileDetailsGender} {}
                                 <select value={gender} onChange={e => setGender(e.target.value)}>
+                                    {gender === null && <option selected disabled>...</option>}
                                     {genders.map((gender) => (
-                                        <option>{gender}</option>
-                                    ))}
+                                        <option value={gender.value}>{gender.name}</option>))}
                                 </select>
                             </label>
                             <label>{profileDisplayStrings.profileDetailsBirthdate}

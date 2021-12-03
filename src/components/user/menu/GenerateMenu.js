@@ -10,13 +10,15 @@ const GenerateMenu = (props) => {
     return (
         <section>
             <div className="section-content">
-                <InputGroup>
+                <label>{menuDisplayStrings.menuDishAmountLabel}
                     <select value={props.recipeCount} onChange={e => props.setRecipeCount(e.target.value)}>
-                        <option value={3}>3</option>
-                        <option value={4}>4</option>
-                        <option value={5}>5</option>
-                        <option value={6}>6</option>
+                        <option value={3}>3 {menuDisplayStrings.menuDishes}</option>
+                        <option value={4}>4 {menuDisplayStrings.menuDishes}</option>
+                        <option value={5}>5 {menuDisplayStrings.menuDishes}</option>
+                        <option value={6}>6 {menuDisplayStrings.menuDishes}</option>
                     </select>
+                </label>
+                <InputGroup>
                     <button className="button-light" onClick={props.generate}>
                         {menuDisplayStrings.menuGenerate}
                     </button>

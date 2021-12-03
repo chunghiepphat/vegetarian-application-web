@@ -139,10 +139,8 @@ const FoodAbstinence = ({user, token}) => {
                                     onClick={handleAddField}>{healthDisplayStrings.healthAddFoodItem}</button>
                             <button className="button-light"
                                     onClick={handleClear}>{healthDisplayStrings.healthClearFoodItems}</button>
-                            {ingredients.length > 0 ?
-                                <button type="submit"
-                                        className="button-dark">{healthDisplayStrings.healthSaveFoodItems}</button>
-                                : <button disabled>{healthDisplayStrings.healthSaveFoodItems}</button>}
+                            <button type="submit"
+                                    className="button-dark">{healthDisplayStrings.healthSaveFoodItems}</button>
                         </div>
                     </div>
                 </Form>

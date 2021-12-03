@@ -1,31 +1,25 @@
-import React, {useContext, useEffect, useState} from "react";
-import {historyDisplayStrings} from "../../../resources/UserDisplayStrings";
+import React, {useContext, useEffect} from "react";
+import {favoritesDisplayStrings} from "../../../resources/UserDisplayStrings";
 import {LocaleContext} from "../../../context/LocaleContext";
-import {apiUrl} from "../../../helpers/Variables";
 import Panel from "../../commons/elements/containers/Panel";
 import VideoTile from "../../commons/elements/containers/VideoTile";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
 
-const PostedVideos = ({user, fetchData}) => {
+const FavoriteVideos = ({location, data, isLoading, isError, fetchData}) => {
     // Localizations
-    historyDisplayStrings.setLanguage(useContext(LocaleContext));
+    favoritesDisplayStrings.setLanguage(useContext(LocaleContext));
 
-    // Fetches data on page load
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
-    const api = `${apiUrl}/video/getallbyuserID/${user.id}?page=1&limit=100`;
     useEffect(() => {
-        fetchData(api, setData, setIsLoading, setIsError);
-    }, [user]);
+        fetchData();
+    }, [location]);
 
     return (
         <section>
             <div className="section-content">
-                <h1>{historyDisplayStrings.historyVideosHeader}</h1>
-                <p>{historyDisplayStrings.historyVideosSubheader}</p>
+                <h1>{favoritesDisplayStrings.favoriteVideosHeader}</h1>
+                <p>{favoritesDisplayStrings.favoriteVideosSubheader}</p>
                 <Panel filler="tile-video">
                     {!isLoading ? <>
                         {!isError ? <>
@@ -42,8 +36,8 @@ const PostedVideos = ({user, fetchData}) => {
                                                time={item.time_created}
                                                isFavorite={item.is_like}
                                                totalLikes={item.totalLike}/>))}
-                            </> : <PanelEmp message={historyDisplayStrings.historyVideosEmpty}/>}
-                        </> : <PanelErr reload={() => fetchData(api, setData, setIsLoading, setIsError)}/>}
+                            </> : <PanelEmp/>}
+                        </> : <PanelErr reload={fetchData}/>}
                     </> : <PanelLoader/>}
                 </Panel>
             </div>
@@ -51,4 +45,4 @@ const PostedVideos = ({user, fetchData}) => {
     )
 }
 
-export default PostedVideos;
+export default FavoriteVideos;

@@ -3,7 +3,7 @@ import React from "react";
 const CountrySelect = (props) => {
     return (
         <select value={props.value} onChange={props.onChange}>
-            <option value="" disabled>Where are you from?</option>
+            {props.value === null && <option selected disabled>...</option>}
             <option value="Afghanistan">Afghanistan</option>
             <option value="Åland Islands">Åland Islands</option>
             <option value="Albania">Albania</option>

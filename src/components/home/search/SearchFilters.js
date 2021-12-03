@@ -50,7 +50,6 @@ const SearchFilters = ({categoryList}) => {
             if (category) searchString = searchString + `&category=${category}`;
             if (difficulty) searchString = searchString + `&difficulty=${difficulty}`;
             if (prepTime) searchString = searchString + `&prepare_time=${prepTime}`;
-
         }
         searchString = searchString + `&sort=${sort}`;
         history.push({
@@ -108,7 +107,7 @@ const SearchFilters = ({categoryList}) => {
                     </label>
                 </div>
                 <div className="search-query">
-                    <form onSubmit={submitQuery}>
+                    <form id="searchForm" onSubmit={submitQuery}>
                         <label>{searchDisplayStrings.searchFilterQuery}
                             <input type="text" placeholder={searchDisplayStrings.searchFilterQueryPlaceholder}
                                    value={query}
@@ -117,8 +116,7 @@ const SearchFilters = ({categoryList}) => {
                     </form>
                 </div>
             </div>
-            <button className="button-dark"
-                    onClick={e => submitQuery(e)}>{searchDisplayStrings.searchFilterSearchButton}</button>
+            <button className="button-dark" form="searchForm">{searchDisplayStrings.searchFilterSearchButton}</button>
         </section>
     )
 }
