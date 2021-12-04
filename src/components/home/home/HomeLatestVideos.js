@@ -30,7 +30,7 @@ const HomeLatestVideos = ({user, fetchData}) => {
                 <Link to="/browse/videos"><FaAngleRight/>{homeDisplayStrings.homeVideosSeeMore}</Link>
             </header>
             <div className="section-content">
-                <Panel filler="card--video">
+                <Panel>
                     {!isLoading ? <>
                         {!isError ? <>
                             {data && data.length > 0 ? <>
