@@ -1,7 +1,7 @@
 import React from "react";
 import LocalizedStrings from "react-localization";
 import Panel from "../../commons/elements/containers/Panel";
-import VideoTile from "../../commons/elements/containers/VideoTile";
+import VideoCard from "../../commons/elements/containers/VideoCard";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 
 const ConsoleResultVideos = ({data}) => {
@@ -18,10 +18,10 @@ const ConsoleResultVideos = ({data}) => {
     return (
         <section>
             <div className="section-content">
-                <Panel filler="tile-video" style={{justifyContent: "space-evenly"}}>
+                <Panel filler="card--video" style={{justifyContent: "space-evenly"}}>
                     {data && data.length > 0 ? <>
                         {data.map(item => (
-                            <VideoTile key={item.id}
+                            <VideoCard key={item.id}
                                        id={item.id}
                                        title={item.video_title}
                                        link={item.video_link}

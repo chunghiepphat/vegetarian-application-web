@@ -390,6 +390,9 @@ export let postDisplayStrings = new LocalizedStrings({
         postArticleProcessingImages: "Processing image(s)...",
         postArticleUploading: "Uploading your post...",
         postArticleUploadSuccess: "Post uploaded successfully!",
+        postFinish: "Your post has been uploaded",
+        postBackToHome: "Back to Home",
+        postGoToArticle: "View your post",
         // Recipes
         postRecipeClear: "Clear",
         postRecipeNextStep: "Next step",
@@ -437,6 +440,8 @@ export let postDisplayStrings = new LocalizedStrings({
         postVideoPreviewLink: "Link to your video.",
         postVideoFinish: "Finish",
         postVideoUploading: "Uploading...",
+        postVideoSaveDraft: "Save draft",
+        postVideoSubmitForReview: "Submit for review",
         postVideoUpload: "Upload",
         // Blogs
         postBlog: "Share your story",
@@ -456,6 +461,9 @@ export let postDisplayStrings = new LocalizedStrings({
         postArticleProcessingImages: "Đang xử lý tập tin...",
         postArticleUploading: "Đang đăng bài viết...",
         postArticleUploadSuccess: "Bài viết đã được đăng thành công!",
+        postFinish: "Bài đăng của bạn đã hoàn tất",
+        postBackToHome: "Về trang chủ",
+        postGoToArticle: "Xem bài đăng",
         // Recipes
         postRecipeClear: "Xóa",
         postRecipeNextStep: "Bước tiếp theo",
@@ -502,6 +510,8 @@ export let postDisplayStrings = new LocalizedStrings({
         postVideoPreview: "Xem trước",
         postVideoPreviewLink: "Đường dẫn đến video của bạn.",
         postVideoFinish: "Xong",
+        postVideoSaveDraft: "Lưu nháp",
+        postVideoSubmitForReview: "Gửi lên xét duyệt",
         postVideoUploading: "Đang tải...",
         postVideoUpload: "Tải",
         // Blogs

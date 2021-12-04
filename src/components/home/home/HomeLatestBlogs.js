@@ -30,12 +30,12 @@ const HomeLatestBlogs = ({user, fetchData}) => {
                 <Link to="/browse/blogs"><FaAngleRight/>{homeDisplayStrings.homeBlogsSeeMore}</Link>
             </header>
             <div className="section-content">
-                <Panel filler="card-wide">
+                <Panel filler="card--wide">
                     {!isLoading ? <>
                         {!isError ? <>
                             {data && data.length > 0 ? <>
                                 {data.map((item, index) => (
-                                    <ArticleCard className={`${index < 4 ? "card-wide" : "card-medium"}`}
+                                    <ArticleCard className={`${index < 4 ? "card--wide" : "card--medium"}`}
                                                  key={item.blog_id}
                                                  id={item.blog_id}
                                                  type="blog"

@@ -51,7 +51,6 @@ const Post = () => {
                         <Route><Redirect to={urlRecipe}/></Route>
                     </Switch>
                 </main>
-
                 <PostSidebar/>
             </div>
         </div>

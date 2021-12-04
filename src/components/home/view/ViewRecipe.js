@@ -62,7 +62,7 @@ const ViewRecipe = ({user, fetchData}) => {
                                 </article>
                             </div>
                         </> : <SectionEmp message={viewDisplayStrings.viewBlogLoading}/>}
-                    </> : <SectionErr reload={() => fetchData(api, setData, setIsError)}/>}
+                    </> : <SectionErr reload={() => fetchData(api, setData, setIsError, setIsLoading)}/>}
                 </Route>
                 <Redirect to="/not-found"/>
             </Switch>

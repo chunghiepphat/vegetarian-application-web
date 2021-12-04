@@ -6,7 +6,7 @@ import {PanelLoader} from "../../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../../commons/elements/loaders/AlertError";
 
-const ReviewUserRecipes = ({user, location, data, isLoading, isError, fetchData, userId}) => {
+const ListUserRecipes = ({user, location, data, isLoading, isError, fetchData, userId}) => {
     const api = `${apiUrl}/recipes/admin/getallbyuser/${userId}?page=1&limit=100`;
     // Executes fetch once on page load
     useEffect(() => {
@@ -16,12 +16,12 @@ const ReviewUserRecipes = ({user, location, data, isLoading, isError, fetchData,
     return (
         <section>
             <div className="section-content">
-                <Panel filler="card-narrow">
+                <Panel filler="card--narrow">
                     {!isLoading ? <>
                         {!isError ? <>
                             {data && data.length > 0 ? <>
                                 {data.map(item => (
-                                    <ArticleCard className="card-narrow"
+                                    <ArticleCard className="card--narrow"
                                                  key={item.recipe_id}
                                                  id={item.recipe_id}
                                                  type="recipe"
@@ -43,4 +43,4 @@ const ReviewUserRecipes = ({user, location, data, isLoading, isError, fetchData,
     )
 }
 
-export default ReviewUserRecipes;
+export default ListUserRecipes;

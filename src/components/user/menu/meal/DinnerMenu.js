@@ -19,7 +19,7 @@ const DinnerMenu = ({data}) => {
             <div className="menu__dish">
                 <h3>{menuDisplayStrings.menuDinner}</h3>
                 <i>{menuDisplayStrings.menuAbout} {data.listRecipe[2].calo} calories</i>
-                <ArticleTile className="tile-a--menu-dish"
+                <ArticleTile className="tile--menu-dish"
                              key={data.listRecipe[2].recipe_id}
                              id={data.listRecipe[2].recipe_id}
                              type="recipe"
@@ -36,7 +36,7 @@ const DinnerMenu = ({data}) => {
                         <div className="menu__dish">
                             <h3>{data.listSnack[1].meal_of_day}</h3>
                             <i>{menuDisplayStrings.menuAbout} {data.listSnack[1].calo} calories</i>
-                            <ArticleTile className="tile-a--menu-snack"
+                            <ArticleTile className="tile--menu-snack"
                                          key={data.listSnack[1].recipe_id}
                                          id={data.listSnack[1].recipe_id}
                                          type="recipe"
@@ -51,7 +51,7 @@ const DinnerMenu = ({data}) => {
                             <div className="menu__dish">
                                 <h3>{data.listSnack[2].meal_of_day}</h3>
                                 <i>{menuDisplayStrings.menuAbout} {data.listSnack[2].calo} calories</i>
-                                <ArticleTile className="tile-a--menu-snack"
+                                <ArticleTile className="tile--menu-snack"
                                              key={data.listSnack[2].recipe_id}
                                              id={data.listSnack[2].recipe_id}
                                              type="recipe"

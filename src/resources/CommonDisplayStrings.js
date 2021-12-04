@@ -19,6 +19,11 @@ export let genericStrings = new LocalizedStrings({
         lastEdited: "Last edited",
         male: "Male",
         female: "Female",
+        firstName: "First name",
+        lastName: "Last name",
+        email: "Email address",
+        password: "Password",
+        confirmPassword: "Confirm password",
     },
     vi: {
         beginner: "Vào nghề",
@@ -38,6 +43,11 @@ export let genericStrings = new LocalizedStrings({
         lastEdited: "Chỉnh sửa lần cuối",
         male: "Nam",
         female: "Nữ",
+        firstName: "Tên",
+        lastName: "Họ",
+        email: "Địa chỉ email",
+        password: "Mật khẩu",
+        confirmPassword: "Xác nhận mật khẩu",
     }
 })
 
@@ -131,7 +141,7 @@ export let footerStrings = new LocalizedStrings({
 export let articleStatusStrings = new LocalizedStrings({
     en: {
         statusPending: "Waiting for review.",
-        statusPendingShort: "Pending.",
+        statusPendingShort: "Pending",
         statusApproved: "Approved and public.",
         statusApprovedShort: "Approved",
         statusRejected: "Rejected by admin.",
@@ -140,7 +150,7 @@ export let articleStatusStrings = new LocalizedStrings({
     },
     vi: {
         statusPending: "Đang chờ duyệt.",
-        statusPendingShort: "Chờ duyệt.",
+        statusPendingShort: "Chờ duyệt",
         statusApproved: "Đã duyệt và công khai.",
         statusApprovedShort: "Đã duyệt",
         statusRejected: "Không được duyệt.",

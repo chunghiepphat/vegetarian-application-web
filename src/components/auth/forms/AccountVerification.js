@@ -99,7 +99,7 @@ const AccountVerification = (props) => {
 
     // Renders the form
     return (
-        <div className="auth-section">
+        <div className="auth__wrapper--full">
             <h1>{authDisplayStrings.registerVerify}</h1>
             <p>{authDisplayStrings.registerInstructionPart1} {props.email}.</p>
             <p style={{marginBottom: "40px"}}>{authDisplayStrings.registerInstructionPart2}</p>

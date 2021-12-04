@@ -1,4 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect} from "react";
+import {consoleDisplayStrings} from "../../../../resources/AdminDisplayStrings";
+import {requestErrorStrings} from "../../../../resources/CommonDisplayStrings";
+import {LocaleContext} from "../../../../context/LocaleContext";
 import {apiUrl} from "../../../../helpers/Variables";
 import Panel from "../../../commons/elements/containers/Panel";
 import CategoryCard from "../../elements/CategoryCard";
@@ -7,6 +10,10 @@ import {PanelErr} from "../../../commons/elements/loaders/AlertError";
 import {PanelLoader} from "../../../commons/elements/loaders/Loader";
 
 const ListCategories = ({user, token, location, data, fetchData, isLoading, isError}) => {
+    // Localizations
+    consoleDisplayStrings.setLanguage(useContext(LocaleContext));
+    requestErrorStrings.setLanguage(useContext(LocaleContext));
+
     // Generates request headers
     let headers = new Headers();
     if (token) headers.append("Authorization", `Bearer ${token.token}`);
@@ -32,11 +39,10 @@ const ListCategories = ({user, token, location, data, fetchData, isLoading, isEr
                 if (response.ok) {
                     await fetchData();
                 } else if (response.status >= 400 && response.status < 600) {
-                    alert("Error: " + response.status);
+                    alert(requestErrorStrings.requestErrorStatus + response.status);
                 }
             } catch (error) {
-                console.error(error);
-                alert("Unexpected error: " + error);
+                alert(requestErrorStrings.requestErrorException + error);
             }
         }
     }
@@ -55,11 +61,10 @@ const ListCategories = ({user, token, location, data, fetchData, isLoading, isEr
                 if (response.ok) {
                     await fetchData();
                 } else if (response.status >= 400 && response.status < 600) {
-                    alert("Error: " + response.status);
+                    alert(consoleDisplayStrings.consoleCategoryDeleteError + response.status);
                 }
             } catch (error) {
-                console.error(error);
-                alert("Unexpected error: " + error);
+                alert(requestErrorStrings.requestErrorException + error);
             }
         }
     }
@@ -73,7 +78,7 @@ const ListCategories = ({user, token, location, data, fetchData, isLoading, isEr
             {!isLoading ? <>
                 {!isError ? <>
                     {data && data.length > 0 ? <>
-                        {data.map((item, index) => (
+                        {data.map((item) => (
                             <CategoryCard key={item.category_id}
                                           categoryId={item.category_id}
                                           categoryName={item.category_name}

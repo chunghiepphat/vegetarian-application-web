@@ -6,7 +6,7 @@ import {PanelLoader} from "../../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../../commons/elements/loaders/AlertError";
 
-const ReviewUserBlogs = ({user, location, data, isLoading, isError, fetchData, userId}) => {
+const ListUserBlogs = ({user, location, data, isLoading, isError, fetchData, userId}) => {
     const api = `${apiUrl}/blogs/admin/getallbyuser/${userId}?page=1&limit=100`;
     // Executes fetch once on page load
     useEffect(() => {
@@ -16,12 +16,12 @@ const ReviewUserBlogs = ({user, location, data, isLoading, isError, fetchData, u
     return (
         <section>
             <div className="section-content">
-                <Panel filler="card-medium">
+                <Panel filler="card--medium">
                     {!isLoading ? <>
                         {!isError ? <>
                             {data && data.length > 0 ? <>
                                 {data.map(item => (
-                                    <ArticleCard className="card-medium"
+                                    <ArticleCard className="card--medium"
                                                  key={item.blog_id}
                                                  id={item.blog_id}
                                                  type="blog"
@@ -44,4 +44,4 @@ const ReviewUserBlogs = ({user, location, data, isLoading, isError, fetchData, u
     )
 }
 
-export default ReviewUserBlogs;
+export default ListUserBlogs;

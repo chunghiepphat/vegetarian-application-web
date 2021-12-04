@@ -63,7 +63,7 @@ const DashboardLatestBlogs = ({user, token}) => {
                         {!isError ? <>
                             {data && data.length > 0 ? <>
                                 {data.map(item => (
-                                    <ArticleCard className="card-medium"
+                                    <ArticleCard className="card--medium"
                                                  id={item.blog_id}
                                                  type="blog"
                                                  title={item.blog_title}

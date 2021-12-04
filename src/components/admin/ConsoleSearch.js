@@ -8,10 +8,13 @@ import ConsoleResultBlogs from "./search/ConsoleResultBlogs";
 import {SectionEmp} from "../commons/elements/loaders/AlertEmpty";
 import {SectionLoader} from "../commons/elements/loaders/Loader";
 import ConsoleResultUsers from "./search/ConsoleResultUsers";
+import {consoleDisplayStrings} from "../../resources/AdminDisplayStrings";
+import {articleStatusStrings} from "../../resources/CommonDisplayStrings";
 
 const ConsoleSearch = () => {
     const location = useLocation();
     const token = JSON.parse(localStorage.getItem("accessToken"));
+
     // Generates request headers
     let headers = new Headers();
     if (token) headers.append("Authorization", `Bearer ${token.token}`);
@@ -19,6 +22,7 @@ const ConsoleSearch = () => {
     headers.append("Accept", "application/json");
     // Handles fetching results
     const [data, setData] = useState()
+    const [filter, setFilter] = useState("1");
     const [isLoading, setIsLoading] = useState(true);
     const fetchData = async () => {
         setIsLoading(true);
@@ -50,6 +54,15 @@ const ConsoleSearch = () => {
             <header className="console-header">
                 <h1>Search results</h1>
                 <Navbar>
+                    {!location.pathname.match("/users") &&
+                    <label>{consoleDisplayStrings.consoleFilter}
+                        <select value={filter} onChange={e => setFilter(e.target.value)}>
+                            <option value={"0"}>{consoleDisplayStrings.consoleFilterAll}</option>
+                            <option value={"1"}>{articleStatusStrings.statusPendingShort}</option>
+                            <option value={"2"}>{articleStatusStrings.statusApprovedShort}</option>
+                            <option value={"3"}>{articleStatusStrings.statusRejectedShort}</option>
+                        </select>
+                    </label>}
                     <NavLink to={{
                         pathname: "/console/search/recipes",
                         search: location.search,

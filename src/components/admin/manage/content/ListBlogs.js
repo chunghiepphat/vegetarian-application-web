@@ -6,21 +6,21 @@ import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../../commons/elements/loaders/AlertError";
 import {PanelLoader} from "../../../commons/elements/loaders/Loader";
 
-const ListBlogs = ({user, location, isLoading, isError, fetchData}) => {
+const ListBlogs = ({user, filter, isLoading, isError, fetchData}) => {
     const api = `${apiUrl}/blogs/admin/getall?page=1&limit=300`;
     const [data, setData] = useState([]);
     // Executes fetch once on page load
     useEffect(() => {
         fetchData(api, data, setData);
-    }, [user, location]);
+    }, [user, filter]);
 
     return (
-        <Panel filler="card-wide">
+        <Panel filler="card--medium">
             {!isLoading ? <>
                 {!isError ? <>
                     {data && data.length > 0 ? <>
                         {data.map(item => (
-                            <ArticleCard className="card-medium"
+                            <ArticleCard className="card--medium"
                                          key={item.blog_id}
                                          id={item.blog_id}
                                          type="blog"

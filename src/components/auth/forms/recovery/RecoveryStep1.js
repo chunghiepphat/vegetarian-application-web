@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {requestErrorStrings} from "../../../../resources/CommonDisplayStrings";
+import {genericStrings, requestErrorStrings} from "../../../../resources/CommonDisplayStrings";
 import {authDisplayStrings} from "../../../../resources/PublicDisplayStrings";
 import {LocaleContext} from "../../../../context/LocaleContext";
 import {apiUrl} from "../../../../helpers/Variables";
@@ -7,6 +7,7 @@ import {apiUrl} from "../../../../helpers/Variables";
 const RecoveryStep1 = ({email, setEmail, setStep}) => {
     // Localizations
     authDisplayStrings.setLanguage(useContext(LocaleContext));
+    genericStrings.setLanguage(useContext(LocaleContext));
 
     // Generates request headers
     let headers = new Headers();
@@ -48,8 +49,9 @@ const RecoveryStep1 = ({email, setEmail, setStep}) => {
             <h1>{authDisplayStrings.recoveryStep1}</h1>
             <p style={{marginBottom: "40px"}}>{authDisplayStrings.recoveryStep1Instruction}</p>
             <form className="auth-form" onSubmit={requestRecovery}>
-                <input type="text" aria-label="email" placeholder={authDisplayStrings.recoveryEmailPlaceholder}
-                       onChange={e => setEmail(e.target.value)} required/>
+                <label>{genericStrings.email}
+                    <input type="text" aria-label="email" placeholder={authDisplayStrings.recoveryEmailPlaceholder}
+                           onChange={e => setEmail(e.target.value)} required/> </label>
                 {!isLoading ?
                     <button type="submit" className="button-dark">{authDisplayStrings.recoveryProceed}</button>
                     : <button disabled>{authDisplayStrings.recoveryProcessing}</button>}

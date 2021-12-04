@@ -4,6 +4,13 @@ import LocalizedStrings from "react-localization";
 // Auth pages
 export let authDisplayStrings = new LocalizedStrings({
     en: {
+        authWelcome: "Get access to more features",
+        authWelcome1: "Join in the discussions",
+        authWelcome2: "Save your favorite recipes",
+        authWelcome3: "Share your own recipes with the community",
+        authWelcome4: "Receive recipe recommendations tailored for you",
+        authWelcome5: "Get your own personalized menu",
+        authWelcome6: "... and more!",
         authResendCode: "Resend code",
         authResending: "Resending...",
         authResendSuccess: "Sent. You can try again in",
@@ -62,6 +69,13 @@ export let authDisplayStrings = new LocalizedStrings({
         recoverySuccess: "Password reset successfully.",
     },
     vi: {
+        authWelcome: "Tiếp cận nhiều tính năng hơn",
+        authWelcome1: "Cùng chia sẻ và thảo luận",
+        authWelcome2: "Lưu những công thức mà bạn yêu thích",
+        authWelcome3: "Chia sẽ những công thức của chính bạn với mọi người",
+        authWelcome4: "Nhận những đề xuất phù hợp với lối sống của bạn",
+        authWelcome5: "Tạo ra một thực đơn cho riêng mình",
+        authWelcome6: "... và hơn thế nữa!",
         authResendCode: "Gửi lại mã",
         authResending: "Đang gửi lại...",
         authResendSuccess: "Đã gửi. Bạn có thể thử lại trong",
@@ -152,7 +166,7 @@ export let homeDisplayStrings = new LocalizedStrings({
         homeSidebarExploreBlogs: "Blogs",
         homeSidebarSearch: "Search",
         homeSidebarSearchUrl: "Advanced search",
-        homeSidebarRecommendations: "Recipes for your routine",
+        homeSidebarRecommendations: "Suitable for your body",
         homeSidebarSuggestions: "You might like these",
         homeSidebarBlogs: "Popular stories",
     },
@@ -185,7 +199,7 @@ export let homeDisplayStrings = new LocalizedStrings({
         homeSidebarExploreBlogs: "Bài viết chia sẻ",
         homeSidebarSearch: "Tìm kiếm",
         homeSidebarSearchUrl: "Tìm kiếm nâng cao",
-        homeSidebarRecommendations: "Dành riêng cho bạn",
+        homeSidebarRecommendations: "Phù hợp cho cơ thể bạn",
         homeSidebarSuggestions: "Có lẽ bạn sẽ thích",
         homeSidebarBlogs: "Bài viết phổ biến",
     }

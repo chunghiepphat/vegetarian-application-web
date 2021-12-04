@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {requestErrorStrings} from "../../../resources/CommonDisplayStrings";
+import {genericStrings, requestErrorStrings} from "../../../resources/CommonDisplayStrings";
 import {authDisplayStrings} from "../../../resources/PublicDisplayStrings";
 import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
@@ -89,24 +89,29 @@ const Register = (props) => {
 
     // Renders the form
     return (
-        <div className="auth-section">
+        <div className="auth__wrapper--full">
             <h1>{authDisplayStrings.registerWelcome}</h1>
             <p>{authDisplayStrings.registerSignIn} <Link to={{
                 pathname: "/login",
                 state: {background: location}
             }}>{authDisplayStrings.registerSignInLink}</Link></p>
             <h2>{authDisplayStrings.registerHeader}</h2>
-            <form className="auth-form" onSubmit={signUp}>
-                <input type="text" placeholder={authDisplayStrings.registerFirstName}
-                       onChange={e => setFirstName(e.target.value)} required/>
-                <input type="text" placeholder={authDisplayStrings.registerLastName}
-                       onChange={e => setLastName(e.target.value)} required/>
-                <input type="email" placeholder={authDisplayStrings.registerEmail}
-                       onChange={e => props.setEmail(e.target.value)} required/>
-                <input type="password" placeholder={authDisplayStrings.registerNewPassword}
-                       onChange={e => setPassword(e.target.value)} required/>
-                <input type="password" placeholder={authDisplayStrings.registerConfirmPassword}
-                       onChange={e => setConfirmPassword(e.target.value)} required/>
+            <form className="auth__form" onSubmit={signUp}>
+                <label>{genericStrings.firstName}
+                    <input type="text" placeholder={authDisplayStrings.registerFirstName}
+                           onChange={e => setFirstName(e.target.value)} required/> </label>
+                <label>{genericStrings.lastName}
+                    <input type="text" placeholder={authDisplayStrings.registerLastName}
+                           onChange={e => setLastName(e.target.value)} required/> </label>
+                <label>{genericStrings.email}
+                    <input type="email" placeholder={authDisplayStrings.registerEmail}
+                           onChange={e => props.setEmail(e.target.value)} required/> </label>
+                <label>{genericStrings.password}
+                    <input type="password" placeholder={authDisplayStrings.registerNewPassword}
+                           onChange={e => setPassword(e.target.value)} required/> </label>
+                <label>{genericStrings.confirmPassword}
+                    <input type="password" placeholder={authDisplayStrings.registerConfirmPassword}
+                           onChange={e => setConfirmPassword(e.target.value)} required/> </label>
                 <p className={isValid ? `text-positive` : `text-negative`}
                    style={{fontWeight: "600"}}>{message}</p>
                 {!isLoading ?

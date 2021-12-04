@@ -15,7 +15,7 @@ const ResultRecipes = ({data}) => {
                 <Panel filler="card-narrow" style={{justifyContent: "space-evenly"}}>
                     {data && data.length > 0 ? <>
                         {data.map(item => (
-                            <ArticleCard className="card-narrow"
+                            <ArticleCard className="card--narrow"
                                          key={item.recipe_id}
                                          id={item.recipe_id}
                                          type="recipe"

@@ -1,5 +1,6 @@
 import React, {useContext, useState} from "react";
 import {authDisplayStrings} from "../../../../resources/PublicDisplayStrings";
+import {genericStrings} from "../../../../resources/CommonDisplayStrings";
 import {LocaleContext} from "../../../../context/LocaleContext";
 import {apiUrl} from "../../../../helpers/Variables";
 import jwtDecode from "jwt-decode";
@@ -7,6 +8,7 @@ import jwtDecode from "jwt-decode";
 const LoginEmail = ({history, background}) => {
     // Localizations
     authDisplayStrings.setLanguage(useContext(LocaleContext));
+    genericStrings.setLanguage(useContext(LocaleContext));
 
     // Input states
     const [email, setEmail] = useState("");
@@ -72,11 +74,15 @@ const LoginEmail = ({history, background}) => {
     }
 
     return (
-        <form className="auth-form" onSubmit={signIn}>
-            <input type="email" name="email" placeholder={authDisplayStrings.loginEmailPlaceholder}
-                   onChange={e => setEmail(e.target.value)} required/>
-            <input type="password" name="password" placeholder={authDisplayStrings.loginPasswordPlaceholder}
-                   onChange={e => setPassword(e.target.value)} required/>
+        <form className="auth__form" onSubmit={signIn}>
+            <label>{genericStrings.email}
+                <input type="email" name="email" placeholder={authDisplayStrings.loginEmailPlaceholder}
+                       onChange={e => setEmail(e.target.value)} required/>
+            </label>
+            <label style={{marginBottom: "10px"}}>{genericStrings.password}
+                <input type="password" name="password" placeholder={authDisplayStrings.loginPasswordPlaceholder}
+                       onChange={e => setPassword(e.target.value)} required/>
+            </label>
             {!isLoading ?
                 <button type="submit" className="button-dark">{authDisplayStrings.loginSignInButton}</button>
                 : <button disabled>{authDisplayStrings.loginSigningIn}</button>}

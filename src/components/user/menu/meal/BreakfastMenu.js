@@ -11,7 +11,7 @@ const BreakfastMenu = ({data}) => {
             <div className="menu__dish">
                 <h3>{menuDisplayStrings.menuBreakfast}</h3>
                 <i>{menuDisplayStrings.menuAbout} {data.listRecipe[0].calo} calories</i>
-                <ArticleTile className="tile-a--menu-dish"
+                <ArticleTile className="tile--menu-dish"
                              key={data.listRecipe[0].recipe_id}
                              id={data.listRecipe[0].recipe_id}
                              type="recipe"

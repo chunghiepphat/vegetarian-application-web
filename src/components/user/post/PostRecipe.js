@@ -9,6 +9,7 @@ import RecipeStep01 from "./recipe/RecipeStep01";
 import RecipeStep02 from "./recipe/RecipeStep02";
 import RecipeStep03 from "./recipe/RecipeStep03";
 import RecipeStep04 from "./recipe/RecipeStep04";
+import FinishPost from "./FinishPost";
 
 const PostRecipe = ({user, token, history}) => {
     // Localizations
@@ -16,6 +17,7 @@ const PostRecipe = ({user, token, history}) => {
     requestErrorStrings.setLanguage(locale);
     postDisplayStrings.setLanguage(locale);
 
+    const [articleId, setArticleId] = useState();
     // Step 1 input data
     const [title, setTitle] = useState();
     const [category, setCategory] = useState(1);
@@ -71,8 +73,8 @@ const PostRecipe = ({user, token, history}) => {
             redirect: 'follow'
         };
         // Handles uploading images
-        const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`, request)
         try {
+            const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`, request)
             // Handles recipe submission upon successful upload
             if (response.ok) {
                 // Gets uploaded image URL
@@ -126,8 +128,10 @@ const PostRecipe = ({user, token, history}) => {
         const response = await fetch(api, request);
         try {
             if (response.ok) {
+                const result = await response.json();
+                setArticleId(result.id);
                 alert(postDisplayStrings.postArticleUploadSuccess);
-                history.push("/home");
+                history.push("/post/recipe/finish");
             } else if (response.status === 401) {
                 alert(requestErrorStrings.requestErrorUnauthorized);
                 setIsLoading(false);
@@ -172,6 +176,8 @@ const PostRecipe = ({user, token, history}) => {
                 <RecipeStep04 steps={steps} setSteps={setSteps}
                               isLoading={isLoading} uploadProgress={uploadProgress}
                               submitPost={submitPost}/> </Route>
+            <Route path="/post/recipe/finish">
+                <FinishPost articleId={articleId} type="recipe"/> </Route>
             <Route><Redirect to="/not-found"/></Route>
         </Switch>
     )

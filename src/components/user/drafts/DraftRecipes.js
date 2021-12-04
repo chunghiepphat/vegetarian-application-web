@@ -20,12 +20,12 @@ const DraftRecipes = ({location, data, isLoading, isError, fetchData}) => {
             <div className="section-content">
                 <h1>{draftDisplayStrings.draftRecipesHeader}</h1>
                 <p>{draftDisplayStrings.draftRecipesSubheader}</p>
-                <Panel filler="card-full">
+                <Panel filler="card--full">
                     {!isLoading ? <>
                         {!isError ? <>
                             {data && data.length > 0 ? <>
                                 {data.map(item => (
-                                    <ArticleCard className="card-full"
+                                    <ArticleCard className="card--full"
                                                  key={item.recipe_id}
                                                  id={item.recipe_id}
                                                  type="recipe"

@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {apiUrl} from "../../../../helpers/Variables";
 import Panel from "../../../commons/elements/containers/Panel";
-import VideoTile from "../../../commons/elements/containers/VideoTile";
+import VideoCard from "../../../commons/elements/containers/VideoCard";
 import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../../commons/elements/loaders/AlertError";
 import {PanelLoader} from "../../../commons/elements/loaders/Loader";
@@ -23,7 +23,7 @@ const UserVideos = ({user, location, data, isLoading, isError, fetchData, userId
                         {!isError ? <>
                             {data && data.length > 0 ? <>
                                 {data.map(item => (
-                                    <VideoTile key={item.id}
+                                    <VideoCard key={item.id}
                                                id={item.id}
                                                type="blog"
                                                title={item.video_title}

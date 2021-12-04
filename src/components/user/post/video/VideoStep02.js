@@ -4,36 +4,14 @@ import {postDisplayStrings} from "../../../../resources/UserDisplayStrings";
 import {LocaleContext} from "../../../../context/LocaleContext";
 import {Link} from "react-router-dom";
 import {FaAngleLeft} from "react-icons/fa";
+import InputGroup from "../../../commons/elements/form/InputGroup";
 
 const VideoStep02 = (props) => {
+    const inputRef = useRef();
+
     // Localizations
     postDisplayStrings.setLanguage(useContext(LocaleContext));
 
-    const inputRef = useRef();
-    const [file, setFile] = useState();
-    const [uploading, setUploading] = useState(false);
-
-    const uploadFile = (e) => {
-        e.preventDefault();
-        setUploading(true);
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", uploadPreset);
-
-        const request = {
-            method: 'POST',
-            body: formData,
-            redirect: 'follow'
-        };
-
-        fetch(`https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`, request)
-            .then(response => response.json())
-            .then(result => {
-                props.setVideoUrl(result.secure_url)
-                props.setThumbnailUrl(result.secure_url.replace(".mp4", ".jpg"))
-            })
-            .catch(error => console.log('error', error));
-    }
 
     return (
         <section>
@@ -43,36 +21,24 @@ const VideoStep02 = (props) => {
                 <em>{postDisplayStrings.postVideoStep2Subheader}</em>
             </header>
             <div className="section-content">
-                {props.videoUrl ?
-                    <form className="form-container" onSubmit={props.submitPost}>
-                        <h1>{postDisplayStrings.postVideoPreview}</h1>
-                        <a href={props.videoUrl} target="_blank"
-                           rel="noopener noreferrer">{postDisplayStrings.postVideoPreviewLink}</a>
-                        <button type="submit">{postDisplayStrings.postVideoFinish}</button>
-                    </form>
-                    :
-                    <form className="form-container" onSubmit={uploadFile}>
-
-                        {/*Check whether the form is uploading a video*/}
-                        {uploading ? <>
-                            <label>Video
-                                <input aria-label="Video file" type="file"
-                                       onChange={() => (setFile(inputRef.current.files[0]))}
-                                       ref={inputRef} disabled/></label>
-                            <div className="sticky-bottom">
-                                <button type="submit" disabled>{postDisplayStrings.postVideoUploading}</button>
-                            </div>
+                <form className="form-container" onSubmit={props.submitPost}>
+                    <label>Video
+                        <input aria-label="Video file" type="file"
+                               onChange={() => (props.setFile(inputRef.current.files[0]))}
+                               ref={inputRef} readOnly={props.isLoading}/></label>
+                    <div className="sticky-bottom">
+                        {props.isLoading ? <>
+                            <button disabled>{props.uploadProgress}</button>
                         </> : <>
-                            <label>Video
-                                <input aria-label="Video file" type="file"
-                                       onChange={() => (setFile(inputRef.current.files[0]))}
-                                       ref={inputRef}/></label>
-                            <div className="sticky-bottom">
-                                <button type="submit"
-                                        className="button-dark">{postDisplayStrings.postVideoUpload}</button>
-                            </div>
+                            <InputGroup>
+                                <button type="submit" className="button-dark"
+                                        name="true">{postDisplayStrings.postVideoSaveDraft}</button>
+                                <button type="submit" className="button-dark"
+                                        name="false">{postDisplayStrings.postVideoSubmitForReview}</button>
+                            </InputGroup>
                         </>}
-                    </form>}
+                    </div>
+                </form>
             </div>
         </section>
     )

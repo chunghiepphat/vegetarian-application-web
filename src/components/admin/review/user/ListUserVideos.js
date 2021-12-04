@@ -1,12 +1,12 @@
 import React, {useEffect} from "react";
 import {apiUrl} from "../../../../helpers/Variables";
 import Panel from "../../../commons/elements/containers/Panel";
-import VideoTile from "../../../commons/elements/containers/VideoTile";
+import VideoCard from "../../../commons/elements/containers/VideoCard";
 import {PanelLoader} from "../../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../../commons/elements/loaders/AlertError";
 
-const ReviewUserVideos = ({user, location, data, isLoading, isError, fetchData, userId}) => {
+const ListUserVideos = ({user, location, data, isLoading, isError, fetchData, userId}) => {
     const api = `${apiUrl}/video/admin/getallbyuser/${userId}?page=1&limit=100`;
     // Executes fetch once on page load
     useEffect(() => {
@@ -16,14 +16,13 @@ const ReviewUserVideos = ({user, location, data, isLoading, isError, fetchData, 
     return (
         <section>
             <div className="section-content">
-                <Panel filler="tile-video">
+                <Panel filler="card--video">
                     {!isLoading ? <>
                         {!isError ? <>
                             {data && data.length > 0 ? <>
                                 {data.map(item => (
-                                    <VideoTile key={item.id}
+                                    <VideoCard key={item.id}
                                                id={item.id}
-                                               type="blog"
                                                title={item.video_title}
                                                link={item.video_link}
                                                userId={item.user_id}
@@ -42,4 +41,4 @@ const ReviewUserVideos = ({user, location, data, isLoading, isError, fetchData, 
     )
 }
 
-export default ReviewUserVideos;
+export default ListUserVideos;

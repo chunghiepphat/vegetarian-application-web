@@ -14,7 +14,7 @@ const ConsoleReviewUserHeader = ({profile, paths}) => {
                 </div>
             </div>}
             <Navbar>
-                <NavLink to={paths.profile}>Profile</NavLink>
+                {/*<NavLink to={paths.profile}>Profile</NavLink>*/}
                 <NavLink to={paths.recipes}>Recipes</NavLink>
                 <NavLink to={paths.videos}>Videos</NavLink>
                 <NavLink to={paths.blogs}>Blogs</NavLink>

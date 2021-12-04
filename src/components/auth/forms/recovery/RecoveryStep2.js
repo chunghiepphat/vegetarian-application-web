@@ -85,7 +85,7 @@ const RecoveryStep2 = ({email, setStep}) => {
     }
 
     return (
-        <div className="auth-section">
+        <div>
             <h1>{authDisplayStrings.recoveryStep2}</h1>
             <p>{authDisplayStrings.recoveryStep2InstructionPart1} {email}.</p>
             <p style={{marginBottom: "40px"}}>{authDisplayStrings.recoveryStep2InstructionPart2}</p>

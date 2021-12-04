@@ -22,7 +22,7 @@ const AuthModal = ({background}) => {
         <div className="modal-overlay">
             <div className="modal-container">
                 <Route path="/login"><Login background={background.pathname}/></Route>
-                <div className="auth-section">
+                <div className="auth__wrapper--modal">
                     <button className="button-light" onClick={closeModal}>{authDisplayStrings.loginClose}</button>
                 </div>
                 <p>{authDisplayStrings.loginResetPassword} <Link to={{

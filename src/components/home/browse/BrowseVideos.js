@@ -3,7 +3,7 @@ import {browseDisplayStrings} from "../../../resources/PublicDisplayStrings";
 import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
 import Panel from "../../commons/elements/containers/Panel";
-import VideoTile from "../../commons/elements/containers/VideoTile";
+import VideoCard from "../../commons/elements/containers/VideoCard";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
@@ -23,12 +23,12 @@ const BrowseVideos = ({user, data, isLoading, isError, fetchData}) => {
             <div className="section-content">
                 <h1>{browseDisplayStrings.browseVideosHeader}</h1>
                 <p>{browseDisplayStrings.browseVideosSubheader}.</p>
-                <Panel filler="tile-video">
+                <Panel filler="card--video">
                     {!isLoading ? <>
                         {!isError ? <>
                             {data && data.length > 0 ? <>
                                 {data.map(item => (
-                                    <VideoTile key={item.id}
+                                    <VideoCard key={item.id}
                                                id={item.id}
                                                title={item.video_title}
                                                link={item.video_link}

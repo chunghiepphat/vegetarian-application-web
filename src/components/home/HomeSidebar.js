@@ -3,7 +3,7 @@ import {homeDisplayStrings} from "../../resources/PublicDisplayStrings";
 import {LocaleContext} from "../../context/LocaleContext";
 import {UserContext} from "../../context/UserContext";
 import {apiUrl} from "../../helpers/Variables";
-import {NavLink, withRouter} from "react-router-dom";
+import {NavLink, useLocation, withRouter} from "react-router-dom";
 import Sidebar from "../commons/elements/Sidebar";
 import Navbar from "../commons/elements/bars/Navbar";
 import Panel from "../commons/elements/containers/Panel";
@@ -15,6 +15,8 @@ import {FaAngleRight} from "react-icons/fa";
 
 
 const HomeSidebar = () => {
+    const location = useLocation();
+
     // Localizations
     homeDisplayStrings.setLanguage(useContext(LocaleContext));
 
@@ -115,7 +117,7 @@ const HomeSidebar = () => {
                         {!isErrorRecipes ? <>
                             {recommendations && recommendations.length ? <>
                                 {recommendations.map(item => (
-                                    <ArticleCard className="card-compact"
+                                    <ArticleCard className="card--compact"
                                                  key={item.recipe_id}
                                                  id={item.recipe_id}
                                                  type="recipe"
@@ -123,8 +125,7 @@ const HomeSidebar = () => {
                                                  thumbnail={item.recipe_thumbnail}
                                                  userId={item.user_id}
                                                  firstName={item.first_name}
-                                                 lastName={item.last_name}
-                                                 recommendationCriteria={item.criteria}/>))}
+                                                 lastName={item.last_name}/>))}
                             </> : <PanelEmp/>}
                         </> : <PanelErr reload={fetchRecommendations}/>}
                     </> : <PanelLoader/>}
@@ -138,7 +139,7 @@ const HomeSidebar = () => {
                         {!isErrorRecipes ? <>
                             {suggestions && suggestions.length ? <>
                                 {suggestions.map(item => (
-                                    <ArticleCard className="card-compact"
+                                    <ArticleCard className="card--compact"
                                                  key={item.recipe_id}
                                                  id={item.recipe_id}
                                                  type="recipe"
@@ -160,7 +161,7 @@ const HomeSidebar = () => {
                         {!isErrorBlogs ? <>
                             {blogs && blogs.length ? <>
                                 {blogs.map(item => (
-                                    <ArticleCard className="card-small"
+                                    <ArticleCard className="card--small"
                                                  key={item.blog_id}
                                                  id={item.blog_id}
                                                  type="blog"

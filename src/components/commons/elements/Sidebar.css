@@ -66,6 +66,6 @@ aside li {
     padding: 20px;
 }
 
-.sidebar-widget .card-medium .card-thumbnail {
+.sidebar-widget .card--medium .card__thumbnail {
     height: 140px;
 }

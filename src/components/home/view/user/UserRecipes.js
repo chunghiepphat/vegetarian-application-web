@@ -23,7 +23,7 @@ const UserRecipes = ({user, location, data, isLoading, isError, fetchData, userI
                         {!isError ? <>
                             {data && data.length > 0 ? <>
                                 {data.map(item => (
-                                    <ArticleCard className="card-narrow"
+                                    <ArticleCard className="card--narrow"
                                                  key={item.recipe_id}
                                                  id={item.recipe_id}
                                                  type="recipe"

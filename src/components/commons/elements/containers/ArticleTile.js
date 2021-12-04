@@ -21,23 +21,23 @@ const ArticleTile = ({
         "text-negative"
     ]
     return (
-        <div className={`tile-a ${className}`}>
-            <Link className="tile-a__url" to={`/view/${type}/${id}`}/>
-            <picture className="tile-a__thumbnail">
+        <div className={`tile ${className}`}>
+            <Link className="tile__url" to={`/view/${type}/${id}`}/>
+            <picture className="tile__thumbnail">
                 <source srcSet={thumbnail}/>
                 <img src={placeholderThumbnail} alt=""/>
             </picture>
-            <div className="tile-a__overlay">
-                <div className="tile-a__details">
+            <div className="tile__overlay">
+                <div className="tile__details">
                     {totalLikes !== undefined &&
-                    <div className="tile-a__like-count">
+                    <div className="tile__like-count">
                         {isFavorite ? <FaHeart style={{fill: "#f18182"}}/> : <FaRegHeart/>}
                         {totalLikes}</div>}
-                    <h1 className="tile-a__title">{title}</h1>
+                    <h1 className="tile__title">{title}</h1>
                     {firstName &&
-                    <div className="tile-a__author">by {firstName} {lastName}</div>}
+                    <div className="tile__author">by {firstName} {lastName}</div>}
                     {status &&
-                    <p className={`tile-a__status ${statusColor[status - 1]}`}>
+                    <p className={`tile__article-status ${statusColor[status - 1]}`}>
                         {statusText[status - 1]}
                     </p>}
                 </div>

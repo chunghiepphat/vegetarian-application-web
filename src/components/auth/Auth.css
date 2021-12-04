@@ -3,12 +3,6 @@
     /*height: 1080px;*/
 }
 
-.page-full .grid-container {
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-}
-
 .page-background {
     position: absolute;
     top: 0;
@@ -29,26 +23,72 @@
     bottom: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(254, 254, 254, 0.9);
-    backdrop-filter: blur(10px);
+    background-color: rgba(254, 254, 254, 0.1);
+    backdrop-filter: blur(4px);
 }
 
-.auth-container {
-    grid-column: 2 / 4;
+.auth {
+    justify-content: center;
+    width: 100%;
+    height: calc(100vh - 60px);
+}
+
+.auth__welcome {
+    grid-column: 1 / 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100%;
+    min-height: 720px;
+    padding: 0 15% 15% 15%;
+    background: rgba(236, 232, 222, 0.9);
+    text-align: right;
+}
+
+.auth__welcome * {
+    justify-content: flex-end;
+}
+
+.auth__welcome h1 {
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.auth__welcome li {
+    padding: 0 20px;
+    border-right: thin solid #656665;
+    font-size: 18px;
+}
+
+.auth__container {
+    grid-column: 3 / 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    min-height: 720px;
+    padding: 0 15% 15% 15%;
+    background: rgba(254, 254, 254, 0.95);
+}
+
+/*The forms*/
+.auth__wrapper--full {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: calc(80vh - 60px);
-    min-height: 720px;
-    /*min-height: 1080px;*/
-    /*margin: 100px 0 200px 0;*/
-    padding: 120px 100px;
-    background: rgba(254, 254, 254, 0.9);
+    width: 70%;
+    min-width: 360px;
+    text-align: left;
 }
 
+.auth__wrapper--full > * {
+    width: 100%;
+    max-width: 480px;
+}
 
-/*The forms*/
-.auth-section {
+.auth__wrapper--modal {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -58,22 +98,30 @@
     text-align: center;
 }
 
-.auth-section > * {
+.auth__wrapper--modal > * {
     width: 100%;
     max-width: 480px;
 }
 
-.auth-section > h2 {
+.auth__wrapper--modal > h2 {
     margin: 20px 0 10px 0;
     font-size: 20px;
 }
 
-.auth-form > * {
+.auth__wrapper--modal > button {
+    margin: 5px 0;
+}
+
+.auth__form > * {
     width: 100%;
 }
 
-.auth-section > button {
-    margin: 5px 0;
+.auth__form label {
+    text-align: left;
+}
+
+.auth__form label:last-of-type {
+    margin-bottom: 20px;
 }
 
 .button-google {

@@ -4,23 +4,23 @@ import {PanelErr} from "../../../commons/elements/loaders/AlertError";
 import {PanelLoader} from "../../../commons/elements/loaders/Loader";
 import Panel from "../../../commons/elements/containers/Panel";
 import {apiUrl} from "../../../../helpers/Variables";
-import VideoTile from "../../../commons/elements/containers/VideoTile";
+import VideoCard from "../../../commons/elements/containers/VideoCard";
 
-const ListVideos = ({user, location, isLoading, isError, fetchData}) => {
+const ListVideos = ({user, filter, isLoading, isError, fetchData}) => {
     const api = `${apiUrl}/video/admin/getall?page=1&limit=300`;
     const [data, setData] = useState([]);
     // Executes fetch once on page load
     useEffect(() => {
         fetchData(api, data, setData);
-    }, [user, location]);
+    }, [user, filter]);
 
     return (
-        <Panel filler="tile-video">
+        <Panel filler="card--video">
             {!isLoading ? <>
                 {!isError ? <>
                     {data && data.length > 0 ? <>
                         {data.map(item => (
-                            <VideoTile key={item.id}
+                            <VideoCard key={item.id}
                                        id={item.id}
                                        type="blog"
                                        title={item.video_title}

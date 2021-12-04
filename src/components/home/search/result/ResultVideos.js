@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import {searchDisplayStrings} from "../../../../resources/PublicDisplayStrings";
 import {LocaleContext} from "../../../../context/LocaleContext";
 import Panel from "../../../commons/elements/containers/Panel";
-import VideoTile from "../../../commons/elements/containers/VideoTile";
+import VideoCard from "../../../commons/elements/containers/VideoCard";
 import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
 
 const ResultVideos = ({data}) => {
@@ -15,7 +15,7 @@ const ResultVideos = ({data}) => {
                 <Panel filler="tile-video" style={{justifyContent: "space-evenly"}}>
                     {data && data.length > 0 ? <>
                         {data.map(item => (
-                            <VideoTile key={item.id}
+                            <VideoCard key={item.id}
                                        id={item.id}
                                        title={item.video_title}
                                        link={item.video_link}

@@ -1,12 +1,15 @@
 import React, {useContext} from "react";
 import {genericStrings} from "../../../../resources/CommonDisplayStrings";
 import {LocaleContext} from "../../../../context/LocaleContext";
+import {UserContext} from "../../../../context/UserContext";
 import moment from "moment";
 import {Link} from "react-router-dom";
 import Avatar from "../../../commons/elements/Avatar";
 import {FaAngleRight} from "react-icons/fa";
 
 const VideoDetails = ({data}) => {
+    const user = useContext(UserContext);
+
     // Localizations
     genericStrings.setLanguage(useContext(LocaleContext));
 
@@ -19,7 +22,8 @@ const VideoDetails = ({data}) => {
                     <div className="author-name">
                         {data.first_name} {data.last_name} <FaAngleRight/>
                     </div>
-                    <Link to={`/view/user/${data.user_id}`}/>
+                    <Link className="card__url" to={user && user.role === "admin" ?
+                        `/console/review/user/${data.user_id}` : `/view/user/${data.user_id}`}/>
                 </div>
                 <div className="article-timestamp">
                     <span className="timestamp-created">

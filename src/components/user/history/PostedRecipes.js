@@ -26,12 +26,12 @@ const PostedRecipes = ({user, fetchData}) => {
             <div className="section-content">
                 <h1>{historyDisplayStrings.historyRecipesHeader}</h1>
                 <p>{historyDisplayStrings.historyRecipesSubheader}</p>
-                <Panel filler="card-full">
+                <Panel filler="card--full">
                     {!isLoading ? <>
                         {!isError ? <>
                             {data && data.length > 0 ? <>
                                 {data.map(item => (
-                                    <ArticleCard className="card-full"
+                                    <ArticleCard className="card--full"
                                                  key={item.recipe_id}
                                                  id={item.recipe_id}
                                                  type="recipe"

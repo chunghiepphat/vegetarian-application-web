@@ -23,12 +23,12 @@ const BrowseRecipes = ({user, data, isLoading, isError, fetchData}) => {
             <div className="section-content">
                 <h1>{browseDisplayStrings.browseRecipesHeader}</h1>
                 <p>{browseDisplayStrings.browseRecipesSubheader}</p>
-                <Panel filler="card-narrow">
+                <Panel filler="card--narrow">
                     {!isLoading ? <>
                         {!isError ? <>
                             {data && data.length > 0 ? <>
                                 {data.map(item => (
-                                    <ArticleCard className="card-narrow"
+                                    <ArticleCard className="card--narrow"
                                                  key={item.recipe_id}
                                                  id={item.recipe_id}
                                                  type="recipe"

@@ -12,9 +12,10 @@ const OverviewCard = ({url, number, text, action}) => {
 
     return (
         <div className="overview-card">
-            {url && <Link className="card-url" to={url}/>}
-            <div className="card-details">
-                {number >= 0 && <p className={`card-stat-number ${textColor}`}>{number}</p>}
+            {url && <Link className="card__url" to={url}/>}
+            <div className="card__details">
+                {number && number >= 0 ? <p className={`card-stat-number ${textColor}`}>{number}</p>
+                    : <p className={`card-stat-number text-positive`}>0</p>}
                 {text && <p className="card-stat-text">{text}</p>}
                 {action && <p className="card-stat-action">{action} <FaAngleRight/></p>}
             </div>

@@ -13,7 +13,7 @@ const UserCard = ({
 
     return (
         <div className={`user-card ${className}`}>
-            <Link className="card-url" to={user && user.role === "admin" ?
+            <Link className="card__url" to={user && user.role === "admin" ?
                 `/console/review/user/${id}`
                 : `/view/user/${id}`}/>
             <div className="card-cell-1">
@@ -21,7 +21,7 @@ const UserCard = ({
             </div>
             <div className="card-cell-2">
                 <div>
-                    <h1 className="card-user">ID {id} - {firstName} {lastName}</h1>
+                    <h1 className="card-user">{firstName} {lastName} - ID {id}</h1>
                     <p className="card-email">{email}</p>
                 </div>
             </div>
@@ -33,8 +33,8 @@ const UserCard = ({
             </div>
             <div className="card-cell-5">
                 {isActive ?
-                    <p className={`card-status text-positive`}>Account is active.</p>
-                    : <p className={`card-status text-negative`}>Account is deactivated. </p>}
+                    <p className={`card__article-status text-positive`}>Account is active.</p>
+                    : <p className={`card__article-status text-negative`}>Account is deactivated. </p>}
             </div>
         </div>
     )

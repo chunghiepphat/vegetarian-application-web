@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from "react";
 import {favoritesDisplayStrings} from "../../../resources/UserDisplayStrings";
 import {LocaleContext} from "../../../context/LocaleContext";
 import Panel from "../../commons/elements/containers/Panel";
-import VideoTile from "../../commons/elements/containers/VideoTile";
+import VideoCard from "../../commons/elements/containers/VideoCard";
 import {PanelLoader} from "../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../commons/elements/loaders/AlertError";
@@ -20,12 +20,12 @@ const FavoriteVideos = ({location, data, isLoading, isError, fetchData}) => {
             <div className="section-content">
                 <h1>{favoritesDisplayStrings.favoriteVideosHeader}</h1>
                 <p>{favoritesDisplayStrings.favoriteVideosSubheader}</p>
-                <Panel filler="tile-video">
+                <Panel filler="card--video">
                     {!isLoading ? <>
                         {!isError ? <>
                             {data && data.length > 0 ? <>
                                 {data.map(item => (
-                                    <VideoTile key={item.id}
+                                    <VideoCard key={item.id}
                                                id={item.id}
                                                title={item.video_title}
                                                link={item.video_link}

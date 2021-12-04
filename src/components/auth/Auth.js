@@ -1,12 +1,17 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import "./Auth.css";
+import {authDisplayStrings} from "../../resources/PublicDisplayStrings";
+import {LocaleContext} from "../../context/LocaleContext";
 import {Redirect, Route, Switch} from "react-router-dom";
 import Register from "./forms/Register";
 import AccountVerification from "./forms/AccountVerification";
 import AccountRecovery from "./forms/AccountRecovery";
-import RecoveryStep2 from "./forms/recovery/RecoveryStep2";
+
 
 const Auth = () => {
+    // Localizations
+    authDisplayStrings.setLanguage(useContext(LocaleContext));
+
     const [email, setEmail] = useState("");
     const [background, setBackground] = useState();
     const backgrounds = [
@@ -23,8 +28,19 @@ const Auth = () => {
 
     return (
         <div className="page-container page-full">
-            <div className="grid-container">
-                <main className="auth-container">
+            <div className="grid-container auth">
+                <aside className="auth__welcome">
+                    <h1>{authDisplayStrings.authWelcome}</h1>
+                    <ul>
+                        <li>{authDisplayStrings.authWelcome1}</li>
+                        <li>{authDisplayStrings.authWelcome2}</li>
+                        <li>{authDisplayStrings.authWelcome3}</li>
+                        <li>{authDisplayStrings.authWelcome4}</li>
+                        <li>{authDisplayStrings.authWelcome5}</li>
+                        <li>{authDisplayStrings.authWelcome6}</li>
+                    </ul>
+                </aside>
+                <main className="auth__container">
                     <Switch>
                         <Route exact path="/auth/"><Redirect to="/auth/register"/></Route>
                         <Route exact path="/auth/register">
@@ -33,8 +49,6 @@ const Auth = () => {
                             <AccountVerification email={email} setEmail={setEmail}/> </Route>
                         <Route exact path="/auth/account-recover">
                             <AccountRecovery email={email} setEmail={setEmail}/> </Route>
-                        <Route exact path="/auth/reset-password">
-                            <RecoveryStep2 email={email} setEmail={setEmail}/> </Route>
                         <Redirect to="/not-found"/>
                     </Switch>
                 </main>

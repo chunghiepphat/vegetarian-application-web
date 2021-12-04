@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
+import {requestErrorStrings} from "../../../resources/CommonDisplayStrings";
 import {postDisplayStrings} from "../../../resources/UserDisplayStrings";
 import {LocaleContext} from "../../../context/LocaleContext";
 import {apiUrl} from "../../../helpers/Variables";
@@ -6,12 +7,14 @@ import {cloudName, uploadPreset} from "../../../helpers/Cloudinary";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import InputGroup from "../../commons/elements/form/InputGroup";
-import {requestErrorStrings} from "../../../resources/CommonDisplayStrings";
+import {Redirect, Route, Switch} from "react-router-dom";
+import FinishPost from "./FinishPost";
 
 const PostBlog = ({user, token, history}) => {
     // Localizations
     postDisplayStrings.setLanguage(useContext(LocaleContext));
 
+    const [articleId, setArticleId] = useState();
     // Input values
     const inputRef = useRef();
     const [title, setTitle] = useState();
@@ -117,8 +120,10 @@ const PostBlog = ({user, token, history}) => {
         const response = await fetch(api, request);
         try {
             if (response.ok) {
+                const result = await response.json();
+                setArticleId(result.id);
                 alert(postDisplayStrings.postArticleUploadSuccess);
-                history.push("/home");
+                history.push("/post/blog/finish");
             } else if (response.status === 401) {
                 alert(requestErrorStrings.requestErrorUnauthorized);
                 setIsLoading(false);
@@ -143,64 +148,72 @@ const PostBlog = ({user, token, history}) => {
     }, [thumbnailUrl]);
 
     return (
-        <section>
-            <header className="section-header">
-                <h1>{postDisplayStrings.postBlog}</h1>
-                <em>{postDisplayStrings.postBlogSubheader}</em>
-            </header>
-            <div className="section-content">
-                <form className="form-container" onSubmit={submitPost}>
-                    <label htmlFor={"file-selector"}>
-                        {image ?
-                            <picture className="preview-thumbnail">
-                                <source srcSet={image}/>
-                                <img src="" alt=""/>
-                            </picture>
-                            : <div className="upload-thumbnail">
-                                <h1>{postDisplayStrings.postBlogThumbnail}</h1>
-                                <p>{postDisplayStrings.postBlogThumbnailPlaceholder}</p>
-                            </div>}
-                    </label>
-                    <input id="file-selector" style={{display: "none"}}
-                           aria-label="Recipe thumbnail" type="file"
-                           onChange={handleChange}
-                           ref={inputRef} readOnly={isLoading}/>
-                    <input aria-label="Blog title" type="text" value={title}
-                           onChange={e => setTitle(e.target.value)}
-                           placeholder={postDisplayStrings.postBlogTitle}
-                           readOnly={isLoading} required/>
-                    <input aria-label="Blog subtitle" type="text" value={subtitle}
-                           onChange={e => setSubtitle(e.target.value)}
-                           placeholder={postDisplayStrings.postBlogSubtitle}
-                           readOnly={isLoading}/>
-                    <ReactQuill theme="snow" value={content}
-                                onChange={handleQuill}
-                                modules={modules} readOnly={isLoading}
-                                placeholder={postDisplayStrings.postBlogContent}>
-                    </ReactQuill>
-                    <div className="sticky-bottom">
-                        <InputGroup>
-                            {isLoading ? <>
-                                <button disabled>{uploadProgress}</button>
-                            </> : <>
-                                {image ? <>
-                                    <button className="button-light"
-                                            onClick={handleClear}>{postDisplayStrings.postBlogClearThumbnail}</button>
-                                    <button type="submit" className="button-dark"
-                                            name="true">{postDisplayStrings.postBlogSaveDraft}</button>
-                                    <button type="submit" className="button-dark"
-                                            name="false">{postDisplayStrings.postBlogSubmitForReview}</button>
-                                </> : <>
-                                    <button disabled>{postDisplayStrings.postBlogClearThumbnail}</button>
-                                    <button disabled>{postDisplayStrings.postBlogSaveDraft}</button>
-                                    <button disabled>{postDisplayStrings.postBlogSubmitForReview}</button>
-                                </>}
-                            </>}
-                        </InputGroup>
+        <Switch>
+            <Route exact path="/post/blog">
+                <section>
+                    <header className="section-header">
+                        <h1>{postDisplayStrings.postBlog}</h1>
+                        <em>{postDisplayStrings.postBlogSubheader}</em>
+                    </header>
+                    <div className="section-content">
+                        <form className="form-container" onSubmit={submitPost}>
+                            <label htmlFor={"file-selector"}>
+                                {image ?
+                                    <picture className="preview-thumbnail">
+                                        <source srcSet={image}/>
+                                        <img src="" alt=""/>
+                                    </picture>
+                                    : <div className="upload-thumbnail">
+                                        <h1>{postDisplayStrings.postBlogThumbnail}</h1>
+                                        <p>{postDisplayStrings.postBlogThumbnailPlaceholder}</p>
+                                    </div>}
+                            </label>
+                            <input id="file-selector" style={{display: "none"}}
+                                   aria-label="Recipe thumbnail" type="file"
+                                   onChange={handleChange}
+                                   ref={inputRef} readOnly={isLoading}/>
+                            <input aria-label="Blog title" type="text" value={title}
+                                   onChange={e => setTitle(e.target.value)}
+                                   placeholder={postDisplayStrings.postBlogTitle}
+                                   readOnly={isLoading} required/>
+                            <input aria-label="Blog subtitle" type="text" value={subtitle}
+                                   onChange={e => setSubtitle(e.target.value)}
+                                   placeholder={postDisplayStrings.postBlogSubtitle}
+                                   readOnly={isLoading}/>
+                            <ReactQuill theme="snow" value={content}
+                                        onChange={handleQuill}
+                                        modules={modules} readOnly={isLoading}
+                                        placeholder={postDisplayStrings.postBlogContent}>
+                            </ReactQuill>
+                            <div className="sticky-bottom">
+                                <InputGroup>
+                                    {isLoading ? <>
+                                        <button disabled>{uploadProgress}</button>
+                                    </> : <>
+                                        {image ? <>
+                                            <button className="button-light"
+                                                    onClick={handleClear}>{postDisplayStrings.postBlogClearThumbnail}</button>
+                                            <button type="submit" className="button-dark"
+                                                    name="true">{postDisplayStrings.postBlogSaveDraft}</button>
+                                            <button type="submit" className="button-dark"
+                                                    name="false">{postDisplayStrings.postBlogSubmitForReview}</button>
+                                        </> : <>
+                                            <button disabled>{postDisplayStrings.postBlogClearThumbnail}</button>
+                                            <button disabled>{postDisplayStrings.postBlogSaveDraft}</button>
+                                            <button disabled>{postDisplayStrings.postBlogSubmitForReview}</button>
+                                        </>}
+                                    </>}
+                                </InputGroup>
+                            </div>
+                        </form>
                     </div>
-                </form>
-            </div>
-        </section>
+                </section>
+            </Route>
+            <Route path="/post/blog/finish">
+                <FinishPost articleId={articleId} type="blog"/> </Route>
+            <Route><Redirect to="/not-found"/></Route>
+        </Switch>
+
     )
 }
 

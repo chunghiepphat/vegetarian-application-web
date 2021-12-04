@@ -23,7 +23,7 @@ const UserBlogs = ({user, location, data, isLoading, isError, fetchData, userId}
                         {!isError ? <>
                             {data && data.length > 0 ? <>
                                 {data.map(item => (
-                                    <ArticleCard className="card-full"
+                                    <ArticleCard className="card--full"
                                                  key={item.blog_id}
                                                  id={item.blog_id}
                                                  type="blog"

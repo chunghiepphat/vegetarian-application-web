@@ -1,6 +1,6 @@
 .console-container {
     display: grid;
-    grid-template-columns: repeat(14, 1fr);
+    grid-template-columns: 140px 140px repeat(12, 1fr);
     width: 100%;
     height: calc(100vh - 60px);
     border: thin solid lightgray;
@@ -57,6 +57,18 @@
     flex-grow: 0;
 }
 
+.console-header > .navbar label {
+    flex-direction: row;
+    align-items: center;
+    margin-right: 60px;
+    white-space: nowrap;
+}
+
+.console-header > .navbar select {
+    border: none;
+    background: none;
+}
+
 .console-header .input-group button {
     margin: 0;
     border-radius: 0;
@@ -89,12 +101,14 @@
     grid-area: 2 / 8 / 3 / 10;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: flex-start;
     height: 100%;
+    min-width: 300px;
     padding: 20px 40px;
 }
 
-.console-toolbar > p {
+.console-toolbar .toolbar-section > p {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 10px;
@@ -102,6 +116,20 @@
 
 .console-toolbar > button {
     max-width: 100%;
+}
+
+.console-toolbar .toolbar-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    /*padding: 10px 20px;*/
+    /*border-left: thin solid lightgray;*/
+    /*border-radius: 20px;*/
+}
+
+.console-toolbar .toolbar-section > * {
+    width: 100%;
 }
 
 .user-header {

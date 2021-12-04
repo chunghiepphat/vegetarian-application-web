@@ -6,21 +6,21 @@ import {PanelLoader} from "../../../commons/elements/loaders/Loader";
 import {PanelEmp} from "../../../commons/elements/loaders/AlertEmpty";
 import {PanelErr} from "../../../commons/elements/loaders/AlertError";
 
-const ListRecipes = ({user, location, isLoading, isError, fetchData}) => {
+const ListRecipes = ({user, filter, isLoading, isError, fetchData}) => {
     const api = `${apiUrl}/recipes/admin/getall?page=1&limit=300`;
     const [data, setData] = useState([]);
     // Executes fetch once on page load
     useEffect(() => {
         fetchData(api, data, setData);
-    }, [user, location]);
+    }, [user, filter]);
 
     return (
-        <Panel filler="card-medium">
+        <Panel filler="card--medium">
             {!isLoading ? <>
                 {!isError ? <>
                     {data && data.length > 0 ? <>
                         {data.map(item => (
-                            <ArticleCard className="card-medium"
+                            <ArticleCard className="card--medium"
                                          key={item.recipe_id}
                                          id={item.recipe_id}
                                          type="recipe"

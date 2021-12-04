@@ -23,7 +23,7 @@ const RecoveryStep3 = ({history, email, setStep}) => {
         // Generates request body
         let body = JSON.stringify({
             "email": email,
-            "profilePasswordNew": newPassword,
+            "newPassword": newPassword,
             "confirmPassword": confirmPassword,
         });
         // Generates request
@@ -57,7 +57,7 @@ const RecoveryStep3 = ({history, email, setStep}) => {
     }
 
     return (
-        <div className="auth-section">
+        <div>
             <h1>{authDisplayStrings.recoveryStep3}</h1>
             <p style={{marginBottom: "40px"}}>{authDisplayStrings.recoveryStep3Instruction}</p>
             <form className="auth-form" onSubmit={resetPassword}>

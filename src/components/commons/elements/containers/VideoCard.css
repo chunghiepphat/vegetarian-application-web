@@ -1,12 +1,22 @@
-.tile-video {
+.card--video {
+    flex-direction: column;
     flex-basis: 320px;
     flex-grow: 1;
     flex-shrink: 0;
-    height: 240px;
     /*margin: 0 15px 10px 0;*/
+
+}
+
+.card--video .card__thumbnail {
+    height: 230px;
     border-radius: 0;
 }
-.play-button-container {
+
+.card--video .card__details {
+    padding: 10px 0;
+}
+
+.card--video .card__overlay {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -17,7 +27,7 @@
     height: 100%;
 }
 
-.play-button-wrapper {
+.card--video .card__play-button {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,7 +38,7 @@
     border-radius: 50%;
 }
 
-.play-button-wrapper svg {
+.card--video .card__play-button svg {
     width: 34px;
     height: 34px;
     margin-left: 6px;

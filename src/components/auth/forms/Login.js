@@ -14,7 +14,7 @@ const Login = ({background}) => {
     authDisplayStrings.setLanguage(useContext(LocaleContext))
 
     return (
-        <div className="auth-section">
+        <div className="auth__wrapper--modal">
             <h1>{authDisplayStrings.loginWelcome}</h1>
             <p>{authDisplayStrings.loginSignUp} <Link to={{
                 pathname: "/auth/register",

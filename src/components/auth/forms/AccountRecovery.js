@@ -9,7 +9,7 @@ const AccountRecovery = ({email, setEmail}) => {
     const [step, setStep] = useState(1);
 
     return (
-        <div className="auth-section">
+        <div className="auth__wrapper--full">
             {step === 1 &&
             <RecoveryStep1 history={history} email={email} setEmail={setEmail} setStep={setStep}/>}
             {step === 2 &&

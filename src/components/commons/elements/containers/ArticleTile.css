@@ -1,5 +1,5 @@
 /*The tile*/
-.tile-a {
+.tile {
     display: flex;
     flex-wrap: nowrap;
     flex-shrink: 0;
@@ -13,57 +13,57 @@
     z-index: 0;
 }
 
-.tile-a,
-.tile-a * {
+.tile,
+.tile * {
     transition: 0.3s ease-in-out;
 }
 
-.tile-a:hover .tile-a__overlay {
+.tile:hover .tile__overlay {
     backdrop-filter: brightness(1.2);
 }
 
-.tile-a:hover .tile-a__thumbnail img {
+.tile:hover .tile__thumbnail img {
     transform: scale(1.1);
 }
 
-.tile-a--menu-dish {
+.tile--menu-dish {
     width: 220px;
     height: 180px;
 }
 
-.tile-a--menu-snack {
+.tile--menu-snack {
     width: 160px;
     height: 140px;
 }
 
-.tile-a--small {
+.tile--small {
     width: 160px;
     height: 260px;
 }
 
-.tile-a--medium {
+.tile--medium {
 
 }
 
-.tile-a--large {
+.tile--large {
 
 }
 
 /*The thumbnail*/
-.tile-a__thumbnail {
+.tile__thumbnail {
     width: 100%;
     height: 100%;
     background: #e6d3a3;
 }
 
-.tile-a__thumbnail img {
+.tile__thumbnail img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
 /*The text content*/
-.tile-a__overlay {
+.tile__overlay {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -79,15 +79,15 @@
     rgba(50, 50, 50, 0.8) 100%);
 }
 
-.tile-a__details {
+.tile__details {
     padding: 20px 20px;
 }
 
-.tile-a--small .tile-a__details {
+.tile--small .tile__details {
     padding: 20px 15px;
 }
 
-.tile-a__url {
+.tile__url {
     display: block;
     position: absolute;
     z-index: 5;
@@ -95,41 +95,41 @@
     height: 100%;
 }
 
-.tile-a__title {
+.tile__title {
     color: #eeeeee;
     font-size: 18px;
     font-weight: 400;
     line-height: 1.4;
 }
 
-.tile-a--small .tile-a__title {
+.tile--small .tile__title {
     font-size: 16px;
 }
 
-.tile-a__author {
+.tile__author {
     color: #eeeeee;
     font-size: 14px;
     font-weight: 400;
     z-index: 10;
 }
 
-.tile-a--small .tile-a__author {
+.tile--small .tile__author {
 
 }
 
-.tile-a__like-count {
+.tile__like-count {
     display: flex;
     flex-direction: row;
     align-items: center;
     color: #eeeeee;
 }
 
-.tile-a__like-count svg {
+.tile__like-count svg {
     fill: #eeeeee;
     margin-right: 5px;
 }
 
-.tile-a__status {
+.tile__article-status {
     font-weight: 600;
     line-height: 1.5;
     filter: brightness(2);

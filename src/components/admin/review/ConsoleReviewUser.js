@@ -2,9 +2,9 @@ import React, {useContext, useEffect, useState} from "react";
 import {Redirect, Route, Switch, useLocation, useParams} from "react-router-dom";
 import {apiUrl} from "../../../helpers/Variables";
 import {UserContext} from "../../../context/UserContext";
-import ReviewUserRecipes from "./user/ReviewUserRecipes";
-import ReviewUserVideos from "./user/ReviewUserVideos";
-import ReviewUserBlogs from "./user/ReviewUserBlogs";
+import ListUserRecipes from "./user/ListUserRecipes";
+import ListUserVideos from "./user/ListUserVideos";
+import ListUserBlogs from "./user/ListUserBlogs";
 import ConsoleReviewUserToolbar from "./ConsoleReviewUserToolbar";
 import ConsoleReviewUserHeader from "./ConsoleReviewUserHeader";
 
@@ -81,17 +81,17 @@ const ConsoleReviewUser = () => {
                 <Switch>
                     <Route exact path={`/console/review/user/${id}`}><Redirect to={paths.recipes}/></Route>
                     {!isProfileError && <Route exact path={paths.recipes}>
-                        <ReviewUserRecipes user={user} userId={id} location={location}
-                                           isLoading={isPostsLoading} isError={isPostsError}
-                                           data={posts} fetchData={fetchPosts}/> </Route>}
-                    {!isProfileError && <Route path={paths.videos}>
-                        <ReviewUserVideos user={user} userId={id} location={location}
-                                          isLoading={isPostsLoading} isError={isPostsError}
-                                          data={posts} fetchData={fetchPosts}/> </Route>}
-                    {!isProfileError && <Route path={paths.blogs}>
-                        <ReviewUserBlogs user={user} userId={id} location={location}
+                        <ListUserRecipes user={user} userId={id} location={location}
                                          isLoading={isPostsLoading} isError={isPostsError}
                                          data={posts} fetchData={fetchPosts}/> </Route>}
+                    {!isProfileError && <Route path={paths.videos}>
+                        <ListUserVideos user={user} userId={id} location={location}
+                                        isLoading={isPostsLoading} isError={isPostsError}
+                                        data={posts} fetchData={fetchPosts}/> </Route>}
+                    {!isProfileError && <Route path={paths.blogs}>
+                        <ListUserBlogs user={user} userId={id} location={location}
+                                       isLoading={isPostsLoading} isError={isPostsError}
+                                       data={posts} fetchData={fetchPosts}/> </Route>}
                 </Switch>
             </div>
         </>

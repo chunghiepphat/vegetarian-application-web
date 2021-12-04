@@ -20,8 +20,8 @@ const CategoryCard = ({categoryId, categoryName, handleEdit, handleRemove}) => {
     return (
         <div className="category-card">
             {isEditing ? <>
-                <div className="card-details">
-                    <form id="addCategory" onSubmit={handleEdit}>
+                <div className="card__details">
+                    <form id="addCategory" onSubmit={e => handleEdit(e, categoryId, category)}>
                         <input type="text" placeholder="New category"
                                value={category}
                                onChange={e => setCategory(e.target.value)} required/>
@@ -34,7 +34,7 @@ const CategoryCard = ({categoryId, categoryName, handleEdit, handleRemove}) => {
                             onClick={e => disableEdit(e)}><ImCross/></button>
                 </div>
             </> : <>
-                <div className="card-details">
+                <div className="card__details">
                     {categoryName && <h1 className="card-category-name">
                         {categoryName}
                         {user && user.role !== "admin" && <FaAngleRight/>}
