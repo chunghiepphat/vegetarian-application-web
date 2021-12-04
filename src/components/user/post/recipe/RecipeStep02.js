@@ -51,7 +51,7 @@ const RecipeStep02 = (props) => {
                     </label>
                     <input id="file-selector" style={{display: "none"}}
                            aria-label="Recipe thumbnail" type="file"
-                           onChange={handleChange}
+                           onChange={handleChange} accept=".jpg,.jpeg,.gif,.png"
                            ref={inputRef}/>
                     <div className="sticky-bottom">
                         {image ?

@@ -170,7 +170,7 @@ const PostBlog = ({user, token, history}) => {
                             </label>
                             <input id="file-selector" style={{display: "none"}}
                                    aria-label="Recipe thumbnail" type="file"
-                                   onChange={handleChange}
+                                   onChange={handleChange} accept=".jpg,.jpeg,.gif,.png"
                                    ref={inputRef} readOnly={isLoading}/>
                             <input aria-label="Blog title" type="text" value={title}
                                    onChange={e => setTitle(e.target.value)}

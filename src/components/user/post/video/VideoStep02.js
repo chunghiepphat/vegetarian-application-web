@@ -23,7 +23,7 @@ const VideoStep02 = (props) => {
             <div className="section-content">
                 <form className="form-container" onSubmit={props.submitPost}>
                     <label>Video
-                        <input aria-label="Video file" type="file"
+                        <input aria-label="Video file" type="file" accept=".mp4,.avi,.webm"
                                onChange={() => (props.setFile(inputRef.current.files[0]))}
                                ref={inputRef} readOnly={props.isLoading}/></label>
                     <div className="sticky-bottom">
