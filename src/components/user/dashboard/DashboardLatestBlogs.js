@@ -58,7 +58,7 @@ const DashboardLatestBlogs = ({user, token}) => {
                 <Link to="/history/blogs"><FaAngleRight/>{dashboardDisplayStrings.dashboardViewAll}</Link>
             </header>
             <div className="section-content">
-                <Panel filler="card-medium">
+                <Panel filler="card--medium">
                     {!isLoading ? <>
                         {!isError ? <>
                             {data && data.length > 0 ? <>

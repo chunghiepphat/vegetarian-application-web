@@ -109,13 +109,13 @@ const HomeSidebar = () => {
                     <NavLink to="/search"><FaAngleRight/>{homeDisplayStrings.homeSidebarSearchUrl}</NavLink>
                 </Navbar>
             </section>
-            {user &&
+            {user && recommendations && recommendations.length > 0 &&
             <section className="sidebar-widget">
                 <h1>{homeDisplayStrings.homeSidebarRecommendations}</h1>
                 <Panel>
                     {!isLoadingRecipes ? <>
                         {!isErrorRecipes ? <>
-                            {recommendations && recommendations.length ? <>
+                            {recommendations && recommendations.length > 0 ? <>
                                 {recommendations.map(item => (
                                     <ArticleCard className="card--compact"
                                                  key={item.recipe_id}
@@ -131,13 +131,13 @@ const HomeSidebar = () => {
                     </> : <PanelLoader/>}
                 </Panel>
             </section>}
-            {user &&
+            {user && suggestions && suggestions.length > 0 &&
             <section className="sidebar-widget">
                 <h1>{homeDisplayStrings.homeSidebarSuggestions}</h1>
                 <Panel>
                     {!isLoadingRecipes ? <>
                         {!isErrorRecipes ? <>
-                            {suggestions && suggestions.length ? <>
+                            {suggestions && suggestions.length > 0 ? <>
                                 {suggestions.map(item => (
                                     <ArticleCard className="card--compact"
                                                  key={item.recipe_id}
