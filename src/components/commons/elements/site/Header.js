@@ -71,11 +71,10 @@ const Header = ({locale, setLocale}) => {
                             }}>{headerStrings.headerSignUp}</NavLink>
                         </>}
                     </Navbar>
-                    {!location.pathname.match("/console") &&
                     <select value={locale} onChange={e => setLocale(e.target.value)}>
                         <option value="en">English</option>
                         <option value="vi">Tiếng Việt</option>
-                    </select>}
+                    </select>
                 </section>
             </div>
         </header>
