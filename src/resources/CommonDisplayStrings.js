@@ -38,8 +38,8 @@ export let genericStrings = new LocalizedStrings({
         minutes: "phút",
         protein: "Chất đạm (mg)",
         fat: "Chất béo (mg)",
-        carb: "Carb (mg)",
-        calories: "Calo (cal)",
+        carb: "Tinh bột (mg)",
+        calories: "Năng lượng (cal)",
         lastEdited: "Chỉnh sửa lần cuối",
         male: "Nam",
         female: "Nữ",
@@ -147,6 +147,10 @@ export let articleStatusStrings = new LocalizedStrings({
         statusRejected: "Rejected by admin.",
         statusRejectedShort: "Rejected",
         statusDraft: "- - - DRAFT - - -",
+        statusPrefer:"Includes your preferred ingredients.",
+        statusTendency:"Based on your favorite recipes.",
+        statusBehavior:"Based on your recent search history.",
+        statusPopular:"Popular recipe.",
     },
     vi: {
         statusPending: "Đang chờ duyệt.",
@@ -156,6 +160,10 @@ export let articleStatusStrings = new LocalizedStrings({
         statusRejected: "Không được duyệt.",
         statusRejectedShort: "Không được duyệt",
         statusDraft: "- - - BẢN NHÁP - - -",
+        statusPrefer:"Những món có nguyên liệu ưa thích.",
+        statusTendency:"Dựa trên sở thích của bạn.",
+        statusBehavior:"Dựa trên lịch sử tìm kiếm gần nhất.",
+        statusPopular:"Công thức phổ biến.",
     }
 });
 

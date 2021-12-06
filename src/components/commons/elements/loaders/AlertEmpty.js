@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Alert.css";
 import LocalizedStrings from "react-localization";
+import { LocaleContext } from "context/LocaleContext";
 
 // Localizations
 let strings = new LocalizedStrings({
@@ -12,6 +13,7 @@ let strings = new LocalizedStrings({
     }
 });
 export const PanelEmp = ({message, style}) => {
+    strings.setLanguage(useContext(LocaleContext));
     return (
         <div className="alert-wrapper panel-alert" style={style}>
             {message ? <em>{message}</em>

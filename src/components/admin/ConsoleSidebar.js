@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import LocalizedStrings from "react-localization";
 import {Link, NavLink} from "react-router-dom";
 import Navbar from "../commons/elements/bars/Navbar";
 import Sidebar from "../commons/elements/Sidebar";
 import {FaAngleRight} from "react-icons/fa";
+import { LocaleContext } from "context/LocaleContext";
 
 
 const ConsoleSidebar = () => {
@@ -26,6 +27,7 @@ const ConsoleSidebar = () => {
             urlMembers: "Quản lý người dùng",
         }
     })
+    strings.setLanguage(useContext(LocaleContext));
     return (
         <Sidebar>
             <section className="sidebar-widget">

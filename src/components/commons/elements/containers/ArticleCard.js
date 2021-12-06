@@ -27,11 +27,11 @@ const ArticleCard = ({
         "text-negative"
     ]
     const recommendationText = [
-        "Includes your preferred ingredients.", // 1 - preferences
-        "Based on your favorite recipes.",      // 2 - tendency
-        "Based on your recent search history",  // 3 - behavior
+        `${articleStatusStrings.statusPrefer}`, // 1 - preferences
+        `${articleStatusStrings.statusTendency}`,      // 2 - tendency
+        `${articleStatusStrings.statusBehavior}`,  // 3 - behavior
         "Suitable for your BMI and routine.",   // 4 - body
-        "Popular recipe."                       // 5 - popular
+        `${articleStatusStrings.statusPopular}`,                      // 5 - popular
     ];
 
     return (

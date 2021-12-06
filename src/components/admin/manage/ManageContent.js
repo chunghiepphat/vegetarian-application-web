@@ -7,6 +7,7 @@ import ListVideos from "./content/ListVideos";
 import ListBlogs from "./content/ListBlogs";
 import {articleStatusStrings} from "../../../resources/CommonDisplayStrings";
 import {consoleDisplayStrings} from "../../../resources/AdminDisplayStrings";
+import { LocaleContext } from "context/LocaleContext";
 
 
 const ManageContent = () => {
@@ -16,7 +17,6 @@ const ManageContent = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const [filter, setFilter] = useState("1");
-
     const fetchData = async (api, data, setData) => {
         setIsError(false);
         setIsLoading(true);
@@ -44,11 +44,12 @@ const ManageContent = () => {
             setIsLoading(false);
         }
     }
-
+    consoleDisplayStrings.setLanguage(useContext(LocaleContext));
+    articleStatusStrings.setLanguage(useContext(LocaleContext));
     return (
         <section>
             <header className="console-header">
-                <h1>Content submitted by the community</h1>
+                <h1>{consoleDisplayStrings.consoleHeader}</h1>
 
                 <Navbar>
                     <label>{consoleDisplayStrings.consoleFilter}
@@ -59,9 +60,9 @@ const ManageContent = () => {
                             <option value={"3"}>{articleStatusStrings.statusRejectedShort}</option>
                         </select>
                     </label>
-                    <NavLink to={`/console/manage-content/recipes`}>Recipes</NavLink>
-                    <NavLink to={`/console/manage-content/videos`}>Videos</NavLink>
-                    <NavLink to={`/console/manage-content/blogs`}>Blogs</NavLink>
+                    <NavLink to={`/console/manage-content/recipes`}>{consoleDisplayStrings.consoleRecipeNav}</NavLink>
+                    <NavLink to={`/console/manage-content/videos`}>{consoleDisplayStrings.consoleVideoNav}</NavLink>
+                    <NavLink to={`/console/manage-content/blogs`}>{consoleDisplayStrings.consoleBlogNav}</NavLink>
                 </Navbar>
             </header>
             <div className="console-content">

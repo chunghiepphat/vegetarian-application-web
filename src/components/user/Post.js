@@ -7,6 +7,7 @@ import PostVideo from "./post/PostVideo";
 import PostBlog from "./post/PostBlog";
 import Navbar from "../commons/elements/bars/Navbar";
 import LocalizedStrings from "react-localization";
+import { LocaleContext } from "context/LocaleContext";
 
 const Post = () => {
     // Localizations
@@ -29,7 +30,7 @@ const Post = () => {
     const urlRecipe = "/post/recipe";
     const urlVideo = "/post/video";
     const urlBlog = "/post/blog";
-
+    strings.setLanguage(useContext(LocaleContext));
     return (
         <div className="page-container">
             <div className="grid-container">

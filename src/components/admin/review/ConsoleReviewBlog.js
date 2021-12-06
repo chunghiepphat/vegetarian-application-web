@@ -123,7 +123,7 @@ const ConsoleReviewBlog = () => {
             <div className="console-toolbar">
 
                 <div className="toolbar-section">
-                    <h1>Blog {id} {data.is_flagged ? `(${consoleDisplayStrings.consoleFlagged})` : ``}</h1>
+                    <h1>{consoleDisplayStrings.consoleBlogNav} {id} {data.is_flagged ? `(${consoleDisplayStrings.consoleFlagged})` : ``}</h1>
                     <p className={statusColor[data.status - 1]}>{statusText[data.status - 1]}</p>
                     {data.status !== 2 ?
                         <button className="button-dark" onClick={e => approveArticle(e, 2)}>

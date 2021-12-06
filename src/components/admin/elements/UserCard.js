@@ -3,6 +3,7 @@ import "./UserCard.css";
 import {Link} from "react-router-dom";
 import {UserContext} from "../../../context/UserContext";
 import Avatar from "../../commons/elements/Avatar";
+import { consoleDisplayStrings } from "resources/AdminDisplayStrings";
 
 const UserCard = ({
                       className, id,
@@ -29,12 +30,16 @@ const UserCard = ({
                 <p className="card-country">{country}</p>
             </div>
             <div className="card-cell-4">
-                <p className="card-role">{role}</p>
+                {
+                    role!="admin" ?  <p className="card-role">{consoleDisplayStrings.consoleMemberLabelUser}</p>
+                    :  <p className="card-role"></p>
+                }
+                 
             </div>
             <div className="card-cell-5">
                 {isActive ?
-                    <p className={`card__article-status text-positive`}>Account is active.</p>
-                    : <p className={`card__article-status text-negative`}>Account is deactivated. </p>}
+                    <p className={`card__article-status text-positive`}>{consoleDisplayStrings.consoleMemberLabelStatusTrue}</p>
+                    : <p className={`card__article-status text-negative`}>{consoleDisplayStrings.consoleMemberLabelStatusFalse} </p>}
             </div>
         </div>
     )

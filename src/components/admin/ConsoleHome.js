@@ -4,6 +4,7 @@ import OverviewCard from "./elements/OverviewCard";
 import Panel from "../commons/elements/containers/Panel";
 import {apiUrl} from "../../helpers/Variables";
 import {UserContext} from "../../context/UserContext";
+import { LocaleContext } from "context/LocaleContext";
 
 
 const ConsoleHome = () => {
@@ -35,6 +36,7 @@ const ConsoleHome = () => {
     const [videoCount, setVideoCount] = useState(0);
     const [blogCount, setBlogCount] = useState(0);
     const [count, setCount] = useState(0);
+    strings.setLanguage(useContext(LocaleContext));
     // Generates request headers
     let headers = new Headers();
     if (token) headers.append("Authorization", `Bearer ${token.token}`);

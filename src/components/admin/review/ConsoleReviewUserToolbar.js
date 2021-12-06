@@ -65,8 +65,8 @@ const ConsoleReviewUserToolbar = ({id, token, profile, fetchProfile}) => {
             </div>
             <div className="toolbar-section">
                 <Panel>
-                    <OverviewCard number={flagCountRecent} text="Flags in the past 3 days"/>
-                    <OverviewCard number={flagRateTotal} text="Flagged rate (%)"/>
+                    <OverviewCard number={flagCountRecent} text={consoleDisplayStrings.consoleFlag3day}/>
+                    <OverviewCard number={flagRateTotal} text={consoleDisplayStrings.consolePercentFlag}/>
                 </Panel>
                 {profile && profile.is_active ? <>
                     <button className="button-light" style={{width: "300px"}} onClick={e => deactivateUser(e)}>

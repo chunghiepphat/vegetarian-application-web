@@ -2,6 +2,7 @@ import React from "react";
 import Avatar from "../../commons/elements/Avatar";
 import Navbar from "../../commons/elements/bars/Navbar";
 import {NavLink} from "react-router-dom";
+import { consoleDisplayStrings } from "resources/AdminDisplayStrings";
 
 const ConsoleReviewUserHeader = ({profile, paths}) => {
     return (
@@ -15,9 +16,9 @@ const ConsoleReviewUserHeader = ({profile, paths}) => {
             </div>}
             <Navbar>
                 {/*<NavLink to={paths.profile}>Profile</NavLink>*/}
-                <NavLink to={paths.recipes}>Recipes</NavLink>
-                <NavLink to={paths.videos}>Videos</NavLink>
-                <NavLink to={paths.blogs}>Blogs</NavLink>
+                <NavLink to={paths.recipes}>{consoleDisplayStrings.consoleRecipeNav}</NavLink>
+                <NavLink to={paths.videos}>{consoleDisplayStrings.consoleVideoNav}</NavLink>
+                <NavLink to={paths.blogs}>{consoleDisplayStrings.consoleBlogNav}</NavLink>
             </Navbar>
         </header>
     )

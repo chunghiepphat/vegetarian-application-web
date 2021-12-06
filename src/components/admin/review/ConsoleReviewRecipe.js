@@ -116,7 +116,7 @@ const ConsoleReviewRecipe = () => {
             {data &&
             <div className="console-toolbar">
                 <div className="toolbar-section">
-                    <h1>Recipe {id} {data.is_flagged ? `(${consoleDisplayStrings.consoleFlagged})` : ``}</h1>
+                    <h1>{consoleDisplayStrings.consoleRecipeNav} {id} {data.is_flagged ? `(${consoleDisplayStrings.consoleFlagged})` : ``}</h1>
                     <p className={statusColor[data.status - 1]}>{statusText[data.status - 1]}</p>
                     {data.status !== 2 ?
                         <button className="button-dark" onClick={e => approveArticle(e, 2)}>

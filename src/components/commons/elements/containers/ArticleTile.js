@@ -3,6 +3,7 @@ import "./ArticleTile.css";
 import {Link} from "react-router-dom";
 import placeholderThumbnail from "../../../../assets/card-thumbnail-default.png";
 import {FaHeart, FaRegHeart} from "react-icons/all";
+import { articleStatusStrings } from "resources/CommonDisplayStrings";
 
 const ArticleTile = ({
                          className, id, type,
@@ -11,9 +12,9 @@ const ArticleTile = ({
                          totalLikes, isFavorite, status
                      }) => {
     const statusText = [
-        "Review pending.",
-        "Approved.",
-        "Rejected."
+        `${articleStatusStrings.statusPendingShort}`,
+        `${articleStatusStrings.statusApprovedShort}`,
+        `${articleStatusStrings.statusRejectedShort}`,
     ]
     const statusColor = [
         "text-neutral",
